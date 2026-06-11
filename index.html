@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+11<!DOCTYPE html>
 <html lang="pl" data-theme="dark">
 
 <head>
@@ -1367,6 +1367,13 @@
             line-height: 1.35;
         }
 
+        .data-sheet-info {
+            margin: 2px 0 12px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            line-height: 1.35;
+        }
+
         body.plan-sheet-open {
             overflow: hidden;
         }
@@ -2449,6 +2456,86 @@
 
         #modal-content .pr-item:last-child {
             margin-bottom: 0;
+        }
+
+        #modal-content .pr-item--expandable {
+            cursor: pointer;
+        }
+
+        .pr-item-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .pr-item-chevron {
+            flex-shrink: 0;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            transition: transform 0.25s ease;
+        }
+
+        .pr-item--open .pr-item-chevron {
+            transform: rotate(180deg);
+        }
+
+        .pr-chart-hint {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0 0 12px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            line-height: 1.35;
+        }
+
+        .pr-chart-wrap {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .pr-chart-canvas {
+            display: block;
+            width: 100%;
+        }
+
+        .pr-chart-empty {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            line-height: 1.4;
+            margin: 0;
+        }
+
+        .pr-chart-legend {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 8px;
+        }
+
+        .pr-chart-legend-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        .pr-chart-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .pr-chart-dot--weight {
+            background: var(--accent-color);
+        }
+
+        .pr-chart-dot--orm {
+            background: var(--warning);
         }
 
         .pr-item-name {
@@ -4370,17 +4457,35 @@
                 class="plan-actions-sheet-item">
                 <i class="fas fa-mug-hot" aria-hidden="true"></i> Wspieraj na Ko-fi
             </a>
-            <button type="button" class="plan-actions-sheet-item" id="theme-sheet-import-strong-hevy">
-                <i class="fas fa-file-import" aria-hidden="true"></i> Importowanie danych
+            <button type="button" class="plan-actions-sheet-item" id="theme-sheet-data">
+                <i class="fas fa-database" aria-hidden="true"></i> Dane
             </button>
-            <p class="theme-import-hint">JSON: historia treningów lub plany treningowe (<code>trainingPlans</code>). CSV: wpisy do historii treningów.</p>
-            <input type="file" id="strong-hevy-import-input" accept=".json,.csv,application/json,text/csv" hidden>
             <button type="button" class="plan-actions-sheet-cancel" id="theme-sheet-cancel">Anuluj</button>
             <button type="button" class="settings-version-row" id="theme-sheet-version" aria-label="Pokaż co nowego w tej wersji">
                 <i class="fas fa-circle-info" aria-hidden="true"></i>
                 <span class="settings-version-label">Wersja</span>
-                <span class="settings-version-value" id="theme-sheet-version-value">1.0.0</span>
+                <span class="settings-version-value" id="theme-sheet-version-value">1.1.0</span>
             </button>
+        </div>
+    </div>
+
+    <div id="data-sheet" class="plan-actions-sheet hidden" role="dialog" aria-modal="true"
+        aria-labelledby="data-sheet-title">
+        <div id="data-sheet-backdrop" class="plan-actions-sheet-backdrop" aria-hidden="true"></div>
+        <div class="plan-actions-sheet-panel">
+            <div class="plan-actions-sheet-handle" aria-hidden="true"></div>
+            <h3 id="data-sheet-title" class="plan-actions-sheet-title">Dane</h3>
+            <p class="data-sheet-info" id="data-sheet-info"></p>
+            <button type="button" class="plan-actions-sheet-item" id="data-sheet-export">
+                <i class="fas fa-file-export" aria-hidden="true"></i> Eksportuj dane (JSON)
+            </button>
+            <p class="theme-import-hint">Kopia zapasowa: historia treningów i plany treningowe w jednym pliku.</p>
+            <button type="button" class="plan-actions-sheet-item" id="data-sheet-import">
+                <i class="fas fa-file-import" aria-hidden="true"></i> Importowanie danych
+            </button>
+            <p class="theme-import-hint">JSON: kopia zapasowa GymCut, historia treningów lub plany treningowe (<code>trainingPlans</code>). CSV: wpisy do historii treningów.</p>
+            <input type="file" id="strong-hevy-import-input" accept=".json,.csv,application/json,text/csv" hidden>
+            <button type="button" class="plan-actions-sheet-cancel" id="data-sheet-cancel">Anuluj</button>
         </div>
     </div>
 
@@ -4435,7 +4540,7 @@
         <div class="whats-new-panel">
             <div class="whats-new-header">
                 <h2 id="whats-new-title" class="whats-new-title">Witaj w GymCut!</h2>
-                <span class="whats-new-version-badge" id="whats-new-version-badge">v1.0.0</span>
+                <span class="whats-new-version-badge" id="whats-new-version-badge">v1.1.0</span>
             </div>
             <p class="whats-new-subtitle" id="whats-new-subtitle"></p>
             <ul class="whats-new-list" id="whats-new-list"></ul>
@@ -4916,8 +5021,9 @@
                     toggleUiSoundEnabled();
                     return;
                 }
-                if (t.id === 'theme-sheet-import-strong-hevy') {
-                    triggerStrongHevyImport();
+                if (t.id === 'theme-sheet-data') {
+                    closeThemeSettingsSheet();
+                    setTimeout(openDataSheet, 220);
                     return;
                 }
                 if (t.id === 'theme-sheet-version') {
@@ -4933,6 +5039,143 @@
             if (!input) return;
             input.value = '';
             input.click();
+        }
+
+        // --- ARKUSZ "DANE" (eksport / import) ---
+        function updateDataSheetInfo() {
+            const infoEl = document.getElementById('data-sheet-info');
+            if (!infoEl) return;
+            const workoutCount = Array.isArray(workoutHistory) ? workoutHistory.length : 0;
+            const planCount = Array.isArray(trainingPlans) ? trainingPlans.length : 0;
+            infoEl.textContent = `Zapisane: ${formatImportedWorkoutsPhrase(workoutCount)} oraz ${formatImportedPlansPhrase(planCount)}.`;
+        }
+
+        function openDataSheet() {
+            closePlanActionsSheet();
+            const sheet = document.getElementById('data-sheet');
+            if (!sheet) return;
+            dataSheetOpenedAt = Date.now();
+            updateDataSheetInfo();
+            sheet.classList.remove('hidden');
+            void sheet.offsetWidth;
+            sheet.classList.add('is-open');
+            document.body.classList.add('plan-sheet-open');
+            if (!window._dataSheetKeydown) {
+                window._dataSheetKeydown = (e) => {
+                    if (e.key === 'Escape') closeDataSheet();
+                };
+            }
+            document.addEventListener('keydown', window._dataSheetKeydown);
+        }
+
+        function closeDataSheet() {
+            const sheet = document.getElementById('data-sheet');
+            if (!sheet || sheet.classList.contains('hidden')) return;
+            sheet.classList.remove('is-open');
+            document.body.classList.remove('plan-sheet-open');
+            document.removeEventListener('keydown', window._dataSheetKeydown);
+            const panel = sheet.querySelector('.plan-actions-sheet-panel');
+            const finish = () => {
+                if (sheet.classList.contains('hidden')) return;
+                sheet.classList.add('hidden');
+                if (panel) panel.removeEventListener('transitionend', onTrans);
+            };
+            const onTrans = (e) => {
+                if (e.propertyName === 'transform' && e.target === panel) finish();
+            };
+            if (panel) panel.addEventListener('transitionend', onTrans);
+            setTimeout(finish, 400);
+        }
+
+        function initDataSheet() {
+            const sheet = document.getElementById('data-sheet');
+            if (!sheet) return;
+            sheet.addEventListener('click', (e) => {
+                if (e.target.closest('#data-sheet-backdrop')) {
+                    if (Date.now() - dataSheetOpenedAt < PLAN_SHEET_BACKDROP_SUPPRESS_MS) return;
+                    closeDataSheet();
+                    return;
+                }
+                const t = e.target.closest('button');
+                if (!t) return;
+                if (t.id === 'data-sheet-cancel') {
+                    closeDataSheet();
+                    return;
+                }
+                if (t.id === 'data-sheet-export') {
+                    exportGymCutData();
+                    return;
+                }
+                if (t.id === 'data-sheet-import') {
+                    triggerStrongHevyImport();
+                    return;
+                }
+            });
+        }
+
+        function exportGymCutData() {
+            try {
+                const payload = {
+                    app: 'GymCut',
+                    version: APP_VERSION,
+                    exportedAt: new Date().toISOString(),
+                    workouts: Array.isArray(workoutHistory) ? workoutHistory : [],
+                    trainingPlans: Array.isArray(trainingPlans) ? trainingPlans : []
+                };
+                const json = JSON.stringify(payload, null, 2);
+                const blob = new Blob([json], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                const dateStamp = new Date().toISOString().slice(0, 10);
+                a.href = url;
+                a.download = `gymcut-backup-${dateStamp}.json`;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                setTimeout(() => URL.revokeObjectURL(url), 5000);
+                showToast('Wyeksportowano dane do pliku JSON.', 'success', 4000);
+            } catch (e) {
+                console.error('Eksport nie powiódł się:', e);
+                showToast('Nie udało się wyeksportować danych.', 'warning', 4500);
+            }
+        }
+
+        // --- NATYWNY BACKUP GYMCUT (bezstratny import własnego eksportu) ---
+        function isGymCutBackupPayload(payload) {
+            return !!payload && typeof payload === 'object' && payload.app === 'GymCut';
+        }
+
+        function restoreGymCutBackup(payload) {
+            if (!Array.isArray(workoutHistory)) workoutHistory = [];
+            if (!Array.isArray(trainingPlans)) trainingPlans = [];
+
+            const existingWorkoutIds = new Set(workoutHistory.map((w) => w && w.id).filter(Boolean));
+            const workoutsRaw = Array.isArray(payload.workouts) ? payload.workouts : [];
+            const newWorkouts = workoutsRaw.filter((w) =>
+                w && typeof w === 'object' && Array.isArray(w.exercises) && w.exercises.length > 0 &&
+                !(w.id && existingWorkoutIds.has(w.id))
+            ).map((w) => ({ ...w, id: w.id || crypto.randomUUID() }));
+
+            const existingPlanIds = new Set(trainingPlans.map((p) => p && p.id).filter(Boolean));
+            const plansRaw = Array.isArray(payload.trainingPlans) ? payload.trainingPlans : [];
+            const newPlans = plansRaw.filter((p) =>
+                p && typeof p === 'object' && p.name && Array.isArray(p.exercises) && p.exercises.length > 0 &&
+                !(p.id && existingPlanIds.has(p.id))
+            ).map((p) => ({ ...p, id: p.id || crypto.randomUUID() }));
+
+            if (newWorkouts.length) {
+                workoutHistory = workoutHistory.concat(newWorkouts);
+                saveWorkoutHistory();
+                renderWorkoutHistory();
+                updateStreakUI();
+            }
+            if (newPlans.length) {
+                trainingPlans = trainingPlans.concat(newPlans);
+                saveTrainingPlans();
+                renderTrainingPlans();
+            }
+            if (newWorkouts.length || newPlans.length) updateStats();
+            return { workoutCount: newWorkouts.length, planCount: newPlans.length };
         }
 
         function normalizeImportedWorkoutExercise(exercise, fallbackName = 'Ćwiczenie') {
@@ -5174,10 +5417,22 @@
 
                 if (lowerName.endsWith('.json')) {
                     const payload = JSON.parse(text);
-                    const planCount = mergeImportedTrainingPlans(parseTrainingPlansFromPayload(payload));
-                    const workoutCount = mergeImportedWorkouts(parseStrongHevyJsonPayload(payload));
+                    let planCount = 0;
+                    let workoutCount = 0;
+                    if (isGymCutBackupPayload(payload)) {
+                        const restored = restoreGymCutBackup(payload);
+                        planCount = restored.planCount;
+                        workoutCount = restored.workoutCount;
+                        if (planCount === 0 && workoutCount === 0) {
+                            showToast('Wszystkie dane z tej kopii zapasowej są już w aplikacji.', 'info', 4500);
+                            return;
+                        }
+                    } else {
+                        planCount = mergeImportedTrainingPlans(parseTrainingPlansFromPayload(payload));
+                        workoutCount = mergeImportedWorkouts(parseStrongHevyJsonPayload(payload));
+                    }
                     if (planCount > 0 || workoutCount > 0) {
-                        closeThemeSettingsSheet();
+                        closeDataSheet();
                         if (planCount > 0 && workoutCount > 0) {
                             showToast(
                                 `Zaimportowano ${formatImportedPlansPhrase(planCount)} oraz ${formatImportedWorkoutsPhrase(workoutCount)} do historii.`,
@@ -5196,7 +5451,7 @@
                     const imported = parseStrongHevyCsvPayload(text);
                     const mergedCount = mergeImportedWorkouts(imported);
                     if (mergedCount > 0) {
-                        closeThemeSettingsSheet();
+                        closeDataSheet();
                         showToast(`Zaimportowano ${mergedCount} treningów z pliku.`, 'success', 4500);
                     } else {
                         showToast('Nie znaleziono treningów do importu w tym pliku.', 'warning');
@@ -5592,8 +5847,18 @@
         const PLAN_SHEET_BACKDROP_SUPPRESS_MS = 550;
         const HISTORY_SHEET_BACKDROP_SUPPRESS_MS = 1100;
         /** Aktualna wersja aplikacji oraz changelog pokazywany w ekranie „Co nowego”. */
-        const APP_VERSION = '1.0.0';
+        const APP_VERSION = '1.1.0';
         const WHATS_NEW = {
+            '1.1.0': {
+                title: 'Nowości w wersji 1.1',
+                subtitle: 'GymCut rośnie razem z Twoimi ciężarami. Oto co nowego:',
+                items: [
+                    { icon: 'fa-file-export', text: 'Eksport danych — twórz kopię zapasową treningów i planów jednym tapnięciem.' },
+                    { icon: 'fa-database', text: 'Nowa sekcja „Dane” w ustawieniach: eksport i import w jednym miejscu.' },
+                    { icon: 'fa-chart-line', text: 'Wykresy progresu ćwiczeń — tapnij ćwiczenie w Rekordach osobistych.' },
+                    { icon: 'fa-plane', text: 'Aplikacja działa teraz w pełni offline — nawet bez zasięgu na siłowni.' }
+                ]
+            },
             '1.0.0': {
                 title: 'Witaj w GymCut!',
                 subtitle: 'Twój trening, Twój rytm. Oto co możesz robić w aplikacji:',
@@ -5612,6 +5877,7 @@
         let historyActionsSheetOpenedAt = 0;
         let planActionsSheetOpenedAt = 0;
         let themeSettingsSheetOpenedAt = 0;
+        let dataSheetOpenedAt = 0;
         let quickWorkoutSheetOpenedAt = 0;
         let historyEditSheetOpenedAt = 0;
         let expandedHistoryWorkoutIds = new Set();
@@ -5633,6 +5899,13 @@
         });
 
         function initializeApp() {
+            // Service worker — offline PWA (działa tylko na HTTPS/localhost, na file:// jest pomijany).
+            if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+                navigator.serviceWorker.register('sw.js').catch((e) => {
+                    console.warn('Rejestracja service workera nie powiodła się:', e);
+                });
+            }
+
             const savedTheme = loadData('theme') || 'dark';
             document.documentElement.setAttribute('data-theme', savedTheme);
             updateThemeButton(savedTheme);
@@ -5726,6 +5999,7 @@
             initPlanActionsSheet();
             initHistoryActionsSheet();
             initThemeSettingsSheet();
+            initDataSheet();
             initQuickWorkoutSheet();
             initHistoryEditSheet();
             initWhatsNew();
@@ -5791,6 +6065,14 @@
             // Modal
             document.getElementById('modal-close-btn').addEventListener('click', hideModal);
             document.getElementById('modal-backdrop').addEventListener('click', hideModal);
+
+            // PWA wracające z tła nie przeładowuje strony — sprawdź podsumowanie
+            // miesiąca/roku także przy powrocie do aplikacji, nie tylko przy starcie.
+            document.addEventListener('visibilitychange', () => {
+                if (document.visibilityState !== 'visible') return;
+                if (!document.body.classList.contains('app-loaded')) return;
+                setTimeout(tryShowReviewPopup, 600);
+            });
         }
 
         // --- HANDLERY DELEGACJI ---
@@ -8220,6 +8502,8 @@
         let popupCardIndex = 0;
         let popupCardCount = 0;
         let popupTouchStartX = 0;
+        /** Klucz okresu aktualnie pokazanego podsumowania (zapisywany jako widziany przy zamknięciu). */
+        let activeReviewPopupSeenKey = null;
 
         function tryShowWhatsNew(onClosed) {
             const seen = loadData('lastSeenVersion');
@@ -8314,28 +8598,65 @@
                 saveData('reviewPopupVersion', 3);
             }
 
+            // Nie przerywaj aktywnego treningu ani innych otwartych warstw
+            if (document.querySelector('.app-body.focus-mode-active')) return;
+            if (document.body.classList.contains('plan-sheet-open')) return;
+            const whatsNewOverlay = document.getElementById('whats-new-overlay');
+            if (whatsNewOverlay && whatsNewOverlay.classList.contains('is-open')) return;
+            const modalEl = document.getElementById('modal');
+            if (modalEl && !modalEl.classList.contains('hidden')) return;
+            const reviewOverlay = document.getElementById('review-popup-overlay');
+            if (reviewOverlay && reviewOverlay.classList.contains('visible')) return;
+
             const now = new Date();
             const day = now.getDate();
             const month = now.getMonth(); // 0-indexed
             const year = now.getFullYear();
-
-            // Determine if today is a trigger day
-            const isFirstOfMonth = (day === 1);
-            const isNewYearsEve = (month === 11 && day === 31); // Dec 31
-
-            if (!isFirstOfMonth && !isNewYearsEve) return;
-
-            // Build a key for the current trigger period to avoid re-showing
-            // For 1st of month: "month-YYYY-MM", for Dec 31: "year-YYYY"
-            const seenKey = isNewYearsEve ? `year-${year}` : `month-${year}-${String(month + 1).padStart(2, '0')}`;
             const seenPopups = loadData('reviewPopupSeen') || [];
-            if (seenPopups.includes(seenKey)) return;
 
-            // Show the appropriate popup
-            showReviewPopup(isNewYearsEve ? 'year' : 'month');
+            // Podsumowanie roczne: 31 grudnia albo nadrabianie do 15 stycznia (za poprzedni rok).
+            const isNewYearsEve = (month === 11 && day === 31);
+            const isJanuaryCatchUp = (month === 0 && day <= 15);
+            if (isNewYearsEve || isJanuaryCatchUp) {
+                const reviewYear = isNewYearsEve ? year : year - 1;
+                const yearKey = `year-${reviewYear}`;
+                if (!seenPopups.includes(yearKey)) {
+                    const hasYearWorkouts = workoutHistory.some(w => {
+                        if (!w || !w.date) return false;
+                        try { return new Date(w.date).getFullYear() === reviewYear; } catch (e) { return false; }
+                    });
+                    if (hasYearWorkouts) {
+                        activeReviewPopupSeenKey = yearKey;
+                        showReviewPopup('year', reviewYear);
+                        return;
+                    }
+                }
+            }
+
+            // Podsumowanie miesięczne: pierwsze otwarcie aplikacji w nowym miesiącu
+            // pokazuje podsumowanie poprzedniego miesiąca (zamiast tylko 1. dnia miesiąca).
+            const monthKey = `month-${year}-${String(month + 1).padStart(2, '0')}`;
+            if (seenPopups.includes(monthKey)) return;
+
+            // Pokazuj tylko, jeśli w poprzednim miesiącu był jakikolwiek trening.
+            const prevMonth = month === 0 ? 11 : month - 1;
+            const prevMonthYear = month === 0 ? year - 1 : year;
+            const periodStart = new Date(prevMonthYear, prevMonth, 1);
+            const periodEnd = new Date(prevMonthYear, prevMonth + 1, 0, 23, 59, 59);
+            const hasPrevMonthWorkouts = workoutHistory.some(w => {
+                if (!w || !w.date) return false;
+                try {
+                    const d = new Date(w.date);
+                    return d >= periodStart && d <= periodEnd;
+                } catch (e) { return false; }
+            });
+            if (!hasPrevMonthWorkouts) return;
+
+            activeReviewPopupSeenKey = monthKey;
+            showReviewPopup('month');
         }
 
-        function showReviewPopup(mode) {
+        function showReviewPopup(mode, targetYear) {
             const overlay = document.getElementById('review-popup-overlay');
             const track = document.getElementById('popup-review-track');
             const nav = document.getElementById('popup-review-nav');
@@ -8346,7 +8667,8 @@
             popupCardIndex = 0;
 
             const now = new Date();
-            const currentYear = now.getFullYear();
+            // Dla trybu rocznego rok można nadpisać (nadrabianie w styczniu dotyczy poprzedniego roku).
+            const currentYear = (typeof targetYear === 'number') ? targetYear : now.getFullYear();
             const isYearMode = (mode === 'year');
 
             // Period label
@@ -8533,13 +8855,11 @@
                 overlay.classList.remove('visible');
             }
 
-            // Mark current trigger as seen so it doesn't show again today
-            const now = new Date();
-            const day = now.getDate();
-            const month = now.getMonth();
-            const year = now.getFullYear();
-            const isNewYearsEve = (month === 11 && day === 31);
-            const seenKey = isNewYearsEve ? `year-${year}` : `month-${year}-${String(month + 1).padStart(2, '0')}`;
+            // Oznacz jako widziane dokładnie ten popup, który był pokazany
+            // (klucz wyliczony przy otwarciu, a nie z dzisiejszej daty).
+            const seenKey = activeReviewPopupSeenKey;
+            activeReviewPopupSeenKey = null;
+            if (!seenKey) return;
             const seenPopups = loadData('reviewPopupSeen') || [];
             if (!seenPopups.includes(seenKey)) {
                 seenPopups.push(seenKey);
@@ -8749,10 +9069,15 @@
             if (allTimeExercises.length === 0) {
                 html += '<p class="pr-empty">Brak zapisanych rekordów.</p>';
             } else {
+                html += '<p class="pr-chart-hint"><i class="fas fa-chart-line" aria-hidden="true"></i> Tapnij ćwiczenie, aby zobaczyć wykres progresu.</p>';
                 allTimeExercises.forEach(exerciseName => {
                     const pr = allTimePRs[exerciseName];
-                    html += '<div class="pr-item">';
-                    html += `<strong class="pr-item-name">${exerciseName}</strong>`;
+                    const safeName = escapeHtml(exerciseName);
+                    html += `<div class="pr-item pr-item--expandable" data-exercise-name="${safeName}" role="button" tabindex="0">`;
+                    html += '<div class="pr-item-header">';
+                    html += `<strong class="pr-item-name">${safeName}</strong>`;
+                    html += '<i class="fas fa-chevron-down pr-item-chevron" aria-hidden="true"></i>';
+                    html += '</div>';
 
                     if (pr.maxWeight !== null) {
                         html += '<div class="pr-stat pr-stat--weight">';
@@ -8774,6 +9099,7 @@
                         html += '</span></div>';
                     }
 
+                    html += '<div class="pr-chart-wrap" hidden></div>';
                     html += '</div>';
                 });
             }
@@ -8781,7 +9107,211 @@
             html += '</div>';
             html += '</div>';
 
-            showModal('Rekordy osobiste', html);
+            showModal('Rekordy osobiste', html, () => {
+                const container = document.querySelector('#modal-content .pr-container');
+                if (!container) return;
+                container.addEventListener('click', handlePRItemToggle);
+                container.addEventListener('keydown', (e) => {
+                    if (e.key !== 'Enter' && e.key !== ' ') return;
+                    const item = e.target.closest('.pr-item--expandable');
+                    if (!item) return;
+                    e.preventDefault();
+                    togglePRItemChart(item);
+                });
+            });
+        }
+
+        function handlePRItemToggle(e) {
+            const item = e.target.closest('.pr-item--expandable');
+            if (!item) return;
+            if (e.target.closest('.pr-chart-wrap')) return;
+            togglePRItemChart(item);
+        }
+
+        function togglePRItemChart(item) {
+            const wrap = item.querySelector('.pr-chart-wrap');
+            if (!wrap) return;
+            const isOpen = !wrap.hidden;
+            if (isOpen) {
+                wrap.hidden = true;
+                item.classList.remove('pr-item--open');
+                return;
+            }
+            item.classList.add('pr-item--open');
+            wrap.hidden = false;
+            if (!wrap.dataset.rendered) {
+                renderExerciseProgressChart(wrap, item.dataset.exerciseName || '');
+                wrap.dataset.rendered = '1';
+            }
+        }
+
+        /** Punkty progresu dla ćwiczenia: max ciężar ukończonej serii oraz szacowane 1RM (Epley) per trening. */
+        function getExerciseProgressPoints(exerciseName) {
+            const key = normalizeExerciseKey(exerciseName);
+            const points = [];
+            if (!Array.isArray(workoutHistory)) return points;
+
+            workoutHistory.forEach(workout => {
+                if (!workout || !Array.isArray(workout.exercises)) return;
+                const time = new Date(workout.date).getTime();
+                if (!Number.isFinite(time)) return;
+
+                let maxWeight = null;
+                let est1RM = null;
+                workout.exercises.forEach(exercise => {
+                    if (!exercise || !exercise.name || normalizeExerciseKey(exercise.name) !== key) return;
+                    if (!Array.isArray(exercise.weights) || !Array.isArray(exercise.repsCompleted) || !Array.isArray(exercise.completedSets)) return;
+                    exercise.weights.forEach((weight, index) => {
+                        if (!exercise.completedSets[index]) return;
+                        const w = parseFloat(weight);
+                        const r = parseInt(exercise.repsCompleted[index], 10);
+                        if (!Number.isFinite(w) || w <= 0 || !Number.isFinite(r) || r <= 0) return;
+                        if (maxWeight === null || w > maxWeight) maxWeight = w;
+                        const orm = w * (1 + r / 30);
+                        if (est1RM === null || orm > est1RM) est1RM = orm;
+                    });
+                });
+
+                if (maxWeight !== null) points.push({ t: time, w: maxWeight, orm: est1RM });
+            });
+
+            points.sort((a, b) => a.t - b.t);
+            return points;
+        }
+
+        function renderExerciseProgressChart(wrapEl, exerciseName) {
+            const points = getExerciseProgressPoints(exerciseName);
+            wrapEl.innerHTML = '';
+
+            if (points.length < 2) {
+                const p = document.createElement('p');
+                p.className = 'pr-chart-empty';
+                p.textContent = 'Za mało danych do wykresu — potrzeba co najmniej 2 treningów z tym ćwiczeniem.';
+                wrapEl.appendChild(p);
+                return;
+            }
+
+            const legend = document.createElement('div');
+            legend.className = 'pr-chart-legend';
+            legend.innerHTML =
+                '<span class="pr-chart-legend-item"><span class="pr-chart-dot pr-chart-dot--weight"></span>Max ciężar</span>' +
+                '<span class="pr-chart-legend-item"><span class="pr-chart-dot pr-chart-dot--orm"></span>Szac. 1RM</span>';
+            wrapEl.appendChild(legend);
+
+            const canvas = document.createElement('canvas');
+            canvas.className = 'pr-chart-canvas';
+            wrapEl.appendChild(canvas);
+
+            requestAnimationFrame(() => drawExerciseProgressChart(canvas, points));
+        }
+
+        function drawExerciseProgressChart(canvas, points) {
+            const cssWidth = canvas.parentElement ? canvas.parentElement.clientWidth : 300;
+            const cssHeight = 180;
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = Math.max(cssWidth, 200) * dpr;
+            canvas.height = cssHeight * dpr;
+            canvas.style.width = '100%';
+            canvas.style.height = cssHeight + 'px';
+
+            const ctx = canvas.getContext('2d');
+            ctx.scale(dpr, dpr);
+            const W = Math.max(cssWidth, 200);
+            const H = cssHeight;
+
+            const rootStyles = getComputedStyle(document.documentElement);
+            const accentColor = (rootStyles.getPropertyValue('--accent-color') || '#5C95FF').trim();
+            const warningColor = (rootStyles.getPropertyValue('--warning') || '#FBBF24').trim();
+            const mutedColor = (rootStyles.getPropertyValue('--text-muted') || '#8B949E').trim();
+            const borderColor = (rootStyles.getPropertyValue('--border-color') || '#27272A').trim();
+
+            const padLeft = 38;
+            const padRight = 12;
+            const padTop = 12;
+            const padBottom = 26;
+            const plotW = W - padLeft - padRight;
+            const plotH = H - padTop - padBottom;
+
+            const allValues = [];
+            points.forEach(p => {
+                allValues.push(p.w);
+                if (p.orm !== null) allValues.push(p.orm);
+            });
+            let minVal = Math.min(...allValues);
+            let maxVal = Math.max(...allValues);
+            if (minVal === maxVal) { minVal -= 5; maxVal += 5; }
+            const valueRange = maxVal - minVal;
+            minVal = Math.max(0, minVal - valueRange * 0.1);
+            maxVal = maxVal + valueRange * 0.1;
+
+            const tMin = points[0].t;
+            const tMax = points[points.length - 1].t;
+            const tRange = Math.max(tMax - tMin, 1);
+
+            const xFor = (t) => padLeft + ((t - tMin) / tRange) * plotW;
+            const yFor = (v) => padTop + (1 - (v - minVal) / (maxVal - minVal)) * plotH;
+
+            ctx.clearRect(0, 0, W, H);
+
+            // Siatka pozioma + etykiety osi Y
+            ctx.font = '10px Inter, sans-serif';
+            ctx.textAlign = 'right';
+            ctx.textBaseline = 'middle';
+            const gridLines = 4;
+            for (let i = 0; i <= gridLines; i++) {
+                const v = minVal + ((maxVal - minVal) * i) / gridLines;
+                const y = yFor(v);
+                ctx.beginPath();
+                ctx.moveTo(padLeft, y);
+                ctx.lineTo(W - padRight, y);
+                ctx.strokeStyle = borderColor;
+                ctx.lineWidth = 1;
+                ctx.stroke();
+                ctx.fillStyle = mutedColor;
+                ctx.fillText(Math.round(v) + '', padLeft - 6, y);
+            }
+
+            // Etykiety osi X (pierwsza i ostatnia data)
+            const fmtDate = (t) => {
+                const d = new Date(t);
+                return `${String(d.getDate()).padStart(2, '0')}.${String(d.getMonth() + 1).padStart(2, '0')}`;
+            };
+            ctx.textBaseline = 'top';
+            ctx.fillStyle = mutedColor;
+            ctx.textAlign = 'left';
+            ctx.fillText(fmtDate(tMin), padLeft, H - padBottom + 8);
+            ctx.textAlign = 'right';
+            ctx.fillText(fmtDate(tMax), W - padRight, H - padBottom + 8);
+
+            const drawLine = (getVal, color, dashed) => {
+                ctx.beginPath();
+                let started = false;
+                points.forEach(p => {
+                    const v = getVal(p);
+                    if (v === null) return;
+                    const x = xFor(p.t);
+                    const y = yFor(v);
+                    if (!started) { ctx.moveTo(x, y); started = true; }
+                    else ctx.lineTo(x, y);
+                });
+                ctx.strokeStyle = color;
+                ctx.lineWidth = 2;
+                ctx.setLineDash(dashed ? [5, 4] : []);
+                ctx.stroke();
+                ctx.setLineDash([]);
+
+                points.forEach(p => {
+                    const v = getVal(p);
+                    if (v === null) return;
+                    ctx.beginPath();
+                    ctx.arc(xFor(p.t), yFor(v), 3, 0, Math.PI * 2);
+                    ctx.fillStyle = color;
+                    ctx.fill();
+                });
+            };
+
+            drawLine((p) => p.orm, warningColor, true);
+            drawLine((p) => p.w, accentColor, false);
         }
 
 
