@@ -4813,6 +4813,7 @@
             closeQuickWorkoutSheet({ clearEmptySession: false, resetPills: false });
             const sheet = document.getElementById('history-actions-sheet');
             if (!sheet) return;
+            historyActionsSheetGen += 1;
             if (sheet._hideTimerId) {
                 clearTimeout(sheet._hideTimerId);
                 sheet._hideTimerId = null;
@@ -4838,6 +4839,22 @@
             document.addEventListener('keydown', window._historyActionsSheetKeydown);
         }
 
+        function isHistorySheetDismissSuppressed() {
+            return Date.now() - historyActionsSheetOpenedAt < HISTORY_SHEET_BACKDROP_SUPPRESS_MS;
+        }
+
+        function openHistoryActionsSheetFromMoreButton(workoutItem, triggerBtn) {
+            if (!workoutItem || !workoutItem.dataset.id) return;
+            const now = Date.now();
+            if (now - historyActionsSheetLastTriggerAt < 450) return;
+            historyActionsSheetLastTriggerAt = now;
+            const workoutId = workoutItem.dataset.id;
+            const titleEl = workoutItem.querySelector('.exercise-header h4');
+            const label = titleEl ? titleEl.textContent : 'Trening';
+            openHistoryActionsSheet(workoutId, label);
+            if (triggerBtn) triggerBtn.setAttribute('aria-expanded', 'true');
+        }
+
         function closeHistoryActionsSheet() {
             const sheet = document.getElementById('history-actions-sheet');
             if (!sheet || sheet.classList.contains('hidden')) return;
@@ -4845,12 +4862,14 @@
                 clearTimeout(sheet._hideTimerId);
                 sheet._hideTimerId = null;
             }
+            const closeGen = historyActionsSheetGen;
             sheet.classList.remove('is-open');
             document.body.classList.remove('plan-sheet-open');
             document.removeEventListener('keydown', window._historyActionsSheetKeydown);
             document.querySelectorAll('.btn-history-more[aria-expanded="true"]').forEach((b) => b.setAttribute('aria-expanded', 'false'));
             const panel = sheet.querySelector('.plan-actions-sheet-panel');
             const finish = () => {
+                if (closeGen !== historyActionsSheetGen) return;
                 if (sheet.classList.contains('hidden')) return;
                 sheet.classList.add('hidden');
                 delete sheet.dataset.workoutId;
@@ -4871,13 +4890,22 @@
             if (!sheet) return;
             sheet.addEventListener('click', (e) => {
                 if (e.target.closest('#history-actions-sheet-backdrop')) {
-                    if (Date.now() - historyActionsSheetOpenedAt < HISTORY_SHEET_BACKDROP_SUPPRESS_MS) return;
+                    if (isHistorySheetDismissSuppressed()) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        return;
+                    }
                     closeHistoryActionsSheet();
                     return;
                 }
                 const t = e.target.closest('button');
                 if (!t) return;
                 if (t.id === 'history-sheet-cancel') {
+                    if (isHistorySheetDismissSuppressed()) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        return;
+                    }
                     closeHistoryActionsSheet();
                     return;
                 }
@@ -5845,7 +5873,7 @@
         const TAB_SWITCH_DELAY_MS = 120;
         /** Ignoruj klik w backdrop zaraz po otwarciu (syntetyczny „ghost click” po touchend). */
         const PLAN_SHEET_BACKDROP_SUPPRESS_MS = 550;
-        const HISTORY_SHEET_BACKDROP_SUPPRESS_MS = 1100;
+        const HISTORY_SHEET_BACKDROP_SUPPRESS_MS = 650;
         /** Aktualna wersja aplikacji oraz changelog pokazywany w ekranie „Co nowego”. */
         const APP_VERSION = '1.1.0';
         const WHATS_NEW = {
@@ -5875,6 +5903,8 @@
         let whatsNewPendingCallback = null;
         let tabSwitchTimeout = null;
         let historyActionsSheetOpenedAt = 0;
+        let historyActionsSheetLastTriggerAt = 0;
+        let historyActionsSheetGen = 0;
         let planActionsSheetOpenedAt = 0;
         let themeSettingsSheetOpenedAt = 0;
         let dataSheetOpenedAt = 0;
@@ -6008,6 +6038,13 @@
 
             // Zakładka "Historia"
             document.getElementById('workout-history').addEventListener('click', handleHistoryListClicks);
+            document.getElementById('workout-history').addEventListener('touchend', (e) => {
+                const btn = e.target.closest('.btn-history-more');
+                if (!btn) return;
+                e.preventDefault();
+                const workoutItem = btn.closest('.exercise-item');
+                openHistoryActionsSheetFromMoreButton(workoutItem, btn);
+            }, { passive: false });
 
 
 
@@ -6166,10 +6203,7 @@
                 if (target.classList.contains('btn-history-more')) {
                     e.preventDefault();
                     e.stopPropagation();
-                    const titleEl = workoutItem.querySelector('.exercise-header h4');
-                    const label = titleEl ? titleEl.textContent : 'Trening';
-                    openHistoryActionsSheet(workoutId, label);
-                    target.setAttribute('aria-expanded', 'true');
+                    openHistoryActionsSheetFromMoreButton(workoutItem, target);
                 }
                 return;
             }
