@@ -1374,6 +1374,21 @@
             line-height: 1.35;
         }
 
+        .language-option .language-option-check {
+            opacity: 0;
+            color: var(--accent-color);
+            transition: opacity 0.15s ease;
+        }
+
+        .language-option.is-active .language-option-check {
+            opacity: 1;
+        }
+
+        .language-option.is-active {
+            color: var(--accent-color);
+            font-weight: 700;
+        }
+
         body.plan-sheet-open {
             overflow: hidden;
         }
@@ -4235,15 +4250,15 @@
     <header>
         <div class="header-brand">
             <h1 class="header-title">GYMCUT</h1>
-            <p class="header-subtitle">Twój trening, Twój rytm</p>
+            <p class="header-subtitle" data-i18n="header_subtitle">Twój trening, Twój rytm</p>
         </div>
         <div class="header-streak-pr-wrap">
             <div id="streak-badge" class="header-streak-badge hidden" aria-live="polite"></div>
-            <button class="pr-button" id="pr-button" title="Rekordy osobiste">
+            <button class="pr-button" id="pr-button" data-i18n-title="pr_title" title="Rekordy osobiste">
                 <i class="fas fa-trophy"></i>
             </button>
         </div>
-        <button type="button" class="theme-switcher" id="theme-switcher" title="Wygląd aplikacji"
+        <button type="button" class="theme-switcher" id="theme-switcher" data-i18n-title="appearance_title" title="Wygląd aplikacji"
             aria-label="Wygląd aplikacji" aria-haspopup="dialog" aria-expanded="false">
             <i class="fas fa-cog" aria-hidden="true"></i> <span class="theme-text">Tryb ciemny</span>
         </button>
@@ -4253,17 +4268,17 @@
 
         <div class="container">
             <div class="tab-content active" id="training-plans">
-                <h2>Plany treningowe</h2>
-                <p class="section-description">Buduj własne treningi i zapisuj serie, powtórzenia oraz notatki.</p>
+                <h2 data-i18n="plans_heading">Plany treningowe</h2>
+                <p class="section-description" data-i18n="plans_desc">Buduj własne treningi i zapisuj serie, powtórzenia oraz notatki.</p>
 
                 <div class="template-section">
                     <div class="template-grid">
-                        <div class="template-card active" data-template="all">Wszystkie</div>
+                        <div class="template-card active" data-template="all" data-i18n="tpl_all">Wszystkie</div>
                         <div class="template-card" data-template="push">Push</div>
                         <div class="template-card" data-template="pull">Pull</div>
                         <div class="template-card" data-template="legs">Legs</div>
                         <div class="template-card" data-template="quick" role="button" tabindex="0"
-                            aria-label="Szybki trening">Szybki</div>
+                            data-i18n="tpl_quick" data-i18n-aria="tpl_quick_aria" aria-label="Szybki trening">Szybki</div>
                     </div>
                 </div>
 
@@ -4273,34 +4288,34 @@
             </div>
 
             <div class="tab-content" id="history">
-                <h2><i class="fas fa-history"></i> Historia treningów</h2>
+                <h2 data-i18n="history_heading"><i class="fas fa-history"></i> Historia treningów</h2>
                 <div id="workout-history">
                 </div>
             </div>
 
             <div class="tab-content" id="stats">
-                <h2 class="stats-page-heading">Statystyki</h2>
-                <p class="stats-page-desc">Śledź aktywność miesiąc po miesiącu i pilnuj regularności treningów.</p>
+                <h2 class="stats-page-heading" data-i18n="stats_heading">Statystyki</h2>
+                <p class="stats-page-desc" data-i18n="stats_desc">Śledź aktywność miesiąc po miesiącu i pilnuj regularności treningów.</p>
 
                 <div class="stats-screen">
                     <div class="stats-hero-card">
                         <div class="stats-hero-value" id="stat-month-count">0</div>
-                        <div class="stats-hero-label">Treningi w tym miesiącu</div>
+                        <div class="stats-hero-label" data-i18n="stats_month_count">Treningi w tym miesiącu</div>
                     </div>
                     <div class="stats-metric-card">
                         <div class="stats-metric-value" id="stat-total-workouts">0</div>
-                        <div class="stats-metric-label">Łącznie zapisanych</div>
+                        <div class="stats-metric-label" data-i18n="stats_total_saved">Łącznie zapisanych</div>
                     </div>
                     <div class="stats-metric-card">
                         <div class="stats-metric-value" id="stat-active-plans">0</div>
-                        <div class="stats-metric-label">Aktywne plany</div>
+                        <div class="stats-metric-label" data-i18n="stats_active_plans">Aktywne plany</div>
                     </div>
                     <div class="stats-metric-card">
                         <div class="stats-split-name" id="stat-top-split">—</div>
-                        <div class="stats-metric-label">Najczęstszy split</div>
+                        <div class="stats-metric-label" data-i18n="stats_top_split">Najczęstszy split</div>
                     </div>
                     <div class="stats-chart-card">
-                        <h3 class="stats-chart-title">Ostatnie 6 miesięcy</h3>
+                        <h3 class="stats-chart-title" data-i18n="stats_last6">Ostatnie 6 miesięcy</h3>
                         <div class="stats-bars-row" id="stat-six-month-bars" aria-hidden="true"></div>
                     </div>
                 </div>
@@ -4316,15 +4331,16 @@
                     </div>
                     <div class="focus-header-actions-row">
                         <button id="focus-minimize-btn" class="btn-secondary"
+                            data-i18n-title="focus_minimize_title" data-i18n-aria="focus_minimize_aria"
                             title="Zostaw trening na później" aria-label="Minimalizuj trening">
                             <i class="fas fa-chevron-down"></i>
                         </button>
-                        <button id="focus-progression-toggle"
+                        <button id="focus-progression-toggle" data-i18n-title="focus_progression_title"
                             title="Oznacz progresję na następny trening">📈</button>
                         <button id="focus-add-exercise-btn" class="btn-info">
                             <i class="fas fa-plus"></i>
                         </button>
-                        <button id="focus-end-btn" class="btn-danger">Zakończ</button>
+                        <button id="focus-end-btn" class="btn-danger" data-i18n="focus_end">Zakończ</button>
                     </div>
                 </div>
                 <div id="focus-content"></div>
@@ -4352,14 +4368,15 @@
                     <button id="focus-nav-next" class="btn-success">Następny <i
                             class="fas fa-chevron-right"></i></button>
                 </div>
+                <!-- focus-nav labels set via applyChromeTranslations() -->
             </div>
         </div>
 
         <button id="workout-resume-bar" class="workout-resume-bar hidden" type="button"
-            aria-label="Wróć do treningu" hidden>
+            data-i18n-aria="resume_aria" aria-label="Wróć do treningu" hidden>
             <span class="workout-resume-bar-icon"><i class="fas fa-dumbbell" aria-hidden="true"></i></span>
             <span class="workout-resume-bar-text">
-                <span class="workout-resume-bar-title">Trening w toku</span>
+                <span class="workout-resume-bar-title" data-i18n="resume_title">Trening w toku</span>
                 <span class="workout-resume-bar-subtitle" id="workout-resume-bar-subtitle">Wróć do treningu</span>
             </span>
             <span class="workout-resume-bar-cta"><i class="fas fa-arrow-up" aria-hidden="true"></i></span>
@@ -4368,15 +4385,15 @@
         <nav class="bottom-nav">
             <div class="nav-item active" data-tab="training-plans">
                 <i class="fas fa-clipboard-list"></i>
-                <span>Plany</span>
+                <span data-i18n="nav_plans">Plany</span>
             </div>
             <div class="nav-item" data-tab="history">
                 <i class="fas fa-history"></i>
-                <span>Historia</span>
+                <span data-i18n="nav_history">Historia</span>
             </div>
             <div class="nav-item" data-tab="stats">
                 <i class="fas fa-chart-line"></i>
-                <span>Statystyki</span>
+                <span data-i18n="nav_stats">Statystyki</span>
             </div>
         </nav>
 
@@ -4398,18 +4415,18 @@
         <div id="plan-actions-sheet-backdrop" class="plan-actions-sheet-backdrop" aria-hidden="true"></div>
         <div class="plan-actions-sheet-panel">
             <div class="plan-actions-sheet-handle" aria-hidden="true"></div>
-            <h3 id="plan-actions-sheet-title" class="plan-actions-sheet-title">Plan</h3>
-            <button type="button" class="plan-actions-sheet-item btn-edit-plan" id="plan-sheet-edit">
+            <h3 id="plan-actions-sheet-title" class="plan-actions-sheet-title" data-i18n="sheet_plan_title">Plan</h3>
+            <button type="button" class="plan-actions-sheet-item btn-edit-plan" id="plan-sheet-edit" data-i18n="act_edit_plan">
                 <i class="fas fa-pen" aria-hidden="true"></i> Edytuj plan
             </button>
-            <button type="button" class="plan-actions-sheet-item" id="plan-sheet-rename">
+            <button type="button" class="plan-actions-sheet-item" id="plan-sheet-rename" data-i18n="act_rename">
                 <i class="fas fa-signature" aria-hidden="true"></i> Zmień nazwę
             </button>
             <button type="button" class="plan-actions-sheet-item plan-actions-sheet-danger btn-delete-plan"
-                id="plan-sheet-delete">
+                id="plan-sheet-delete" data-i18n="act_delete_plan">
                 <i class="fas fa-trash" aria-hidden="true"></i> Usuń plan
             </button>
-            <button type="button" class="plan-actions-sheet-cancel" id="plan-sheet-cancel">Anuluj</button>
+            <button type="button" class="plan-actions-sheet-cancel" id="plan-sheet-cancel" data-i18n="cancel">Anuluj</button>
         </div>
     </div>
 
@@ -4418,21 +4435,21 @@
         <div id="history-actions-sheet-backdrop" class="plan-actions-sheet-backdrop" aria-hidden="true"></div>
         <div class="plan-actions-sheet-panel">
             <div class="plan-actions-sheet-handle" aria-hidden="true"></div>
-            <h3 id="history-actions-sheet-title" class="plan-actions-sheet-title">Trening</h3>
-            <button type="button" class="plan-actions-sheet-item btn-view-details" id="history-sheet-details">
+            <h3 id="history-actions-sheet-title" class="plan-actions-sheet-title" data-i18n="sheet_workout_title">Trening</h3>
+            <button type="button" class="plan-actions-sheet-item btn-view-details" id="history-sheet-details" data-i18n="act_details">
                 <i class="fas fa-eye" aria-hidden="true"></i> Szczegóły
             </button>
-            <button type="button" class="plan-actions-sheet-item btn-share-workout" id="history-sheet-share">
+            <button type="button" class="plan-actions-sheet-item btn-share-workout" id="history-sheet-share" data-i18n="act_share">
                 <i class="fas fa-share-nodes" aria-hidden="true"></i> Udostępnij trening
             </button>
-            <button type="button" class="plan-actions-sheet-item btn-edit-workout" id="history-sheet-edit">
+            <button type="button" class="plan-actions-sheet-item btn-edit-workout" id="history-sheet-edit" data-i18n="act_edit_workout">
                 <i class="fas fa-pen" aria-hidden="true"></i> Edytuj trening
             </button>
             <button type="button" class="plan-actions-sheet-item plan-actions-sheet-danger btn-delete-workout"
-                id="history-sheet-delete">
+                id="history-sheet-delete" data-i18n="act_delete_workout">
                 <i class="fas fa-trash" aria-hidden="true"></i> Usuń trening
             </button>
-            <button type="button" class="plan-actions-sheet-cancel" id="history-sheet-cancel">Anuluj</button>
+            <button type="button" class="plan-actions-sheet-cancel" id="history-sheet-cancel" data-i18n="cancel">Anuluj</button>
         </div>
     </div>
 
@@ -4441,29 +4458,32 @@
         <div id="theme-settings-sheet-backdrop" class="plan-actions-sheet-backdrop" aria-hidden="true"></div>
         <div class="plan-actions-sheet-panel">
             <div class="plan-actions-sheet-handle" aria-hidden="true"></div>
-            <h3 id="theme-settings-sheet-title" class="plan-actions-sheet-title">Wygląd</h3>
+            <h3 id="theme-settings-sheet-title" class="plan-actions-sheet-title" data-i18n="appearance_sheet_title">Wygląd</h3>
             <button type="button" class="plan-actions-sheet-item" id="theme-sheet-toggle">
                 <i class="fas fa-adjust" aria-hidden="true"></i> Zmień motyw
             </button>
+            <button type="button" class="plan-actions-sheet-item" id="theme-sheet-language" data-i18n="act_language">
+                <i class="fas fa-language" aria-hidden="true"></i> Język
+            </button>
             <a href="mailto:gymgymcut@gmail.com?subject=%5BGymCut%5D%20Propozycja%20funkcji&amp;body=Cze%C5%9B%C4%87%2C%0A%0AOpisz%20swoj%C4%85%20propozycj%C4%99%20lub%20zg%C5%82o%C5%9B%20problem.%20Mo%C5%BCesz%20dopisa%C4%87%20urz%C4%85dzenie%20lub%20przegl%C4%85dark%C4%99%3A%0A%0A%E2%80%94%0A%0AAplikacja%3A%20GymCut"
                 id="theme-sheet-feedback-mailto" class="plan-actions-sheet-item" target="_blank"
-                rel="noopener noreferrer">
+                rel="noopener noreferrer" data-i18n="act_feedback">
                 <i class="fas fa-lightbulb" aria-hidden="true"></i> Pomoc i propozycje funkcji
             </a>
             <button type="button" class="plan-actions-sheet-item" id="theme-sheet-ui-sounds-toggle" aria-pressed="false">
                 <i class="fas fa-volume-high" aria-hidden="true"></i> <span id="theme-sheet-ui-sounds-label">Dźwięki interfejsu: wyłączone</span>
             </button>
             <a href="https://ko-fi.com/gymcut" id="theme-sheet-kofi" target="_blank" rel="noopener noreferrer"
-                class="plan-actions-sheet-item">
+                class="plan-actions-sheet-item" data-i18n="act_kofi">
                 <i class="fas fa-mug-hot" aria-hidden="true"></i> Wspieraj na Ko-fi
             </a>
-            <button type="button" class="plan-actions-sheet-item" id="theme-sheet-data">
+            <button type="button" class="plan-actions-sheet-item" id="theme-sheet-data" data-i18n="act_data">
                 <i class="fas fa-database" aria-hidden="true"></i> Dane
             </button>
-            <button type="button" class="plan-actions-sheet-cancel" id="theme-sheet-cancel">Anuluj</button>
+            <button type="button" class="plan-actions-sheet-cancel" id="theme-sheet-cancel" data-i18n="cancel">Anuluj</button>
             <button type="button" class="settings-version-row" id="theme-sheet-version" aria-label="Pokaż co nowego w tej wersji">
                 <i class="fas fa-circle-info" aria-hidden="true"></i>
-                <span class="settings-version-label">Wersja</span>
+                <span class="settings-version-label" data-i18n="version_label">Wersja</span>
                 <span class="settings-version-value" id="theme-sheet-version-value">1.1.0</span>
             </button>
         </div>
@@ -4474,18 +4494,37 @@
         <div id="data-sheet-backdrop" class="plan-actions-sheet-backdrop" aria-hidden="true"></div>
         <div class="plan-actions-sheet-panel">
             <div class="plan-actions-sheet-handle" aria-hidden="true"></div>
-            <h3 id="data-sheet-title" class="plan-actions-sheet-title">Dane</h3>
+            <h3 id="data-sheet-title" class="plan-actions-sheet-title" data-i18n="data_sheet_title">Dane</h3>
             <p class="data-sheet-info" id="data-sheet-info"></p>
-            <button type="button" class="plan-actions-sheet-item" id="data-sheet-export">
+            <button type="button" class="plan-actions-sheet-item" id="data-sheet-export" data-i18n="data_export">
                 <i class="fas fa-file-export" aria-hidden="true"></i> Eksportuj dane (JSON)
             </button>
-            <p class="theme-import-hint">Kopia zapasowa: historia treningów i plany treningowe w jednym pliku.</p>
-            <button type="button" class="plan-actions-sheet-item" id="data-sheet-import">
+            <p class="theme-import-hint" data-i18n="data_export_hint">Kopia zapasowa: historia treningów i plany treningowe w jednym pliku.</p>
+            <button type="button" class="plan-actions-sheet-item" id="data-sheet-import" data-i18n="data_import">
                 <i class="fas fa-file-import" aria-hidden="true"></i> Importowanie danych
             </button>
-            <p class="theme-import-hint">JSON: kopia zapasowa GymCut, historia treningów lub plany treningowe (<code>trainingPlans</code>). CSV: wpisy do historii treningów.</p>
+            <p class="theme-import-hint" data-i18n-html="data_import_hint">JSON: kopia zapasowa GymCut, historia treningów lub plany treningowe (<code>trainingPlans</code>). CSV: wpisy do historii treningów.</p>
             <input type="file" id="strong-hevy-import-input" accept=".json,.csv,application/json,text/csv" hidden>
-            <button type="button" class="plan-actions-sheet-cancel" id="data-sheet-cancel">Anuluj</button>
+            <button type="button" class="plan-actions-sheet-cancel" id="data-sheet-cancel" data-i18n="cancel">Anuluj</button>
+        </div>
+    </div>
+
+    <div id="language-sheet" class="plan-actions-sheet hidden" role="dialog" aria-modal="true"
+        aria-labelledby="language-sheet-title">
+        <div id="language-sheet-backdrop" class="plan-actions-sheet-backdrop" aria-hidden="true"></div>
+        <div class="plan-actions-sheet-panel">
+            <div class="plan-actions-sheet-handle" aria-hidden="true"></div>
+            <h3 id="language-sheet-title" class="plan-actions-sheet-title" data-i18n="language_sheet_title">Język</h3>
+            <button type="button" class="plan-actions-sheet-item language-option" data-lang="pl" aria-pressed="false">
+                <i class="fas fa-check language-option-check" aria-hidden="true"></i> Polski
+            </button>
+            <button type="button" class="plan-actions-sheet-item language-option" data-lang="en" aria-pressed="false">
+                <i class="fas fa-check language-option-check" aria-hidden="true"></i> English
+            </button>
+            <button type="button" class="plan-actions-sheet-item language-option" data-lang="es" aria-pressed="false">
+                <i class="fas fa-check language-option-check" aria-hidden="true"></i> Español
+            </button>
+            <button type="button" class="plan-actions-sheet-cancel" id="language-sheet-cancel" data-i18n="cancel">Anuluj</button>
         </div>
     </div>
 
@@ -4494,16 +4533,16 @@
         <div id="quick-workout-sheet-backdrop" class="plan-actions-sheet-backdrop" aria-hidden="true"></div>
         <div class="plan-actions-sheet-panel">
             <div class="plan-actions-sheet-handle" aria-hidden="true"></div>
-            <h3 id="quick-workout-sheet-title" class="plan-actions-sheet-title">Szybki trening</h3>
+            <h3 id="quick-workout-sheet-title" class="plan-actions-sheet-title" data-i18n="quick_sheet_title">Szybki trening</h3>
             <div class="quick-workout-sheet-body">
                 <div class="form-group">
-                    <label for="quick-exercise-name"><i class="fas fa-dumbbell"></i> Dodaj ćwiczenie</label>
-                    <input type="text" id="quick-exercise-name" placeholder="Nazwa ćwiczenia..." autocomplete="off">
-                    <button type="button" id="add-quick-workout-exercise-btn" class="btn-success"><i
+                    <label for="quick-exercise-name" data-i18n="quick_add_label"><i class="fas fa-dumbbell"></i> Dodaj ćwiczenie</label>
+                    <input type="text" id="quick-exercise-name" data-i18n-ph="quick_ex_ph" placeholder="Nazwa ćwiczenia..." autocomplete="off">
+                    <button type="button" id="add-quick-workout-exercise-btn" class="btn-success" data-i18n="quick_add_start"><i
                             class="fas fa-plus"></i> Dodaj i zacznij</button>
                 </div>
             </div>
-            <button type="button" class="plan-actions-sheet-cancel" id="quick-workout-sheet-cancel">Anuluj</button>
+            <button type="button" class="plan-actions-sheet-cancel" id="quick-workout-sheet-cancel" data-i18n="cancel">Anuluj</button>
         </div>
     </div>
 
@@ -4512,11 +4551,11 @@
         <div id="history-edit-sheet-backdrop" class="plan-actions-sheet-backdrop" aria-hidden="true"></div>
         <div class="plan-actions-sheet-panel history-edit-sheet-panel">
             <div class="plan-actions-sheet-handle" aria-hidden="true"></div>
-            <h3 id="history-edit-sheet-title" class="plan-actions-sheet-title">Edytuj trening</h3>
+            <h3 id="history-edit-sheet-title" class="plan-actions-sheet-title" data-i18n="edit_workout_title">Edytuj trening</h3>
             <div class="history-edit-sheet-body" id="history-edit-sheet-body"></div>
             <div class="history-edit-sheet-footer">
-                <button type="button" class="btn-success" id="history-edit-save"><i class="fas fa-save"></i> Zapisz</button>
-                <button type="button" class="btn-secondary" id="history-edit-cancel">Anuluj</button>
+                <button type="button" class="btn-success" id="history-edit-save" data-i18n="save"><i class="fas fa-save"></i> Zapisz</button>
+                <button type="button" class="btn-secondary" id="history-edit-cancel" data-i18n="cancel">Anuluj</button>
             </div>
         </div>
     </div>
@@ -4524,13 +4563,13 @@
     <div id="workout-reward-fullscreen" class="workout-reward-fullscreen hidden" role="dialog" aria-modal="true"
         aria-labelledby="workout-reward-fullscreen-title" aria-hidden="true">
         <div class="workout-reward-fullscreen-inner">
-            <h2 id="workout-reward-fullscreen-title" class="workout-reward-fullscreen-title">Trening ukończony</h2>
+            <h2 id="workout-reward-fullscreen-title" class="workout-reward-fullscreen-title" data-i18n="reward_title">Trening ukończony</h2>
             <div id="workout-reward-body-mount"></div>
             <div class="workout-reward-fullscreen-actions">
-                <button type="button" class="btn-success" id="workout-reward-share">
+                <button type="button" class="btn-success" id="workout-reward-share" data-i18n="act_share">
                     <i class="fas fa-share-nodes" aria-hidden="true"></i> Udostępnij trening
                 </button>
-                <button type="button" class="btn-secondary" id="workout-reward-continue">Gotowe</button>
+                <button type="button" class="btn-secondary" id="workout-reward-continue" data-i18n="reward_done">Gotowe</button>
             </div>
         </div>
     </div>
@@ -4545,7 +4584,7 @@
             <p class="whats-new-subtitle" id="whats-new-subtitle"></p>
             <ul class="whats-new-list" id="whats-new-list"></ul>
             <div class="whats-new-actions">
-                <button type="button" class="btn-success" id="whats-new-close-btn">
+                <button type="button" class="btn-success" id="whats-new-close-btn" data-i18n="whatsnew_gotit">
                     <i class="fas fa-check" aria-hidden="true"></i> Zrozumiałem
                 </button>
             </div>
@@ -4575,8 +4614,8 @@
 
     <div id="plan-editor-page" class="page">
         <div class="page-header">
-            <button id="plan-editor-back-btn"><i class="fas fa-chevron-left"></i> Wróć</button>
-            <h3 id="plan-editor-title">Edytuj Plan</h3>
+            <button id="plan-editor-back-btn" data-i18n="back"><i class="fas fa-chevron-left"></i> Wróć</button>
+            <h3 id="plan-editor-title" data-i18n="plan_editor_title">Edytuj Plan</h3>
         </div>
         <div class="page-content">
             <div id="selected-plan-exercises">
@@ -4588,11 +4627,11 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="exercise-name"><i class="fas fa-dumbbell"></i> Nazwa ćwiczenia</label>
-                    <input type="text" id="exercise-name" placeholder="np. Wyciskanie sztangi leżąc">
+                    <label for="exercise-name" data-i18n="form_ex_name"><i class="fas fa-dumbbell"></i> Nazwa ćwiczenia</label>
+                    <input type="text" id="exercise-name" data-i18n-ph="form_ex_name_ph" placeholder="np. Wyciskanie sztangi leżąc">
                 </div>
                 <div class="form-group">
-                    <label for="exercise-sets"><i class="fas fa-layer-group"></i> Liczba serii</label>
+                    <label for="exercise-sets" data-i18n="form_sets"><i class="fas fa-layer-group"></i> Liczba serii</label>
                     <select id="exercise-sets">
                         <option value="1">1 seria</option>
                         <option value="2">2 serie</option>
@@ -4602,14 +4641,14 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="exercise-reps"><i class="fas fa-redo"></i> Powtórzenia (na serię)</label>
+                    <label for="exercise-reps" data-i18n="form_reps"><i class="fas fa-redo"></i> Powtórzenia (na serię)</label>
                     <input type="number" id="exercise-reps" min="1" value="10">
                 </div>
                 <div class="form-group">
-                    <label for="exercise-notes"><i class="fas fa-sticky-note"></i> Notatki (opcjonalnie)</label>
-                    <textarea id="exercise-notes" placeholder="Dodaj uwagi..."></textarea>
+                    <label for="exercise-notes" data-i18n="form_notes"><i class="fas fa-sticky-note"></i> Notatki (opcjonalnie)</label>
+                    <textarea id="exercise-notes" data-i18n-ph="form_notes_ph" placeholder="Dodaj uwagi..."></textarea>
                 </div>
-                <button id="add-exercise"><i class="fas fa-plus"></i> Dodaj / Zaktualizuj</button>
+                <button id="add-exercise" data-i18n="form_add_update"><i class="fas fa-plus"></i> Dodaj / Zaktualizuj</button>
 
                 <div class="exercise-list" id="exercise-list">
                 </div>
@@ -4640,6 +4679,535 @@
                 return null;
             }
         };
+
+        // --- INTERNACJONALIZACJA (i18n) ---
+        const I18N = {
+            pl: {
+                _locale: 'pl-PL',
+                _name: 'Polski',
+                monthsLong: ['styczeń', 'luty', 'marzec', 'kwiecień', 'maj', 'czerwiec', 'lipiec', 'sierpień', 'wrzesień', 'październik', 'listopad', 'grudzień'],
+                monthsShort: ['Sty', 'Lut', 'Mar', 'Kwi', 'Maj', 'Cze', 'Lip', 'Sie', 'Wrz', 'Paź', 'Lis', 'Gru'],
+                daysShort: ['Pn', 'Wt', 'Śr', 'Cz', 'Pt', 'So', 'Nd'],
+                bodyParts: { 'Core': 'Brzuch', 'Barki': 'Barki', 'Klatka': 'Klatka', 'Plecy': 'Plecy', 'Ramiona': 'Ramiona', 'Nogi': 'Nogi', 'Pośladki': 'Pośladki' },
+                comparisons: ['dorastający labrador', 'motocykl', 'koń', 'samochód osobowy', 'słoń afrykański', 'autobus miejski', 'płetwal błękitny', 'rakieta Saturn V'],
+                comparisonsPlural: ['labradorów', 'motocykli', 'koni', 'samochodów', 'słoni', 'autobusów', 'płetwali', 'rakiet Saturn V'],
+
+                nav_plans: 'Plany', nav_history: 'Historia', nav_stats: 'Statystyki',
+                header_subtitle: 'Twój trening, Twój rytm',
+                pr_title: 'Rekordy osobiste', appearance_title: 'Wygląd aplikacji',
+                appearance_aria_dark: 'Wygląd aplikacji, aktywny tryb ciemny', appearance_aria_light: 'Wygląd aplikacji, aktywny tryb jasny',
+                plans_heading: 'Plany treningowe',
+                plans_desc: 'Buduj własne treningi i zapisuj serie, powtórzenia oraz notatki.',
+                tpl_all: 'Wszystkie', tpl_quick: 'Szybki', tpl_quick_aria: 'Szybki trening',
+                history_heading: 'Historia treningów',
+                stats_heading: 'Statystyki',
+                stats_desc: 'Śledź aktywność miesiąc po miesiącu i pilnuj regularności treningów.',
+                stats_month_count: 'Treningi w tym miesiącu', stats_total_saved: 'Łącznie zapisanych',
+                stats_active_plans: 'Aktywne plany', stats_top_split: 'Najczęstszy split',
+                stats_last6: 'Ostatnie 6 miesięcy', stats_no_data: 'Brak danych',
+                focus_minimize_title: 'Zostaw trening na później', focus_minimize_aria: 'Minimalizuj trening',
+                focus_progression_title: 'Oznacz progresję na następny trening',
+                focus_end: 'Zakończ', focus_prev: 'Poprzedni', focus_next: 'Następny', focus_add_set: 'Dodaj serię',
+                exercise_fallback: 'Ćwiczenie',
+                resume_aria: 'Wróć do treningu', resume_title: 'Trening w toku', resume_back: 'Wróć do treningu',
+                sheet_plan_title: 'Plan', act_edit_plan: 'Edytuj plan', act_rename: 'Zmień nazwę', act_delete_plan: 'Usuń plan', cancel: 'Anuluj',
+                sheet_workout_title: 'Trening', act_details: 'Szczegóły', act_share: 'Udostępnij trening', act_edit_workout: 'Edytuj trening', act_delete_workout: 'Usuń trening',
+                appearance_sheet_title: 'Wygląd', act_change_theme: 'Zmień motyw', act_feedback: 'Pomoc i propozycje funkcji', act_kofi: 'Wspieraj na Ko-fi', act_data: 'Dane', act_language: 'Język', version_label: 'Wersja',
+                ui_sounds_on: 'Dźwięki interfejsu: włączone', ui_sounds_off: 'Dźwięki interfejsu: wyłączone',
+                theme_to_light: 'Włącz tryb jasny', theme_to_dark: 'Włącz tryb ciemny',
+                theme_text_dark: 'Tryb ciemny', theme_text_light: 'Tryb jasny',
+                data_sheet_title: 'Dane', data_export: 'Eksportuj dane (JSON)',
+                data_export_hint: 'Kopia zapasowa: historia treningów i plany treningowe w jednym pliku.',
+                data_import: 'Importowanie danych',
+                data_import_hint: 'JSON: kopia zapasowa GymCut, historia treningów lub plany treningowe (<code>trainingPlans</code>). CSV: wpisy do historii treningów.',
+                data_saved_info: 'Zapisane: {workouts} oraz {plans}.',
+                quick_sheet_title: 'Szybki trening', quick_add_label: 'Dodaj ćwiczenie', quick_ex_ph: 'Nazwa ćwiczenia...', quick_add_start: 'Dodaj i zacznij',
+                edit_workout_title: 'Edytuj trening', save: 'Zapisz',
+                reward_title: 'Trening ukończony', reward_done: 'Gotowe', resume_subtitle: 'Wróć do treningu',
+                whatsnew_gotit: 'Zrozumiałem',
+                language_sheet_title: 'Język',
+                back: 'Wróć', plan_editor_title: 'Edytuj Plan',
+                form_ex_name: 'Nazwa ćwiczenia', form_ex_name_ph: 'np. Wyciskanie sztangi leżąc',
+                form_sets: 'Liczba serii', form_reps: 'Powtórzenia (na serię)',
+                form_notes: 'Notatki (opcjonalnie)', form_notes_ph: 'Dodaj uwagi...',
+                form_add_update: 'Dodaj / Zaktualizuj', form_add_to_plan: 'Dodaj ćwiczenie do planu', form_update_ex: 'Zaktualizuj ćwiczenie',
+                plan_ex_details: 'Serie: {sets} | Powtórzenia: {reps}', delete: 'Usuń',
+                plan_start: 'Rozpocznij', plan_start_title: 'Rozpocznij trening z tego planu',
+                more_options: 'Więcej opcji', more_options_plan: 'Więcej opcji planu', more_options_workout: 'Więcej opcji treningu',
+                quick_workout_name: 'Szybki trening',
+                empty_plans_title: 'Dodaj pierwszy plan', empty_plans_msg: 'Zacznij od rozpisania ćwiczeń, serii i powtórzeń dla swojego splitu.',
+                empty_plan_ex: 'Brak ćwiczeń.', empty_plan_title: 'Pusty plan', empty_plan_msg: 'Dodaj swoje pierwsze ćwiczenie używając formularza.',
+                empty_history_title: 'Brak historii treningów', empty_history_msg: 'Ukończ swój pierwszy trening, aby zobaczyć go tutaj.',
+                no_name: 'Brak nazwy', no_ex_details: 'Brak szczegółów ćwiczeń.',
+                progression_badge: 'Progresja',
+                new_plan_title: 'Nowy plan treningowy', new_plan_label: 'Nazwa nowego planu', new_plan_ph: 'np. Mój Trening Push', create: 'Utwórz',
+                rename_plan_title: 'Zmień nazwę planu', rename_plan_label: 'Nowa nazwa planu', rename_plan_ph: 'np. Push Day A',
+                add_ex_title: 'Dodaj Ćwiczenie', add_ex_name_label: 'Nazwa Ćwiczenia', add_ex_name_ph: 'np. Uginanie ramion', add_ex_sets_label: 'Liczba Serii', add_ex_reps_label: 'Liczba Powtórzeń', add_ex_to_workout: 'Dodaj do Treningu',
+                edit_ex_helper: 'Edytuj ćwiczenia i serie w wygodnym układzie mobilnym. Użyj przycisków +/- aby szybciej zmieniać wartości.',
+                add_exercise: 'Dodaj ćwiczenie', editor_no_ex: 'Brak ćwiczeń. Dodaj pierwsze ćwiczenie.',
+                ex_name_ph_short: 'Nazwa ćwiczenia', weight_kg: 'Ciężar (kg)', reps_label: 'Powtórzenia', set_done: 'Wykonana',
+                set_warmup: 'Rozgrzewka (W)', set_drop: 'Drop Set (D)', set_failure: 'Do upadku (F)', set_n: 'Seria {n}',
+                stepper_reps: 'powt.',
+                pr_badge_full: '🏆 PR!', pr_badge_weight: '🏆 Max waga!', pr_badge_reps: '🏆 Max powt.!',
+                prog_banner_armed: 'Progres ustawiony na następny trening. Dziś dokończ technicznie 💪',
+                prog_banner_ready: 'Czas na progres! Ostatnio poszło gładko. Podbijamy stawkę?',
+                details_plan: 'Plan', details_title: 'Trening z {date}', set_word: 'Seria',
+                history_compact: '{ex} ćw. • {sets} ukończonych serii', sets_ratio: '{c}/{s} serii',
+                workout_details_plan_label: 'Plan',
+                review_lifted: 'Podniosłeś(aś)', review_equals: 'co równa się', review_bodyparts: 'Użycie części ciała',
+                review_good_job: 'Dobra robota! 💪', review_start: 'Czas zacząć!',
+                review_year_in: 'Treningi w {year}', review_month_great: 'To był świetny miesiąc! 🔥', review_year_great: 'Co za rok! 🔥',
+                review_workouts_label: 'treningów', review_kg_lifted: 'kg podniesione', review_sets_label: 'serii', review_days_label: 'dni treningowych',
+                review_summary_of: 'Podsumowanie: {label}', review_stats_of: 'Oto twoje statystyki za {label}', review_year_review: '{year} GymCut in Review', review_year_subtitle: 'Oto twoje roczne podsumowanie',
+                review_calendar: 'Kalendarz treningów', review_year_summary_header: 'Podsumowanie roku', review_year_label: 'Rok {year}',
+                amazing_result: 'niesamowity wynik!',
+                pr_records_title: 'Rekordy osobiste', pr_records_all: 'Rekordy osobiste (wszystkie treningi)', pr_empty: 'Brak zapisanych rekordów.',
+                pr_chart_hint: 'Tapnij ćwiczenie, aby zobaczyć wykres progresu.',
+                pr_max_weight: 'Maksymalna waga', pr_max_reps: 'Maksymalne powtórzenia', pr_reps_short: 'powt.',
+                pr_chart_too_little: 'Za mało danych do wykresu — potrzeba co najmniej 2 treningów z tym ćwiczeniem.',
+                pr_chart_max_weight: 'Max ciężar', pr_chart_est1rm: 'Szac. 1RM',
+                toast_export_ok: 'Wyeksportowano dane do pliku JSON.', toast_export_fail: 'Nie udało się wyeksportować danych.',
+                toast_backup_all_present: 'Wszystkie dane z tej kopii zapasowej są już w aplikacji.',
+                toast_import_none: 'Nie znaleziono planów ani treningów do importu w tym pliku.',
+                toast_import_workouts_none: 'Nie znaleziono treningów do importu w tym pliku.',
+                toast_unsupported_file: 'Nieobsługiwany format pliku. Użyj .json lub .csv.',
+                toast_import_fail: 'Nie udało się zaimportować danych. Sprawdź format pliku.',
+                import_both_done: 'Zaimportowano {plans} oraz {workouts} do historii.',
+                import_plans_done: 'Zaimportowano {plans}.', import_workouts_file: 'Zaimportowano {workouts} z pliku.',
+                toast_plan_name_required: 'Podaj nazwę planu!', toast_plan_not_found: 'Nie znaleziono planu.',
+                toast_plan_renamed: 'Nazwa planu została zmieniona.', toast_plan_name_missing: 'Błąd: Brak nazwy planu.',
+                toast_select_plan_first: 'Najpierw wybierz plan!', toast_ex_name_required: 'Podaj nazwę ćwiczenia!', toast_ex_name_required2: 'Podaj nazwę ćwiczenia',
+                toast_no_ex_to_save: 'Brak ćwiczeń do zapisania!', toast_workout_saved: 'Trening został zapisany!',
+                toast_rest_over: 'Czas przerwy minął!', toast_workout_not_found_edit: 'Nie znaleziono treningu do edycji.', toast_workout_updated: 'Trening zaktualizowany.',
+                toast_share_done: 'Gotowe!', toast_share_saved_img: 'Pobrano grafikę — w Instagramie dodaj ją jako post lub relację.', toast_share_fail: 'Nie udało się przygotować grafiki.',
+                toast_plan_created: 'Utworzono plan {name}!', toast_no_ex_in_workout: 'Brak ćwiczeń w treningu', toast_ex_added: 'Dodano ćwiczenie: {name}',
+                toast_new_pr_prefix: 'Nowy rekord! ', pr_weight_and_reps: 'Maksymalna waga ({weight} kg) i powtórzenia ({reps})!', pr_weight_only: 'Maksymalna waga: {weight} kg', pr_reps_only: 'Maksymalne powtórzenia: {reps}',
+                toast_progress_saved: 'Zapisane. W następnym treningu spróbuj dołożyć progres 📈', toast_progress_off: 'Progresja wyłączona',
+                streak_in_a_row: '{weeks} z rzędu', streak_aria: 'Seria tygodniowa: {label}',
+                reward_hook_1: 'Wow! Dziś zrobiłeś(aś) <strong>{vol}</strong> objętości — to jak {cmp} {emoji}',
+                reward_hook_2: 'Dobra robota. <strong>{vol}</strong> w nogach/rękach i w głowie. {emoji} ({cmp})',
+                reward_hook_3: 'Jeśli mięśnie miałyby licznik, właśnie nabiłeś(aś) <strong>{vol}</strong>. {emoji} {cmp}',
+                reward_hook_4: 'Dziś poszło <strong>{vol}</strong> objętości — solidnie. {emoji} ({cmp})',
+                reward_hook_5: 'Masz to. <strong>{vol}</strong> — a jutro możesz dołożyć mały procent. {emoji} {cmp}',
+                reward_final_pr: 'Nowe rekordy wbite. Jutro tylko pilnuj regeneracji i lecimy dalej.',
+                reward_final_nopr: 'Bez PR? Spokojnie. Regularność to turbo, które robi wynik długoterminowo.',
+                reward_exercises: 'Ćwiczenia', reward_sets: 'Serie', reward_volume: 'Objętość',
+                share_max_weight: 'Największy ciężar w treningu', share_volume: 'Objętość', share_volume_none: 'Objętość · brak danych (ciężar × powtórzenia)',
+                share_exercises: 'Ćwiczenia', share_sets_done: 'Serie ukończone', share_top_ex: 'TOP ĆWICZENIA (największy ciężar)', share_no_weight: 'Brak zapisanego ciężaru (uzupełnij ciężar serii).', share_footer: 'GYMCUT · Twój trening, Twój rytm', share_pr: 'PR w sesji', share_title_fallback: 'Trening GymCut',
+                whatsnew_default_title: 'Co nowego',
+                wn_110_title: 'Nowości w wersji 1.1', wn_110_sub: 'GymCut rośnie razem z Twoimi ciężarami. Oto co nowego:',
+                wn_110_1: 'Eksport danych — twórz kopię zapasową treningów i planów jednym tapnięciem.',
+                wn_110_2: 'Nowa sekcja „Dane” w ustawieniach: eksport i import w jednym miejscu.',
+                wn_110_3: 'Wykresy progresu ćwiczeń — tapnij ćwiczenie w Rekordach osobistych.',
+                wn_110_4: 'Aplikacja działa teraz w pełni offline — nawet bez zasięgu na siłowni.',
+                wn_110_5: 'Wybór języka aplikacji: polski, angielski i hiszpański.',
+                wn_100_title: 'Witaj w GymCut!', wn_100_sub: 'Twój trening, Twój rytm. Oto co możesz robić w aplikacji:',
+                wn_100_1: 'Twórz plany treningowe i prowadź sesje krok po kroku.',
+                wn_100_2: 'Pływający timer odpoczynku z dźwiękami po każdej serii.',
+                wn_100_3: 'Historia treningów oraz podsumowania miesiąca i roku.',
+                wn_100_4: 'Szybki trening – jedno tapnięcie i zaczynasz ćwiczyć.',
+                wn_100_5: 'Jasny i ciemny motyw oraz dźwięki interfejsu.',
+                wn_100_6: 'Importowanie danych z plików JSON i CSV.'
+            },
+            en: {
+                _locale: 'en-US',
+                _name: 'English',
+                monthsLong: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+                monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                daysShort: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                bodyParts: { 'Core': 'Core', 'Barki': 'Shoulders', 'Klatka': 'Chest', 'Plecy': 'Back', 'Ramiona': 'Arms', 'Nogi': 'Legs', 'Pośladki': 'Glutes' },
+                comparisons: ['adult labrador', 'motorcycle', 'horse', 'car', 'African elephant', 'city bus', 'blue whale', 'Saturn V rocket'],
+                comparisonsPlural: ['labradors', 'motorcycles', 'horses', 'cars', 'African elephants', 'city buses', 'blue whales', 'Saturn V rockets'],
+
+                nav_plans: 'Plans', nav_history: 'History', nav_stats: 'Stats',
+                header_subtitle: 'Your workout, your rhythm',
+                pr_title: 'Personal records', appearance_title: 'Appearance',
+                appearance_aria_dark: 'Appearance, dark mode active', appearance_aria_light: 'Appearance, light mode active',
+                plans_heading: 'Workout plans',
+                plans_desc: 'Build your own workouts and log sets, reps and notes.',
+                tpl_all: 'All', tpl_quick: 'Quick', tpl_quick_aria: 'Quick workout',
+                history_heading: 'Workout history',
+                stats_heading: 'Stats',
+                stats_desc: 'Track your activity month by month and stay consistent.',
+                stats_month_count: 'Workouts this month', stats_total_saved: 'Total saved',
+                stats_active_plans: 'Active plans', stats_top_split: 'Top split',
+                stats_last6: 'Last 6 months', stats_no_data: 'No data',
+                focus_minimize_title: 'Leave workout for later', focus_minimize_aria: 'Minimize workout',
+                focus_progression_title: 'Mark progression for next workout',
+                focus_end: 'Finish', focus_prev: 'Previous', focus_next: 'Next', focus_add_set: 'Add set',
+                exercise_fallback: 'Exercise',
+                resume_aria: 'Back to workout', resume_title: 'Workout in progress', resume_back: 'Back to workout',
+                sheet_plan_title: 'Plan', act_edit_plan: 'Edit plan', act_rename: 'Rename', act_delete_plan: 'Delete plan', cancel: 'Cancel',
+                sheet_workout_title: 'Workout', act_details: 'Details', act_share: 'Share workout', act_edit_workout: 'Edit workout', act_delete_workout: 'Delete workout',
+                appearance_sheet_title: 'Appearance', act_change_theme: 'Change theme', act_feedback: 'Help & feature requests', act_kofi: 'Support on Ko-fi', act_data: 'Data', act_language: 'Language', version_label: 'Version',
+                ui_sounds_on: 'Interface sounds: on', ui_sounds_off: 'Interface sounds: off',
+                theme_to_light: 'Switch to light mode', theme_to_dark: 'Switch to dark mode',
+                theme_text_dark: 'Dark mode', theme_text_light: 'Light mode',
+                data_sheet_title: 'Data', data_export: 'Export data (JSON)',
+                data_export_hint: 'Backup: workout history and plans in a single file.',
+                data_import: 'Import data',
+                data_import_hint: 'JSON: GymCut backup, workout history or workout plans (<code>trainingPlans</code>). CSV: entries for workout history.',
+                data_saved_info: 'Saved: {workouts} and {plans}.',
+                quick_sheet_title: 'Quick workout', quick_add_label: 'Add exercise', quick_ex_ph: 'Exercise name...', quick_add_start: 'Add and start',
+                edit_workout_title: 'Edit workout', save: 'Save',
+                reward_title: 'Workout complete', reward_done: 'Done', resume_subtitle: 'Back to your workout',
+                whatsnew_gotit: 'Got it',
+                language_sheet_title: 'Language',
+                back: 'Back', plan_editor_title: 'Edit plan',
+                form_ex_name: 'Exercise name', form_ex_name_ph: 'e.g. Barbell bench press',
+                form_sets: 'Number of sets', form_reps: 'Reps (per set)',
+                form_notes: 'Notes (optional)', form_notes_ph: 'Add notes...',
+                form_add_update: 'Add / Update', form_add_to_plan: 'Add exercise to plan', form_update_ex: 'Update exercise',
+                plan_ex_details: 'Sets: {sets} | Reps: {reps}', delete: 'Delete',
+                plan_start: 'Start', plan_start_title: 'Start a workout from this plan',
+                more_options: 'More options', more_options_plan: 'More plan options', more_options_workout: 'More workout options',
+                quick_workout_name: 'Quick workout',
+                empty_plans_title: 'Add your first plan', empty_plans_msg: 'Start by writing down exercises, sets and reps for your split.',
+                empty_plan_ex: 'No exercises.', empty_plan_title: 'Empty plan', empty_plan_msg: 'Add your first exercise using the form.',
+                empty_history_title: 'No workout history', empty_history_msg: 'Finish your first workout to see it here.',
+                no_name: 'No name', no_ex_details: 'No exercise details.',
+                progression_badge: 'Progression',
+                new_plan_title: 'New workout plan', new_plan_label: 'New plan name', new_plan_ph: 'e.g. My Push Workout', create: 'Create',
+                rename_plan_title: 'Rename plan', rename_plan_label: 'New plan name', rename_plan_ph: 'e.g. Push Day A',
+                add_ex_title: 'Add exercise', add_ex_name_label: 'Exercise name', add_ex_name_ph: 'e.g. Biceps curl', add_ex_sets_label: 'Number of sets', add_ex_reps_label: 'Number of reps', add_ex_to_workout: 'Add to workout',
+                edit_ex_helper: 'Edit exercises and sets in a handy mobile layout. Use the +/- buttons to change values faster.',
+                add_exercise: 'Add exercise', editor_no_ex: 'No exercises. Add the first one.',
+                ex_name_ph_short: 'Exercise name', weight_kg: 'Weight (kg)', reps_label: 'Reps', set_done: 'Done',
+                set_warmup: 'Warm-up (W)', set_drop: 'Drop set (D)', set_failure: 'To failure (F)', set_n: 'Set {n}',
+                stepper_reps: 'reps',
+                pr_badge_full: '🏆 PR!', pr_badge_weight: '🏆 Max weight!', pr_badge_reps: '🏆 Max reps!',
+                prog_banner_armed: 'Progression set for next workout. Finish today with clean technique 💪',
+                prog_banner_ready: 'Time to progress! Last time went smoothly. Let\'s raise the bar?',
+                details_plan: 'Plan', details_title: 'Workout on {date}', set_word: 'Set',
+                history_compact: '{ex} ex. • {sets} sets done', sets_ratio: '{c}/{s} sets',
+                workout_details_plan_label: 'Plan',
+                review_lifted: 'You lifted', review_equals: 'that equals', review_bodyparts: 'Body part usage',
+                review_good_job: 'Great job! 💪', review_start: 'Time to start!',
+                review_year_in: 'Workouts in {year}', review_month_great: 'What a month! 🔥', review_year_great: 'What a year! 🔥',
+                review_workouts_label: 'workouts', review_kg_lifted: 'kg lifted', review_sets_label: 'sets', review_days_label: 'training days',
+                review_summary_of: 'Summary: {label}', review_stats_of: 'Here are your stats for {label}', review_year_review: '{year} GymCut in Review', review_year_subtitle: 'Here is your yearly summary',
+                review_calendar: 'Workout calendar', review_year_summary_header: 'Year in review', review_year_label: 'Year {year}',
+                amazing_result: 'an amazing result!',
+                pr_records_title: 'Personal records', pr_records_all: 'Personal records (all workouts)', pr_empty: 'No records saved.',
+                pr_chart_hint: 'Tap an exercise to see its progress chart.',
+                pr_max_weight: 'Max weight', pr_max_reps: 'Max reps', pr_reps_short: 'reps',
+                pr_chart_too_little: 'Not enough data for a chart — you need at least 2 workouts with this exercise.',
+                pr_chart_max_weight: 'Max weight', pr_chart_est1rm: 'Est. 1RM',
+                toast_export_ok: 'Data exported to a JSON file.', toast_export_fail: 'Couldn\'t export data.',
+                toast_backup_all_present: 'All data from this backup is already in the app.',
+                toast_import_none: 'No plans or workouts found to import in this file.',
+                toast_import_workouts_none: 'No workouts found to import in this file.',
+                toast_unsupported_file: 'Unsupported file format. Use .json or .csv.',
+                toast_import_fail: 'Couldn\'t import data. Check the file format.',
+                import_both_done: 'Imported {plans} and {workouts} into history.',
+                import_plans_done: 'Imported {plans}.', import_workouts_file: 'Imported {workouts} from the file.',
+                toast_plan_name_required: 'Enter a plan name!', toast_plan_not_found: 'Plan not found.',
+                toast_plan_renamed: 'Plan renamed.', toast_plan_name_missing: 'Error: missing plan name.',
+                toast_select_plan_first: 'Select a plan first!', toast_ex_name_required: 'Enter an exercise name!', toast_ex_name_required2: 'Enter an exercise name',
+                toast_no_ex_to_save: 'No exercises to save!', toast_workout_saved: 'Workout saved!',
+                toast_rest_over: 'Rest time is over!', toast_workout_not_found_edit: 'Workout to edit not found.', toast_workout_updated: 'Workout updated.',
+                toast_share_done: 'Done!', toast_share_saved_img: 'Image downloaded — add it on Instagram as a post or story.', toast_share_fail: 'Couldn\'t prepare the image.',
+                toast_plan_created: 'Plan {name} created!', toast_no_ex_in_workout: 'No exercises in the workout', toast_ex_added: 'Exercise added: {name}',
+                toast_new_pr_prefix: 'New record! ', pr_weight_and_reps: 'Max weight ({weight} kg) and reps ({reps})!', pr_weight_only: 'Max weight: {weight} kg', pr_reps_only: 'Max reps: {reps}',
+                toast_progress_saved: 'Saved. Try to add some progress next workout 📈', toast_progress_off: 'Progression off',
+                streak_in_a_row: '{weeks} in a row', streak_aria: 'Weekly streak: {label}',
+                reward_hook_1: 'Wow! Today you did <strong>{vol}</strong> of volume — that\'s like {cmp} {emoji}',
+                reward_hook_2: 'Good job. <strong>{vol}</strong> in your legs/arms and your head. {emoji} ({cmp})',
+                reward_hook_3: 'If muscles had a counter, you just racked up <strong>{vol}</strong>. {emoji} {cmp}',
+                reward_hook_4: 'Today you moved <strong>{vol}</strong> of volume — solid. {emoji} ({cmp})',
+                reward_hook_5: 'You\'ve got it. <strong>{vol}</strong> — and tomorrow you can add a little. {emoji} {cmp}',
+                reward_final_pr: 'New records set. Tomorrow just mind your recovery and keep going.',
+                reward_final_nopr: 'No PR? No worries. Consistency is the turbo that builds long-term results.',
+                reward_exercises: 'Exercises', reward_sets: 'Sets', reward_volume: 'Volume',
+                share_max_weight: 'Heaviest weight in the workout', share_volume: 'Volume', share_volume_none: 'Volume · no data (weight × reps)',
+                share_exercises: 'Exercises', share_sets_done: 'Sets completed', share_top_ex: 'TOP EXERCISES (heaviest weight)', share_no_weight: 'No weight saved (add set weights).', share_footer: 'GYMCUT · Your workout, your rhythm', share_pr: 'Session PRs', share_title_fallback: 'GymCut workout',
+                whatsnew_default_title: 'What\'s new',
+                wn_110_title: 'What\'s new in 1.1', wn_110_sub: 'GymCut grows with your lifts. Here\'s what\'s new:',
+                wn_110_1: 'Data export — back up your workouts and plans with a single tap.',
+                wn_110_2: 'New “Data” section in settings: export and import in one place.',
+                wn_110_3: 'Exercise progress charts — tap an exercise in Personal Records.',
+                wn_110_4: 'The app now works fully offline — even with no signal at the gym.',
+                wn_110_5: 'App language selection: Polish, English and Spanish.',
+                wn_100_title: 'Welcome to GymCut!', wn_100_sub: 'Your workout, your rhythm. Here\'s what you can do:',
+                wn_100_1: 'Create workout plans and run sessions step by step.',
+                wn_100_2: 'Floating rest timer with sounds after each set.',
+                wn_100_3: 'Workout history plus monthly and yearly summaries.',
+                wn_100_4: 'Quick workout – one tap and you\'re training.',
+                wn_100_5: 'Light and dark theme plus interface sounds.',
+                wn_100_6: 'Import data from JSON and CSV files.'
+            },
+            es: {
+                _locale: 'es-ES',
+                _name: 'Español',
+                monthsLong: ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
+                monthsShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+                daysShort: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
+                bodyParts: { 'Core': 'Core', 'Barki': 'Hombros', 'Klatka': 'Pecho', 'Plecy': 'Espalda', 'Ramiona': 'Brazos', 'Nogi': 'Piernas', 'Pośladki': 'Glúteos' },
+                comparisons: ['labrador adulto', 'motocicleta', 'caballo', 'coche', 'elefante africano', 'autobús urbano', 'ballena azul', 'cohete Saturn V'],
+                comparisonsPlural: ['labradores', 'motocicletas', 'caballos', 'coches', 'elefantes africanos', 'autobuses urbanos', 'ballenas azules', 'cohetes Saturn V'],
+
+                nav_plans: 'Planes', nav_history: 'Historial', nav_stats: 'Estadísticas',
+                header_subtitle: 'Tu entreno, tu ritmo',
+                pr_title: 'Récords personales', appearance_title: 'Apariencia',
+                appearance_aria_dark: 'Apariencia, modo oscuro activo', appearance_aria_light: 'Apariencia, modo claro activo',
+                plans_heading: 'Planes de entreno',
+                plans_desc: 'Crea tus propios entrenos y registra series, repeticiones y notas.',
+                tpl_all: 'Todos', tpl_quick: 'Rápido', tpl_quick_aria: 'Entreno rápido',
+                history_heading: 'Historial de entrenos',
+                stats_heading: 'Estadísticas',
+                stats_desc: 'Sigue tu actividad mes a mes y mantén la constancia.',
+                stats_month_count: 'Entrenos este mes', stats_total_saved: 'Total guardados',
+                stats_active_plans: 'Planes activos', stats_top_split: 'Split más frecuente',
+                stats_last6: 'Últimos 6 meses', stats_no_data: 'Sin datos',
+                focus_minimize_title: 'Dejar el entreno para luego', focus_minimize_aria: 'Minimizar entreno',
+                focus_progression_title: 'Marcar progresión para el próximo entreno',
+                focus_end: 'Terminar', focus_prev: 'Anterior', focus_next: 'Siguiente', focus_add_set: 'Añadir serie',
+                exercise_fallback: 'Ejercicio',
+                resume_aria: 'Volver al entreno', resume_title: 'Entreno en curso', resume_back: 'Volver al entreno',
+                sheet_plan_title: 'Plan', act_edit_plan: 'Editar plan', act_rename: 'Renombrar', act_delete_plan: 'Eliminar plan', cancel: 'Cancelar',
+                sheet_workout_title: 'Entreno', act_details: 'Detalles', act_share: 'Compartir entreno', act_edit_workout: 'Editar entreno', act_delete_workout: 'Eliminar entreno',
+                appearance_sheet_title: 'Apariencia', act_change_theme: 'Cambiar tema', act_feedback: 'Ayuda y sugerencias', act_kofi: 'Apóyanos en Ko-fi', act_data: 'Datos', act_language: 'Idioma', version_label: 'Versión',
+                ui_sounds_on: 'Sonidos de interfaz: activados', ui_sounds_off: 'Sonidos de interfaz: desactivados',
+                theme_to_light: 'Activar modo claro', theme_to_dark: 'Activar modo oscuro',
+                theme_text_dark: 'Modo oscuro', theme_text_light: 'Modo claro',
+                data_sheet_title: 'Datos', data_export: 'Exportar datos (JSON)',
+                data_export_hint: 'Copia de seguridad: historial y planes de entreno en un solo archivo.',
+                data_import: 'Importar datos',
+                data_import_hint: 'JSON: copia de GymCut, historial o planes de entreno (<code>trainingPlans</code>). CSV: entradas para el historial.',
+                data_saved_info: 'Guardado: {workouts} y {plans}.',
+                quick_sheet_title: 'Entreno rápido', quick_add_label: 'Añadir ejercicio', quick_ex_ph: 'Nombre del ejercicio...', quick_add_start: 'Añadir y empezar',
+                edit_workout_title: 'Editar entreno', save: 'Guardar',
+                reward_title: 'Entreno completado', reward_done: 'Listo', resume_subtitle: 'Vuelve a tu entreno',
+                whatsnew_gotit: 'Entendido',
+                language_sheet_title: 'Idioma',
+                back: 'Atrás', plan_editor_title: 'Editar plan',
+                form_ex_name: 'Nombre del ejercicio', form_ex_name_ph: 'p. ej. Press de banca',
+                form_sets: 'Número de series', form_reps: 'Repeticiones (por serie)',
+                form_notes: 'Notas (opcional)', form_notes_ph: 'Añade notas...',
+                form_add_update: 'Añadir / Actualizar', form_add_to_plan: 'Añadir ejercicio al plan', form_update_ex: 'Actualizar ejercicio',
+                plan_ex_details: 'Series: {sets} | Reps: {reps}', delete: 'Eliminar',
+                plan_start: 'Empezar', plan_start_title: 'Empezar un entreno con este plan',
+                more_options: 'Más opciones', more_options_plan: 'Más opciones del plan', more_options_workout: 'Más opciones del entreno',
+                quick_workout_name: 'Entreno rápido',
+                empty_plans_title: 'Añade tu primer plan', empty_plans_msg: 'Empieza anotando ejercicios, series y repeticiones de tu split.',
+                empty_plan_ex: 'Sin ejercicios.', empty_plan_title: 'Plan vacío', empty_plan_msg: 'Añade tu primer ejercicio con el formulario.',
+                empty_history_title: 'Sin historial de entrenos', empty_history_msg: 'Termina tu primer entreno para verlo aquí.',
+                no_name: 'Sin nombre', no_ex_details: 'Sin detalles de ejercicios.',
+                progression_badge: 'Progresión',
+                new_plan_title: 'Nuevo plan de entreno', new_plan_label: 'Nombre del nuevo plan', new_plan_ph: 'p. ej. Mi entreno Push', create: 'Crear',
+                rename_plan_title: 'Renombrar plan', rename_plan_label: 'Nuevo nombre del plan', rename_plan_ph: 'p. ej. Push Day A',
+                add_ex_title: 'Añadir ejercicio', add_ex_name_label: 'Nombre del ejercicio', add_ex_name_ph: 'p. ej. Curl de bíceps', add_ex_sets_label: 'Número de series', add_ex_reps_label: 'Número de repeticiones', add_ex_to_workout: 'Añadir al entreno',
+                edit_ex_helper: 'Edita ejercicios y series en un diseño móvil cómodo. Usa los botones +/- para cambiar valores más rápido.',
+                add_exercise: 'Añadir ejercicio', editor_no_ex: 'Sin ejercicios. Añade el primero.',
+                ex_name_ph_short: 'Nombre del ejercicio', weight_kg: 'Peso (kg)', reps_label: 'Repeticiones', set_done: 'Hecha',
+                set_warmup: 'Calentamiento (W)', set_drop: 'Drop set (D)', set_failure: 'Al fallo (F)', set_n: 'Serie {n}',
+                stepper_reps: 'reps',
+                pr_badge_full: '🏆 ¡PR!', pr_badge_weight: '🏆 ¡Peso máx!', pr_badge_reps: '🏆 ¡Reps máx!',
+                prog_banner_armed: 'Progresión marcada para el próximo entreno. Hoy termina con buena técnica 💪',
+                prog_banner_ready: '¡Hora de progresar! La última vez fue fluido. ¿Subimos el listón?',
+                details_plan: 'Plan', details_title: 'Entreno del {date}', set_word: 'Serie',
+                history_compact: '{ex} ejer. • {sets} series hechas', sets_ratio: '{c}/{s} series',
+                workout_details_plan_label: 'Plan',
+                review_lifted: 'Levantaste', review_equals: 'que equivale a', review_bodyparts: 'Uso por grupo muscular',
+                review_good_job: '¡Buen trabajo! 💪', review_start: '¡Hora de empezar!',
+                review_year_in: 'Entrenos en {year}', review_month_great: '¡Qué mes! 🔥', review_year_great: '¡Qué año! 🔥',
+                review_workouts_label: 'entrenos', review_kg_lifted: 'kg levantados', review_sets_label: 'series', review_days_label: 'días de entreno',
+                review_summary_of: 'Resumen: {label}', review_stats_of: 'Estas son tus estadísticas de {label}', review_year_review: '{year} GymCut en Resumen', review_year_subtitle: 'Aquí tienes tu resumen anual',
+                review_calendar: 'Calendario de entrenos', review_year_summary_header: 'Resumen del año', review_year_label: 'Año {year}',
+                amazing_result: '¡un resultado increíble!',
+                pr_records_title: 'Récords personales', pr_records_all: 'Récords personales (todos los entrenos)', pr_empty: 'No hay récords guardados.',
+                pr_chart_hint: 'Toca un ejercicio para ver su gráfico de progreso.',
+                pr_max_weight: 'Peso máximo', pr_max_reps: 'Repeticiones máximas', pr_reps_short: 'reps',
+                pr_chart_too_little: 'No hay datos suficientes para el gráfico — necesitas al menos 2 entrenos con este ejercicio.',
+                pr_chart_max_weight: 'Peso máx', pr_chart_est1rm: '1RM est.',
+                toast_export_ok: 'Datos exportados a un archivo JSON.', toast_export_fail: 'No se pudieron exportar los datos.',
+                toast_backup_all_present: 'Todos los datos de esta copia ya están en la app.',
+                toast_import_none: 'No se encontraron planes ni entrenos para importar en este archivo.',
+                toast_import_workouts_none: 'No se encontraron entrenos para importar en este archivo.',
+                toast_unsupported_file: 'Formato de archivo no soportado. Usa .json o .csv.',
+                toast_import_fail: 'No se pudieron importar los datos. Revisa el formato del archivo.',
+                import_both_done: 'Se importó {plans} y {workouts} al historial.',
+                import_plans_done: 'Se importó {plans}.', import_workouts_file: 'Se importó {workouts} del archivo.',
+                toast_plan_name_required: '¡Introduce un nombre de plan!', toast_plan_not_found: 'Plan no encontrado.',
+                toast_plan_renamed: 'Plan renombrado.', toast_plan_name_missing: 'Error: falta el nombre del plan.',
+                toast_select_plan_first: '¡Selecciona un plan primero!', toast_ex_name_required: '¡Introduce el nombre del ejercicio!', toast_ex_name_required2: 'Introduce el nombre del ejercicio',
+                toast_no_ex_to_save: '¡No hay ejercicios para guardar!', toast_workout_saved: '¡Entreno guardado!',
+                toast_rest_over: '¡Se acabó el descanso!', toast_workout_not_found_edit: 'No se encontró el entreno para editar.', toast_workout_updated: 'Entreno actualizado.',
+                toast_share_done: '¡Listo!', toast_share_saved_img: 'Imagen descargada — añádela en Instagram como publicación o historia.', toast_share_fail: 'No se pudo preparar la imagen.',
+                toast_plan_created: '¡Plan {name} creado!', toast_no_ex_in_workout: 'No hay ejercicios en el entreno', toast_ex_added: 'Ejercicio añadido: {name}',
+                toast_new_pr_prefix: '¡Nuevo récord! ', pr_weight_and_reps: '¡Peso máx ({weight} kg) y reps ({reps})!', pr_weight_only: 'Peso máximo: {weight} kg', pr_reps_only: 'Repeticiones máximas: {reps}',
+                toast_progress_saved: 'Guardado. Intenta progresar un poco en el próximo entreno 📈', toast_progress_off: 'Progresión desactivada',
+                streak_in_a_row: '{weeks} seguidas', streak_aria: 'Racha semanal: {label}',
+                reward_hook_1: '¡Guau! Hoy hiciste <strong>{vol}</strong> de volumen — es como {cmp} {emoji}',
+                reward_hook_2: 'Buen trabajo. <strong>{vol}</strong> en piernas/brazos y cabeza. {emoji} ({cmp})',
+                reward_hook_3: 'Si los músculos tuvieran contador, acabas de marcar <strong>{vol}</strong>. {emoji} {cmp}',
+                reward_hook_4: 'Hoy moviste <strong>{vol}</strong> de volumen — sólido. {emoji} ({cmp})',
+                reward_hook_5: 'Lo tienes. <strong>{vol}</strong> — y mañana puedes añadir un poco. {emoji} {cmp}',
+                reward_final_pr: 'Nuevos récords marcados. Mañana cuida la recuperación y seguimos.',
+                reward_final_nopr: '¿Sin PR? Tranqui. La constancia es el turbo que da resultados a largo plazo.',
+                reward_exercises: 'Ejercicios', reward_sets: 'Series', reward_volume: 'Volumen',
+                share_max_weight: 'Mayor peso del entreno', share_volume: 'Volumen', share_volume_none: 'Volumen · sin datos (peso × reps)',
+                share_exercises: 'Ejercicios', share_sets_done: 'Series completadas', share_top_ex: 'TOP EJERCICIOS (mayor peso)', share_no_weight: 'Sin peso guardado (añade el peso de las series).', share_footer: 'GYMCUT · Tu entreno, tu ritmo', share_pr: 'PR de la sesión', share_title_fallback: 'Entreno GymCut',
+                whatsnew_default_title: 'Novedades',
+                wn_110_title: 'Novedades de la versión 1.1', wn_110_sub: 'GymCut crece con tus levantamientos. Esto es lo nuevo:',
+                wn_110_1: 'Exportación de datos: haz una copia de tus entrenos y planes con un toque.',
+                wn_110_2: 'Nueva sección «Datos» en ajustes: exportar e importar en un solo lugar.',
+                wn_110_3: 'Gráficas de progreso por ejercicio: toca un ejercicio en Récords personales.',
+                wn_110_4: 'La app ahora funciona sin conexión, incluso sin señal en el gimnasio.',
+                wn_110_5: 'Selección de idioma: polaco, inglés y español.',
+                wn_100_title: '¡Bienvenido a GymCut!', wn_100_sub: 'Tu entreno, tu ritmo. Esto es lo que puedes hacer:',
+                wn_100_1: 'Crea planes de entrenamiento y haz sesiones paso a paso.',
+                wn_100_2: 'Temporizador de descanso flotante con sonidos tras cada serie.',
+                wn_100_3: 'Historial de entrenos y resúmenes mensuales y anuales.',
+                wn_100_4: 'Entreno rápido: un toque y a entrenar.',
+                wn_100_5: 'Tema claro y oscuro y sonidos de interfaz.',
+                wn_100_6: 'Importa datos desde archivos JSON y CSV.'
+            }
+        };
+
+        const I18N_PLURALS = {
+            pl: {
+                workouts: { one: '{n} trening', few: '{n} treningi', many: '{n} treningów' },
+                plans: { one: '{n} plan treningowy', few: '{n} plany treningowe', many: '{n} planów treningowych' },
+                exercises: { one: '{n} ćwiczenie', few: '{n} ćwiczenia', many: '{n} ćwiczeń' },
+                sets: { one: '{n} seria', few: '{n} serie', many: '{n} serii' },
+                weeks: { one: '{n} tydzień', few: '{n} tygodnie', many: '{n} tygodni' },
+                sets_select: { one: '{n} seria', few: '{n} serie', many: '{n} serii' }
+            },
+            en: {
+                workouts: { one: '{n} workout', other: '{n} workouts' },
+                plans: { one: '{n} workout plan', other: '{n} workout plans' },
+                exercises: { one: '{n} exercise', other: '{n} exercises' },
+                sets: { one: '{n} set', other: '{n} sets' },
+                weeks: { one: '{n} week', other: '{n} weeks' },
+                sets_select: { one: '{n} set', other: '{n} sets' }
+            },
+            es: {
+                workouts: { one: '{n} entreno', other: '{n} entrenos' },
+                plans: { one: '{n} plan de entreno', other: '{n} planes de entreno' },
+                exercises: { one: '{n} ejercicio', other: '{n} ejercicios' },
+                sets: { one: '{n} serie', other: '{n} series' },
+                weeks: { one: '{n} semana', other: '{n} semanas' },
+                sets_select: { one: '{n} serie', other: '{n} series' }
+            }
+        };
+
+        function detectInitialLang() {
+            const saved = loadData('lang');
+            if (saved && I18N[saved]) return saved;
+            const n = (navigator.language || 'pl').slice(0, 2).toLowerCase();
+            if (I18N[n]) return n;
+            return 'pl';
+        }
+
+        let currentLang = detectInitialLang();
+
+        function t(key, vars) {
+            const dict = I18N[currentLang] || I18N.pl;
+            let s = (dict[key] != null) ? dict[key] : (I18N.pl[key] != null ? I18N.pl[key] : key);
+            if (vars) {
+                Object.keys(vars).forEach((k) => { s = s.split('{' + k + '}').join(vars[k]); });
+            }
+            return s;
+        }
+
+        function pluralCat(n) {
+            n = Math.abs(Number(n) || 0);
+            if (currentLang === 'pl') {
+                const m10 = n % 10, m100 = n % 100;
+                if (n === 1) return 'one';
+                if (m10 >= 2 && m10 <= 4 && !(m100 >= 12 && m100 <= 14)) return 'few';
+                return 'many';
+            }
+            return n === 1 ? 'one' : 'other';
+        }
+
+        function tCount(noun, n) {
+            const table = I18N_PLURALS[currentLang] || I18N_PLURALS.pl;
+            const forms = table[noun] || (I18N_PLURALS.pl[noun] || {});
+            const cat = pluralCat(n);
+            const tpl = forms[cat] || forms.other || forms.many || forms.one || '{n}';
+            return tpl.split('{n}').join(n);
+        }
+
+        function currentLocale() { return (I18N[currentLang] || I18N.pl)._locale; }
+        function monthLong(i) { return (I18N[currentLang] || I18N.pl).monthsLong[i]; }
+        function monthShort(i) { return (I18N[currentLang] || I18N.pl).monthsShort[i]; }
+        function dayShortLabels() { return (I18N[currentLang] || I18N.pl).daysShort; }
+        function localizeBodyPart(key) {
+            const bp = (I18N[currentLang] || I18N.pl).bodyParts;
+            return (bp && bp[key]) ? bp[key] : key;
+        }
+
+        function applyStaticTranslations(root) {
+            root = root || document;
+            root.querySelectorAll('[data-i18n]').forEach((el) => {
+                const txt = t(el.getAttribute('data-i18n'));
+                const icon = el.querySelector(':scope > i');
+                if (icon) {
+                    el.innerHTML = icon.outerHTML + ' ' + escapeHtml(txt);
+                } else {
+                    el.textContent = txt;
+                }
+            });
+            root.querySelectorAll('[data-i18n-html]').forEach((el) => { el.innerHTML = t(el.getAttribute('data-i18n-html')); });
+            root.querySelectorAll('[data-i18n-ph]').forEach((el) => { el.setAttribute('placeholder', t(el.getAttribute('data-i18n-ph'))); });
+            root.querySelectorAll('[data-i18n-title]').forEach((el) => { el.setAttribute('title', t(el.getAttribute('data-i18n-title'))); });
+            root.querySelectorAll('[data-i18n-aria]').forEach((el) => { el.setAttribute('aria-label', t(el.getAttribute('data-i18n-aria'))); });
+            applyChromeTranslations();
+        }
+
+        // Elementy z nietypowym układem (ikona po tekście, opcje selecta, dynamiczne etykiety).
+        function applyChromeTranslations() {
+            const next = document.getElementById('focus-nav-next');
+            if (next) next.innerHTML = `${escapeHtml(t('focus_next'))} <i class="fas fa-chevron-right"></i>`;
+            const prev = document.getElementById('focus-nav-prev');
+            if (prev) prev.innerHTML = `<i class="fas fa-chevron-left"></i> ${escapeHtml(t('focus_prev'))}`;
+            const setsSelect = document.getElementById('exercise-sets');
+            if (setsSelect) {
+                Array.from(setsSelect.options).forEach((opt) => {
+                    const v = parseInt(opt.value, 10);
+                    if (!isNaN(v)) opt.textContent = (I18N_PLURALS[currentLang] || I18N_PLURALS.pl).sets_select[pluralCat(v)].split('{n}').join(v);
+                });
+            }
+            try {
+                if (typeof updateThemeButton === 'function') updateThemeButton(document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark');
+                if (typeof updateSoundButton === 'function') updateSoundButton();
+                if (typeof syncThemeSheetUiSoundsLabel === 'function') syncThemeSheetUiSoundsLabel();
+                if (typeof syncThemeSheetToggleButton === 'function') syncThemeSheetToggleButton();
+            } catch (e) { }
+        }
+
+        function setLanguage(lang) {
+            if (!I18N[lang]) return;
+            currentLang = lang;
+            saveData('lang', lang);
+            try { document.documentElement.setAttribute('lang', lang); } catch (e) { }
+            applyStaticTranslations();
+            try {
+                const verEl = document.getElementById('theme-sheet-version-value');
+                if (verEl) verEl.textContent = APP_VERSION;
+                renderTrainingPlans();
+                renderWorkoutHistory();
+                updateStats();
+                updateStreakUI();
+                updateWorkoutResumeBar();
+                updateSelectArrowColor();
+                syncLanguageSheetSelection();
+                const focusHost = document.getElementById('workout-focus-host');
+                if (focusHost && focusHost.classList.contains('focus-mode-active')) {
+                    renderFocusExercise(currentFocusExerciseIndex);
+                }
+            } catch (e) { console.warn('setLanguage re-render error', e); }
+        }
+
+        function syncLanguageSheetSelection() {
+            document.querySelectorAll('#language-sheet .language-option').forEach((btn) => {
+                const isActive = btn.dataset.lang === currentLang;
+                btn.classList.toggle('is-active', isActive);
+                btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+            });
+        }
 
         // --- System powiadomień ---
         function showToast(message, type = 'info', duration = 3000) {
@@ -4773,7 +5341,7 @@
             planActionsSheetOpenedAt = Date.now();
             sheet.dataset.planId = planId;
             const titleEl = document.getElementById('plan-actions-sheet-title');
-            if (titleEl) titleEl.textContent = planName && planName.trim() ? planName.trim() : 'Plan';
+            if (titleEl) titleEl.textContent = planName && planName.trim() ? planName.trim() : t('sheet_plan_title');
             sheet.classList.remove('hidden');
             void sheet.offsetWidth;
             sheet.classList.add('is-open');
@@ -4826,7 +5394,7 @@
             historyActionsSheetOpenedAt = Date.now();
             sheet.dataset.workoutId = workoutId;
             const titleEl = document.getElementById('history-actions-sheet-title');
-            if (titleEl) titleEl.textContent = workoutLabel && workoutLabel.trim() ? workoutLabel.trim() : 'Trening';
+            if (titleEl) titleEl.textContent = workoutLabel && workoutLabel.trim() ? workoutLabel.trim() : t('sheet_workout_title');
             sheet.classList.remove('hidden');
             void sheet.offsetWidth;
             sheet.classList.add('is-open');
@@ -4850,7 +5418,7 @@
             historyActionsSheetLastTriggerAt = now;
             const workoutId = workoutItem.dataset.id;
             const titleEl = workoutItem.querySelector('.exercise-header h4');
-            const label = titleEl ? titleEl.textContent : 'Trening';
+            const label = titleEl ? titleEl.textContent : t('sheet_workout_title');
             openHistoryActionsSheet(workoutId, label);
             if (triggerBtn) triggerBtn.setAttribute('aria-expanded', 'true');
         }
@@ -4970,9 +5538,9 @@
             if (!btn) return;
             const cur = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
             if (cur === 'dark') {
-                btn.innerHTML = '<i class="fas fa-sun" aria-hidden="true"></i> Włącz tryb jasny';
+                btn.innerHTML = '<i class="fas fa-sun" aria-hidden="true"></i> ' + escapeHtml(t('theme_to_light'));
             } else {
-                btn.innerHTML = '<i class="fas fa-moon" aria-hidden="true"></i> Włącz tryb ciemny';
+                btn.innerHTML = '<i class="fas fa-moon" aria-hidden="true"></i> ' + escapeHtml(t('theme_to_dark'));
             }
         }
 
@@ -5054,6 +5622,11 @@
                     setTimeout(openDataSheet, 220);
                     return;
                 }
+                if (t.id === 'theme-sheet-language') {
+                    closeThemeSettingsSheet();
+                    setTimeout(openLanguageSheet, 220);
+                    return;
+                }
                 if (t.id === 'theme-sheet-version') {
                     closeThemeSettingsSheet();
                     setTimeout(() => showWhatsNew(APP_VERSION), 220);
@@ -5075,7 +5648,7 @@
             if (!infoEl) return;
             const workoutCount = Array.isArray(workoutHistory) ? workoutHistory.length : 0;
             const planCount = Array.isArray(trainingPlans) ? trainingPlans.length : 0;
-            infoEl.textContent = `Zapisane: ${formatImportedWorkoutsPhrase(workoutCount)} oraz ${formatImportedPlansPhrase(planCount)}.`;
+            infoEl.textContent = t('data_saved_info', { workouts: tCount('workouts', workoutCount), plans: tCount('plans', planCount) });
         }
 
         function openDataSheet() {
@@ -5141,6 +5714,66 @@
             });
         }
 
+        // --- ARKUSZ JĘZYKA ---
+        function openLanguageSheet() {
+            closePlanActionsSheet();
+            const sheet = document.getElementById('language-sheet');
+            if (!sheet) return;
+            languageSheetOpenedAt = Date.now();
+            syncLanguageSheetSelection();
+            sheet.classList.remove('hidden');
+            void sheet.offsetWidth;
+            sheet.classList.add('is-open');
+            document.body.classList.add('plan-sheet-open');
+            if (!window._languageSheetKeydown) {
+                window._languageSheetKeydown = (e) => {
+                    if (e.key === 'Escape') closeLanguageSheet();
+                };
+            }
+            document.addEventListener('keydown', window._languageSheetKeydown);
+        }
+
+        function closeLanguageSheet() {
+            const sheet = document.getElementById('language-sheet');
+            if (!sheet || sheet.classList.contains('hidden')) return;
+            sheet.classList.remove('is-open');
+            document.body.classList.remove('plan-sheet-open');
+            document.removeEventListener('keydown', window._languageSheetKeydown);
+            const panel = sheet.querySelector('.plan-actions-sheet-panel');
+            const finish = () => {
+                if (sheet.classList.contains('hidden')) return;
+                sheet.classList.add('hidden');
+                if (panel) panel.removeEventListener('transitionend', onTrans);
+            };
+            const onTrans = (e) => {
+                if (e.propertyName === 'transform' && e.target === panel) finish();
+            };
+            if (panel) panel.addEventListener('transitionend', onTrans);
+            setTimeout(finish, 400);
+        }
+
+        function initLanguageSheet() {
+            const sheet = document.getElementById('language-sheet');
+            if (!sheet) return;
+            sheet.addEventListener('click', (e) => {
+                if (e.target.closest('#language-sheet-backdrop')) {
+                    if (Date.now() - languageSheetOpenedAt < PLAN_SHEET_BACKDROP_SUPPRESS_MS) return;
+                    closeLanguageSheet();
+                    return;
+                }
+                const opt = e.target.closest('.language-option');
+                if (opt && opt.dataset.lang) {
+                    setLanguage(opt.dataset.lang);
+                    closeLanguageSheet();
+                    return;
+                }
+                const t = e.target.closest('button');
+                if (t && t.id === 'language-sheet-cancel') {
+                    closeLanguageSheet();
+                }
+            });
+        }
+
         function exportGymCutData() {
             try {
                 const payload = {
@@ -5161,10 +5794,10 @@
                 a.click();
                 a.remove();
                 setTimeout(() => URL.revokeObjectURL(url), 5000);
-                showToast('Wyeksportowano dane do pliku JSON.', 'success', 4000);
+                showToast(t('toast_export_ok'), 'success', 4000);
             } catch (e) {
                 console.error('Eksport nie powiódł się:', e);
-                showToast('Nie udało się wyeksportować danych.', 'warning', 4500);
+                showToast(t('toast_export_fail'), 'warning', 4500);
             }
         }
 
@@ -5425,15 +6058,11 @@
         }
 
         function formatImportedPlansPhrase(n) {
-            if (n === 1) return '1 plan treningowy';
-            if (n >= 2 && n <= 4) return `${n} plany treningowe`;
-            return `${n} planów treningowych`;
+            return tCount('plans', n);
         }
 
         function formatImportedWorkoutsPhrase(n) {
-            if (n === 1) return '1 trening';
-            if (n >= 2 && n <= 4) return `${n} treningi`;
-            return `${n} treningów`;
+            return tCount('workouts', n);
         }
 
         async function handleStrongHevyImportFile(event) {
@@ -5452,7 +6081,7 @@
                         planCount = restored.planCount;
                         workoutCount = restored.workoutCount;
                         if (planCount === 0 && workoutCount === 0) {
-                            showToast('Wszystkie dane z tej kopii zapasowej są już w aplikacji.', 'info', 4500);
+                            showToast(t('toast_backup_all_present'), 'info', 4500);
                             return;
                         }
                     } else {
@@ -5463,34 +6092,34 @@
                         closeDataSheet();
                         if (planCount > 0 && workoutCount > 0) {
                             showToast(
-                                `Zaimportowano ${formatImportedPlansPhrase(planCount)} oraz ${formatImportedWorkoutsPhrase(workoutCount)} do historii.`,
+                                t('import_both_done', { plans: tCount('plans', planCount), workouts: tCount('workouts', workoutCount) }),
                                 'success',
                                 4500
                             );
                         } else if (planCount > 0) {
-                            showToast(`Zaimportowano ${formatImportedPlansPhrase(planCount)}.`, 'success', 4500);
+                            showToast(t('import_plans_done', { plans: tCount('plans', planCount) }), 'success', 4500);
                         } else {
-                            showToast(`Zaimportowano ${workoutCount} treningów z pliku.`, 'success', 4500);
+                            showToast(t('import_workouts_file', { workouts: tCount('workouts', workoutCount) }), 'success', 4500);
                         }
                     } else {
-                        showToast('Nie znaleziono planów ani treningów do importu w tym pliku.', 'warning');
+                        showToast(t('toast_import_none'), 'warning');
                     }
                 } else if (lowerName.endsWith('.csv')) {
                     const imported = parseStrongHevyCsvPayload(text);
                     const mergedCount = mergeImportedWorkouts(imported);
                     if (mergedCount > 0) {
                         closeDataSheet();
-                        showToast(`Zaimportowano ${mergedCount} treningów z pliku.`, 'success', 4500);
+                        showToast(t('import_workouts_file', { workouts: tCount('workouts', mergedCount) }), 'success', 4500);
                     } else {
-                        showToast('Nie znaleziono treningów do importu w tym pliku.', 'warning');
+                        showToast(t('toast_import_workouts_none'), 'warning');
                     }
                 } else {
-                    showToast('Nieobsługiwany format pliku. Użyj .json lub .csv.', 'warning');
+                    showToast(t('toast_unsupported_file'), 'warning');
                     return;
                 }
             } catch (error) {
                 console.error('Import failed:', error);
-                showToast('Nie udało się zaimportować danych. Sprawdź format pliku.', 'warning', 4500);
+                showToast(t('toast_import_fail'), 'warning', 4500);
             } finally {
                 const input = document.getElementById('strong-hevy-import-input');
                 if (input) input.value = '';
@@ -5743,7 +6372,7 @@
             const doneBtn = document.getElementById('workout-reward-continue');
             if (!root || !titleEl || !mount || !shareBtn || !doneBtn) return;
 
-            titleEl.textContent = reward.title || 'Trening ukończony';
+            titleEl.textContent = reward.title || t('reward_title');
             mount.innerHTML = reward.bodyHtml || '';
 
             root.classList.remove('hidden', 'is-open');
@@ -5816,11 +6445,7 @@
         }
 
         function pluralizeWeeks(n) {
-            if (n === 1) return 'tydzień';
-            const mod10 = n % 10;
-            const mod100 = n % 100;
-            if (mod10 >= 2 && mod10 <= 4 && !(mod100 >= 12 && mod100 <= 14)) return 'tygodnie';
-            return 'tygodni';
+            return tCount('weeks', n);
         }
 
         function updateStreakUI() {
@@ -5838,10 +6463,10 @@
             }
 
             el.classList.remove('hidden');
-            const fullLabel = `${streak} ${pluralizeWeeks(streak)} z rzędu`;
+            const fullLabel = t('streak_in_a_row', { weeks: pluralizeWeeks(streak) });
             el.innerHTML = `<span class="streak-num">${streak}</span>🔥`;
             el.title = fullLabel;
-            el.setAttribute('aria-label', `Seria tygodniowa: ${fullLabel}`);
+            el.setAttribute('aria-label', t('streak_aria', { label: fullLabel }));
 
             const last = loadData('weeklyStreakLast');
             const lastNum = (typeof last === 'number') ? last : parseInt(last);
@@ -5878,25 +6503,26 @@
         const APP_VERSION = '1.1.0';
         const WHATS_NEW = {
             '1.1.0': {
-                title: 'Nowości w wersji 1.1',
-                subtitle: 'GymCut rośnie razem z Twoimi ciężarami. Oto co nowego:',
+                titleKey: 'wn_110_title',
+                subtitleKey: 'wn_110_sub',
                 items: [
-                    { icon: 'fa-file-export', text: 'Eksport danych — twórz kopię zapasową treningów i planów jednym tapnięciem.' },
-                    { icon: 'fa-database', text: 'Nowa sekcja „Dane” w ustawieniach: eksport i import w jednym miejscu.' },
-                    { icon: 'fa-chart-line', text: 'Wykresy progresu ćwiczeń — tapnij ćwiczenie w Rekordach osobistych.' },
-                    { icon: 'fa-plane', text: 'Aplikacja działa teraz w pełni offline — nawet bez zasięgu na siłowni.' }
+                    { icon: 'fa-file-export', key: 'wn_110_1' },
+                    { icon: 'fa-database', key: 'wn_110_2' },
+                    { icon: 'fa-chart-line', key: 'wn_110_3' },
+                    { icon: 'fa-plane', key: 'wn_110_4' },
+                    { icon: 'fa-language', key: 'wn_110_5' }
                 ]
             },
             '1.0.0': {
-                title: 'Witaj w GymCut!',
-                subtitle: 'Twój trening, Twój rytm. Oto co możesz robić w aplikacji:',
+                titleKey: 'wn_100_title',
+                subtitleKey: 'wn_100_sub',
                 items: [
-                    { icon: 'fa-dumbbell', text: 'Twórz plany treningowe i prowadź sesje krok po kroku.' },
-                    { icon: 'fa-stopwatch', text: 'Pływający timer odpoczynku z dźwiękami po każdej serii.' },
-                    { icon: 'fa-chart-line', text: 'Historia treningów oraz podsumowania miesiąca i roku.' },
-                    { icon: 'fa-bolt', text: 'Szybki trening – jedno tapnięcie i zaczynasz ćwiczyć.' },
-                    { icon: 'fa-palette', text: 'Jasny i ciemny motyw oraz dźwięki interfejsu.' },
-                    { icon: 'fa-file-import', text: 'Importowanie danych z plików JSON i CSV.' }
+                    { icon: 'fa-dumbbell', key: 'wn_100_1' },
+                    { icon: 'fa-stopwatch', key: 'wn_100_2' },
+                    { icon: 'fa-chart-line', key: 'wn_100_3' },
+                    { icon: 'fa-bolt', key: 'wn_100_4' },
+                    { icon: 'fa-palette', key: 'wn_100_5' },
+                    { icon: 'fa-file-import', key: 'wn_100_6' }
                 ]
             }
         };
@@ -5908,6 +6534,7 @@
         let planActionsSheetOpenedAt = 0;
         let themeSettingsSheetOpenedAt = 0;
         let dataSheetOpenedAt = 0;
+        let languageSheetOpenedAt = 0;
         let quickWorkoutSheetOpenedAt = 0;
         let historyEditSheetOpenedAt = 0;
         let expandedHistoryWorkoutIds = new Set();
@@ -5935,6 +6562,10 @@
                     console.warn('Rejestracja service workera nie powiodła się:', e);
                 });
             }
+
+            // Język interfejsu (PL/EN/ES) — zastosuj tłumaczenia statyczne przy starcie.
+            try { document.documentElement.setAttribute('lang', currentLang); } catch (e) { }
+            applyStaticTranslations();
 
             const savedTheme = loadData('theme') || 'dark';
             document.documentElement.setAttribute('data-theme', savedTheme);
@@ -6030,6 +6661,7 @@
             initHistoryActionsSheet();
             initThemeSettingsSheet();
             initDataSheet();
+            initLanguageSheet();
             initQuickWorkoutSheet();
             initHistoryEditSheet();
             initWhatsNew();
@@ -6247,8 +6879,8 @@
             if (!btn) return;
             btn.setAttribute('aria-pressed', uiSoundEnabled ? 'true' : 'false');
             const icon = uiSoundEnabled ? 'fa-volume-high' : 'fa-volume-xmark';
-            const txt = uiSoundEnabled ? 'włączone' : 'wyłączone';
-            btn.innerHTML = `<i class="fas ${icon}" aria-hidden="true"></i> <span id="theme-sheet-ui-sounds-label">Dźwięki interfejsu: ${txt}</span>`;
+            const txt = uiSoundEnabled ? t('ui_sounds_on') : t('ui_sounds_off');
+            btn.innerHTML = `<i class="fas ${icon}" aria-hidden="true"></i> <span id="theme-sheet-ui-sounds-label">${escapeHtml(txt)}</span>`;
         }
 
         function toggleUiSoundEnabled() {
@@ -6431,12 +7063,12 @@
             const themeText = document.querySelector('.theme-text');
             const themeIcon = document.querySelector('.theme-switcher i');
             const themeSwitcher = document.getElementById('theme-switcher');
-            if (themeText) themeText.textContent = theme === 'dark' ? 'Tryb jasny' : 'Tryb ciemny';
+            if (themeText) themeText.textContent = theme === 'dark' ? t('theme_text_light') : t('theme_text_dark');
             if (themeIcon) themeIcon.className = 'fas fa-cog';
             if (themeSwitcher) {
                 themeSwitcher.setAttribute('aria-label', theme === 'dark'
-                    ? 'Wygląd aplikacji, aktywny tryb ciemny'
-                    : 'Wygląd aplikacji, aktywny tryb jasny');
+                    ? t('appearance_aria_dark')
+                    : t('appearance_aria_light'));
             }
             updateSelectArrowColor();
         }
@@ -6445,7 +7077,7 @@
             const planList = document.getElementById('plan-list'); planList.innerHTML = '';
             if (!Array.isArray(trainingPlans)) trainingPlans = [];
             if (trainingPlans.length === 0) {
-                planList.appendChild(createEmptyState('fas fa-clipboard-list', 'Dodaj pierwszy plan', 'Zacznij od rozpisania ćwiczeń, serii i powtórzeń dla swojego splitu.')); return;
+                planList.appendChild(createEmptyState('fas fa-clipboard-list', t('empty_plans_title'), t('empty_plans_msg'))); return;
             }
             trainingPlans.forEach(plan => {
                 if (!plan || typeof plan !== 'object' || !plan.id || !plan.name || !Array.isArray(plan.exercises)) { console.error("Invalid plan structure:", plan); return; }
@@ -6477,8 +7109,8 @@
             const planActions = document.createElement('div');
             planActions.className = 'plan-actions plan-actions-bar';
             planActions.innerHTML = `
-                <button type="button" class="btn-success btn-start-plan plan-start-pill" title="Rozpocznij trening z tego planu" aria-label="Rozpocznij trening z tego planu"><i class="fas fa-play" aria-hidden="true"></i> Rozpocznij</button>
-                <button type="button" class="btn-plan-more" title="Więcej opcji" aria-label="Więcej opcji planu" aria-haspopup="dialog" aria-expanded="false"><i class="fas fa-ellipsis-vertical" aria-hidden="true"></i></button>
+                <button type="button" class="btn-success btn-start-plan plan-start-pill" title="${escapeHtml(t('plan_start_title'))}" aria-label="${escapeHtml(t('plan_start_title'))}"><i class="fas fa-play" aria-hidden="true"></i> ${escapeHtml(t('plan_start'))}</button>
+                <button type="button" class="btn-plan-more" title="${escapeHtml(t('more_options'))}" aria-label="${escapeHtml(t('more_options_plan'))}" aria-haspopup="dialog" aria-expanded="false"><i class="fas fa-ellipsis-vertical" aria-hidden="true"></i></button>
             `;
             planHeader.appendChild(planActions);
 
@@ -6489,11 +7121,11 @@
             if (plan.exercises.length > 0) {
                 planExercises.innerHTML = plan.exercises.map((exercise) => {
                     if (!exercise || typeof exercise !== 'object') return '';
-                    const progBadge = exercise.progression ? '<span class="progression-badge">📈 Progresja</span>' : '';
-                    return `<div class="plan-exercise-item"><div class="plan-exercise-info"><strong>${exercise.name || 'Brak nazwy'}${progBadge}</strong><div style="font-size: 0.8rem; color: var(--text-muted);">${exercise.sets || '?'} x ${exercise.reps || '?'} ${exercise.notes ? ` • ${exercise.notes}` : ''}</div></div></div>`;
+                    const progBadge = exercise.progression ? `<span class="progression-badge">📈 ${escapeHtml(t('progression_badge'))}</span>` : '';
+                    return `<div class="plan-exercise-item"><div class="plan-exercise-info"><strong>${exercise.name || t('no_name')}${progBadge}</strong><div style="font-size: 0.8rem; color: var(--text-muted);">${exercise.sets || '?'} x ${exercise.reps || '?'} ${exercise.notes ? ` • ${exercise.notes}` : ''}</div></div></div>`;
                 }).join('');
             } else {
-                planExercises.innerHTML = '<p style="font-size:0.8rem;opacity:0.7;">Brak ćwiczeń.</p>';
+                planExercises.innerHTML = `<p style="font-size:0.8rem;opacity:0.7;">${escapeHtml(t('empty_plan_ex'))}</p>`;
             }
 
             planExercises.style.maxHeight = '0';
@@ -6525,13 +7157,13 @@
         function showNewPlanModal() {
             const modalHtml = `
                 <div class="form-group">
-                    <label for="modal-plan-name">Nazwa nowego planu</label>
-                    <input type="text" id="modal-plan-name" placeholder="np. Mój Trening Push">
+                    <label for="modal-plan-name">${escapeHtml(t('new_plan_label'))}</label>
+                    <input type="text" id="modal-plan-name" placeholder="${escapeHtml(t('new_plan_ph'))}">
                 </div>
-                <button id="modal-save-plan" class="btn-success"><i class="fas fa-save"></i> Utwórz</button>
+                <button id="modal-save-plan" class="btn-success"><i class="fas fa-save"></i> ${escapeHtml(t('create'))}</button>
             `;
 
-            showModal('Nowy plan treningowy', modalHtml, () => {
+            showModal(t('new_plan_title'), modalHtml, () => {
                 document.getElementById('modal-save-plan').addEventListener('click', savePlanFromModal);
                 document.getElementById('modal-plan-name').focus();
             });
@@ -6541,7 +7173,7 @@
             const planNameInput = document.getElementById('modal-plan-name');
             const planName = planNameInput.value.trim();
             if (!planName) {
-                showToast('Podaj nazwę planu!', 'warning');
+                showToast(t('toast_plan_name_required'), 'warning');
                 planNameInput.focus();
                 return;
             }
@@ -6553,17 +7185,17 @@
         function showRenamePlanModal(planId) {
             const plan = trainingPlans.find(p => p && p.id === planId);
             if (!plan) {
-                showToast('Nie znaleziono planu.', 'warning');
+                showToast(t('toast_plan_not_found'), 'warning');
                 return;
             }
             const modalHtml = `
                 <div class="form-group">
-                    <label for="modal-rename-plan-name">Nowa nazwa planu</label>
-                    <input type="text" id="modal-rename-plan-name" placeholder="np. Push Day A" autocomplete="off">
+                    <label for="modal-rename-plan-name">${escapeHtml(t('rename_plan_label'))}</label>
+                    <input type="text" id="modal-rename-plan-name" placeholder="${escapeHtml(t('rename_plan_ph'))}" autocomplete="off">
                 </div>
-                <button type="button" id="modal-save-rename-plan" class="btn-success"><i class="fas fa-save"></i> Zapisz</button>
+                <button type="button" id="modal-save-rename-plan" class="btn-success"><i class="fas fa-save"></i> ${escapeHtml(t('save'))}</button>
             `;
-            showModal('Zmień nazwę planu', modalHtml, () => {
+            showModal(t('rename_plan_title'), modalHtml, () => {
                 const inp = document.getElementById('modal-rename-plan-name');
                 if (inp) {
                     inp.value = plan.name || '';
@@ -6579,13 +7211,13 @@
             const inp = document.getElementById('modal-rename-plan-name');
             const newName = inp ? inp.value.trim() : '';
             if (!newName) {
-                showToast('Podaj nazwę planu!', 'warning');
+                showToast(t('toast_plan_name_required'), 'warning');
                 if (inp) inp.focus();
                 return;
             }
             const plan = trainingPlans.find(p => p && p.id === planId);
             if (!plan) {
-                showToast('Nie znaleziono planu.', 'warning');
+                showToast(t('toast_plan_not_found'), 'warning');
                 hideModal();
                 return;
             }
@@ -6612,12 +7244,12 @@
                 const titleEl = document.getElementById('plan-editor-title');
                 if (titleEl) titleEl.textContent = newName;
             }
-            showToast('Nazwa planu została zmieniona.', 'success');
+            showToast(t('toast_plan_renamed'), 'success');
         }
 
         function addNewPlan(planName) {
             if (!planName) {
-                showToast('Błąd: Brak nazwy planu.', 'warning');
+                showToast(t('toast_plan_name_missing'), 'warning');
                 return;
             }
             const newPlan = { id: crypto.randomUUID(), name: planName, exercises: [] }; if (!Array.isArray(trainingPlans)) trainingPlans = [];
@@ -6653,7 +7285,7 @@
 
             currentPlanId = null;
             editingExerciseIndex = null;
-            document.getElementById('add-exercise').innerHTML = '<i class="fas fa-plus"></i> Dodaj ćwiczenie do planu';
+            document.getElementById('add-exercise').innerHTML = '<i class="fas fa-plus"></i> ' + escapeHtml(t('form_add_to_plan'));
             document.getElementById('exercise-name').value = '';
             document.getElementById('exercise-reps').value = '10';
             document.getElementById('exercise-sets').value = '3';
@@ -6677,7 +7309,7 @@
             const plan = trainingPlans.find(p => p.id === planId); if (!plan || !Array.isArray(plan.exercises)) return;
 
             if (plan.exercises.length === 0) {
-                exerciseList.appendChild(createEmptyState('fas fa-dumbbell', 'Pusty plan', 'Dodaj swoje pierwsze ćwiczenie używając formularza.'));
+                exerciseList.appendChild(createEmptyState('fas fa-dumbbell', t('empty_plan_title'), t('empty_plan_msg')));
             } else {
                 plan.exercises.forEach((exercise, index) => {
                     if (!exercise || typeof exercise !== 'object') return;
@@ -6690,15 +7322,15 @@
         function createPlanExerciseElement(exercise, index, totalCount) {
             const exerciseItem = document.createElement('div'); exerciseItem.className = 'exercise-item'; exerciseItem.dataset.index = index;
             const exHeader = document.createElement('div'); exHeader.className = 'exercise-header';
-            const h4 = document.createElement('h4'); h4.textContent = exercise.name || 'Brak nazwy'; exHeader.appendChild(h4);
+            const h4 = document.createElement('h4'); h4.textContent = exercise.name || t('no_name'); exHeader.appendChild(h4);
             const exActions = document.createElement('div'); exActions.className = 'exercise-actions';
             const progToggle = document.createElement('button'); progToggle.className = 'progression-toggle btn-progression' + (exercise.progression ? ' active' : ''); progToggle.title = 'Progresja'; progToggle.innerHTML = '📈'; exActions.appendChild(progToggle);
             const moveUpBtn = document.createElement('button'); moveUpBtn.className = 'btn-move-up'; moveUpBtn.innerHTML = '<i class="fas fa-arrow-up"></i>'; if (index === 0) moveUpBtn.disabled = true; exActions.appendChild(moveUpBtn);
             const moveDownBtn = document.createElement('button'); moveDownBtn.className = 'btn-move-down'; moveDownBtn.innerHTML = '<i class="fas fa-arrow-down"></i>'; if (index === totalCount - 1) moveDownBtn.disabled = true; exActions.appendChild(moveDownBtn);
             const editBtn = document.createElement('button'); editBtn.className = 'btn-warning btn-edit-exercise'; editBtn.title = 'Edytuj'; editBtn.innerHTML = '<i class="fas fa-edit"></i>'; exActions.appendChild(editBtn);
-            const deleteBtn = document.createElement('button'); deleteBtn.className = 'btn-danger btn-delete-exercise'; deleteBtn.title = 'Usuń'; deleteBtn.innerHTML = '<i class="fas fa-trash"></i>'; exActions.appendChild(deleteBtn);
+            const deleteBtn = document.createElement('button'); deleteBtn.className = 'btn-danger btn-delete-exercise'; deleteBtn.title = t('delete'); deleteBtn.innerHTML = '<i class="fas fa-trash"></i>'; exActions.appendChild(deleteBtn);
             exHeader.appendChild(exActions); exerciseItem.appendChild(exHeader);
-            const pDetails = document.createElement('p'); pDetails.textContent = `Serie: ${exercise.sets || '?'} | Powtórzenia: ${exercise.reps || '?'}`; exerciseItem.appendChild(pDetails);
+            const pDetails = document.createElement('p'); pDetails.textContent = t('plan_ex_details', { sets: exercise.sets || '?', reps: exercise.reps || '?' }); exerciseItem.appendChild(pDetails);
             if (exercise.notes) { const pNotes = document.createElement('p'); pNotes.textContent = `Notatki: ${exercise.notes}`; exerciseItem.appendChild(pNotes); }
             return exerciseItem;
         }
@@ -6723,8 +7355,8 @@
         }
 
         function addExerciseToPlan() {
-            if (!currentPlanId) { showToast('Najpierw wybierz plan!', 'warning'); return; }
-            const name = document.getElementById('exercise-name').value.trim(); if (!name) { showToast('Podaj nazwę ćwiczenia!', 'warning'); return; }
+            if (!currentPlanId) { showToast(t('toast_select_plan_first'), 'warning'); return; }
+            const name = document.getElementById('exercise-name').value.trim(); if (!name) { showToast(t('toast_ex_name_required'), 'warning'); return; }
             const plan = trainingPlans.find(p => p.id === currentPlanId); if (!plan) return;
             const newExerciseData = {
                 name,
@@ -6754,14 +7386,14 @@
             }
             saveTrainingPlans();
             document.getElementById('exercise-name').value = ''; document.getElementById('exercise-reps').value = '10'; document.getElementById('exercise-sets').value = '3'; document.getElementById('exercise-notes').value = '';
-            document.getElementById('add-exercise').innerHTML = '<i class="fas fa-plus"></i> Dodaj ćwiczenie do planu';
+            document.getElementById('add-exercise').innerHTML = '<i class="fas fa-plus"></i> ' + escapeHtml(t('form_add_to_plan'));
         }
         function addQuickExercise(exerciseName) { document.getElementById('exercise-name').value = exerciseName; }
         function editExercise(planId, exerciseIndex) {
             const plan = trainingPlans.find(p => p.id === planId); if (!plan || !Array.isArray(plan.exercises) || !plan.exercises[exerciseIndex]) return;
             const exercise = plan.exercises[exerciseIndex];
             document.getElementById('exercise-name').value = exercise.name || ''; document.getElementById('exercise-sets').value = exercise.sets || 3; document.getElementById('exercise-reps').value = exercise.reps || 10; document.getElementById('exercise-notes').value = exercise.notes || '';
-            editingExerciseIndex = exerciseIndex; document.getElementById('add-exercise').innerHTML = '<i class="fas fa-save"></i> Zaktualizuj ćwiczenie';
+            editingExerciseIndex = exerciseIndex; document.getElementById('add-exercise').innerHTML = '<i class="fas fa-save"></i> ' + escapeHtml(t('form_update_ex'));
             document.getElementById('exercise-name').focus();
         }
 
@@ -6835,7 +7467,7 @@
             saveCurrentWorkout(); showTab('training-plans'); enterFocusMode();
         }
         function addQuickWorkoutExercise() {
-            const exerciseName = document.getElementById('quick-exercise-name').value.trim(); if (!exerciseName) { showToast('Podaj nazwę ćwiczenia!', 'warning'); return; }
+            const exerciseName = document.getElementById('quick-exercise-name').value.trim(); if (!exerciseName) { showToast(t('toast_ex_name_required'), 'warning'); return; }
             if (!currentWorkout || !Array.isArray(currentWorkout.exercises)) { currentWorkout = { id: crypto.randomUUID(), date: new Date().toISOString(), exercises: [] }; }
             currentWorkout.exercises.push({ name: exerciseName, sets: 3, reps: 10, completedSets: [false, false, false], weights: ['', '', ''], repsCompleted: ['', '', ''], setTypes: ['normal', 'normal', 'normal'] });
             saveCurrentWorkout(); document.getElementById('quick-exercise-name').value = '';
@@ -6845,7 +7477,7 @@
         }
 
         function saveWorkout() {
-            if (!currentWorkout || !Array.isArray(currentWorkout.exercises) || currentWorkout.exercises.length === 0) { showToast('Brak ćwiczeń do zapisania!', 'warning'); return; }
+            if (!currentWorkout || !Array.isArray(currentWorkout.exercises) || currentWorkout.exercises.length === 0) { showToast(t('toast_no_ex_to_save'), 'warning'); return; }
             if (!Array.isArray(workoutHistory)) workoutHistory = [];
 
             // Calculate PRs before saving — compare against history only (not current workout)
@@ -6890,7 +7522,7 @@
             resetTemplatePillsToAll();
             showTab('history'); renderWorkoutHistory(); updateStats();
             updateStreakUI();
-            showToast('Trening został zapisany!', 'success');
+            showToast(t('toast_workout_saved'), 'success');
 
             if (completedSetCount > 0) {
                 if (prCount >= 2) {
@@ -6943,7 +7575,7 @@
                 pauseTimer();
                 if (pill) pill.classList.remove('pulsing');
                 playTimerSound();
-                showToast('Czas przerwy minął!', 'info');
+                showToast(t('toast_rest_over'), 'info');
                 // Auto-hide pill after 3 seconds
                 setTimeout(() => { hidePill(); }, 3000);
             }
@@ -6995,7 +7627,7 @@
             const historyContainer = document.getElementById('workout-history'); historyContainer.innerHTML = '';
             if (!Array.isArray(workoutHistory)) workoutHistory = [];
             if (workoutHistory.length === 0) {
-                historyContainer.appendChild(createEmptyState('fas fa-history', 'Brak historii treningów', 'Ukończ swój pierwszy trening, aby zobaczyć go tutaj.')); return;
+                historyContainer.appendChild(createEmptyState('fas fa-history', t('empty_history_title'), t('empty_history_msg'))); return;
             }
             const sortedHistory = [...workoutHistory].sort((a, b) => new Date(b.date) - new Date(a.date));
             sortedHistory.forEach(workout => {
@@ -7014,13 +7646,13 @@
             exHeader.className = 'exercise-header';
 
             const h4 = document.createElement('h4');
-            h4.innerHTML = `<i class="fas fa-chevron-down history-inline-chevron" aria-hidden="true"></i>${escapeHtml(workout.planName || 'Szybki trening')} - ${workoutDate.toLocaleDateString('pl-PL')}`;
+            h4.innerHTML = `<i class="fas fa-chevron-down history-inline-chevron" aria-hidden="true"></i>${escapeHtml(workout.planName || t('quick_workout_name'))} - ${workoutDate.toLocaleDateString(currentLocale())}`;
             exHeader.appendChild(h4);
 
             const exActions = document.createElement('div');
             exActions.className = 'exercise-actions';
             exActions.innerHTML = `
-                <button type="button" class="btn-plan-more btn-history-more" title="Więcej opcji" aria-label="Więcej opcji treningu" aria-haspopup="dialog" aria-expanded="false"><i class="fas fa-ellipsis-vertical" aria-hidden="true"></i></button>
+                <button type="button" class="btn-plan-more btn-history-more" title="${escapeHtml(t('more_options'))}" aria-label="${escapeHtml(t('more_options_workout'))}" aria-haspopup="dialog" aria-expanded="false"><i class="fas fa-ellipsis-vertical" aria-hidden="true"></i></button>
             `;
             exHeader.appendChild(exActions);
 
@@ -7037,7 +7669,7 @@
                     }
                 });
             }
-            compactMeta.textContent = `${exerciseCount} ćw. • ${completedSetsTotal} ukończonych serii`;
+            compactMeta.textContent = t('history_compact', { ex: exerciseCount, sets: completedSetsTotal });
             workoutElement.appendChild(compactMeta);
 
             const summary = document.createElement('div');
@@ -7047,12 +7679,12 @@
                     if (!exercise || typeof exercise !== 'object') return;
                     const sets = exercise.sets || 0; const completedCount = Array.isArray(exercise.completedSets) ? exercise.completedSets.filter(Boolean).length : 0;
                     const item = document.createElement('div'); item.className = 'summary-item';
-                    const exName = document.createElement('span'); exName.textContent = exercise.name || 'Brak nazwy'; item.appendChild(exName);
-                    const exSets = document.createElement('span'); exSets.textContent = `${completedCount}/${sets} serii`; item.appendChild(exSets);
+                    const exName = document.createElement('span'); exName.textContent = exercise.name || t('no_name'); item.appendChild(exName);
+                    const exSets = document.createElement('span'); exSets.textContent = t('sets_ratio', { c: completedCount, s: sets }); item.appendChild(exSets);
                     summary.appendChild(item);
                 });
             } else {
-                summary.innerHTML = '<p>Brak szczegółów ćwiczeń.</p>';
+                summary.innerHTML = `<p>${escapeHtml(t('no_ex_details'))}</p>`;
             }
             workoutElement.appendChild(summary);
             return workoutElement;
@@ -7091,7 +7723,7 @@
             const workout = workoutHistory.find(w => w && w.id === workoutId);
             if (titleEl && workout && workout.date) {
                 const d = new Date(workout.date);
-                titleEl.textContent = `Edytuj trening (${d.toLocaleDateString('pl-PL')})`;
+                titleEl.textContent = `${t('edit_workout_title')} (${d.toLocaleDateString(currentLocale())})`;
             } else if (titleEl) {
                 titleEl.textContent = 'Edytuj trening';
             }
@@ -7169,8 +7801,8 @@
             body.innerHTML = `
                 <div id="workout-editor-root">
                     <div class="workout-editor-topbar">
-                        <p class="workout-editor-helper">Edytuj ćwiczenia i serie w wygodnym układzie mobilnym. Użyj przycisków +/- aby szybciej zmieniać wartości.</p>
-                        <button type="button" id="workout-edit-add-exercise" class="btn-success"><i class="fas fa-plus"></i> Dodaj ćwiczenie</button>
+                        <p class="workout-editor-helper">${escapeHtml(t('edit_ex_helper'))}</p>
+                        <button type="button" id="workout-edit-add-exercise" class="btn-success"><i class="fas fa-plus"></i> ${escapeHtml(t('add_exercise'))}</button>
                     </div>
                     <div id="workout-editor-list"></div>
                 </div>
@@ -7210,10 +7842,10 @@
         }
 
         function getSetTypeLabel(setType, setIndex) {
-            if (setType === 'warmup') return 'Rozgrzewka (W)';
-            if (setType === 'drop') return 'Drop Set (D)';
-            if (setType === 'failure') return 'Do upadku (F)';
-            return `Seria ${setIndex + 1}`;
+            if (setType === 'warmup') return t('set_warmup');
+            if (setType === 'drop') return t('set_drop');
+            if (setType === 'failure') return t('set_failure');
+            return t('set_n', { n: setIndex + 1 });
         }
 
         function getSetTypeClass(setType) {
@@ -7236,17 +7868,17 @@
             const modalHtml = `
                 <div id="workout-editor-root">
                     <div class="workout-editor-topbar">
-                        <p style="margin:0; color:var(--text-muted); font-size:0.9rem;">Edytuj ćwiczenia, serie i wyniki treningu.</p>
-                        <button type="button" id="workout-edit-add-exercise" class="btn-success" style="width:auto; padding:8px 12px;"><i class="fas fa-plus"></i> Ćwiczenie</button>
+                        <p style="margin:0; color:var(--text-muted); font-size:0.9rem;">${escapeHtml(t('edit_ex_helper'))}</p>
+                        <button type="button" id="workout-edit-add-exercise" class="btn-success" style="width:auto; padding:8px 12px;"><i class="fas fa-plus"></i> ${escapeHtml(t('exercise_fallback'))}</button>
                     </div>
                     <div id="workout-editor-list"></div>
                     <div class="workout-editor-actions">
-                        <button type="button" id="workout-edit-save" class="btn-success"><i class="fas fa-save"></i> Zapisz</button>
-                        <button type="button" id="workout-edit-cancel" class="btn-secondary">Anuluj</button>
+                        <button type="button" id="workout-edit-save" class="btn-success"><i class="fas fa-save"></i> ${escapeHtml(t('save'))}</button>
+                        <button type="button" id="workout-edit-cancel" class="btn-secondary">${escapeHtml(t('cancel'))}</button>
                     </div>
                 </div>
             `;
-            showModal('Edytuj trening', modalHtml, () => {
+            showModal(t('edit_workout_title'), modalHtml, () => {
                 renderWorkoutEditorList();
                 const root = document.getElementById('workout-editor-root');
                 if (!root) return;
@@ -7274,7 +7906,7 @@
             const exercises = workoutEditorState.draft.exercises;
 
             if (exercises.length === 0) {
-                list.innerHTML = '<p style="color:var(--text-muted); margin: 6px 0 0 0;">Brak ćwiczeń. Dodaj pierwsze ćwiczenie.</p>';
+                list.innerHTML = `<p style="color:var(--text-muted); margin: 6px 0 0 0;">${escapeHtml(t('editor_no_ex'))}</p>`;
                 return;
             }
 
@@ -7285,14 +7917,14 @@
                 html += `
                     <div class="exercise-item workout-editor-exercise-card" data-editor-ex-index="${exIndex}">
                         <div class="workout-editor-exercise-header">
-                            <input class="workout-editor-ex-name" type="text" data-field="name" data-ex-index="${exIndex}" value="${escapeHtml(ex.name)}" placeholder="Nazwa ćwiczenia" style="margin:0;">
+                            <input class="workout-editor-ex-name" type="text" data-field="name" data-ex-index="${exIndex}" value="${escapeHtml(ex.name)}" placeholder="${escapeHtml(t('ex_name_ph_short'))}" style="margin:0;">
                             <button type="button" class="btn-danger" data-action="delete-exercise" data-ex-index="${exIndex}" style="width:auto; padding:10px 12px;">
                                 <i class="fas fa-trash"></i>
                             </button>
                         </div>
                         <div class="workout-editor-set-actions">
-                            <button type="button" class="btn-info" data-action="add-set" data-ex-index="${exIndex}"><i class="fas fa-plus"></i> Seria</button>
-                            <button type="button" class="btn-secondary" data-action="remove-set" data-ex-index="${exIndex}" ${ex.sets <= 1 ? 'disabled' : ''}><i class="fas fa-minus"></i> Seria</button>
+                            <button type="button" class="btn-info" data-action="add-set" data-ex-index="${exIndex}"><i class="fas fa-plus"></i> ${escapeHtml(t('set_word'))}</button>
+                            <button type="button" class="btn-secondary" data-action="remove-set" data-ex-index="${exIndex}" ${ex.sets <= 1 ? 'disabled' : ''}><i class="fas fa-minus"></i> ${escapeHtml(t('set_word'))}</button>
                         </div>
                         <div class="workout-editor-sets">
                 `;
@@ -7307,12 +7939,12 @@
                                 <div class="workout-editor-set-index type-toggle" data-action="toggle-set-type" data-ex-index="${exIndex}" data-set-index="${setIndex}">${getSetTypeLabel(setType, setIndex)}</div>
                                 <button type="button" class="workout-editor-complete-btn ${completed ? 'is-active' : ''}" data-action="toggle-completed" data-ex-index="${exIndex}" data-set-index="${setIndex}">
                                     <i class="fas ${completed ? 'fa-check-square' : 'fa-square'}"></i>
-                                    Wykonana
+                                    ${escapeHtml(t('set_done'))}
                                 </button>
                             </div>
                             <div class="workout-editor-metrics">
                                 <div class="workout-editor-metric">
-                                    <div class="workout-editor-metric-label">Ciężar (kg)</div>
+                                    <div class="workout-editor-metric-label">${escapeHtml(t('weight_kg'))}</div>
                                     <div class="workout-editor-stepper">
                                         <button type="button" class="btn-secondary" data-action="stepper" data-field="weight" data-dir="-1" data-ex-index="${exIndex}" data-set-index="${setIndex}">-</button>
                                         <input type="number" min="0" step="0.5" data-field="weight" data-ex-index="${exIndex}" data-set-index="${setIndex}" value="${escapeHtml(String(weight))}" placeholder="kg" style="margin:0;">
@@ -7320,10 +7952,10 @@
                                     </div>
                                 </div>
                                 <div class="workout-editor-metric">
-                                    <div class="workout-editor-metric-label">Powtórzenia</div>
+                                    <div class="workout-editor-metric-label">${escapeHtml(t('reps_label'))}</div>
                                     <div class="workout-editor-stepper">
                                         <button type="button" class="btn-secondary" data-action="stepper" data-field="repsCompleted" data-dir="-1" data-ex-index="${exIndex}" data-set-index="${setIndex}">-</button>
-                                        <input type="number" min="0" step="1" data-field="repsCompleted" data-ex-index="${exIndex}" data-set-index="${setIndex}" value="${escapeHtml(String(repsCompleted))}" placeholder="powt." style="margin:0;">
+                                        <input type="number" min="0" step="1" data-field="repsCompleted" data-ex-index="${exIndex}" data-set-index="${setIndex}" value="${escapeHtml(String(repsCompleted))}" placeholder="${escapeHtml(t('stepper_reps'))}" style="margin:0;">
                                         <button type="button" class="btn-secondary" data-action="stepper" data-field="repsCompleted" data-dir="1" data-ex-index="${exIndex}" data-set-index="${setIndex}">+</button>
                                     </div>
                                 </div>
@@ -7481,7 +8113,7 @@
 
             const workoutIndex = workoutHistory.findIndex(w => w && w.id === workoutEditorState.workoutId);
             if (workoutIndex < 0) {
-                showToast('Nie znaleziono treningu do edycji.', 'warning');
+                showToast(t('toast_workout_not_found_edit'), 'warning');
                 closeHistoryEditSheet();
                 return;
             }
@@ -7491,7 +8123,7 @@
             renderWorkoutHistory();
             updateStats();
             updateStreakUI();
-            showToast('Trening zaktualizowany.', 'success');
+            showToast(t('toast_workout_updated'), 'success');
             closeHistoryEditSheet();
         }
 
@@ -7540,27 +8172,27 @@
 
         function viewWorkoutDetails(workoutId) {
             const workout = workoutHistory.find(w => w && w.id === workoutId); if (!workout || typeof workout !== 'object') return;
-            const workoutDate = new Date(workout.date); let detailsHtml = `<p><strong>Plan:</strong> ${workout.planName || 'Szybki trening'}</p>`;
+            const workoutDate = new Date(workout.date); let detailsHtml = `<p><strong>${escapeHtml(t('details_plan'))}:</strong> ${workout.planName || t('quick_workout_name')}</p>`;
             if (Array.isArray(workout.exercises)) {
                 workout.exercises.forEach(exercise => {
                     if (!exercise || typeof exercise !== 'object') return;
                     const sets = exercise.sets || 0; detailsHtml += `<div class="modal-exercise-details">`;
-                    detailsHtml += `<strong>${exercise.name || 'Brak nazwy'}</strong> (Plan: ${sets}x${exercise.reps || '?'})`;
+                    detailsHtml += `<strong>${exercise.name || t('no_name')}</strong> (${escapeHtml(t('details_plan'))}: ${sets}x${exercise.reps || '?'})`;
                     if (Array.isArray(exercise.completedSets)) {
                         for (let i = 0; i < sets; i++) {
                             const isCompleted = exercise.completedSets[i] ? '✓' : '✗'; const weight = (Array.isArray(exercise.weights) && exercise.weights[i]) || '-'; const repsCompleted = (Array.isArray(exercise.repsCompleted) && exercise.repsCompleted[i]) || '-';
                             let prBadge = '';
                             if (exercise.prFlags && exercise.prFlags[i]) {
                                 const pr = exercise.prFlags[i];
-                                if (pr.isWeightPR && pr.isRepsPR) prBadge = ' 🏆 PR!';
-                                else if (pr.isWeightPR) prBadge = ' 🏆 Max waga!';
-                                else if (pr.isRepsPR) prBadge = ' 🏆 Max powt.!';
+                                if (pr.isWeightPR && pr.isRepsPR) prBadge = ' ' + t('pr_badge_full');
+                                else if (pr.isWeightPR) prBadge = ' ' + t('pr_badge_weight');
+                                else if (pr.isRepsPR) prBadge = ' ' + t('pr_badge_reps');
                             }
-                            detailsHtml += `<div class="modal-set-detail">Seria ${i + 1}: ${isCompleted} ${weight} kg x ${repsCompleted} powt.${prBadge}</div>`;
+                            detailsHtml += `<div class="modal-set-detail">${escapeHtml(t('set_word'))} ${i + 1}: ${isCompleted} ${weight} kg x ${repsCompleted} ${escapeHtml(t('pr_reps_short'))}${prBadge}</div>`;
                         }
                     } detailsHtml += `</div>`;
                 });
-            } showModal(`Trening z ${workoutDate.toLocaleDateString('pl-PL')}`, detailsHtml);
+            } showModal(t('details_title', { date: workoutDate.toLocaleDateString(currentLocale()) }), detailsHtml);
         }
 
         function deleteWorkout(workoutId) {
@@ -7619,14 +8251,14 @@
             const elP = document.getElementById('stat-active-plans');
             if (elP) elP.textContent = String(trainingPlans.length);
             const elS = document.getElementById('stat-top-split');
-            if (elS) elS.textContent = topN === 0 ? 'Brak danych' : topSplit;
+            if (elS) elS.textContent = topN === 0 ? t('stats_no_data') : topSplit;
             renderStatsSixMonthBars(monthBuckets);
         }
 
         function renderStatsSixMonthBars(monthBuckets) {
             const container = document.getElementById('stat-six-month-bars');
             if (!container) return;
-            const labels = ['Sty', 'Lut', 'Mar', 'Kwi', 'Maj', 'Cze', 'Lip', 'Sie', 'Wrz', 'Paź', 'Lis', 'Gru'];
+            const labels = (I18N[currentLang] || I18N.pl).monthsShort;
             const maxC = Math.max(1, ...monthBuckets.map(b => b.c));
             container.innerHTML = '';
             monthBuckets.forEach(b => {
@@ -7677,7 +8309,7 @@
             const header = document.createElement('div');
             header.className = 'year-review-header';
             const h3 = document.createElement('h3');
-            h3.innerHTML = '<i class="fas fa-star"></i> Podsumowanie roku';
+            h3.innerHTML = '<i class="fas fa-star"></i> ' + escapeHtml(t('review_year_summary_header'));
             header.appendChild(h3);
             if (sortedYears.length > 1) {
                 const sel = document.createElement('select');
@@ -7715,11 +8347,11 @@
             card1.className = 'review-card';
             const comparison = getWeightComparison(totalWeight);
             card1.innerHTML = `
-                <div class="review-card-label">${reviewYear} GymCut in Review</div>
-                <div class="review-card-title">Podniosłeś(aś)</div>
+                <div class="review-card-label">${t('review_year_review', { year: reviewYear })}</div>
+                <div class="review-card-title">${escapeHtml(t('review_lifted'))}</div>
                 <div class="review-card-big">${formatWeight(totalWeight)} kg</div>
                 <div class="review-card-emoji">${comparison.emoji}</div>
-                <div class="review-card-sub">co równa się<br><span class="review-card-highlight">${comparison.text}</span></div>
+                <div class="review-card-sub">${escapeHtml(t('review_equals'))}<br><span class="review-card-highlight">${comparison.text}</span></div>
             `;
             track.appendChild(card1);
 
@@ -7728,8 +8360,8 @@
             card2.className = 'review-card';
             const radarData = calcBodyPartUsage(yearWorkouts);
             card2.innerHTML = `
-                <div class="review-card-label">${reviewYear} GymCut in Review</div>
-                <div class="review-card-title">Użycie części ciała</div>
+                <div class="review-card-label">${t('review_year_review', { year: reviewYear })}</div>
+                <div class="review-card-title">${escapeHtml(t('review_bodyparts'))}</div>
                 <div class="review-radar-wrap"><canvas id="review-radar-canvas" width="440" height="440"></canvas></div>
             `;
             track.appendChild(card2);
@@ -7740,9 +8372,9 @@
             const workoutDatesSet = getYearWorkoutDates(yearWorkouts);
             const totalWorkoutDays = workoutDatesSet.size;
             card3.innerHTML = `
-                <div class="review-card-label">${reviewYear} GymCut in Review</div>
-                <div class="review-card-title">Treningi w ${reviewYear}</div>
-                <div class="review-card-sub" style="margin-bottom:12px">${totalWorkoutDays > 0 ? 'Dobra robota! 💪' : 'Czas zacząć!'}</div>
+                <div class="review-card-label">${t('review_year_review', { year: reviewYear })}</div>
+                <div class="review-card-title">${escapeHtml(t('review_year_in', { year: reviewYear }))}</div>
+                <div class="review-card-sub" style="margin-bottom:12px">${totalWorkoutDays > 0 ? t('review_good_job') : t('review_start')}</div>
             `;
             const dotCal = buildDotCalendar(reviewYear, workoutDatesSet);
             card3.appendChild(dotCal);
@@ -7832,30 +8464,26 @@
 
         function formatWeight(kg) {
             if (kg >= 1000000) return (kg / 1000000).toFixed(1).replace('.', ' ') + ' mln';
-            return kg.toLocaleString('pl-PL');
+            return kg.toLocaleString(currentLocale());
         }
 
         function getWeightComparison(kg) {
             // Fun comparisons in ascending order of weight
-            const comparisons = [
-                { limit: 100, emoji: '🐕', unit: 'dorosły labrador', unitPlural: 'labradorów', weight: 30 },
-                { limit: 500, emoji: '🏍️', unit: 'motocykl', unitPlural: 'motocykli', weight: 200 },
-                { limit: 2000, emoji: '🐴', unit: 'koń', unitPlural: 'koni', weight: 500 },
-                { limit: 5000, emoji: '🚗', unit: 'samochód osobowy', unitPlural: 'samochodów', weight: 1400 },
-                { limit: 20000, emoji: '🐘', unit: 'słoń afrykański', unitPlural: 'słoni', weight: 6000 },
-                { limit: 100000, emoji: '🚌', unit: 'autobus miejski', unitPlural: 'autobusów', weight: 12000 },
-                { limit: 500000, emoji: '🐋', unit: 'płetwal błękitny', unitPlural: 'płetwali', weight: 140000 },
-                { limit: Infinity, emoji: '🚀', unit: 'rakieta Saturn V', unitPlural: 'rakiet Saturn V', weight: 2800000 },
-            ];
+            const emojis = ['🐕', '🏍️', '🐴', '🚗', '🐘', '🚌', '🐋', '🚀'];
+            const limits = [100, 500, 2000, 5000, 20000, 100000, 500000, Infinity];
+            const weights = [30, 200, 500, 1400, 6000, 12000, 140000, 2800000];
+            const dict = I18N[currentLang] || I18N.pl;
+            const units = dict.comparisons || I18N.pl.comparisons;
+            const unitsPlural = dict.comparisonsPlural || I18N.pl.comparisonsPlural;
 
-            for (const c of comparisons) {
-                if (kg < c.limit || c.limit === Infinity) {
-                    const count = Math.max(1, Math.round(kg / c.weight));
-                    if (count === 1) return { emoji: c.emoji, text: `1× ${c.unit}!` };
-                    return { emoji: c.emoji, text: `${count}× ${c.unitPlural}!` };
+            for (let i = 0; i < limits.length; i++) {
+                if (kg < limits[i] || limits[i] === Infinity) {
+                    const count = Math.max(1, Math.round(kg / weights[i]));
+                    if (count === 1) return { emoji: emojis[i], text: `1× ${units[i]}!` };
+                    return { emoji: emojis[i], text: `${count}× ${unitsPlural[i]}!` };
                 }
             }
-            return { emoji: '💪', text: 'niesamowity wynik!' };
+            return { emoji: '💪', text: t('amazing_result') };
         }
 
         function calcWorkoutTotalVolume(workout) {
@@ -8068,7 +8696,7 @@
                     y += 84;
 
                     const d = workout.date ? new Date(workout.date) : new Date();
-                    const dateStr = d.toLocaleDateString('pl-PL', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+                    const dateStr = d.toLocaleDateString(currentLocale(), { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
                     ctx.font = '24px Inter, system-ui, sans-serif';
                     const capPadX = 22;
                     const capPadY = 12;
@@ -8086,7 +8714,7 @@
 
                     ctx.fillStyle = '#5C95FF';
                     ctx.font = 'bold 36px Inter, system-ui, sans-serif';
-                    const planTitle = workout.planName || 'Szybki trening';
+                    const planTitle = workout.planName || t('quick_workout_name');
                     ctx.fillText(truncateCanvasText(ctx, planTitle, W - 112), 56, y);
                     y += 52;
 
@@ -8115,7 +8743,7 @@
                     let cy = cardY + 32;
                     ctx.fillStyle = '#94a3b8';
                     ctx.font = '22px Inter, system-ui, sans-serif';
-                    ctx.fillText('Największy ciężar w treningu', innerX, cy);
+                    ctx.fillText(t('share_max_weight'), innerX, cy);
                     cy += 40;
 
                     ctx.fillStyle = '#FFFFFF';
@@ -8130,8 +8758,8 @@
                     ctx.fillStyle = '#cbd5e1';
                     ctx.font = '28px Inter, system-ui, sans-serif';
                     const volLine = totalVol > 0
-                        ? `Objętość · ${formatWeight(totalVol)} kg`
-                        : 'Objętość · brak danych (ciężar × powtórzenia)';
+                        ? `${t('share_volume')} · ${formatWeight(totalVol)} kg`
+                        : t('share_volume_none');
                     ctx.fillText(truncateCanvasText(ctx, volLine, cardW - 72), innerX, cy);
 
                     y = cardY + cardH + 36;
@@ -8161,14 +8789,14 @@
                         ctx.fillText(value, cx + 20, chipY + 52);
                         cx += chipW + chipGap;
                     };
-                    drawChip('PR w sesji', String(prs));
-                    drawChip('Ćwiczenia', String(exN));
-                    drawChip('Serie ukończone', String(completedSets));
+                    drawChip(t('share_pr'), String(prs));
+                    drawChip(t('share_exercises'), String(exN));
+                    drawChip(t('share_sets_done'), String(completedSets));
                     y = chipY + chipH + 40;
 
                     ctx.fillStyle = '#64748b';
                     ctx.font = 'bold 22px Inter, system-ui, sans-serif';
-                    ctx.fillText('TOP ĆWICZENIA (największy ciężar)', 56, y);
+                    ctx.fillText(t('share_top_ex'), 56, y);
                     y += 40;
 
                     const exRows = getExerciseMaxWeightsForShare(workout).filter(r => r.maxW > 0).slice(0, 8);
@@ -8178,7 +8806,7 @@
                     if (exRows.length === 0) {
                         ctx.font = '24px Inter, system-ui, sans-serif';
                         ctx.fillStyle = '#8B949E';
-                        ctx.fillText('Brak zapisanego ciężaru (uzupełnij ciężar serii).', 56, y);
+                        ctx.fillText(t('share_no_weight'), 56, y);
                         y += 44;
                     } else {
                         exRows.forEach((row) => {
@@ -8197,7 +8825,7 @@
                     ctx.textAlign = 'center';
                     ctx.fillStyle = '#64748b';
                     ctx.font = '22px Inter, system-ui, sans-serif';
-                    ctx.fillText('GYMCUT · Twój trening, Twój rytm', W / 2, footerY + 28);
+                    ctx.fillText(t('share_footer'), W / 2, footerY + 28);
                     ctx.textAlign = 'left';
 
                     canvas.toBlob((blob) => {
@@ -8220,13 +8848,13 @@
                 const blob = await generateWorkoutSharePngBlob(workout);
                 const file = new File([blob], 'gymcut-trening.png', { type: 'image/png' });
                 const maxWeight = calcWorkoutMaxWeight(workout);
-                const title = workout.planName || 'Trening GymCut';
+                const title = workout.planName || t('share_title_fallback');
                 const text = `${title} — max ${formatWeight(maxWeight)} kg`;
                 const sharePayload = { files: [file], title, text };
 
                 if (navigator.share && navigator.canShare && navigator.canShare(sharePayload)) {
                     await navigator.share(sharePayload);
-                    showToast('Gotowe!', 'success');
+                    showToast(t('toast_share_done'), 'success');
                 } else {
                     const url = URL.createObjectURL(blob);
                     const a = document.createElement('a');
@@ -8236,52 +8864,52 @@
                     a.click();
                     a.remove();
                     URL.revokeObjectURL(url);
-                    showToast('Pobrano grafikę — w Instagramie dodaj ją jako post lub relację.', 'success', 5000);
+                    showToast(t('toast_share_saved_img'), 'success', 5000);
                 }
             } catch (e) {
                 if (e && e.name === 'AbortError') return;
                 console.error(e);
-                showToast('Nie udało się przygotować grafiki.', 'warning');
+                showToast(t('toast_share_fail'), 'warning');
             }
         }
 
         function getRandomRewardMessage({ totalVolumeKg = 0, prCount = 0, exerciseCount = 0, completedSetCount = 0 } = {}) {
             const comparison = getWeightComparison(totalVolumeKg);
             const volumeTextKg = `${formatWeight(totalVolumeKg)} kg`;
-            const volumeTextTons = totalVolumeKg >= 1000 ? `${(totalVolumeKg / 1000).toFixed(1).replace('.', ',')} t` : null;
+            const decSep = currentLang === 'en' ? '.' : ',';
+            const volumeTextTons = totalVolumeKg >= 1000 ? `${(totalVolumeKg / 1000).toFixed(1).replace('.', decSep)} t` : null;
+            const volForHook4 = volumeTextTons || volumeTextKg;
 
             const hooks = [
-                () => `Wow! Dziś zrobiłeś(aś) <strong>${volumeTextKg}</strong> objętości — to jak ${comparison.text} ${comparison.emoji}`,
-                () => `Dobra robota. <strong>${volumeTextKg}</strong> w nogach/rękach i w głowie. ${comparison.emoji} (${comparison.text})`,
-                () => `Jeśli mięśnie miałyby licznik, właśnie nabiłeś(aś) <strong>${volumeTextKg}</strong>. ${comparison.emoji} ${comparison.text}`,
-                () => volumeTextTons
-                    ? `Dziś poszło <strong>${volumeTextTons}</strong> objętości — brzmi jak ciężarówka. ${comparison.emoji} (${comparison.text})`
-                    : `Dziś poszło <strong>${volumeTextKg}</strong> objętości — solidnie. ${comparison.emoji} (${comparison.text})`,
-                () => `Masz to. <strong>${volumeTextKg}</strong> — a jutro możesz dołożyć mały procent. ${comparison.emoji} ${comparison.text}`,
+                () => t('reward_hook_1', { vol: volumeTextKg, cmp: comparison.text, emoji: comparison.emoji }),
+                () => t('reward_hook_2', { vol: volumeTextKg, cmp: comparison.text, emoji: comparison.emoji }),
+                () => t('reward_hook_3', { vol: volumeTextKg, cmp: comparison.text, emoji: comparison.emoji }),
+                () => t('reward_hook_4', { vol: volForHook4, cmp: comparison.text, emoji: comparison.emoji }),
+                () => t('reward_hook_5', { vol: volumeTextKg, cmp: comparison.text, emoji: comparison.emoji }),
             ];
 
             const msg = (typeof pick === 'function') ? pick(hooks)() : hooks[Math.floor(Math.random() * hooks.length)]();
-            const exercisesLabel = `${exerciseCount} ${exerciseCount === 1 ? 'ćwiczenie' : (exerciseCount >= 2 && exerciseCount <= 4 ? 'ćwiczenia' : 'ćwiczeń')}`;
-            const setsLabel = `${completedSetCount} ${completedSetCount === 1 ? 'seria' : (completedSetCount >= 2 && completedSetCount <= 4 ? 'serie' : 'serii')}`;
+            const exercisesLabel = tCount('exercises', exerciseCount);
+            const setsLabel = tCount('sets', completedSetCount);
             const prLabel = prCount > 0 ? `🏆 ${prCount} PR` : '🏆 0 PR';
             const finalLine = prCount > 0
-                ? 'Nowe rekordy wbite. Jutro tylko pilnuj regeneracji i lecimy dalej.'
-                : 'Bez PR? Spokojnie. Regularność to turbo, które robi wynik długoterminowo.';
+                ? t('reward_final_pr')
+                : t('reward_final_nopr');
 
             const bodyHtml = `
                 <div class="reward-summary" style="display:flex; flex-direction:column; gap:12px;">
                     <div style="font-size:0.95rem; color: var(--text-color); line-height:1.45;">${msg}</div>
                     <div class="reward-stats-grid" style="display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; margin-top:2px;">
                         <div class="reward-stat" style="padding:10px 8px; border-radius:10px; border:1px solid var(--border-color); background:var(--accent-secondary); text-align:center;">
-                            <div style="font-size:0.72rem; color:var(--text-muted);">Ćwiczenia</div>
+                            <div style="font-size:0.72rem; color:var(--text-muted);">${escapeHtml(t('reward_exercises'))}</div>
                             <div style="font-size:0.95rem; font-weight:800;">${exercisesLabel}</div>
                         </div>
                         <div class="reward-stat" style="padding:10px 8px; border-radius:10px; border:1px solid var(--border-color); background:var(--accent-secondary); text-align:center;">
-                            <div style="font-size:0.72rem; color:var(--text-muted);">Serie</div>
+                            <div style="font-size:0.72rem; color:var(--text-muted);">${escapeHtml(t('reward_sets'))}</div>
                             <div style="font-size:0.95rem; font-weight:800;">${setsLabel}</div>
                         </div>
                         <div class="reward-stat" style="padding:10px 8px; border-radius:10px; border:1px solid var(--border-color); background:var(--accent-secondary); text-align:center;">
-                            <div style="font-size:0.72rem; color:var(--text-muted);">Objętość</div>
+                            <div style="font-size:0.72rem; color:var(--text-muted);">${escapeHtml(t('reward_volume'))}</div>
                             <div style="font-size:0.95rem; font-weight:800;">${volumeTextTons || volumeTextKg}</div>
                         </div>
                     </div>
@@ -8289,7 +8917,7 @@
                     <div style="margin-top:2px; font-size:0.82rem; color: var(--text-muted); line-height:1.4;">${finalLine}</div>
                 </div>
             `;
-            return { title: 'Trening ukończony', bodyHtml };
+            return { title: t('reward_title'), bodyHtml };
         }
 
         function calcBodyPartUsage(yearWorkouts) {
@@ -8423,7 +9051,7 @@
                 const labelRadius = radius + 30;
                 const x = cx + labelRadius * Math.cos(angle);
                 const y = cy + labelRadius * Math.sin(angle);
-                ctx.fillText(labels[i], x, y);
+                ctx.fillText(localizeBodyPart(labels[i]), x, y);
             }
         }
 
@@ -8441,7 +9069,7 @@
         }
 
         function buildDotCalendar(year, workoutDatesSet) {
-            const monthNames = ['sty', 'lut', 'mar', 'kwi', 'maj', 'cze', 'lip', 'sie', 'wrz', 'paź', 'lis', 'gru'];
+            const monthNames = (I18N[currentLang] || I18N.pl).monthsShort.map(m => m.toLowerCase());
             const cal = document.createElement('div');
             cal.className = 'review-dotcal';
 
@@ -8487,7 +9115,7 @@
         }
 
         function buildSingleMonthCalendar(year, month, workoutDatesSet) {
-            const dayLabels = ['Pn', 'Wt', 'Śr', 'Cz', 'Pt', 'So', 'Nd'];
+            const dayLabels = dayShortLabels();
             const cal = document.createElement('div');
             cal.style.cssText = 'width:100%; max-width:280px; margin:0 auto;';
 
@@ -8557,10 +9185,12 @@
             const badgeEl = document.getElementById('whats-new-version-badge');
             const listEl = document.getElementById('whats-new-list');
 
-            if (titleEl) titleEl.textContent = data.title || 'Co nowego';
+            const resolvedTitle = data.titleKey ? t(data.titleKey) : (data.title || t('whatsnew_default_title'));
+            const resolvedSubtitle = data.subtitleKey ? t(data.subtitleKey) : (data.subtitle || '');
+            if (titleEl) titleEl.textContent = resolvedTitle;
             if (subtitleEl) {
-                if (data.subtitle) {
-                    subtitleEl.textContent = data.subtitle;
+                if (resolvedSubtitle) {
+                    subtitleEl.textContent = resolvedSubtitle;
                     subtitleEl.style.display = '';
                 } else {
                     subtitleEl.textContent = '';
@@ -8576,7 +9206,7 @@
                     i.className = 'fas ' + (item.icon || 'fa-circle-check');
                     i.setAttribute('aria-hidden', 'true');
                     const span = document.createElement('span');
-                    span.textContent = item.text || '';
+                    span.textContent = item.key ? t(item.key) : (item.text || '');
                     li.appendChild(i);
                     li.appendChild(span);
                     listEl.appendChild(li);
@@ -8706,7 +9336,8 @@
             const isYearMode = (mode === 'year');
 
             // Period label
-            const monthNames = ['styczeń', 'luty', 'marzec', 'kwiecień', 'maj', 'czerwiec', 'lipiec', 'sierpień', 'wrzesień', 'październik', 'listopad', 'grudzień'];
+            const monthNames = (I18N[currentLang] || I18N.pl).monthsLong;
+            const capitalize = (s) => s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
 
             // Get workouts for the correct period
             let periodWorkouts, periodLabel, periodStart, periodEnd;
@@ -8717,7 +9348,7 @@
                     if (!w || !w.date) return false;
                     try { return new Date(w.date).getFullYear() === currentYear; } catch (e) { return false; }
                 });
-                periodLabel = `Rok ${currentYear}`;
+                periodLabel = t('review_year_label', { year: currentYear });
             } else {
                 // Previous month (e.g. on March 1st, show Feb 1 – Feb 28/29)
                 const prevMonth = now.getMonth() === 0 ? 11 : now.getMonth() - 1;
@@ -8731,9 +9362,10 @@
                         return d >= periodStart && d <= periodEnd;
                     } catch (e) { return false; }
                 });
-                periodLabel = `${monthNames[prevMonth]} ${prevYear}`;
+                periodLabel = `${capitalize(monthNames[prevMonth])} ${prevYear}`;
             }
 
+            const cardLabel = isYearMode ? t('review_year_review', { year: currentYear }) : t('review_summary_of', { label: periodLabel });
             const cards = [];
 
             // --- CARD 1: Summary Stats ---
@@ -8741,25 +9373,25 @@
             const card1 = document.createElement('div');
             card1.className = 'review-card';
             card1.innerHTML = `
-                <div class="review-card-label">${isYearMode ? currentYear + ' GymCut in Review' : 'Podsumowanie: ' + periodLabel}</div>
-                <div class="review-card-title">${isYearMode ? 'Co za rok!' : 'To był świetny miesiąc!'} 🔥</div>
-                <div class="review-card-sub">${isYearMode ? 'Oto twoje roczne podsumowanie' : 'Oto twoje statystyki za ' + periodLabel}</div>
+                <div class="review-card-label">${cardLabel}</div>
+                <div class="review-card-title">${isYearMode ? t('review_year_great') : t('review_month_great')}</div>
+                <div class="review-card-sub">${isYearMode ? escapeHtml(t('review_year_subtitle')) : escapeHtml(t('review_stats_of', { label: periodLabel }))}</div>
                 <div class="review-month-stats">
                     <div class="review-month-stat">
                         <div class="review-month-stat-value">${stats.workouts}</div>
-                        <div class="review-month-stat-label">treningów</div>
+                        <div class="review-month-stat-label">${escapeHtml(t('review_workouts_label'))}</div>
                     </div>
                     <div class="review-month-stat">
                         <div class="review-month-stat-value">${formatWeight(stats.totalWeight)}</div>
-                        <div class="review-month-stat-label">kg podniesione</div>
+                        <div class="review-month-stat-label">${escapeHtml(t('review_kg_lifted'))}</div>
                     </div>
                     <div class="review-month-stat">
                         <div class="review-month-stat-value">${stats.totalSets}</div>
-                        <div class="review-month-stat-label">serii</div>
+                        <div class="review-month-stat-label">${escapeHtml(t('review_sets_label'))}</div>
                     </div>
                     <div class="review-month-stat">
                         <div class="review-month-stat-value">${stats.days}</div>
-                        <div class="review-month-stat-label">dni treningowych</div>
+                        <div class="review-month-stat-label">${escapeHtml(t('review_days_label'))}</div>
                     </div>
                 </div>
             `;
@@ -8771,11 +9403,11 @@
             card2.className = 'review-card';
             const comparison = getWeightComparison(totalWeight);
             card2.innerHTML = `
-                <div class="review-card-label">${isYearMode ? currentYear + ' GymCut in Review' : 'Podsumowanie: ' + periodLabel}</div>
-                <div class="review-card-title">Podniosłeś(aś)</div>
+                <div class="review-card-label">${cardLabel}</div>
+                <div class="review-card-title">${escapeHtml(t('review_lifted'))}</div>
                 <div class="review-card-big">${formatWeight(totalWeight)} kg</div>
                 <div class="review-card-emoji">${comparison.emoji}</div>
-                <div class="review-card-sub">co równa się<br><span class="review-card-highlight">${comparison.text}</span></div>
+                <div class="review-card-sub">${escapeHtml(t('review_equals'))}<br><span class="review-card-highlight">${comparison.text}</span></div>
             `;
             cards.push(card2);
 
@@ -8784,8 +9416,8 @@
             const card3 = document.createElement('div');
             card3.className = 'review-card';
             card3.innerHTML = `
-                <div class="review-card-label">${isYearMode ? currentYear + ' GymCut in Review' : 'Podsumowanie: ' + periodLabel}</div>
-                <div class="review-card-title">Użycie części ciała</div>
+                <div class="review-card-label">${cardLabel}</div>
+                <div class="review-card-title">${escapeHtml(t('review_bodyparts'))}</div>
                 <div class="review-radar-wrap"><canvas id="popup-radar-canvas" width="440" height="440"></canvas></div>
             `;
             cards.push(card3);
@@ -8796,9 +9428,9 @@
             if (isYearMode) {
                 const workoutDatesSet = getYearWorkoutDates(periodWorkouts);
                 card4.innerHTML = `
-                    <div class="review-card-label">${currentYear} GymCut in Review</div>
-                    <div class="review-card-title">Treningi w ${currentYear}</div>
-                    <div class="review-card-sub" style="margin-bottom:12px">${workoutDatesSet.size > 0 ? 'Dobra robota! 💪' : 'Czas zacząć!'}</div>
+                    <div class="review-card-label">${t('review_year_review', { year: currentYear })}</div>
+                    <div class="review-card-title">${escapeHtml(t('review_year_in', { year: currentYear }))}</div>
+                    <div class="review-card-sub" style="margin-bottom:12px">${workoutDatesSet.size > 0 ? t('review_good_job') : t('review_start')}</div>
                 `;
                 card4.appendChild(buildDotCalendar(currentYear, workoutDatesSet));
             } else {
@@ -8807,9 +9439,9 @@
                 const prevYear = now.getMonth() === 0 ? currentYear - 1 : currentYear;
                 const workoutDatesSet = getYearWorkoutDates(periodWorkouts);
                 card4.innerHTML = `
-                    <div class="review-card-label">Podsumowanie: ${periodLabel}</div>
-                    <div class="review-card-title">Kalendarz treningów</div>
-                    <div class="review-card-sub" style="margin-bottom:12px">${workoutDatesSet.size > 0 ? 'Dobra robota! 💪' : ''}</div>
+                    <div class="review-card-label">${t('review_summary_of', { label: periodLabel })}</div>
+                    <div class="review-card-title">${escapeHtml(t('review_calendar'))}</div>
+                    <div class="review-card-sub" style="margin-bottom:12px">${workoutDatesSet.size > 0 ? t('review_good_job') : ''}</div>
                 `;
                 card4.appendChild(buildSingleMonthCalendar(prevYear, prevMonth, workoutDatesSet));
             }
@@ -9017,7 +9649,7 @@
                 const labelRadius = radius + 30;
                 const x = cx + labelRadius * Math.cos(angle);
                 const y = cy + labelRadius * Math.sin(angle);
-                ctx.fillText(labels[i], x, y);
+                ctx.fillText(localizeBodyPart(labels[i]), x, y);
             }
         }
 
@@ -9094,16 +9726,16 @@
             let html = '<div class="pr-container">';
 
             html += '<div class="pr-section">';
-            html += '<h3 class="pr-section-title pr-section-title--alltime"><i class="fas fa-trophy" aria-hidden="true"></i><span>Rekordy osobiste (wszystkie treningi)</span></h3>';
+            html += '<h3 class="pr-section-title pr-section-title--alltime"><i class="fas fa-trophy" aria-hidden="true"></i><span>' + escapeHtml(t('pr_records_all')) + '</span></h3>';
 
             const allTimeExercises = Object.keys(allTimePRs).filter(name =>
                 allTimePRs[name].maxWeight !== null || allTimePRs[name].maxReps !== null
             );
 
             if (allTimeExercises.length === 0) {
-                html += '<p class="pr-empty">Brak zapisanych rekordów.</p>';
+                html += '<p class="pr-empty">' + escapeHtml(t('pr_empty')) + '</p>';
             } else {
-                html += '<p class="pr-chart-hint"><i class="fas fa-chart-line" aria-hidden="true"></i> Tapnij ćwiczenie, aby zobaczyć wykres progresu.</p>';
+                html += '<p class="pr-chart-hint"><i class="fas fa-chart-line" aria-hidden="true"></i> ' + escapeHtml(t('pr_chart_hint')) + '</p>';
                 allTimeExercises.forEach(exerciseName => {
                     const pr = allTimePRs[exerciseName];
                     const safeName = escapeHtml(exerciseName);
@@ -9116,9 +9748,9 @@
                     if (pr.maxWeight !== null) {
                         html += '<div class="pr-stat pr-stat--weight">';
                         html += '<span class="pr-stat-icon"><i class="fas fa-weight-hanging" aria-hidden="true"></i></span>';
-                        html += '<span class="pr-stat-body">Maksymalna waga: <strong>' + pr.maxWeight + ' kg</strong>';
+                        html += '<span class="pr-stat-body">' + escapeHtml(t('pr_max_weight')) + ': <strong>' + pr.maxWeight + ' kg</strong>';
                         if (pr.maxWeightReps !== null) {
-                            html += ' x ' + pr.maxWeightReps + ' powt.';
+                            html += ' x ' + pr.maxWeightReps + ' ' + escapeHtml(t('pr_reps_short'));
                         }
                         html += '</span></div>';
                     }
@@ -9126,7 +9758,7 @@
                     if (pr.maxReps !== null) {
                         html += '<div class="pr-stat pr-stat--reps">';
                         html += '<span class="pr-stat-icon"><i class="fas fa-redo" aria-hidden="true"></i></span>';
-                        html += '<span class="pr-stat-body">Maksymalne powtórzenia: <strong>' + pr.maxReps + '</strong>';
+                        html += '<span class="pr-stat-body">' + escapeHtml(t('pr_max_reps')) + ': <strong>' + pr.maxReps + '</strong>';
                         if (pr.maxRepsWeight !== null) {
                             html += ' x ' + pr.maxRepsWeight + ' kg';
                         }
@@ -9141,7 +9773,7 @@
             html += '</div>';
             html += '</div>';
 
-            showModal('Rekordy osobiste', html, () => {
+            showModal(t('pr_records_title'), html, () => {
                 const container = document.querySelector('#modal-content .pr-container');
                 if (!container) return;
                 container.addEventListener('click', handlePRItemToggle);
@@ -9220,7 +9852,7 @@
             if (points.length < 2) {
                 const p = document.createElement('p');
                 p.className = 'pr-chart-empty';
-                p.textContent = 'Za mało danych do wykresu — potrzeba co najmniej 2 treningów z tym ćwiczeniem.';
+                p.textContent = t('pr_chart_too_little');
                 wrapEl.appendChild(p);
                 return;
             }
@@ -9228,8 +9860,8 @@
             const legend = document.createElement('div');
             legend.className = 'pr-chart-legend';
             legend.innerHTML =
-                '<span class="pr-chart-legend-item"><span class="pr-chart-dot pr-chart-dot--weight"></span>Max ciężar</span>' +
-                '<span class="pr-chart-legend-item"><span class="pr-chart-dot pr-chart-dot--orm"></span>Szac. 1RM</span>';
+                '<span class="pr-chart-legend-item"><span class="pr-chart-dot pr-chart-dot--weight"></span>' + escapeHtml(t('pr_chart_max_weight')) + '</span>' +
+                '<span class="pr-chart-legend-item"><span class="pr-chart-dot pr-chart-dot--orm"></span>' + escapeHtml(t('pr_chart_est1rm')) + '</span>';
             wrapEl.appendChild(legend);
 
             const canvas = document.createElement('canvas');
@@ -9357,20 +9989,55 @@
             else { const defaultPreset = container.querySelector(`.timer-preset[data-seconds="180"]`); if (defaultPreset) defaultPreset.classList.add('active'); }
         }
 
+        // Szablony treningów z nazwami/notatkami w 3 językach. Język ustalany jest
+        // w momencie tworzenia planu (zapisywany jako zwykły tekst do danych użytkownika).
+        const WORKOUT_TEMPLATES = {
+            push: [
+                { sets: 4, reps: 8, name: { pl: 'Wyciskanie sztangi leżąc', en: 'Barbell bench press', es: 'Press de banca con barra' }, notes: { pl: 'Klata', en: 'Chest', es: 'Pecho' } },
+                { sets: 3, reps: 10, name: { pl: 'Wyciskanie hantli na skosie', en: 'Incline dumbbell press', es: 'Press inclinado con mancuernas' }, notes: { pl: 'Góra klaty', en: 'Upper chest', es: 'Pecho superior' } },
+                { sets: 3, reps: 10, name: { pl: 'Wyciskanie żołnierskie', en: 'Overhead press', es: 'Press militar' }, notes: { pl: 'Barki', en: 'Shoulders', es: 'Hombros' } },
+                { sets: 3, reps: 12, name: { pl: 'Unoszenie hantli bokiem', en: 'Dumbbell lateral raise', es: 'Elevaciones laterales con mancuernas' }, notes: { pl: 'Boki barków', en: 'Side delts', es: 'Deltoides laterales' } },
+                { sets: 3, reps: 12, name: { pl: 'Wyciskanie francuskie', en: 'Skullcrusher', es: 'Press francés' }, notes: { pl: 'Triceps', en: 'Triceps', es: 'Tríceps' } }
+            ],
+            pull: [
+                { sets: 4, reps: 'max', name: { pl: 'Podciąganie na drążku', en: 'Pull-ups', es: 'Dominadas' }, notes: { pl: 'Plecy', en: 'Back', es: 'Espalda' } },
+                { sets: 3, reps: 10, name: { pl: 'Wiosłowanie sztangą', en: 'Barbell row', es: 'Remo con barra' }, notes: { pl: 'Mięśnie grzbietu', en: 'Back muscles', es: 'Músculos de la espalda' } },
+                { sets: 3, reps: 12, name: { pl: 'Ściąganie linki wyciągu', en: 'Lat pulldown', es: 'Jalón al pecho' }, notes: { pl: 'Plecy', en: 'Back', es: 'Espalda' } },
+                { sets: 3, reps: 10, name: { pl: 'Uginanie ramion ze sztangą', en: 'Barbell curl', es: 'Curl con barra' }, notes: { pl: 'Biceps', en: 'Biceps', es: 'Bíceps' } },
+                { sets: 3, reps: 12, name: { pl: 'Uginanie ramion z hantlami', en: 'Dumbbell curl', es: 'Curl con mancuernas' }, notes: { pl: 'Biceps', en: 'Biceps', es: 'Bíceps' } }
+            ],
+            legs: [
+                { sets: 4, reps: 8, name: { pl: 'Przysiady ze sztangą', en: 'Barbell squat', es: 'Sentadilla con barra' }, notes: { pl: 'Nogi', en: 'Legs', es: 'Piernas' } },
+                { sets: 3, reps: 8, name: { pl: 'Martwy ciąg', en: 'Deadlift', es: 'Peso muerto' }, notes: { pl: 'Plecy/nogi', en: 'Back/legs', es: 'Espalda/piernas' } },
+                { sets: 3, reps: 10, name: { pl: 'Wykroki z hantlami', en: 'Dumbbell lunges', es: 'Zancadas con mancuernas' }, notes: { pl: 'Nogi', en: 'Legs', es: 'Piernas' } },
+                { sets: 3, reps: 12, name: { pl: 'Prostowanie nóg na maszynie', en: 'Leg extension', es: 'Extensión de piernas' }, notes: { pl: 'Przednie uda', en: 'Quads', es: 'Cuádriceps' } },
+                { sets: 3, reps: 12, name: { pl: 'Uginanie nóg na maszynie', en: 'Leg curl', es: 'Curl femoral' }, notes: { pl: 'Tylne uda', en: 'Hamstrings', es: 'Isquiotibiales' } }
+            ],
+            fullbody: [
+                { sets: 3, reps: 10, name: { pl: 'Przysiady ze sztangą', en: 'Barbell squat', es: 'Sentadilla con barra' }, notes: { pl: 'Nogi', en: 'Legs', es: 'Piernas' } },
+                { sets: 3, reps: 10, name: { pl: 'Wyciskanie sztangi leżąc', en: 'Barbell bench press', es: 'Press de banca con barra' }, notes: { pl: 'Klata', en: 'Chest', es: 'Pecho' } },
+                { sets: 3, reps: 'max', name: { pl: 'Podciąganie na drążku', en: 'Pull-ups', es: 'Dominadas' }, notes: { pl: 'Plecy', en: 'Back', es: 'Espalda' } },
+                { sets: 3, reps: 10, name: { pl: 'Wyciskanie żołnierskie', en: 'Overhead press', es: 'Press militar' }, notes: { pl: 'Barki', en: 'Shoulders', es: 'Hombros' } },
+                { sets: 3, reps: 12, name: { pl: 'Uginanie ramion ze sztangą', en: 'Barbell curl', es: 'Curl con barra' }, notes: { pl: 'Biceps', en: 'Biceps', es: 'Bíceps' } },
+                { sets: 3, reps: 12, name: { pl: 'Wyciskanie francuskie', en: 'Skullcrusher', es: 'Press francés' }, notes: { pl: 'Triceps', en: 'Triceps', es: 'Tríceps' } }
+            ]
+        };
+
         function loadTemplate(templateType) {
-            let exercises = [];
-            switch (templateType) {
-                case 'push': exercises = [{ name: 'Wyciskanie sztangi leżąc', sets: 4, reps: 8, notes: 'Klata' }, { name: 'Wyciskanie hantli na skosie', sets: 3, reps: 10, notes: 'Góra klaty' }, { name: 'Wyciskanie żołnierskie', sets: 3, reps: 10, notes: 'Barki' }, { name: 'Unoszenie hantli bokiem', sets: 3, reps: 12, notes: 'Boki barków' }, { name: 'Wyciskanie francuskie', sets: 3, reps: 12, notes: 'Triceps' }]; break;
-                case 'pull': exercises = [{ name: 'Podciąganie na drążku', sets: 4, reps: 'max', notes: 'Plecy' }, { name: 'Wiosłowanie sztangą', sets: 3, reps: 10, notes: 'Mięśnie grzbietu' }, { name: 'Ściąganie linki wyciągu', sets: 3, reps: 12, notes: 'Plecy' }, { name: 'Uginanie ramion ze sztangą', sets: 3, reps: 10, notes: 'Biceps' }, { name: 'Uginanie ramion z hantlami', sets: 3, reps: 12, notes: 'Biceps' }]; break;
-                case 'legs': exercises = [{ name: 'Przysiady ze sztangą', sets: 4, reps: 8, notes: 'Nogi' }, { name: 'Martwy ciąg', sets: 3, reps: 8, notes: 'Plecy/nogi' }, { name: 'Wykroki z hantlami', sets: 3, reps: 10, notes: 'Nogi' }, { name: 'Prostowanie nóg na maszynie', sets: 3, reps: 12, notes: 'Przednie uda' }, { name: 'Uginanie nóg na maszynie', sets: 3, reps: 12, notes: 'Tylne uda' }]; break;
-                case 'fullbody': exercises = [{ name: 'Przysiady ze sztangą', sets: 3, reps: 10, notes: 'Nogi' }, { name: 'Wyciskanie sztangi leżąc', sets: 3, reps: 10, notes: 'Klata' }, { name: 'Podciąganie na drążku', sets: 3, reps: 'max', notes: 'Plecy' }, { name: 'Wyciskanie żołnierskie', sets: 3, reps: 10, notes: 'Barki' }, { name: 'Uginanie ramion ze sztangą', sets: 3, reps: 12, notes: 'Biceps' }, { name: 'Wyciskanie francuskie', sets: 3, reps: 12, notes: 'Triceps' }]; break;
-            }
-            const planName = templateType.toUpperCase() + ' - ' + new Date().toLocaleDateString('pl-PL'); if (!Array.isArray(trainingPlans)) trainingPlans = [];
+            const lang = I18N[currentLang] ? currentLang : 'pl';
+            const template = WORKOUT_TEMPLATES[templateType] || [];
+            const exercises = template.map((ex) => ({
+                name: (ex.name && (ex.name[lang] || ex.name.pl)) || '',
+                sets: ex.sets,
+                reps: ex.reps,
+                notes: (ex.notes && (ex.notes[lang] || ex.notes.pl)) || ''
+            }));
+            const planName = templateType.toUpperCase() + ' - ' + new Date().toLocaleDateString(currentLocale()); if (!Array.isArray(trainingPlans)) trainingPlans = [];
             const newPlan = { id: crypto.randomUUID(), name: planName, exercises: exercises };
             trainingPlans.push(newPlan);
             saveTrainingPlans();
             renderTrainingPlans();
-            showToast(`Utworzono plan ${planName}!`, 'success');
+            showToast(t('toast_plan_created', { name: planName }), 'success');
 
             showPlanEditor(newPlan.id);
         }
@@ -9481,12 +10148,12 @@
             if (!currentWorkout || !Array.isArray(currentWorkout.exercises) || !currentWorkout.exercises.length) return '';
             const idx = Math.min(Math.max(currentFocusExerciseIndex || 0, 0), currentWorkout.exercises.length - 1);
             const ex = currentWorkout.exercises[idx];
-            const name = ex && ex.name ? ex.name : 'Ćwiczenie';
+            const name = ex && ex.name ? ex.name : t('exercise_fallback');
             return currentWorkout.planName ? `${currentWorkout.planName} – ${name}` : name;
         }
 
         function buildFocusExerciseMainLabel(exerciseName) {
-            const fallback = 'Ćwiczenie';
+            const fallback = t('exercise_fallback');
             if (!exerciseName || typeof exerciseName !== 'string') return fallback;
 
             const normalized = exerciseName.trim().replace(/\s+/g, ' ');
@@ -9518,7 +10185,7 @@
             const hasWorkout = !!(currentWorkout && Array.isArray(currentWorkout.exercises) && currentWorkout.exercises.length > 0);
             if (hasWorkout && !focusActive) {
                 const sub = document.getElementById('workout-resume-bar-subtitle');
-                if (sub) sub.textContent = getActiveWorkoutLabel() || 'Wróć do treningu';
+                if (sub) sub.textContent = getActiveWorkoutLabel() || t('resume_subtitle');
                 bar.classList.remove('hidden');
                 bar.removeAttribute('hidden');
             } else {
@@ -9528,7 +10195,7 @@
         }
 
         function enterFocusMode() {
-            if (currentWorkout.exercises.length === 0) return showToast('Brak ćwiczeń w treningu', 'warning');
+            if (currentWorkout.exercises.length === 0) return showToast(t('toast_no_ex_in_workout'), 'warning');
 
             const focusHost = document.getElementById('workout-focus-host');
             if (focusHost) {
@@ -9569,11 +10236,11 @@
             // Ustaw tytuł
             const focusExerciseTitle = document.getElementById('focus-exercise-title');
             if (focusExerciseTitle) {
-                const fullName = exercise.name && String(exercise.name).trim() ? String(exercise.name).trim() : 'Ćwiczenie';
+                const fullName = exercise.name && String(exercise.name).trim() ? String(exercise.name).trim() : t('exercise_fallback');
                 const mainLabel = buildFocusExerciseMainLabel(fullName);
                 focusExerciseTitle.textContent = `${index + 1}/${currentWorkout.exercises.length} - ${mainLabel}`;
                 focusExerciseTitle.title = `${index + 1}/${currentWorkout.exercises.length} - ${fullName}`;
-                focusExerciseTitle.setAttribute('aria-label', `${index + 1} z ${currentWorkout.exercises.length}, ${fullName}`);
+                focusExerciseTitle.setAttribute('aria-label', `${index + 1}/${currentWorkout.exercises.length}, ${fullName}`);
             }
 
             // Zaktualizuj przycisk progresji w headerze
@@ -9592,8 +10259,8 @@
                 progBanner.className = 'focus-progression-banner';
                 const justArmed = progressionArmedExerciseIndexes.has(index);
                 const msg = justArmed
-                    ? 'Progres ustawiony na następny trening. Dziś dokończ technicznie 💪'
-                    : 'Czas na progres! Ostatnio poszło gładko. Podbijamy stawkę?';
+                    ? t('prog_banner_armed')
+                    : t('prog_banner_ready');
                 progBanner.innerHTML = `<span class="progression-icon">📈</span> ${msg}`;
                 progBanner.style.cursor = 'default';
                 content.appendChild(progBanner);
@@ -9659,11 +10326,11 @@
 
                         let prText = '🏆';
                         if (prCheck.isWeightPR && prCheck.isRepsPR) {
-                            prText = '🏆 PR!';
+                            prText = t('pr_badge_full');
                         } else if (prCheck.isWeightPR) {
-                            prText = '🏆 Max waga!';
+                            prText = t('pr_badge_weight');
                         } else if (prCheck.isRepsPR) {
-                            prText = '🏆 Max powt.!';
+                            prText = t('pr_badge_reps');
                         }
 
                         prIndicator.textContent = prText;
@@ -9699,7 +10366,7 @@
                 controls.appendChild(createStepper('weight', 'kg', exercise.weights[i] || '', index, i));
 
                 // Stepper Powtórzeń
-                controls.appendChild(createStepper('reps', 'powt.', exercise.repsCompleted[i] || '', index, i));
+                controls.appendChild(createStepper('reps', t('stepper_reps'), exercise.repsCompleted[i] || '', index, i));
 
                 setBox.appendChild(controls);
                 content.appendChild(setBox);
@@ -9708,7 +10375,7 @@
             // Przycisk dodawania serii
             const addSetBtn = document.createElement('button');
             addSetBtn.className = 'add-set-btn';
-            addSetBtn.innerHTML = '<i class="fas fa-plus"></i> Dodaj serię';
+            addSetBtn.innerHTML = '<i class="fas fa-plus"></i> ' + escapeHtml(t('focus_add_set'));
             addSetBtn.onclick = function () { addSetToExercise(index); };
             content.appendChild(addSetBtn);
 
@@ -9809,17 +10476,17 @@
 
         // Funkcja do pokazywania modalu dodawania ćwiczenia (wywołana w Focus Mode)
         function showFocusAddExerciseModal() {
-            showModal('Dodaj Ćwiczenie',
-                `<div class="form-group"><label>Nazwa Ćwiczenia</label><input type="text" id="m-exercise-name" placeholder="np. Uginanie ramion"></div>
-                <div class="form-group"><label>Liczba Serii</label><select id="m-exercise-sets"><option value="3">3 serie</option><option value="4">4 serie</option><option value="5">5 serii</option></select></div>
-                <div class="form-group"><label>Liczba Powtórzeń</label><input type="number" id="m-exercise-reps" value="10"></div>
-                <button id="m-add-exercise" class="btn-success"><i class="fas fa-plus"></i> Dodaj do Treningu</button>`,
+            showModal(t('add_ex_title'),
+                `<div class="form-group"><label>${escapeHtml(t('add_ex_name_label'))}</label><input type="text" id="m-exercise-name" placeholder="${escapeHtml(t('add_ex_name_ph'))}"></div>
+                <div class="form-group"><label>${escapeHtml(t('add_ex_sets_label'))}</label><select id="m-exercise-sets"><option value="3">${escapeHtml(tCount('sets_select', 3))}</option><option value="4">${escapeHtml(tCount('sets_select', 4))}</option><option value="5">${escapeHtml(tCount('sets_select', 5))}</option></select></div>
+                <div class="form-group"><label>${escapeHtml(t('add_ex_reps_label'))}</label><input type="number" id="m-exercise-reps" value="10"></div>
+                <button id="m-add-exercise" class="btn-success"><i class="fas fa-plus"></i> ${escapeHtml(t('add_ex_to_workout'))}</button>`,
                 () => {
                     document.getElementById('m-add-exercise').onclick = () => {
                         const name = document.getElementById('m-exercise-name').value.trim();
                         const sets = document.getElementById('m-exercise-sets').value;
                         const reps = document.getElementById('m-exercise-reps').value;
-                        if (!name) return showToast('Podaj nazwę ćwiczenia', 'warning');
+                        if (!name) return showToast(t('toast_ex_name_required2'), 'warning');
                         addNewExerciseToWorkout(name, sets, reps);
                         hideModal();
                     };
@@ -9851,7 +10518,7 @@
             } else if (currentWorkout.exercises.length > 0) {
                 enterFocusMode();
             }
-            showToast(`Dodano ćwiczenie: ${name}`, 'success');
+            showToast(t('toast_ex_added', { name: name }), 'success');
         }
 
         function checkIfPR(exerciseName, weight, reps) {
@@ -9901,13 +10568,13 @@
                     if (prCheck) {
                         try { triggerCelebration({ intensity: 'small' }); } catch (e) { }
                         // Show toast notification
-                        let toastMsg = 'Nowy rekord! ';
+                        let toastMsg = t('toast_new_pr_prefix');
                         if (prCheck.isWeightPR && prCheck.isRepsPR) {
-                            toastMsg += `Maksymalna waga (${weight} kg) i powtórzenia (${reps})!`;
+                            toastMsg += t('pr_weight_and_reps', { weight: weight, reps: reps });
                         } else if (prCheck.isWeightPR) {
-                            toastMsg += `Maksymalna waga: ${weight} kg`;
+                            toastMsg += t('pr_weight_only', { weight: weight });
                         } else if (prCheck.isRepsPR) {
-                            toastMsg += `Maksymalne powtórzenia: ${reps}`;
+                            toastMsg += t('pr_reps_only', { reps: reps });
                         }
                         showToast(toastMsg, 'success', 4000);
                         playUiSound('ding');
@@ -9964,8 +10631,8 @@
 
             showToast(
                 exercise.progression
-                    ? 'Zapisane. W następnym treningu spróbuj dołożyć progres 📈'
-                    : 'Progresja wyłączona',
+                    ? t('toast_progress_saved')
+                    : t('toast_progress_off'),
                 exercise.progression ? 'success' : 'info'
             );
         }
@@ -10041,11 +10708,11 @@
 
                     let prText = '🏆';
                     if (prCheck.isWeightPR && prCheck.isRepsPR) {
-                        prText = '🏆 PR!';
+                        prText = t('pr_badge_full');
                     } else if (prCheck.isWeightPR) {
-                        prText = '🏆 Max waga!';
+                        prText = t('pr_badge_weight');
                     } else if (prCheck.isRepsPR) {
-                        prText = '🏆 Max powt.!';
+                        prText = t('pr_badge_reps');
                     }
 
                     prIndicator.textContent = prText;
