@@ -834,6 +834,378 @@
             overflow: hidden;
         }
 
+        /* === ONBOARDING: Dodaj do ekranu głównego (A2HS) === */
+        .install-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 5200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: max(20px, env(safe-area-inset-top)) 18px max(24px, env(safe-area-inset-bottom));
+            background: radial-gradient(120% 80% at 50% 12%, rgba(92, 149, 255, 0.28), transparent 55%),
+                rgba(0, 0, 0, 0.55);
+            -webkit-backdrop-filter: blur(6px);
+            backdrop-filter: blur(6px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s ease;
+        }
+
+        .install-overlay.is-open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .install-overlay.hidden {
+            display: none !important;
+        }
+
+        .install-panel {
+            width: 100%;
+            max-width: 440px;
+            max-height: min(94vh, 820px);
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 20px 20px 18px;
+            box-shadow: 0 28px 70px rgba(0, 0, 0, 0.45);
+            transform: translateY(16px) scale(0.97);
+            opacity: 0;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            transition: transform 0.35s ease, opacity 0.35s ease;
+        }
+
+        .install-overlay.is-open .install-panel {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+
+        .install-hero {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .install-hero-icon {
+            flex-shrink: 0;
+            width: 52px;
+            height: 52px;
+            border-radius: 15px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #fff;
+            background: linear-gradient(150deg, var(--accent-color), #7c5cff);
+            box-shadow: 0 10px 24px rgba(92, 149, 255, 0.4);
+        }
+
+        .install-title {
+            font-family: "Poppins", sans-serif;
+            font-size: clamp(1.2rem, 4.6vw, 1.5rem);
+            font-weight: 900;
+            color: var(--text-color);
+            line-height: 1.18;
+            margin: 0;
+        }
+
+        .install-subtitle {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.45;
+        }
+
+        /* Zakładki wyboru urządzenia (iOS / Android / Komputer) */
+        .install-tabs-label {
+            margin: 2px 0 -4px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .install-tabs {
+            display: flex;
+            gap: 6px;
+            padding: 4px;
+            border-radius: 14px;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+        }
+
+        .install-tab {
+            flex: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            padding: 9px 6px;
+            border-radius: 10px;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            -webkit-appearance: none;
+            appearance: none;
+            touch-action: manipulation;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .install-tab i { font-size: 0.95rem; }
+
+        .install-tab.is-active {
+            background: var(--accent-color);
+            color: #fff;
+            box-shadow: 0 6px 16px rgba(92, 149, 255, 0.35);
+        }
+
+        /* Animowany mockup telefonu (zamiast GIF-a — działa offline) */
+        .install-demo {
+            position: relative;
+            align-self: center;
+            width: 178px;
+            height: 250px;
+            border-radius: 26px;
+            background: linear-gradient(180deg, #1f2330, #14161e);
+            border: 3px solid #2c3142;
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), inset 0 0 0 2px rgba(255, 255, 255, 0.03);
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .install-demo-screen {
+            position: absolute;
+            inset: 8px;
+            border-radius: 18px;
+            background: linear-gradient(180deg, #2a2f3d 0%, #20242f 100%);
+            overflow: hidden;
+        }
+
+        .install-demo-appicon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -60%);
+            width: 56px;
+            height: 56px;
+            border-radius: 15px;
+            background: linear-gradient(150deg, var(--accent-color), #7c5cff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.6rem;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.4);
+        }
+
+        .install-demo-appicon span {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.62rem;
+            color: #cfd6e6;
+            white-space: nowrap;
+            font-weight: 600;
+        }
+
+        /* iOS: pasek dolny z ikoną Udostępnij */
+        .install-demo-bar {
+            position: absolute;
+            left: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            background: rgba(10, 12, 18, 0.92);
+            color: #aeb6c8;
+            font-size: 0.85rem;
+        }
+
+        .install-demo-bar.ios {
+            bottom: 0;
+            height: 38px;
+        }
+
+        .install-demo-bar.android {
+            top: 0;
+            height: 34px;
+            justify-content: flex-end;
+            padding-right: 12px;
+        }
+
+        .install-demo-bar .hot {
+            color: var(--accent-color);
+            position: relative;
+        }
+
+        /* "Dymek" z opcją Dodaj do ekranu głównego */
+        .install-demo-sheet {
+            position: absolute;
+            left: 14px;
+            right: 14px;
+            bottom: 46px;
+            background: #f4f6fb;
+            color: #1a1d27;
+            border-radius: 12px;
+            padding: 9px 11px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            transform: translateY(10px);
+            animation: installSheetPop 4.2s ease-in-out infinite;
+        }
+
+        .install-demo-sheet.android {
+            top: 40px;
+            bottom: auto;
+            transform: translateY(-10px);
+        }
+
+        .install-demo-sheet i {
+            color: var(--accent-color);
+        }
+
+        /* Animowany palec/tap */
+        .install-demo-finger {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.28);
+            border: 2px solid rgba(255, 255, 255, 0.85);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .install-demo-finger.ios {
+            left: 50%;
+            bottom: 4px;
+            animation: installTapIos 4.2s ease-in-out infinite;
+        }
+
+        .install-demo-finger.android {
+            right: 8px;
+            top: 4px;
+            animation: installTapAndroid 4.2s ease-in-out infinite;
+        }
+
+        @keyframes installTapIos {
+            0%, 18% { opacity: 0; transform: scale(0.6); }
+            24% { opacity: 1; transform: scale(1); }
+            34% { opacity: 1; transform: scale(0.85); }
+            46%, 100% { opacity: 0; transform: scale(0.6); }
+        }
+
+        @keyframes installTapAndroid {
+            0%, 18% { opacity: 0; transform: scale(0.6); }
+            24% { opacity: 1; transform: scale(1); }
+            34% { opacity: 1; transform: scale(0.85); }
+            46%, 100% { opacity: 0; transform: scale(0.6); }
+        }
+
+        @keyframes installSheetPop {
+            0%, 40% { opacity: 0; transform: translateY(10px); }
+            52%, 88% { opacity: 1; transform: translateY(0); }
+            100% { opacity: 0; transform: translateY(10px); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .install-demo-sheet,
+            .install-demo-finger { animation: none; opacity: 1; transform: none; }
+            .install-demo-finger { display: none; }
+        }
+
+        .install-steps {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .install-steps li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 11px 13px;
+            border-radius: 14px;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            font-size: 0.92rem;
+            line-height: 1.35;
+        }
+
+        .install-steps li .step-num {
+            flex-shrink: 0;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--accent-color);
+            color: #fff;
+            font-weight: 800;
+            font-size: 0.82rem;
+        }
+
+        .install-steps li .step-ico {
+            flex-shrink: 0;
+            color: var(--accent-color);
+            font-size: 1rem;
+            min-width: 18px;
+            text-align: center;
+        }
+
+        .install-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .install-actions .btn-success {
+            width: 100%;
+            margin-top: 0;
+        }
+
+        .install-later-btn {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 8px;
+            cursor: pointer;
+            border-radius: 10px;
+            -webkit-appearance: none;
+            appearance: none;
+            touch-action: manipulation;
+        }
+
+        .install-later-btn:hover { color: var(--text-color); }
+
+        body.install-open { overflow: hidden; }
+
         /* Wiersz wersji w sekcji Opcje */
         .settings-version-row {
             width: 100%;
@@ -4591,6 +4963,38 @@
         </div>
     </div>
 
+    <div id="install-overlay" class="install-overlay hidden" role="dialog" aria-modal="true"
+        aria-labelledby="install-title" aria-hidden="true">
+        <div class="install-panel">
+            <div class="install-hero">
+                <span class="install-hero-icon" aria-hidden="true"><i class="fas fa-dumbbell"></i></span>
+                <div>
+                    <h2 id="install-title" class="install-title" data-i18n="install_title">Dodaj GymCut na ekran główny</h2>
+                </div>
+            </div>
+            <p class="install-subtitle" id="install-subtitle" data-i18n="install_subtitle">
+                Aby apka działała najlepiej — offline, na pełnym ekranie i jednym tapnięciem z ekranu głównego — dodaj ją jak zwykłą aplikację.
+            </p>
+            <p class="install-tabs-label" data-i18n="install_choose_device">Wybierz urządzenie</p>
+            <div class="install-tabs" id="install-tabs" role="tablist">
+                <button type="button" class="install-tab" data-platform="ios" role="tab">
+                    <i class="fab fa-apple" aria-hidden="true"></i> <span data-i18n="install_tab_ios">iPhone / iPad</span>
+                </button>
+                <button type="button" class="install-tab" data-platform="android" role="tab">
+                    <i class="fab fa-android" aria-hidden="true"></i> <span data-i18n="install_tab_android">Android</span>
+                </button>
+            </div>
+            <div class="install-demo" id="install-demo" aria-hidden="true"></div>
+            <ol class="install-steps" id="install-steps"></ol>
+            <div class="install-actions">
+                <button type="button" class="btn-success" id="install-primary-btn">
+                    <i class="fas fa-plus" aria-hidden="true"></i> <span id="install-primary-label" data-i18n="install_got_it">OK, rozumiem</span>
+                </button>
+                <button type="button" class="install-later-btn" id="install-later-btn" data-i18n="install_later">Może później</button>
+            </div>
+        </div>
+    </div>
+
     <div id="modal-backdrop" class="hidden"></div>
     <div id="modal" class="hidden">
         <div id="modal-header">
@@ -4713,6 +5117,13 @@
                 sheet_plan_title: 'Plan', act_edit_plan: 'Edytuj plan', act_rename: 'Zmień nazwę', act_delete_plan: 'Usuń plan', cancel: 'Anuluj',
                 sheet_workout_title: 'Trening', act_details: 'Szczegóły', act_share: 'Udostępnij trening', act_edit_workout: 'Edytuj trening', act_delete_workout: 'Usuń trening',
                 appearance_sheet_title: 'Wygląd', act_change_theme: 'Zmień motyw', act_feedback: 'Pomoc i propozycje funkcji', act_kofi: 'Wspieraj na Ko-fi', act_data: 'Dane', act_language: 'Język', version_label: 'Wersja',
+                install_title: 'Dodaj GymCut na ekran główny', install_subtitle: 'Aby apka działała najlepiej — offline, na pełnym ekranie i jednym tapnięciem z ekranu głównego — dodaj ją jak zwykłą aplikację.',
+                install_got_it: 'OK, rozumiem', install_add: 'Zainstaluj teraz', install_later: 'Może później',
+                install_choose_device: 'Wybierz urządzenie', install_tab_ios: 'iPhone / iPad', install_tab_android: 'Android',
+                install_demo_label: 'Do ekranu początkowego', install_demo_label_android: 'Zainstaluj aplikację',
+                install_ios_1: 'Naciśnij przycisk Udostępnij na dolnym pasku Safari.', install_ios_2: 'Przewiń w dół i wybierz „Do ekranu początkowego”.', install_ios_3: 'Potwierdź, naciskając „Dodaj” w prawym górnym rogu.',
+                install_android_1: 'Otwórz menu przeglądarki (⋮ w prawym górnym rogu).', install_android_2: 'Wybierz „Zainstaluj aplikację” lub „Dodaj do ekranu głównego”.', install_android_3: 'Potwierdź, naciskając „Zainstaluj”.',
+                toast_installed: 'Świetnie! GymCut jest teraz na Twoim ekranie głównym 🎉',
                 ui_sounds_on: 'Dźwięki interfejsu: włączone', ui_sounds_off: 'Dźwięki interfejsu: wyłączone',
                 theme_to_light: 'Włącz tryb jasny', theme_to_dark: 'Włącz tryb ciemny',
                 theme_text_dark: 'Tryb ciemny', theme_text_light: 'Tryb jasny',
@@ -4840,6 +5251,13 @@
                 sheet_plan_title: 'Plan', act_edit_plan: 'Edit plan', act_rename: 'Rename', act_delete_plan: 'Delete plan', cancel: 'Cancel',
                 sheet_workout_title: 'Workout', act_details: 'Details', act_share: 'Share workout', act_edit_workout: 'Edit workout', act_delete_workout: 'Delete workout',
                 appearance_sheet_title: 'Appearance', act_change_theme: 'Change theme', act_feedback: 'Help & feature requests', act_kofi: 'Support on Ko-fi', act_data: 'Data', act_language: 'Language', version_label: 'Version',
+                install_title: 'Add GymCut to your Home Screen', install_subtitle: 'For the best experience — offline, full screen and one tap away from your Home Screen — install it like a regular app.',
+                install_got_it: 'Got it', install_add: 'Install now', install_later: 'Maybe later',
+                install_choose_device: 'Choose your device', install_tab_ios: 'iPhone / iPad', install_tab_android: 'Android',
+                install_demo_label: 'Add to Home Screen', install_demo_label_android: 'Install app',
+                install_ios_1: 'Tap the Share button in Safari\'s bottom bar.', install_ios_2: 'Scroll down and choose “Add to Home Screen”.', install_ios_3: 'Confirm by tapping “Add” in the top right.',
+                install_android_1: 'Open the browser menu (⋮ in the top right).', install_android_2: 'Choose “Install app” or “Add to Home screen”.', install_android_3: 'Confirm by tapping “Install”.',
+                toast_installed: 'Awesome! GymCut is now on your Home Screen 🎉',
                 ui_sounds_on: 'Interface sounds: on', ui_sounds_off: 'Interface sounds: off',
                 theme_to_light: 'Switch to light mode', theme_to_dark: 'Switch to dark mode',
                 theme_text_dark: 'Dark mode', theme_text_light: 'Light mode',
@@ -4967,6 +5385,13 @@
                 sheet_plan_title: 'Plan', act_edit_plan: 'Editar plan', act_rename: 'Renombrar', act_delete_plan: 'Eliminar plan', cancel: 'Cancelar',
                 sheet_workout_title: 'Entreno', act_details: 'Detalles', act_share: 'Compartir entreno', act_edit_workout: 'Editar entreno', act_delete_workout: 'Eliminar entreno',
                 appearance_sheet_title: 'Apariencia', act_change_theme: 'Cambiar tema', act_feedback: 'Ayuda y sugerencias', act_kofi: 'Apóyanos en Ko-fi', act_data: 'Datos', act_language: 'Idioma', version_label: 'Versión',
+                install_title: 'Añade GymCut a tu pantalla de inicio', install_subtitle: 'Para la mejor experiencia — sin conexión, a pantalla completa y a un toque desde tu inicio — instálala como una app normal.',
+                install_got_it: 'Entendido', install_add: 'Instalar ahora', install_later: 'Quizás más tarde',
+                install_choose_device: 'Elige tu dispositivo', install_tab_ios: 'iPhone / iPad', install_tab_android: 'Android',
+                install_demo_label: 'Añadir a inicio', install_demo_label_android: 'Instalar app',
+                install_ios_1: 'Toca el botón Compartir en la barra inferior de Safari.', install_ios_2: 'Desplázate y elige «Añadir a pantalla de inicio».', install_ios_3: 'Confirma tocando «Añadir» arriba a la derecha.',
+                install_android_1: 'Abre el menú del navegador (⋮ arriba a la derecha).', install_android_2: 'Elige «Instalar app» o «Añadir a pantalla de inicio».', install_android_3: 'Confirma tocando «Instalar».',
+                toast_installed: '¡Genial! GymCut ya está en tu pantalla de inicio 🎉',
                 ui_sounds_on: 'Sonidos de interfaz: activados', ui_sounds_off: 'Sonidos de interfaz: desactivados',
                 theme_to_light: 'Activar modo claro', theme_to_dark: 'Activar modo oscuro',
                 theme_text_dark: 'Modo oscuro', theme_text_light: 'Modo claro',
@@ -6609,10 +7034,14 @@
                     enterFocusMode();
                 }
                 updateWorkoutResumeBar();
-                // Najpierw ekran „Co nowego”, potem podsumowania (jeśli ekranu nie pokazano).
+                // Kolejność warstw startowych: „Co nowego” → podsumowania → onboarding A2HS.
+                const afterIntro = () => {
+                    tryShowReviewPopup();
+                    setTimeout(tryShowInstallPrompt, 700);
+                };
                 setTimeout(() => {
-                    const shown = tryShowWhatsNew(() => tryShowReviewPopup());
-                    if (!shown) tryShowReviewPopup();
+                    const shown = tryShowWhatsNew(afterIntro);
+                    if (!shown) afterIntro();
                 }, 600);
             }, 1000);
             // --- KONIEC KODU ANIMACJI ---
@@ -6665,6 +7094,7 @@
             initQuickWorkoutSheet();
             initHistoryEditSheet();
             initWhatsNew();
+            initInstallPrompt();
 
             document.getElementById('add-quick-workout-exercise-btn').addEventListener('click', addQuickWorkoutExercise);
 
@@ -9249,6 +9679,202 @@
             document.addEventListener('keydown', (e) => {
                 if (e.key !== 'Escape') return;
                 if (overlay.classList.contains('is-open')) closeWhatsNew();
+            });
+        }
+
+        // === ONBOARDING PWA: Dodaj do ekranu głównego (Add to Home Screen) ===
+        let deferredInstallPrompt = null;        // zdarzenie beforeinstallprompt (Android/desktop Chrome)
+        const INSTALL_SNOOZE_MS = 3 * 24 * 60 * 60 * 1000;   // ponów po 3 dniach
+
+        function isStandalonePWA() {
+            try {
+                return window.matchMedia('(display-mode: standalone)').matches ||
+                    window.navigator.standalone === true ||
+                    document.referrer.startsWith('android-app://');
+            } catch (e) { return false; }
+        }
+
+        function detectPlatform() {
+            const ua = (navigator.userAgent || navigator.vendor || '').toLowerCase();
+            const isIOS = /iphone|ipad|ipod/.test(ua) ||
+                (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1); // iPadOS
+            if (isIOS) return 'ios';
+            if (/android/.test(ua)) return 'android';
+            return 'desktop';
+        }
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredInstallPrompt = e;
+        });
+
+        window.addEventListener('appinstalled', () => {
+            deferredInstallPrompt = null;
+            saveData('installPromptState', 'installed');
+            try { showToast(t('toast_installed'), 'success', 4000); } catch (e) { }
+            const overlay = document.getElementById('install-overlay');
+            if (overlay && overlay.classList.contains('is-open')) closeInstallPrompt(false);
+        });
+
+        let installSelectedPlatform = 'ios';
+
+        function buildInstallContent(platform) {
+            platform = platform || installSelectedPlatform || 'android';
+            if (platform !== 'ios') platform = 'android';   // brak osobnej zakładki „Komputer”
+            installSelectedPlatform = platform;
+            // Natywne okno instalacji (Chromium: Android i desktop) pokazujemy na zakładce Android.
+            const hasNativePrompt = !!deferredInstallPrompt && platform === 'android';
+            const demo = document.getElementById('install-demo');
+            const stepsEl = document.getElementById('install-steps');
+            const primaryLabel = document.getElementById('install-primary-label');
+
+            // Podświetl aktywną zakładkę urządzenia
+            document.querySelectorAll('#install-tabs .install-tab').forEach((tab) => {
+                const active = tab.dataset.platform === platform;
+                tab.classList.toggle('is-active', active);
+                tab.setAttribute('aria-selected', active ? 'true' : 'false');
+            });
+
+            if (!stepsEl) return;
+
+            // Krok-po-kroku
+            let steps = [];
+            if (platform === 'ios') {
+                steps = [
+                    { ico: 'fa-arrow-up-from-bracket', txt: t('install_ios_1') },
+                    { ico: 'fa-square-plus', txt: t('install_ios_2') },
+                    { ico: 'fa-check', txt: t('install_ios_3') }
+                ];
+            } else {
+                steps = [
+                    { ico: 'fa-ellipsis-vertical', txt: t('install_android_1') },
+                    { ico: 'fa-square-plus', txt: t('install_android_2') },
+                    { ico: 'fa-check', txt: t('install_android_3') }
+                ];
+            }
+            stepsEl.innerHTML = '';
+            steps.forEach((s, i) => {
+                const li = document.createElement('li');
+                li.innerHTML = `<span class="step-num">${i + 1}</span><i class="fas ${s.ico} step-ico" aria-hidden="true"></i><span>${escapeHtml(s.txt)}</span>`;
+                stepsEl.appendChild(li);
+            });
+
+            // Animowany mockup telefonu (zależny od platformy)
+            if (demo) {
+                if (platform === 'android') {
+                    demo.innerHTML = `
+                        <div class="install-demo-screen">
+                            <div class="install-demo-appicon"><i class="fas fa-dumbbell"></i><span>GymCut</span></div>
+                            <div class="install-demo-bar android"><i class="fas fa-ellipsis-vertical hot"></i></div>
+                            <div class="install-demo-sheet android"><span><i class="fas fa-square-plus"></i> ${escapeHtml(t('install_demo_label_android'))}</span></div>
+                            <div class="install-demo-finger android"></div>
+                        </div>`;
+                } else {
+                    demo.innerHTML = `
+                        <div class="install-demo-screen">
+                            <div class="install-demo-appicon"><i class="fas fa-dumbbell"></i><span>GymCut</span></div>
+                            <div class="install-demo-sheet"><span><i class="fas fa-square-plus"></i> ${escapeHtml(t('install_demo_label'))}</span></div>
+                            <div class="install-demo-bar ios"><i class="fas fa-house"></i><i class="fas fa-arrow-up-from-bracket hot"></i><i class="fas fa-book-bookmark"></i></div>
+                            <div class="install-demo-finger ios"></div>
+                        </div>`;
+                }
+            }
+
+            // Etykieta przycisku głównego: natywny prompt vs instrukcja ręczna
+            if (primaryLabel) {
+                primaryLabel.textContent = hasNativePrompt ? t('install_add') : t('install_got_it');
+            }
+            const primaryBtn = document.getElementById('install-primary-btn');
+            if (primaryBtn) {
+                const icon = primaryBtn.querySelector('i');
+                if (icon) icon.className = hasNativePrompt ? 'fas fa-download' : 'fas fa-check';
+            }
+        }
+
+        function openInstallPrompt() {
+            const overlay = document.getElementById('install-overlay');
+            if (!overlay) return;
+            installSelectedPlatform = detectPlatform() === 'ios' ? 'ios' : 'android';   // desktop trafia do zakładki Android
+            buildInstallContent(installSelectedPlatform);
+            overlay.classList.remove('hidden');
+            overlay.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('install-open');
+            requestAnimationFrame(() => overlay.classList.add('is-open'));
+        }
+
+        function closeInstallPrompt(snooze) {
+            const overlay = document.getElementById('install-overlay');
+            if (!overlay) return;
+            overlay.classList.remove('is-open');
+            overlay.setAttribute('aria-hidden', 'true');
+            document.body.classList.remove('install-open');
+            if (snooze) saveData('installPromptSnoozeUntil', Date.now() + INSTALL_SNOOZE_MS);
+            setTimeout(() => overlay.classList.add('hidden'), 320);
+        }
+
+        async function triggerNativeInstall() {
+            if (!deferredInstallPrompt) return false;
+            const promptEvent = deferredInstallPrompt;
+            deferredInstallPrompt = null;
+            try {
+                promptEvent.prompt();
+                const choice = await promptEvent.userChoice;
+                if (choice && choice.outcome === 'accepted') {
+                    saveData('installPromptState', 'installed');
+                } else {
+                    saveData('installPromptSnoozeUntil', Date.now() + INSTALL_SNOOZE_MS);
+                }
+            } catch (e) { /* ignoruj */ }
+            return true;
+        }
+
+        // Automatyczne pokazanie przy starcie (z poszanowaniem snooze / stanu instalacji)
+        function tryShowInstallPrompt() {
+            if (isStandalonePWA()) return;                                  // już zainstalowana
+            const state = loadData('installPromptState');
+            if (state === 'installed' || state === 'dismissed') return;
+            const snoozeUntil = loadData('installPromptSnoozeUntil');
+            if (typeof snoozeUntil === 'number' && Date.now() < snoozeUntil) return;
+
+            // Nie przerywaj treningu ani innych otwartych warstw
+            if (document.querySelector('.app-body.focus-mode-active')) return;
+            if (document.body.classList.contains('plan-sheet-open')) return;
+            const whatsNew = document.getElementById('whats-new-overlay');
+            if (whatsNew && whatsNew.classList.contains('is-open')) return;
+            const review = document.getElementById('review-popup-overlay');
+            if (review && review.classList.contains('visible')) return;
+            const modalEl = document.getElementById('modal');
+            if (modalEl && !modalEl.classList.contains('hidden')) return;
+
+            openInstallPrompt();
+        }
+
+        function initInstallPrompt() {
+            const overlay = document.getElementById('install-overlay');
+            if (!overlay) return;
+            const primaryBtn = document.getElementById('install-primary-btn');
+            const laterBtn = document.getElementById('install-later-btn');
+            if (primaryBtn) primaryBtn.addEventListener('click', async () => {
+                const canNative = deferredInstallPrompt && installSelectedPlatform === 'android';
+                if (canNative) {
+                    await triggerNativeInstall();
+                    closeInstallPrompt(false);
+                } else {
+                    // Brak natywnego promptu (np. iOS) — użytkownik przeczytał instrukcję
+                    saveData('installPromptSnoozeUntil', Date.now() + INSTALL_SNOOZE_MS);
+                    closeInstallPrompt(false);
+                }
+            });
+            if (laterBtn) laterBtn.addEventListener('click', () => closeInstallPrompt(true));
+            const tabs = document.getElementById('install-tabs');
+            if (tabs) tabs.addEventListener('click', (e) => {
+                const tab = e.target.closest('.install-tab');
+                if (!tab || !tab.dataset.platform) return;
+                buildInstallContent(tab.dataset.platform);
+            });
+            overlay.addEventListener('click', (e) => { if (e.target === overlay) closeInstallPrompt(true); });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && overlay.classList.contains('is-open')) closeInstallPrompt(true);
             });
         }
 
