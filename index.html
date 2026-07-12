@@ -9910,6 +9910,114 @@
             return t + '…';
         }
 
+        function parseCanvasFontSize(ctx) {
+            const match = /(\d+(?:\.\d+)?)\s*px/.exec(ctx.font || '');
+            return match ? parseFloat(match[1]) : 16;
+        }
+
+        function measureCanvasTextHeight(ctx, text) {
+            const m = ctx.measureText(String(text || ''));
+            const fallback = parseCanvasFontSize(ctx);
+            const ascent = m.actualBoundingBoxAscent > 0 ? m.actualBoundingBoxAscent : fallback * 0.78;
+            const descent = m.actualBoundingBoxDescent > 0 ? m.actualBoundingBoxDescent : fallback * 0.22;
+            return { width: m.width, height: ascent + descent, ascent, descent };
+        }
+
+        function fitCanvasFontSize(ctx, text, maxWidth, maxPx, minPx, fontSpec) {
+            const minSize = minPx || Math.max(12, Math.round(maxPx * 0.5));
+            let size = maxPx;
+            const savedFont = ctx.font;
+            while (size >= minSize) {
+                ctx.font = fontSpec(size);
+                if (ctx.measureText(text).width <= maxWidth) return size;
+                size -= 2;
+            }
+            ctx.font = fontSpec(minSize);
+            return minSize;
+        }
+
+        function drawWorkoutShareWeightValue(ctx, x, y, maxWidth, weightKg, maxFont, theme, isCelebration, options) {
+            const opts = options || {};
+            const numStr = formatWeight(weightKg);
+            const unitStr = 'kg';
+            const numFamily = 'Poppins, Inter, system-ui, sans-serif';
+            const unitFamily = 'Inter, system-ui, sans-serif';
+            const unitGap = 12;
+            const shadowBlur = isCelebration ? 22 : 16;
+            let size = maxFont;
+            const minSize = Math.max(28, Math.round(maxFont * 0.52));
+
+            while (size >= minSize) {
+                const unitSize = Math.max(22, Math.round(size * 0.36));
+                ctx.font = `bold ${size}px ${numFamily}`;
+                const numW = ctx.measureText(numStr).width;
+                ctx.font = `600 ${unitSize}px ${unitFamily}`;
+                const unitW = ctx.measureText(unitStr).width;
+                if (numW + unitGap + unitW <= maxWidth) {
+                    const blockW = numW + unitGap + unitW;
+                    const drawX = opts.align === 'center' ? x + (maxWidth - blockW) / 2 : x;
+
+                    ctx.font = `bold ${size}px ${numFamily}`;
+                    ctx.fillStyle = '#FFFFFF';
+                    ctx.save();
+                    ctx.shadowColor = isCelebration ? workoutShareColorAlpha(theme.warning, 0.55) : theme.accentGlow;
+                    ctx.shadowBlur = shadowBlur;
+                    ctx.fillText(numStr, drawX, y);
+                    ctx.restore();
+
+                    ctx.font = `600 ${unitSize}px ${unitFamily}`;
+                    ctx.fillStyle = '#94a3b8';
+                    const unitY = y + Math.round(size * 0.68);
+                    ctx.fillText(unitStr, drawX + numW + unitGap, unitY);
+
+                    return {
+                        blockH: size + shadowBlur + 10,
+                        fontSize: size
+                    };
+                }
+                size -= 2;
+            }
+
+            ctx.font = `bold ${minSize}px ${numFamily}`;
+            const full = truncateCanvasText(ctx, `${numStr} ${unitStr}`, maxWidth);
+            const fullW = ctx.measureText(full).width;
+            const drawX = opts.align === 'center' ? x + (maxWidth - fullW) / 2 : x;
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillText(full, drawX, y);
+            return { blockH: minSize + 12, fontSize: minSize };
+        }
+
+        function calcWorkoutShareStatsCardHeight(ctx, cfg, format, prs, maxWeight, totalVol, cardW) {
+            const textW = cardW - 72;
+            const numStr = formatWeight(maxWeight);
+            const numFamily = 'Poppins, Inter, system-ui, sans-serif';
+            let size = cfg.maxWeightFont;
+            const minSize = Math.max(28, Math.round(cfg.maxWeightFont * 0.52));
+            while (size >= minSize) {
+                const unitSize = Math.max(22, Math.round(size * 0.36));
+                ctx.font = `bold ${size}px ${numFamily}`;
+                const numW = ctx.measureText(numStr).width;
+                ctx.font = `600 ${unitSize}px Inter, system-ui, sans-serif`;
+                const unitW = ctx.measureText('kg').width;
+                if (numW + 12 + unitW <= textW) break;
+                size -= 2;
+            }
+            const shadowBlur = format === 'story' ? 22 : 16;
+            const weightBlockH = size + shadowBlur + 10;
+            let h = 28;
+            if (prs > 0) h += 56;
+            h += 40;
+            h += weightBlockH + 18;
+            if (totalVol > 0) {
+                h += 30;
+                h += format === 'story' ? 34 : 32;
+            } else {
+                h += format === 'story' ? 34 : 32;
+            }
+            h += 28;
+            return h;
+        }
+
         function calcWorkoutMaxWeight(workout) {
             if (!workout || !Array.isArray(workout.exercises)) return 0;
             let maxWeight = 0;
@@ -10195,6 +10303,7 @@
             const opts = options || {};
             const pad = 56;
             const meta = formatShareExerciseMeta(row);
+            const metaMaxW = W - pad * 2 - (row.hasPR ? 28 : 0);
             ctx.textBaseline = 'top';
             ctx.textAlign = 'left';
             ctx.font = 'bold 24px Inter, system-ui, sans-serif';
@@ -10209,13 +10318,16 @@
             const nameText = truncateCanvasText(ctx, row.name, nameColW - (row.hasPR ? 28 : 0));
             ctx.fillText(nameText, nameX, y + 2);
 
+            let trackY = y + 36;
             if (meta) {
                 ctx.font = '20px Inter, system-ui, sans-serif';
                 ctx.fillStyle = '#94a3b8';
-                ctx.fillText(truncateCanvasText(ctx, meta, W - pad * 2 - (row.hasPR ? 28 : 0)), nameX, y + 30);
+                const metaText = truncateCanvasText(ctx, meta, metaMaxW);
+                ctx.fillText(metaText, nameX, y + 32);
+                const metaH = measureCanvasTextHeight(ctx, metaText).height;
+                trackY = y + 32 + Math.ceil(metaH) + 10;
             }
 
-            const trackY = y + (meta ? 54 : 34);
             const trackX = pad;
             const trackW = W - pad * 2;
             const trackH = 8;
@@ -10238,6 +10350,8 @@
                 ctx.fillStyle = barGrad;
                 workoutShareFillRoundRect(ctx, trackX, trackY, fillW, trackH, rad);
             }
+
+            return trackY + trackH - y;
         }
 
         function canvasToPngBlob(canvas) {
@@ -10278,8 +10392,8 @@
         }
 
         const WORKOUT_SHARE_FORMATS = {
-            post: { width: 1080, height: 1350, maxExercises: 7, maxWeightFont: 88, rowH: 78, topPad: 48, logoMaxW: 420, chipGap: 36 },
-            story: { width: 1080, height: 1920, maxExercises: 10, maxWeightFont: 104, rowH: 76, topPad: 64, logoMaxW: 480, chipGap: 32 }
+            post: { width: 1080, height: 1350, maxExercises: 7, maxWeightFont: 88, rowH: 84, rowGap: 10, topPad: 48, logoMaxW: 420, chipGap: 36 },
+            story: { width: 1080, height: 1920, maxExercises: 10, maxWeightFont: 104, rowH: 82, rowGap: 10, topPad: 64, logoMaxW: 480, chipGap: 32 }
         };
 
         let workoutSharePreviewState = null;
@@ -10360,7 +10474,7 @@
             const cardX = 56;
             const cardW = W - 112;
             const cardY = y;
-            const cardH = prs > 0 ? (format === 'story' ? 292 : 268) : (format === 'story' ? 272 : 248);
+            const cardH = calcWorkoutShareStatsCardHeight(ctx, cfg, format, prs, maxWeight, totalVol, cardW);
             ctx.fillStyle = isCelebration ? workoutShareColorAlpha(theme.warning, 0.08) : 'rgba(255, 255, 255, 0.055)';
             workoutShareFillRoundRect(ctx, cardX, cardY, cardW, cardH, 22);
             ctx.strokeStyle = isCelebration ? workoutShareColorAlpha(theme.warning, 0.55) : theme.accentBorder;
@@ -10368,6 +10482,7 @@
             workoutShareStrokeRoundRect(ctx, cardX, cardY, cardW, cardH, 22);
 
             const innerX = cardX + 36;
+            const textAreaW = cardW - 72;
             let cy = cardY + 28;
             if (prs > 0) {
                 drawWorkoutSharePrBadge(ctx, innerX, cy, prs, theme);
@@ -10379,21 +10494,32 @@
             ctx.fillText(t('share_max_weight'), innerX, cy);
             cy += 40;
 
-            ctx.fillStyle = '#FFFFFF';
-            ctx.font = `bold ${cfg.maxWeightFont}px Poppins, Inter, system-ui, sans-serif`;
-            ctx.save();
-            ctx.shadowColor = isCelebration ? workoutShareColorAlpha(theme.warning, 0.55) : theme.accentGlow;
-            ctx.shadowBlur = isCelebration ? 24 : 18;
-            ctx.fillText(`${formatWeight(maxWeight)} kg`, innerX, cy);
-            ctx.restore();
-            cy += format === 'story' ? 112 : 100;
+            const weightBlock = drawWorkoutShareWeightValue(ctx, innerX, cy, textAreaW, maxWeight, cfg.maxWeightFont, theme, isCelebration);
+            cy += weightBlock.blockH + 18;
 
             ctx.fillStyle = '#cbd5e1';
-            ctx.font = format === 'story' ? '30px Inter, system-ui, sans-serif' : '28px Inter, system-ui, sans-serif';
-            const volLine = totalVol > 0
-                ? `${t('share_volume')} · ${formatWeight(totalVol)} kg`
-                : t('share_volume_none');
-            ctx.fillText(truncateCanvasText(ctx, volLine, cardW - 72), innerX, cy);
+            ctx.font = format === 'story' ? '28px Inter, system-ui, sans-serif' : '26px Inter, system-ui, sans-serif';
+            const volLabel = t('share_volume');
+            const volValue = totalVol > 0 ? `${formatWeight(totalVol)} kg` : '';
+            if (volValue) {
+                ctx.fillStyle = '#94a3b8';
+                ctx.font = format === 'story' ? '22px Inter, system-ui, sans-serif' : '20px Inter, system-ui, sans-serif';
+                ctx.fillText(truncateCanvasText(ctx, volLabel, textAreaW), innerX, cy);
+                cy += 30;
+                ctx.fillStyle = '#cbd5e1';
+                const volFont = fitCanvasFontSize(
+                    ctx,
+                    volValue,
+                    textAreaW,
+                    format === 'story' ? 30 : 28,
+                    20,
+                    (size) => `600 ${size}px Inter, system-ui, sans-serif`
+                );
+                ctx.font = `600 ${volFont}px Inter, system-ui, sans-serif`;
+                ctx.fillText(truncateCanvasText(ctx, volValue, textAreaW), innerX, cy);
+            } else {
+                ctx.fillText(truncateCanvasText(ctx, t('share_volume_none'), textAreaW), innerX, cy);
+            }
 
             y = cardY + cardH + cfg.chipGap;
 
@@ -10417,10 +10543,18 @@
 
                 ctx.fillStyle = '#9CA3AF';
                 ctx.font = '20px Inter, system-ui, sans-serif';
-                ctx.fillText(label, cx + 20, chipY + 22);
+                ctx.fillText(truncateCanvasText(ctx, label, chipW - 40), cx + 20, chipY + 22);
                 ctx.fillStyle = highlight ? theme.warning : '#F8FAFC';
-                ctx.font = 'bold 32px Inter, system-ui, sans-serif';
-                ctx.fillText(value, cx + 20, chipY + 52);
+                const valFont = fitCanvasFontSize(
+                    ctx,
+                    value,
+                    chipW - 40,
+                    32,
+                    22,
+                    (size) => `bold ${size}px Inter, system-ui, sans-serif`
+                );
+                ctx.font = `bold ${valFont}px Inter, system-ui, sans-serif`;
+                ctx.fillText(truncateCanvasText(ctx, value, chipW - 40), cx + 20, chipY + 54);
                 cx += chipW + chipGap;
             };
             drawChip(t('share_pr'), String(prs), prs > 0);
@@ -10441,26 +10575,26 @@
                 exRows = exRows.slice(0, cfg.maxExercises);
                 const maxInList = exRows.length ? Math.max(...exRows.map(r => r.maxW), 1) : 1;
                 const nameColW = W - 112;
-                const rowH = cfg.rowH;
+                const rowGap = cfg.rowGap || 10;
                 if (exRows.length === 0) {
                     ctx.font = '24px Inter, system-ui, sans-serif';
                     ctx.fillStyle = '#8B949E';
                     ctx.fillText(t('share_no_weight'), 56, y);
                 } else {
                     exRows.forEach((row) => {
-                        drawWorkoutShareExerciseRow(ctx, W, y, row, maxInList, nameColW, theme, { goldRows: isCelebration });
-                        y += rowH;
+                        const usedH = drawWorkoutShareExerciseRow(ctx, W, y, row, maxInList, nameColW, theme, { goldRows: isCelebration });
+                        y += Math.max(cfg.rowH, usedH) + rowGap;
                     });
                 }
             } else if (format === 'story') {
                 y += 80;
                 ctx.textAlign = 'center';
-                ctx.fillStyle = workoutShareColorAlpha(theme.accent, 0.85);
-                ctx.font = 'bold 36px Poppins, Inter, system-ui, sans-serif';
-                ctx.fillText(`${formatWeight(maxWeight)} kg`, W / 2, y);
+                const centerW = W - 160;
+                const minWeight = drawWorkoutShareWeightValue(ctx, 80, y, centerW, maxWeight, cfg.maxWeightFont, theme, isCelebration, { align: 'center' });
+                ctx.textAlign = 'center';
                 ctx.font = '24px Inter, system-ui, sans-serif';
                 ctx.fillStyle = '#94a3b8';
-                ctx.fillText(t('share_max_weight'), W / 2, y + 52);
+                ctx.fillText(t('share_max_weight'), W / 2, y + minWeight.blockH + 20);
                 ctx.textAlign = 'left';
             }
 
