@@ -43,6 +43,16 @@
             --bottom-nav-icon-active-light: #2563EB;
             --placeholder-color-light: #adb5bd;
 
+            /* Akcent — pomocnicze (nadpisywane per paleta) */
+            --accent-muted-light: rgba(37, 99, 235, 0.16);
+            --accent-muted-dark: rgba(92, 149, 255, 0.16);
+            --accent-glow-light: rgba(37, 99, 235, 0.35);
+            --accent-glow-dark: rgba(92, 149, 255, 0.4);
+            --accent-gradient-end-light: #7c5cff;
+            --accent-gradient-end-dark: #7c5cff;
+            --on-accent-light: #FFFFFF;
+            --on-accent-dark: #FFFFFF;
+
             /* Paleta "Neon Pulse" - Ciemny motyw */
             --bg-color-dark: #0D0D0D;
             --card-bg-dark: #121212;
@@ -80,6 +90,10 @@
             --bottom-nav-icon: var(--bottom-nav-icon-light);
             --bottom-nav-icon-active: var(--bottom-nav-icon-active-light);
             --placeholder-color: var(--placeholder-color-light);
+            --accent-muted: var(--accent-muted-light);
+            --accent-glow: var(--accent-glow-light);
+            --accent-gradient-end: var(--accent-gradient-end-light);
+            --on-accent: var(--on-accent-light);
 
             /* Zmienne dodatkowe z oryginału */
             --header-height: 58px;
@@ -107,9 +121,148 @@
             --bottom-nav-icon: var(--bottom-nav-icon-dark);
             --bottom-nav-icon-active: var(--bottom-nav-icon-active-dark);
             --placeholder-color: var(--placeholder-color-dark);
+            --accent-muted: var(--accent-muted-dark);
+            --accent-glow: var(--accent-glow-dark);
+            --accent-gradient-end: var(--accent-gradient-end-dark);
+            --on-accent: var(--on-accent-dark);
             --suggestion-bg: #1F1F23;
             --suggestion-hover-bg: #27272A;
             --suggestion-border: #27272A;
+        }
+
+        /* === PAKIETY KOLORÓW (palety) === */
+        [data-palette="mono"] {
+            --accent-color-light: #0A0A0A;
+            --accent-secondary-light: #E5E5E5;
+            --success-light: #0A0A0A;
+            --bottom-nav-icon-active-light: #0A0A0A;
+            --accent-color-dark: #FAFAFA;
+            --accent-secondary-dark: #262626;
+            --success-dark: #FAFAFA;
+            --bottom-nav-icon-active-dark: #FAFAFA;
+            --accent-muted-light: rgba(10, 10, 10, 0.1);
+            --accent-muted-dark: rgba(250, 250, 250, 0.12);
+            --accent-glow-light: rgba(10, 10, 10, 0.22);
+            --accent-glow-dark: rgba(250, 250, 250, 0.18);
+            --accent-gradient-end-light: #525252;
+            --accent-gradient-end-dark: #D4D4D4;
+            --on-accent-light: #FFFFFF;
+            --on-accent-dark: #0A0A0A;
+        }
+
+        /* Tekst na tle akcentu — kontrast (np. mono: białe tło + czarny tekst) */
+        button:not(.btn-info):not(.btn-warning):not(.btn-danger):not(.plan-actions-sheet-cancel):not(.plan-actions-sheet-item):not(.language-option):not(.palette-option):not(.install-tab):not(.install-later-btn):not(.settings-version-row):not(.nav-item):not(.pr-button):not(.theme-switcher):not(.sound-toggle):not(.page-header-btn):not(.btn-plan-more):not(.btn-move-up):not(.btn-move-down):not(.share-segment-btn),
+        .stepper-btn,
+        .workout-resume-bar-cta,
+        .install-tab.is-active,
+        .install-demo-appicon,
+        .install-steps li .step-num,
+        .focus-set-box.completed .focus-set-complete-btn,
+        .stats-hero-card,
+        .template-card.active,
+        .timer-preset.active,
+        .timer-preset:active,
+        .pill-play-btn,
+        .pill-action-btn.sound-active,
+        .install-hero-icon,
+        .sound-toggle.active,
+        .fab {
+            color: var(--on-accent);
+        }
+
+        [data-palette="forest"] {
+            --accent-color-light: #15803D;
+            --accent-secondary-light: #DCFCE7;
+            --success-light: #15803D;
+            --bottom-nav-icon-active-light: #15803D;
+            --accent-color-dark: #4ADE80;
+            --accent-secondary-dark: #14532D;
+            --success-dark: #4ADE80;
+            --bottom-nav-icon-active-dark: #4ADE80;
+            --accent-muted-light: rgba(21, 128, 61, 0.14);
+            --accent-muted-dark: rgba(74, 222, 128, 0.16);
+            --accent-glow-light: rgba(21, 128, 61, 0.32);
+            --accent-glow-dark: rgba(74, 222, 128, 0.35);
+            --accent-gradient-end-light: #059669;
+            --accent-gradient-end-dark: #34D399;
+            --on-accent-light: #FFFFFF;
+            --on-accent-dark: #052E16;
+        }
+
+        [data-palette="sunset"] {
+            --accent-color-light: #EA580C;
+            --accent-secondary-light: #FFEDD5;
+            --success-light: #EA580C;
+            --bottom-nav-icon-active-light: #EA580C;
+            --accent-color-dark: #FB923C;
+            --accent-secondary-dark: #431407;
+            --success-dark: #FB923C;
+            --bottom-nav-icon-active-dark: #FB923C;
+            --accent-muted-light: rgba(234, 88, 12, 0.14);
+            --accent-muted-dark: rgba(251, 146, 60, 0.16);
+            --accent-glow-light: rgba(234, 88, 12, 0.32);
+            --accent-glow-dark: rgba(251, 146, 60, 0.35);
+            --accent-gradient-end-light: #DC2626;
+            --accent-gradient-end-dark: #FDBA74;
+            --on-accent-light: #FFFFFF;
+            --on-accent-dark: #431407;
+        }
+
+        [data-palette="purple"] {
+            --accent-color-light: #7C3AED;
+            --accent-secondary-light: #EDE9FE;
+            --success-light: #7C3AED;
+            --bottom-nav-icon-active-light: #7C3AED;
+            --accent-color-dark: #A78BFA;
+            --accent-secondary-dark: #2E1065;
+            --success-dark: #A78BFA;
+            --bottom-nav-icon-active-dark: #A78BFA;
+            --accent-muted-light: rgba(124, 58, 237, 0.14);
+            --accent-muted-dark: rgba(167, 139, 250, 0.16);
+            --accent-glow-light: rgba(124, 58, 237, 0.32);
+            --accent-glow-dark: rgba(167, 139, 250, 0.35);
+            --accent-gradient-end-light: #9333EA;
+            --accent-gradient-end-dark: #C4B5FD;
+            --on-accent-light: #FFFFFF;
+            --on-accent-dark: #2E1065;
+        }
+
+        [data-palette="rose"] {
+            --accent-color-light: #E11D48;
+            --accent-secondary-light: #FFE4E6;
+            --success-light: #E11D48;
+            --bottom-nav-icon-active-light: #E11D48;
+            --accent-color-dark: #FB7185;
+            --accent-secondary-dark: #4C0519;
+            --success-dark: #FB7185;
+            --bottom-nav-icon-active-dark: #FB7185;
+            --accent-muted-light: rgba(225, 29, 72, 0.14);
+            --accent-muted-dark: rgba(251, 113, 133, 0.16);
+            --accent-glow-light: rgba(225, 29, 72, 0.32);
+            --accent-glow-dark: rgba(251, 113, 133, 0.35);
+            --accent-gradient-end-light: #BE123C;
+            --accent-gradient-end-dark: #FDA4AF;
+            --on-accent-light: #FFFFFF;
+            --on-accent-dark: #4C0519;
+        }
+
+        [data-palette="ocean"] {
+            --accent-color-light: #0D9488;
+            --accent-secondary-light: #CCFBF1;
+            --success-light: #0D9488;
+            --bottom-nav-icon-active-light: #0D9488;
+            --accent-color-dark: #2DD4BF;
+            --accent-secondary-dark: #134E4A;
+            --success-dark: #2DD4BF;
+            --bottom-nav-icon-active-dark: #2DD4BF;
+            --accent-muted-light: rgba(13, 148, 136, 0.14);
+            --accent-muted-dark: rgba(45, 212, 191, 0.16);
+            --accent-glow-light: rgba(13, 148, 136, 0.32);
+            --accent-glow-dark: rgba(45, 212, 191, 0.35);
+            --accent-gradient-end-light: #0891B2;
+            --accent-gradient-end-dark: #5EEAD4;
+            --on-accent-light: #FFFFFF;
+            --on-accent-dark: #042F2E;
         }
 
         * {
@@ -362,6 +515,105 @@
             100% { transform: scale(1); filter: brightness(1); }
         }
 
+        /* --- Streak flame celebration (Duolingo-style video from bottom) --- */
+        .streak-flame-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 4900;
+            pointer-events: none;
+            overflow: hidden;
+            opacity: 0;
+            transition: opacity 0.18s ease;
+            background: rgba(0, 0, 0, 0.42);
+        }
+
+        .streak-flame-overlay.is-playing {
+            opacity: 1;
+        }
+
+        .streak-flame-overlay.hidden {
+            display: none;
+        }
+
+        .streak-flame-video {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 50vh;
+            height: 50dvh;
+            max-height: none;
+            object-fit: cover;
+            object-position: bottom center;
+        }
+
+        .streak-flame-video.use-blend-fallback {
+            mix-blend-mode: darken;
+        }
+
+        .streak-flame-caption {
+            position: absolute;
+            left: 50%;
+            bottom: calc(50vh + max(16px, env(safe-area-inset-bottom)));
+            bottom: calc(50dvh + max(16px, env(safe-area-inset-bottom)));
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            width: min(92vw, 360px);
+            animation: streakFlameCaptionPop 2s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        @keyframes streakFlameCaptionPop {
+            0% { opacity: 0; transform: translateX(-50%) translateY(24px) scale(0.88); }
+            12% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1.06); }
+            24% { transform: translateX(-50%) translateY(0) scale(1); }
+            82% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+            100% { opacity: 0; transform: translateX(-50%) translateY(-12px) scale(0.96); }
+        }
+
+        .streak-flame-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 18px;
+            border-radius: 999px;
+            background: rgba(0, 0, 0, 0.55);
+            border: 1px solid rgba(255, 255, 255, 0.24);
+            color: #fff;
+            font-weight: 800;
+            font-size: 1.55rem;
+            font-variant-numeric: tabular-nums;
+            box-shadow: 0 10px 32px rgba(255, 100, 0, 0.38);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .streak-flame-icon {
+            font-size: 1.35rem;
+            line-height: 1;
+        }
+
+        .streak-flame-msg {
+            margin: 0;
+            text-align: center;
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.08rem;
+            letter-spacing: 0.2px;
+            text-shadow: 0 2px 16px rgba(0, 0, 0, 0.55);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .streak-flame-overlay,
+            .streak-flame-caption {
+                animation: none !important;
+                transition: none !important;
+            }
+        }
+
         body.celebration-flash::before {
             content: '';
             position: fixed;
@@ -450,7 +702,7 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            background: rgba(92, 149, 255, 0.16);
+            background: var(--accent-muted);
             color: var(--accent-color);
             font-size: 1rem;
         }
@@ -492,7 +744,7 @@
             align-items: center;
             justify-content: center;
             background: var(--accent-color);
-            color: #ffffff;
+            color: var(--on-accent);
             font-size: 0.85rem;
         }
 
@@ -626,7 +878,7 @@
             align-items: center;
             justify-content: center;
             padding: max(20px, env(safe-area-inset-top)) 20px max(24px, env(safe-area-inset-bottom));
-            background: radial-gradient(120% 80% at 50% 20%, rgba(92, 149, 255, 0.22), transparent 55%),
+            background: radial-gradient(120% 80% at 50% 20%, var(--accent-muted), transparent 55%),
                 linear-gradient(165deg, var(--card-bg) 0%, var(--bg-color) 45%, var(--card-bg) 100%);
             opacity: 0;
             pointer-events: none;
@@ -693,6 +945,249 @@
             margin-top: 0;
         }
 
+        /* Share preview (faza 2) */
+        .workout-share-preview {
+            position: fixed;
+            inset: 0;
+            z-index: 5000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: max(12px, env(safe-area-inset-top)) 12px max(12px, env(safe-area-inset-bottom));
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.32s ease;
+        }
+
+        .workout-share-preview.is-open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .workout-share-preview.hidden {
+            display: none !important;
+        }
+
+        .workout-share-preview-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.72);
+        }
+
+        .workout-share-preview-panel {
+            position: relative;
+            width: min(100%, 400px);
+            max-height: min(94vh, 780px);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 14px 14px 12px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            background: var(--card-bg);
+            box-shadow: 0 24px 64px rgba(0, 0, 0, 0.35);
+        }
+
+        .workout-share-preview-title {
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 800;
+            text-align: center;
+            color: var(--text-color);
+        }
+
+        .share-preview-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .share-control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .share-control-label {
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            padding-left: 2px;
+        }
+
+        .share-segment {
+            display: flex;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            background: var(--accent-secondary);
+        }
+
+        .share-segment-btn {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1px;
+            padding: 7px 8px;
+            min-height: 46px;
+            border: none;
+            border-right: 1px solid var(--border-color);
+            background: transparent;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: background 0.18s ease, color 0.18s ease;
+        }
+
+        .share-segment-btn:last-child {
+            border-right: none;
+        }
+
+        .share-segment-btn.is-active {
+            background: var(--accent-color);
+            color: var(--on-accent);
+        }
+
+        .share-segment-btn.is-active .share-segment-main,
+        .share-segment-btn.is-active .share-segment-sub {
+            color: inherit;
+        }
+
+        .share-segment-btn:not(.is-active) .share-segment-main,
+        .share-segment-btn:not(.is-active) .share-segment-sub {
+            color: var(--text-color);
+        }
+
+        .share-segment-btn:not(.is-active) .share-segment-sub {
+            color: var(--text-muted);
+        }
+
+        .share-segment-main {
+            font-size: 0.82rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .share-segment-sub {
+            font-size: 0.62rem;
+            font-weight: 600;
+            opacity: 0.72;
+            line-height: 1;
+        }
+
+        .share-segment-btn.is-active .share-segment-sub {
+            opacity: 0.88;
+        }
+
+        .share-segment-btn.is-disabled {
+            opacity: 0.38;
+            cursor: not-allowed;
+        }
+
+        .share-preview-frame {
+            position: relative;
+            flex: 1 1 auto;
+            min-height: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+            background: rgba(0, 0, 0, 0.28);
+            overflow: hidden;
+            padding: 8px;
+            max-height: min(58vh, 520px);
+            min-height: 260px;
+        }
+
+        .share-preview-aspect {
+            position: relative;
+            height: 100%;
+            width: auto;
+            max-height: 100%;
+            max-width: 100%;
+            aspect-ratio: 9 / 16;
+            margin: 0 auto;
+            display: flex;
+            align-items: stretch;
+            justify-content: center;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 10px 32px rgba(0, 0, 0, 0.45);
+            background: #0a0a0f;
+        }
+
+        .share-preview-aspect.is-post {
+            aspect-ratio: 4 / 5;
+        }
+
+        .share-preview-aspect img {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .share-preview-aspect.is-post img {
+            object-fit: contain;
+            object-position: center;
+        }
+
+        .share-preview-aspect.is-story img {
+            object-fit: cover;
+            object-position: top center;
+        }
+
+        .share-preview-loading {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: rgba(0, 0, 0, 0.45);
+            color: #e2e8f0;
+            font-size: 0.92rem;
+            font-weight: 600;
+        }
+
+        .share-preview-loading.hidden {
+            display: none !important;
+        }
+
+        .share-preview-spinner {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 255, 255, 0.25);
+            border-top-color: var(--accent-color);
+            animation: sharePreviewSpin 0.75s linear infinite;
+        }
+
+        @keyframes sharePreviewSpin {
+            to { transform: rotate(360deg); }
+        }
+
+        .share-preview-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .share-preview-actions .btn-success,
+        .share-preview-actions .btn-secondary {
+            width: 100%;
+            margin: 0;
+        }
+
+        #share-preview-download {
+            margin-top: 0;
+        }
+
         /* What's New (po aktualizacji) */
         .whats-new-overlay {
             position: fixed;
@@ -702,7 +1197,7 @@
             align-items: center;
             justify-content: center;
             padding: max(20px, env(safe-area-inset-top)) 20px max(24px, env(safe-area-inset-bottom));
-            background: radial-gradient(120% 80% at 50% 15%, rgba(92, 149, 255, 0.22), transparent 55%),
+            background: radial-gradient(120% 80% at 50% 15%, var(--accent-muted), transparent 55%),
                 linear-gradient(165deg, var(--card-bg) 0%, var(--bg-color) 45%, var(--card-bg) 100%);
             opacity: 0;
             pointer-events: none;
@@ -764,7 +1259,7 @@
             align-items: center;
             padding: 4px 10px;
             border-radius: 999px;
-            background: rgba(92, 149, 255, 0.16);
+            background: var(--accent-muted);
             color: var(--accent-color);
             font-weight: 700;
             font-size: 0.85rem;
@@ -813,7 +1308,7 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            background: rgba(92, 149, 255, 0.16);
+            background: var(--accent-muted);
             color: var(--accent-color);
             font-size: 0.9rem;
         }
@@ -843,7 +1338,7 @@
             align-items: center;
             justify-content: center;
             padding: max(20px, env(safe-area-inset-top)) 18px max(24px, env(safe-area-inset-bottom));
-            background: radial-gradient(120% 80% at 50% 12%, rgba(92, 149, 255, 0.28), transparent 55%),
+            background: radial-gradient(120% 80% at 50% 12%, var(--accent-muted), transparent 55%),
                 rgba(0, 0, 0, 0.55);
             -webkit-backdrop-filter: blur(6px);
             backdrop-filter: blur(6px);
@@ -900,9 +1395,9 @@
             align-items: center;
             justify-content: center;
             font-size: 1.5rem;
-            color: #fff;
-            background: linear-gradient(150deg, var(--accent-color), #7c5cff);
-            box-shadow: 0 10px 24px rgba(92, 149, 255, 0.4);
+            color: var(--on-accent);
+            background: linear-gradient(150deg, var(--accent-color), var(--accent-gradient-end));
+            box-shadow: 0 10px 24px var(--accent-glow);
         }
 
         .install-title {
@@ -964,8 +1459,8 @@
 
         .install-tab.is-active {
             background: var(--accent-color);
-            color: #fff;
-            box-shadow: 0 6px 16px rgba(92, 149, 255, 0.35);
+            color: var(--on-accent);
+            box-shadow: 0 6px 16px var(--accent-glow);
         }
 
         /* Animowany mockup telefonu (zamiast GIF-a — działa offline) */
@@ -998,11 +1493,11 @@
             width: 56px;
             height: 56px;
             border-radius: 15px;
-            background: linear-gradient(150deg, var(--accent-color), #7c5cff);
+            background: linear-gradient(150deg, var(--accent-color), var(--accent-gradient-end));
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #fff;
+            color: var(--on-accent);
             font-size: 1.6rem;
             box-shadow: 0 8px 18px rgba(0, 0, 0, 0.4);
         }
@@ -1161,7 +1656,7 @@
             align-items: center;
             justify-content: center;
             background: var(--accent-color);
-            color: #fff;
+            color: var(--on-accent);
             font-weight: 800;
             font-size: 0.82rem;
         }
@@ -1331,7 +1826,7 @@
 
         button {
             background-color: var(--accent-color);
-            color: #FFFFFF;
+            color: var(--on-accent);
             border: none;
             padding: 14px 20px;
             border-radius: 10px;
@@ -1363,11 +1858,12 @@
 
         .btn-success {
             background-color: var(--success);
-            color: #FFFFFF;
+            color: var(--on-accent);
         }
 
         .btn-success:hover {
-            background-color: #2563EB;
+            background-color: var(--accent-color);
+            color: var(--on-accent);
             opacity: 1;
         }
 
@@ -1394,7 +1890,7 @@
             width: 44px;
             height: 44px;
             background: var(--accent-color);
-            color: #FFFFFF;
+            color: var(--on-accent);
             font-size: 1.5rem;
             font-weight: 600;
             padding: 0;
@@ -1418,7 +1914,7 @@
 
         .focus-set-box.completed .focus-set-complete-btn {
             background-color: var(--success);
-            color: #FFFFFF;
+            color: var(--on-accent);
         }
 
         button:hover {
@@ -1595,7 +2091,7 @@
         }
 
         [data-theme="dark"] .plan-actions-bar .plan-start-pill {
-            box-shadow: 0 4px 16px rgba(92, 149, 255, 0.22);
+            box-shadow: 0 4px 16px var(--accent-glow);
         }
 
         .plan-actions-bar .plan-start-pill:active {
@@ -1611,10 +2107,17 @@
             margin-top: 0;
             padding: 0;
             border-radius: 14px;
-            background: var(--accent-secondary);
+            background-color: var(--accent-secondary);
+            background-image: none;
             color: var(--text-color);
             touch-action: manipulation;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
+
+        .exercise-actions .btn-plan-more {
+            background-color: var(--accent-secondary);
+            background-image: none;
+            color: var(--text-color);
         }
 
         .plan-actions-bar .btn-plan-more:active {
@@ -1759,6 +2262,79 @@
         .language-option.is-active {
             color: var(--accent-color);
             font-weight: 700;
+        }
+
+        /* Wybór palety kolorów */
+        .palette-sheet-desc {
+            margin: 0 0 4px;
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .palette-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px;
+            padding: 2px 0 6px;
+        }
+
+        .palette-option {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: 8px;
+            padding: 12px;
+            border-radius: 14px;
+            border: 2px solid var(--border-color);
+            background: var(--bg-color);
+            color: var(--text-color);
+            cursor: pointer;
+            text-align: left;
+            -webkit-appearance: none;
+            appearance: none;
+            touch-action: manipulation;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .palette-option.is-active {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 1px var(--accent-color);
+        }
+
+        .palette-preview {
+            display: flex;
+            gap: 6px;
+            height: 34px;
+        }
+
+        .palette-preview span {
+            flex: 1;
+            border-radius: 8px;
+            border: 1px solid rgba(128, 128, 128, 0.2);
+        }
+
+        .palette-option-label {
+            font-size: 0.88rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .palette-option-check {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: var(--accent-color);
+            opacity: 0;
+            font-size: 0.85rem;
+        }
+
+        .palette-option {
+            position: relative;
+        }
+
+        .palette-option.is-active .palette-option-check {
+            opacity: 1;
         }
 
         body.plan-sheet-open {
@@ -1928,11 +2504,11 @@
 
         .stats-hero-card {
             background: var(--accent-color);
-            color: #fff;
+            color: var(--on-accent);
             border-radius: 26px;
             padding: 22px 20px 20px;
             border: none;
-            box-shadow: 0 8px 24px rgba(92, 149, 255, 0.22);
+            box-shadow: 0 8px 24px var(--accent-glow);
         }
 
         [data-theme="dark"] .stats-hero-card {
@@ -2103,7 +2679,7 @@
 
         .template-card.active {
             background: var(--accent-color);
-            color: #FFFFFF;
+            color: var(--on-accent);
             border-color: var(--accent-color);
         }
 
@@ -2502,7 +3078,7 @@
 
         .timer-preset:active {
             background-color: var(--accent-color);
-            color: white;
+            color: var(--on-accent);
             border-color: var(--accent-color);
             opacity: 1;
             transform: scale(0.95);
@@ -2511,7 +3087,7 @@
 
         .timer-preset.active {
             background: var(--accent-color);
-            color: white;
+            color: var(--on-accent);
             border-color: var(--accent-color);
         }
 
@@ -2552,7 +3128,7 @@
 
         .sound-toggle.active {
             background: var(--success);
-            color: #FFFFFF;
+            color: var(--on-accent);
             border-color: var(--success);
         }
 
@@ -3492,7 +4068,7 @@
             min-width: 44px;
             /* Blokada dla iOS */
             background: var(--accent-color);
-            color: #FFFFFF;
+            color: var(--on-accent);
             font-size: 1.5rem;
             font-weight: 600;
             padding: 0;
@@ -3711,7 +4287,7 @@
             border-radius: 50%;
             border: none;
             background: var(--accent-color);
-            color: #fff;
+            color: var(--on-accent);
             font-size: 0.85rem;
             display: flex;
             align-items: center;
@@ -3736,7 +4312,7 @@
             font-size: 1.5rem;
             font-weight: 700;
             font-variant-numeric: tabular-nums;
-            color: #fff;
+            color: var(--text-color);
             min-width: 60px;
             text-align: center;
             letter-spacing: 0.5px;
@@ -3790,7 +4366,7 @@
         .pill-action-btn.sound-active {
             background: var(--accent-color);
             border-color: var(--accent-color);
-            color: #fff;
+            color: var(--on-accent);
         }
 
         /* Pulsing animation when time is low */
@@ -3881,7 +4457,7 @@
             height: 56px;
             border-radius: 50%;
             background-color: var(--accent-color);
-            color: white;
+            color: var(--on-accent);
             font-size: 1.5rem;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             z-index: 999;
@@ -4780,6 +5356,20 @@
 
     <canvas id="celebration-canvas" width="1" height="1" aria-hidden="true"></canvas>
 
+    <div id="streak-flame-overlay" class="streak-flame-overlay hidden" aria-hidden="true">
+        <video id="streak-flame-video" class="streak-flame-video" playsinline muted preload="auto" aria-hidden="true">
+            <source src="streak-fire.webm" type="video/webm">
+            <source src="streak-fire-fallback.mp4" type="video/mp4">
+        </video>
+        <div class="streak-flame-caption">
+            <div class="streak-flame-badge">
+                <span class="streak-flame-num">1</span>
+                <span class="streak-flame-icon" aria-hidden="true">🔥</span>
+            </div>
+            <p class="streak-flame-msg"></p>
+        </div>
+    </div>
+
     <div id="toast-container"></div>
 
     <div id="plan-actions-sheet" class="plan-actions-sheet hidden" role="dialog" aria-modal="true"
@@ -4834,6 +5424,9 @@
             <button type="button" class="plan-actions-sheet-item" id="theme-sheet-toggle">
                 <i class="fas fa-adjust" aria-hidden="true"></i> Zmień motyw
             </button>
+            <button type="button" class="plan-actions-sheet-item" id="theme-sheet-palette" data-i18n="act_palette">
+                <i class="fas fa-palette" aria-hidden="true"></i> Palety kolorów
+            </button>
             <button type="button" class="plan-actions-sheet-item" id="theme-sheet-language" data-i18n="act_language">
                 <i class="fas fa-language" aria-hidden="true"></i> Język
             </button>
@@ -4856,7 +5449,7 @@
             <button type="button" class="settings-version-row" id="theme-sheet-version" aria-label="Pokaż co nowego w tej wersji">
                 <i class="fas fa-circle-info" aria-hidden="true"></i>
                 <span class="settings-version-label" data-i18n="version_label">Wersja</span>
-                <span class="settings-version-value" id="theme-sheet-version-value">1.1.0</span>
+                <span class="settings-version-value" id="theme-sheet-version-value">1.2.0</span>
             </button>
         </div>
     </div>
@@ -4897,6 +5490,18 @@
                 <i class="fas fa-check language-option-check" aria-hidden="true"></i> Español
             </button>
             <button type="button" class="plan-actions-sheet-cancel" id="language-sheet-cancel" data-i18n="cancel">Anuluj</button>
+        </div>
+    </div>
+
+    <div id="palette-sheet" class="plan-actions-sheet hidden" role="dialog" aria-modal="true"
+        aria-labelledby="palette-sheet-title">
+        <div id="palette-sheet-backdrop" class="plan-actions-sheet-backdrop" aria-hidden="true"></div>
+        <div class="plan-actions-sheet-panel">
+            <div class="plan-actions-sheet-handle" aria-hidden="true"></div>
+            <h3 id="palette-sheet-title" class="plan-actions-sheet-title" data-i18n="palette_sheet_title">Palety kolorów</h3>
+            <p class="palette-sheet-desc" data-i18n="palette_sheet_desc">Wybierz pakiet kolorów. Działa z trybem jasnym i ciemnym.</p>
+            <div class="palette-grid" id="palette-grid" role="listbox" aria-label="Palety kolorów"></div>
+            <button type="button" class="plan-actions-sheet-cancel" id="palette-sheet-cancel" data-i18n="cancel">Anuluj</button>
         </div>
     </div>
 
@@ -4951,7 +5556,7 @@
         <div class="whats-new-panel">
             <div class="whats-new-header">
                 <h2 id="whats-new-title" class="whats-new-title">Witaj w GymCut!</h2>
-                <span class="whats-new-version-badge" id="whats-new-version-badge">v1.1.0</span>
+                <span class="whats-new-version-badge" id="whats-new-version-badge">v1.2.0</span>
             </div>
             <p class="whats-new-subtitle" id="whats-new-subtitle"></p>
             <ul class="whats-new-list" id="whats-new-list"></ul>
@@ -4995,6 +5600,61 @@
         </div>
     </div>
 
+    <div id="workout-share-preview" class="workout-share-preview hidden" role="dialog" aria-modal="true"
+        aria-labelledby="workout-share-preview-title" aria-hidden="true">
+        <div class="workout-share-preview-backdrop" id="workout-share-preview-backdrop" aria-hidden="true"></div>
+        <div class="workout-share-preview-panel">
+            <h3 id="workout-share-preview-title" class="workout-share-preview-title" data-i18n="share_preview_title">Podgląd grafiki</h3>
+            <div class="share-preview-controls">
+                <div class="share-control-group">
+                    <span class="share-control-label" data-i18n="share_control_format">Format</span>
+                    <div class="share-segment" role="tablist" aria-label="Format grafiki">
+                        <button type="button" class="share-segment-btn is-active" id="share-format-story" data-format="story" role="tab" aria-selected="true">
+                            <span class="share-segment-main" data-i18n="share_format_story_short">Story</span>
+                            <span class="share-segment-sub">9:16</span>
+                        </button>
+                        <button type="button" class="share-segment-btn" id="share-format-post" data-format="post" role="tab" aria-selected="false">
+                            <span class="share-segment-main" data-i18n="share_format_post_short">Post</span>
+                            <span class="share-segment-sub">4:5</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="share-control-group">
+                    <span class="share-control-label" data-i18n="share_control_template">Szablon</span>
+                    <div class="share-segment" role="tablist" aria-label="Szablon grafiki">
+                        <button type="button" class="share-segment-btn is-active" id="share-template-full" data-template="full" role="tab" aria-selected="true">
+                            <span class="share-segment-main" data-i18n="share_template_full">Pełny</span>
+                        </button>
+                        <button type="button" class="share-segment-btn" id="share-template-minimal" data-template="minimal" role="tab" aria-selected="false">
+                            <span class="share-segment-main" data-i18n="share_template_minimal">Statystyki</span>
+                        </button>
+                        <button type="button" class="share-segment-btn" id="share-template-celebration" data-template="celebration" role="tab" aria-selected="false">
+                            <span class="share-segment-main" data-i18n="share_template_celebration">Rekord</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="share-preview-frame">
+                <div class="share-preview-aspect is-story" id="share-preview-aspect">
+                    <img id="workout-share-preview-img" alt="" />
+                </div>
+                <div class="share-preview-loading" id="workout-share-preview-loading">
+                    <span class="share-preview-spinner" aria-hidden="true"></span>
+                    <span data-i18n="share_preview_loading">Generowanie grafiki…</span>
+                </div>
+            </div>
+            <div class="share-preview-actions">
+                <button type="button" class="btn-success" id="share-preview-share" data-i18n="share_preview_share">
+                    <i class="fas fa-share-nodes" aria-hidden="true"></i> Udostępnij
+                </button>
+                <button type="button" class="btn-secondary" id="share-preview-download" data-i18n="share_preview_download">
+                    <i class="fas fa-download" aria-hidden="true"></i> Pobierz
+                </button>
+                <button type="button" class="btn-secondary" id="share-preview-close" data-i18n="cancel">Anuluj</button>
+            </div>
+        </div>
+    </div>
+
     <div id="modal-backdrop" class="hidden"></div>
     <div id="modal" class="hidden">
         <div id="modal-header">
@@ -5018,7 +5678,7 @@
 
     <div id="plan-editor-page" class="page">
         <div class="page-header">
-            <button id="plan-editor-back-btn" data-i18n="back"><i class="fas fa-chevron-left"></i> Wróć</button>
+            <button type="button" class="page-header-btn" id="plan-editor-back-btn" data-i18n="back"><i class="fas fa-chevron-left"></i> Wróć</button>
             <h3 id="plan-editor-title" data-i18n="plan_editor_title">Edytuj Plan</h3>
         </div>
         <div class="page-content">
@@ -5116,7 +5776,10 @@
                 resume_aria: 'Wróć do treningu', resume_title: 'Trening w toku', resume_back: 'Wróć do treningu',
                 sheet_plan_title: 'Plan', act_edit_plan: 'Edytuj plan', act_rename: 'Zmień nazwę', act_delete_plan: 'Usuń plan', cancel: 'Anuluj',
                 sheet_workout_title: 'Trening', act_details: 'Szczegóły', act_share: 'Udostępnij trening', act_edit_workout: 'Edytuj trening', act_delete_workout: 'Usuń trening',
-                appearance_sheet_title: 'Wygląd', act_change_theme: 'Zmień motyw', act_feedback: 'Pomoc i propozycje funkcji', act_kofi: 'Wspieraj na Ko-fi', act_data: 'Dane', act_language: 'Język', version_label: 'Wersja',
+                appearance_sheet_title: 'Wygląd', act_change_theme: 'Zmień motyw', act_feedback: 'Pomoc i propozycje funkcji', act_kofi: 'Wspieraj na Ko-fi', act_data: 'Dane', act_language: 'Język', act_palette: 'Palety kolorów', version_label: 'Wersja',
+                palette_sheet_title: 'Palety kolorów', palette_sheet_desc: 'Wybierz pakiet kolorów. Działa z trybem jasnym i ciemnym.',
+                palette_pulse: 'Neon Pulse', palette_mono: 'Monochromatyczny', palette_forest: 'Las', palette_sunset: 'Zachód słońca', palette_purple: 'Fiolet', palette_rose: 'Róż', palette_ocean: 'Ocean',
+                toast_palette_changed: 'Zmieniono paletę kolorów',
                 install_title: 'Dodaj GymCut na ekran główny', install_subtitle: 'Aby apka działała najlepiej — offline, na pełnym ekranie i jednym tapnięciem z ekranu głównego — dodaj ją jak zwykłą aplikację.',
                 install_got_it: 'OK, rozumiem', install_add: 'Zainstaluj teraz', install_later: 'Może później',
                 install_choose_device: 'Wybierz urządzenie', install_tab_ios: 'iPhone / iPad', install_tab_android: 'Android',
@@ -5195,6 +5858,7 @@
                 toast_new_pr_prefix: 'Nowy rekord! ', pr_weight_and_reps: 'Maksymalna waga ({weight} kg) i powtórzenia ({reps})!', pr_weight_only: 'Maksymalna waga: {weight} kg', pr_reps_only: 'Maksymalne powtórzenia: {reps}',
                 toast_progress_saved: 'Zapisane. W następnym treningu spróbuj dołożyć progres 📈', toast_progress_off: 'Progresja wyłączona',
                 streak_in_a_row: '{weeks} z rzędu', streak_aria: 'Seria tygodniowa: {label}',
+                streak_flame_msg: '{weeks} z rzędu!',
                 reward_hook_1: 'Wow! Dziś zrobiłeś(aś) <strong>{vol}</strong> objętości — to jak {cmp} {emoji}',
                 reward_hook_2: 'Dobra robota. <strong>{vol}</strong> w nogach/rękach i w głowie. {emoji} ({cmp})',
                 reward_hook_3: 'Jeśli mięśnie miałyby licznik, właśnie nabiłeś(aś) <strong>{vol}</strong>. {emoji} {cmp}',
@@ -5204,8 +5868,16 @@
                 reward_final_nopr: 'Bez PR? Spokojnie. Regularność to turbo, które robi wynik długoterminowo.',
                 reward_exercises: 'Ćwiczenia', reward_sets: 'Serie', reward_volume: 'Objętość',
                 share_max_weight: 'Największy ciężar w treningu', share_volume: 'Objętość', share_volume_none: 'Objętość · brak danych (ciężar × powtórzenia)',
-                share_exercises: 'Ćwiczenia', share_sets_done: 'Serie ukończone', share_top_ex: 'TOP ĆWICZENIA (największy ciężar)', share_no_weight: 'Brak zapisanego ciężaru (uzupełnij ciężar serii).', share_footer: 'GYMCUT · Twój trening, Twój rytm', share_pr: 'PR w sesji', share_title_fallback: 'Trening GymCut',
+                share_exercises: 'Ćwiczenia', share_sets_done: 'Serie ukończone', share_top_ex: 'TOP ĆWICZENIA (największy ciężar)', share_no_weight: 'Brak zapisanego ciężaru (uzupełnij ciężar serii).', share_footer: 'GYMCUT · Twój trening, Twój rytm', share_pr: 'PR w sesji', share_pr_badge: '{count} PR w sesji', share_title_fallback: 'Trening GymCut',
+                share_preview_title: 'Podgląd grafiki', share_format_story: 'Story 9:16', share_format_post: 'Post 4:5', share_format_story_short: 'Story', share_format_post_short: 'Post', share_control_format: 'Format', share_control_template: 'Szablon', share_preview_share: 'Udostępnij', share_preview_download: 'Pobierz', share_preview_loading: 'Generowanie grafiki…',
+                share_template_full: 'Pełny', share_template_minimal: 'Statystyki', share_template_celebration: 'Rekord', share_celebration_headline: 'NOWY REKORD!', share_celebration_ex: 'REKORDY W SESJI',
                 whatsnew_default_title: 'Co nowego',
+                wn_120_title: 'Nowości w wersji 1.2', wn_120_sub: 'Więcej stylu, więcej motywacji. Oto co nowego:',
+                wn_120_1: '7 palet kolorów — Mono, Forest, Sunset i inne. Wybierz w Wygląd → Palety kolorów.',
+                wn_120_2: 'Animacja streaku — ogień od dołu ekranu po podsumowaniu treningu, gdy przedłużysz serię.',
+                wn_120_3: 'Instrukcja dodania aplikacji na ekran główny (iOS i Android).',
+                wn_120_4: 'Udostępnianie treningu — podgląd grafiki, format Story 9:16 i Post 4:5, szablony Pełny / Statystyki / Rekord PR.',
+                wn_120_5: 'Poprawiony kontrast ikon i przycisków we wszystkich motywach.',
                 wn_110_title: 'Nowości w wersji 1.1', wn_110_sub: 'GymCut rośnie razem z Twoimi ciężarami. Oto co nowego:',
                 wn_110_1: 'Eksport danych — twórz kopię zapasową treningów i planów jednym tapnięciem.',
                 wn_110_2: 'Nowa sekcja „Dane” w ustawieniach: eksport i import w jednym miejscu.',
@@ -5250,7 +5922,10 @@
                 resume_aria: 'Back to workout', resume_title: 'Workout in progress', resume_back: 'Back to workout',
                 sheet_plan_title: 'Plan', act_edit_plan: 'Edit plan', act_rename: 'Rename', act_delete_plan: 'Delete plan', cancel: 'Cancel',
                 sheet_workout_title: 'Workout', act_details: 'Details', act_share: 'Share workout', act_edit_workout: 'Edit workout', act_delete_workout: 'Delete workout',
-                appearance_sheet_title: 'Appearance', act_change_theme: 'Change theme', act_feedback: 'Help & feature requests', act_kofi: 'Support on Ko-fi', act_data: 'Data', act_language: 'Language', version_label: 'Version',
+                appearance_sheet_title: 'Appearance', act_change_theme: 'Change theme', act_feedback: 'Help & feature requests', act_kofi: 'Support on Ko-fi', act_data: 'Data', act_language: 'Language', act_palette: 'Color palettes', version_label: 'Version',
+                palette_sheet_title: 'Color palettes', palette_sheet_desc: 'Pick a color pack. Works with light and dark mode.',
+                palette_pulse: 'Neon Pulse', palette_mono: 'Monochrome', palette_forest: 'Forest', palette_sunset: 'Sunset', palette_purple: 'Purple', palette_rose: 'Rose', palette_ocean: 'Ocean',
+                toast_palette_changed: 'Color palette changed',
                 install_title: 'Add GymCut to your Home Screen', install_subtitle: 'For the best experience — offline, full screen and one tap away from your Home Screen — install it like a regular app.',
                 install_got_it: 'Got it', install_add: 'Install now', install_later: 'Maybe later',
                 install_choose_device: 'Choose your device', install_tab_ios: 'iPhone / iPad', install_tab_android: 'Android',
@@ -5329,6 +6004,7 @@
                 toast_new_pr_prefix: 'New record! ', pr_weight_and_reps: 'Max weight ({weight} kg) and reps ({reps})!', pr_weight_only: 'Max weight: {weight} kg', pr_reps_only: 'Max reps: {reps}',
                 toast_progress_saved: 'Saved. Try to add some progress next workout 📈', toast_progress_off: 'Progression off',
                 streak_in_a_row: '{weeks} in a row', streak_aria: 'Weekly streak: {label}',
+                streak_flame_msg: '{weeks} in a row!',
                 reward_hook_1: 'Wow! Today you did <strong>{vol}</strong> of volume — that\'s like {cmp} {emoji}',
                 reward_hook_2: 'Good job. <strong>{vol}</strong> in your legs/arms and your head. {emoji} ({cmp})',
                 reward_hook_3: 'If muscles had a counter, you just racked up <strong>{vol}</strong>. {emoji} {cmp}',
@@ -5338,8 +6014,16 @@
                 reward_final_nopr: 'No PR? No worries. Consistency is the turbo that builds long-term results.',
                 reward_exercises: 'Exercises', reward_sets: 'Sets', reward_volume: 'Volume',
                 share_max_weight: 'Heaviest weight in the workout', share_volume: 'Volume', share_volume_none: 'Volume · no data (weight × reps)',
-                share_exercises: 'Exercises', share_sets_done: 'Sets completed', share_top_ex: 'TOP EXERCISES (heaviest weight)', share_no_weight: 'No weight saved (add set weights).', share_footer: 'GYMCUT · Your workout, your rhythm', share_pr: 'Session PRs', share_title_fallback: 'GymCut workout',
+                share_exercises: 'Exercises', share_sets_done: 'Sets completed', share_top_ex: 'TOP EXERCISES (heaviest weight)', share_no_weight: 'No weight saved (add set weights).', share_footer: 'GYMCUT · Your workout, your rhythm', share_pr: 'Session PRs', share_pr_badge: '{count} session PRs', share_title_fallback: 'GymCut workout',
+                share_preview_title: 'Image preview', share_format_story: 'Story 9:16', share_format_post: 'Post 4:5', share_format_story_short: 'Story', share_format_post_short: 'Post', share_control_format: 'Format', share_control_template: 'Template', share_preview_share: 'Share', share_preview_download: 'Download', share_preview_loading: 'Generating image…',
+                share_template_full: 'Full', share_template_minimal: 'Stats', share_template_celebration: 'Record', share_celebration_headline: 'NEW RECORD!', share_celebration_ex: 'SESSION PRs',
                 whatsnew_default_title: 'What\'s new',
+                wn_120_title: 'What\'s new in 1.2', wn_120_sub: 'More style, more motivation. Here\'s what\'s new:',
+                wn_120_1: '7 color palettes — Mono, Forest, Sunset and more. Pick in Appearance → Color palettes.',
+                wn_120_2: 'Streak animation — fire rises from the bottom after your workout summary when you extend your streak.',
+                wn_120_3: 'Add-to-home-screen guide for iOS and Android.',
+                wn_120_4: 'Workout sharing — image preview, Story 9:16 and Post 4:5 formats, Full / Stats / PR Record templates.',
+                wn_120_5: 'Improved icon and button contrast across all themes.',
                 wn_110_title: 'What\'s new in 1.1', wn_110_sub: 'GymCut grows with your lifts. Here\'s what\'s new:',
                 wn_110_1: 'Data export — back up your workouts and plans with a single tap.',
                 wn_110_2: 'New “Data” section in settings: export and import in one place.',
@@ -5384,7 +6068,10 @@
                 resume_aria: 'Volver al entreno', resume_title: 'Entreno en curso', resume_back: 'Volver al entreno',
                 sheet_plan_title: 'Plan', act_edit_plan: 'Editar plan', act_rename: 'Renombrar', act_delete_plan: 'Eliminar plan', cancel: 'Cancelar',
                 sheet_workout_title: 'Entreno', act_details: 'Detalles', act_share: 'Compartir entreno', act_edit_workout: 'Editar entreno', act_delete_workout: 'Eliminar entreno',
-                appearance_sheet_title: 'Apariencia', act_change_theme: 'Cambiar tema', act_feedback: 'Ayuda y sugerencias', act_kofi: 'Apóyanos en Ko-fi', act_data: 'Datos', act_language: 'Idioma', version_label: 'Versión',
+                appearance_sheet_title: 'Apariencia', act_change_theme: 'Cambiar tema', act_feedback: 'Ayuda y sugerencias', act_kofi: 'Apóyanos en Ko-fi', act_data: 'Datos', act_language: 'Idioma', act_palette: 'Paletas de color', version_label: 'Versión',
+                palette_sheet_title: 'Paletas de color', palette_sheet_desc: 'Elige un paquete de colores. Funciona con modo claro y oscuro.',
+                palette_pulse: 'Neon Pulse', palette_mono: 'Monocromo', palette_forest: 'Bosque', palette_sunset: 'Atardecer', palette_purple: 'Púrpura', palette_rose: 'Rosa', palette_ocean: 'Océano',
+                toast_palette_changed: 'Paleta de colores cambiada',
                 install_title: 'Añade GymCut a tu pantalla de inicio', install_subtitle: 'Para la mejor experiencia — sin conexión, a pantalla completa y a un toque desde tu inicio — instálala como una app normal.',
                 install_got_it: 'Entendido', install_add: 'Instalar ahora', install_later: 'Quizás más tarde',
                 install_choose_device: 'Elige tu dispositivo', install_tab_ios: 'iPhone / iPad', install_tab_android: 'Android',
@@ -5463,6 +6150,7 @@
                 toast_new_pr_prefix: '¡Nuevo récord! ', pr_weight_and_reps: '¡Peso máx ({weight} kg) y reps ({reps})!', pr_weight_only: 'Peso máximo: {weight} kg', pr_reps_only: 'Repeticiones máximas: {reps}',
                 toast_progress_saved: 'Guardado. Intenta progresar un poco en el próximo entreno 📈', toast_progress_off: 'Progresión desactivada',
                 streak_in_a_row: '{weeks} seguidas', streak_aria: 'Racha semanal: {label}',
+                streak_flame_msg: '¡{weeks} seguidas!',
                 reward_hook_1: '¡Guau! Hoy hiciste <strong>{vol}</strong> de volumen — es como {cmp} {emoji}',
                 reward_hook_2: 'Buen trabajo. <strong>{vol}</strong> en piernas/brazos y cabeza. {emoji} ({cmp})',
                 reward_hook_3: 'Si los músculos tuvieran contador, acabas de marcar <strong>{vol}</strong>. {emoji} {cmp}',
@@ -5472,8 +6160,16 @@
                 reward_final_nopr: '¿Sin PR? Tranqui. La constancia es el turbo que da resultados a largo plazo.',
                 reward_exercises: 'Ejercicios', reward_sets: 'Series', reward_volume: 'Volumen',
                 share_max_weight: 'Mayor peso del entreno', share_volume: 'Volumen', share_volume_none: 'Volumen · sin datos (peso × reps)',
-                share_exercises: 'Ejercicios', share_sets_done: 'Series completadas', share_top_ex: 'TOP EJERCICIOS (mayor peso)', share_no_weight: 'Sin peso guardado (añade el peso de las series).', share_footer: 'GYMCUT · Tu entreno, tu ritmo', share_pr: 'PR de la sesión', share_title_fallback: 'Entreno GymCut',
+                share_exercises: 'Ejercicios', share_sets_done: 'Series completadas', share_top_ex: 'TOP EJERCICIOS (mayor peso)', share_no_weight: 'Sin peso guardado (añade el peso de las series).', share_footer: 'GYMCUT · Tu entreno, tu ritmo', share_pr: 'PR de la sesión', share_pr_badge: '{count} PR en la sesión', share_title_fallback: 'Entreno GymCut',
+                share_preview_title: 'Vista previa', share_format_story: 'Story 9:16', share_format_post: 'Post 4:5', share_format_story_short: 'Story', share_format_post_short: 'Post', share_control_format: 'Formato', share_control_template: 'Plantilla', share_preview_share: 'Compartir', share_preview_download: 'Descargar', share_preview_loading: 'Generando imagen…',
+                share_template_full: 'Completo', share_template_minimal: 'Stats', share_template_celebration: 'Récord', share_celebration_headline: '¡NUEVO RÉCORD!', share_celebration_ex: 'PR DE LA SESIÓN',
                 whatsnew_default_title: 'Novedades',
+                wn_120_title: 'Novedades de la versión 1.2', wn_120_sub: 'Más estilo, más motivación. Esto es lo nuevo:',
+                wn_120_1: '7 paletas de color — Mono, Forest, Sunset y más. Elige en Apariencia → Paletas de color.',
+                wn_120_2: 'Animación de racha — fuego desde abajo tras el resumen del entreno al alargar tu racha.',
+                wn_120_3: 'Guía para añadir la app a la pantalla de inicio (iOS y Android).',
+                wn_120_4: 'Compartir entreno — vista previa, formatos Story 9:16 y Post 4:5, plantillas Completo / Stats / Récord PR.',
+                wn_120_5: 'Mejor contraste de iconos y botones en todos los temas.',
                 wn_110_title: 'Novedades de la versión 1.1', wn_110_sub: 'GymCut crece con tus levantamientos. Esto es lo nuevo:',
                 wn_110_1: 'Exportación de datos: haz una copia de tus entrenos y planes con un toque.',
                 wn_110_2: 'Nueva sección «Datos» en ajustes: exportar e importar en un solo lugar.',
@@ -5623,6 +6319,8 @@
                 if (focusHost && focusHost.classList.contains('focus-mode-active')) {
                     renderFocusExercise(currentFocusExerciseIndex);
                 }
+                const paletteSheet = document.getElementById('palette-sheet');
+                if (paletteSheet && paletteSheet.classList.contains('is-open')) renderPaletteGrid();
             } catch (e) { console.warn('setLanguage re-render error', e); }
         }
 
@@ -5912,7 +6610,7 @@
                     e.stopPropagation();
                     const w = workoutHistory.find(x => x && x.id === workoutId);
                     if (w) {
-                        shareWorkoutAsImage(w).finally(() => closeHistoryActionsSheet());
+                        openWorkoutSharePreview(w).finally(() => closeHistoryActionsSheet());
                     } else {
                         closeHistoryActionsSheet();
                     }
@@ -6036,6 +6734,11 @@
                 if (t.id === 'theme-sheet-toggle') {
                     toggleTheme();
                     closeThemeSettingsSheet();
+                    return;
+                }
+                if (t.id === 'theme-sheet-palette') {
+                    closeThemeSettingsSheet();
+                    setTimeout(openPaletteSheet, 220);
                     return;
                 }
                 if (t.id === 'theme-sheet-ui-sounds-toggle') {
@@ -6196,6 +6899,129 @@
                 if (t && t.id === 'language-sheet-cancel') {
                     closeLanguageSheet();
                 }
+            });
+        }
+
+        // --- PALETY KOLORÓW ---
+        const PALETTE_IDS = ['pulse', 'mono', 'forest', 'sunset', 'purple', 'rose', 'ocean'];
+        const PALETTE_META = {
+            pulse: { labelKey: 'palette_pulse', swatches: ['#0D0D0D', '#5C95FF', '#27272A'] },
+            mono: { labelKey: 'palette_mono', swatches: ['#000000', '#FFFFFF', '#404040'] },
+            forest: { labelKey: 'palette_forest', swatches: ['#052E16', '#4ADE80', '#14532D'] },
+            sunset: { labelKey: 'palette_sunset', swatches: ['#431407', '#FB923C', '#9A3412'] },
+            purple: { labelKey: 'palette_purple', swatches: ['#2E1065', '#A78BFA', '#581C87'] },
+            rose: { labelKey: 'palette_rose', swatches: ['#4C0519', '#FB7185', '#9F1239'] },
+            ocean: { labelKey: 'palette_ocean', swatches: ['#042F2E', '#2DD4BF', '#115E59'] }
+        };
+        let paletteSheetOpenedAt = 0;
+
+        function applySavedPalette() {
+            const saved = loadData('colorPalette');
+            const id = PALETTE_IDS.includes(saved) ? saved : 'pulse';
+            document.documentElement.setAttribute('data-palette', id);
+        }
+
+        function setPalette(id, silent) {
+            if (!PALETTE_IDS.includes(id)) id = 'pulse';
+            const current = document.documentElement.getAttribute('data-palette') || 'pulse';
+            if (id === current) {
+                syncPaletteSheetSelection();
+                return;
+            }
+            document.documentElement.setAttribute('data-palette', id);
+            saveData('colorPalette', id);
+            syncPaletteSheetSelection();
+            updateSelectArrowColor();
+            if (!silent) showToast(t('toast_palette_changed'), 'success', 2200);
+        }
+
+        function renderPaletteGrid() {
+            const grid = document.getElementById('palette-grid');
+            if (!grid) return;
+            grid.innerHTML = '';
+            PALETTE_IDS.forEach((id) => {
+                const meta = PALETTE_META[id];
+                if (!meta) return;
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'palette-option';
+                btn.dataset.palette = id;
+                btn.setAttribute('role', 'option');
+                btn.innerHTML =
+                    '<div class="palette-preview">' +
+                    meta.swatches.map((c) => `<span style="background:${c}"></span>`).join('') +
+                    '</div>' +
+                    `<span class="palette-option-label">${escapeHtml(t(meta.labelKey))}</span>` +
+                    '<i class="fas fa-check palette-option-check" aria-hidden="true"></i>';
+                grid.appendChild(btn);
+            });
+            syncPaletteSheetSelection();
+        }
+
+        function syncPaletteSheetSelection() {
+            const current = document.documentElement.getAttribute('data-palette') || 'pulse';
+            document.querySelectorAll('#palette-grid .palette-option').forEach((btn) => {
+                const active = btn.dataset.palette === current;
+                btn.classList.toggle('is-active', active);
+                btn.setAttribute('aria-selected', active ? 'true' : 'false');
+            });
+        }
+
+        function openPaletteSheet() {
+            closePlanActionsSheet();
+            const sheet = document.getElementById('palette-sheet');
+            if (!sheet) return;
+            paletteSheetOpenedAt = Date.now();
+            applyStaticTranslations(sheet);
+            renderPaletteGrid();
+            sheet.classList.remove('hidden');
+            void sheet.offsetWidth;
+            sheet.classList.add('is-open');
+            document.body.classList.add('plan-sheet-open');
+            if (!window._paletteSheetKeydown) {
+                window._paletteSheetKeydown = (e) => {
+                    if (e.key === 'Escape') closePaletteSheet();
+                };
+            }
+            document.addEventListener('keydown', window._paletteSheetKeydown);
+        }
+
+        function closePaletteSheet() {
+            const sheet = document.getElementById('palette-sheet');
+            if (!sheet || sheet.classList.contains('hidden')) return;
+            sheet.classList.remove('is-open');
+            document.body.classList.remove('plan-sheet-open');
+            document.removeEventListener('keydown', window._paletteSheetKeydown);
+            const panel = sheet.querySelector('.plan-actions-sheet-panel');
+            const finish = () => {
+                if (sheet.classList.contains('hidden')) return;
+                sheet.classList.add('hidden');
+                if (panel) panel.removeEventListener('transitionend', onTrans);
+            };
+            const onTrans = (e) => {
+                if (e.propertyName === 'transform' && e.target === panel) finish();
+            };
+            if (panel) panel.addEventListener('transitionend', onTrans);
+            setTimeout(finish, 400);
+        }
+
+        function initPaletteSheet() {
+            const sheet = document.getElementById('palette-sheet');
+            if (!sheet) return;
+            renderPaletteGrid();
+            sheet.addEventListener('click', (e) => {
+                if (e.target.closest('#palette-sheet-backdrop')) {
+                    if (Date.now() - paletteSheetOpenedAt < PLAN_SHEET_BACKDROP_SUPPRESS_MS) return;
+                    closePaletteSheet();
+                    return;
+                }
+                const opt = e.target.closest('.palette-option');
+                if (opt && opt.dataset.palette) {
+                    setPalette(opt.dataset.palette);
+                    closePaletteSheet();
+                    return;
+                }
+                if (e.target.closest('#palette-sheet-cancel')) closePaletteSheet();
             });
         }
 
@@ -6650,7 +7476,9 @@
             const p = presets[intensity] || presets.medium;
 
             const v = variant || pick(['classic', 'stars', 'sparks']);
-            const palette = [
+            const palette = (variant === 'flame') ? [
+                '#FEF08A', '#FDE047', '#FBBF24', '#F97316', '#EF4444', '#EA580C', '#FFFFFF'
+            ] : [
                 '#F59E0B', '#F97316', '#EF4444', '#EC4899',
                 '#8B5CF6', '#3B82F6', '#10B981', '#84CC16',
                 '#FDE047', '#FFFFFF'
@@ -6670,7 +7498,7 @@
                 const rot = rand(0, Math.PI * 2);
                 const rotSpd = rand(-10, 10);
                 const color = pick(palette);
-                const shape = v === 'stars' ? 'star' : (v === 'sparks' ? 'spark' : 'rect');
+                const shape = v === 'stars' ? 'star' : (v === 'sparks' || v === 'flame' ? 'spark' : 'rect');
 
                 celebration.particles.push({
                     x: originX,
@@ -6789,13 +7617,98 @@
             } catch (e) { }
         }
 
+        let streakFlameHideTimer = null;
+        let pendingStreakFlame = null;
+
+        function celebrateStreakIncrease(streak, { badgeBurst = true, shake = true, flame = true } = {}) {
+            const el = document.getElementById('streak-badge');
+            if (badgeBurst && el) {
+                el.classList.remove('streak-burst');
+                void el.offsetWidth;
+                el.classList.add('streak-burst');
+                setTimeout(() => el.classList.remove('streak-burst'), 720);
+            }
+            if (shake) {
+                try { triggerScreenShakePulse('streak'); } catch (e) { }
+            }
+            if (flame) {
+                try { triggerStreakFlameAnimation(streak); } catch (e) { }
+            }
+        }
+
+        function flushPendingStreakFlame() {
+            if (pendingStreakFlame == null) return;
+            const streak = pendingStreakFlame;
+            pendingStreakFlame = null;
+            celebrateStreakIncrease(streak);
+        }
+
+        function initStreakFireVideo() {
+            const video = document.getElementById('streak-flame-video');
+            if (!video) return;
+            const webmOk = video.canPlayType('video/webm; codecs="vp9"') || video.canPlayType('video/webm');
+            if (!webmOk) video.classList.add('use-blend-fallback');
+            video.addEventListener('ended', () => {
+                try { video.pause(); } catch (e) { }
+            });
+        }
+
+        function triggerStreakFlameAnimation(streak) {
+            if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+            const overlay = document.getElementById('streak-flame-overlay');
+            const video = document.getElementById('streak-flame-video');
+            if (!overlay) return;
+
+            const numEl = overlay.querySelector('.streak-flame-num');
+            const msgEl = overlay.querySelector('.streak-flame-msg');
+            if (numEl) numEl.textContent = String(streak);
+            if (msgEl) msgEl.textContent = t('streak_flame_msg', { weeks: pluralizeWeeks(streak) });
+
+            const caption = overlay.querySelector('.streak-flame-caption');
+            if (caption) {
+                caption.style.animation = 'none';
+                void caption.offsetWidth;
+                caption.style.animation = '';
+            }
+
+            clearTimeout(streakFlameHideTimer);
+            overlay.classList.remove('hidden', 'is-playing');
+            void overlay.offsetWidth;
+            overlay.classList.add('is-playing');
+            overlay.setAttribute('aria-hidden', 'false');
+
+            if (video) {
+                try {
+                    video.currentTime = 0;
+                    video.playbackRate = 0.7;
+                    const playPromise = video.play();
+                    if (playPromise && typeof playPromise.catch === 'function') playPromise.catch(() => { });
+                } catch (e) { }
+            }
+
+            streakFlameHideTimer = setTimeout(() => {
+                overlay.classList.remove('is-playing');
+                overlay.classList.add('hidden');
+                overlay.setAttribute('aria-hidden', 'true');
+                if (video) {
+                    try {
+                        video.pause();
+                        video.playbackRate = 1;
+                    } catch (e) { }
+                }
+            }, 2000);
+        }
+
         function showWorkoutRewardFullscreen(reward, savedWorkoutForShare) {
             const root = document.getElementById('workout-reward-fullscreen');
             const titleEl = document.getElementById('workout-reward-fullscreen-title');
             const mount = document.getElementById('workout-reward-body-mount');
             const shareBtn = document.getElementById('workout-reward-share');
             const doneBtn = document.getElementById('workout-reward-continue');
-            if (!root || !titleEl || !mount || !shareBtn || !doneBtn) return;
+            if (!root || !titleEl || !mount || !shareBtn || !doneBtn) {
+                flushPendingStreakFlame();
+                return;
+            }
 
             titleEl.textContent = reward.title || t('reward_title');
             mount.innerHTML = reward.bodyHtml || '';
@@ -6817,6 +7730,7 @@
                 setTimeout(() => {
                     root.classList.add('hidden');
                     mount.innerHTML = '';
+                    flushPendingStreakFlame();
                 }, 320);
                 doneBtn.onclick = null;
                 shareBtn.onclick = null;
@@ -6873,7 +7787,8 @@
             return tCount('weeks', n);
         }
 
-        function updateStreakUI() {
+        function updateStreakUI(options = {}) {
+            const { deferFlameCelebration = false } = options;
             const el = document.getElementById('streak-badge');
             if (!el) return;
 
@@ -6884,6 +7799,7 @@
                 el.removeAttribute('title');
                 el.removeAttribute('aria-label');
                 saveData('weeklyStreakLast', 0);
+                pendingStreakFlame = null;
                 return;
             }
 
@@ -6896,12 +7812,11 @@
             const last = loadData('weeklyStreakLast');
             const lastNum = (typeof last === 'number') ? last : parseInt(last);
             if (!isNaN(lastNum) && streak > lastNum) {
-                el.classList.remove('streak-burst');
-                // force reflow to restart animation
-                void el.offsetWidth;
-                el.classList.add('streak-burst');
-                setTimeout(() => el.classList.remove('streak-burst'), 720);
-                try { triggerScreenShakePulse('streak'); } catch (e) { }
+                if (deferFlameCelebration) {
+                    pendingStreakFlame = streak;
+                } else {
+                    celebrateStreakIncrease(streak);
+                }
             }
             saveData('weeklyStreakLast', streak);
         }
@@ -6925,8 +7840,19 @@
         const PLAN_SHEET_BACKDROP_SUPPRESS_MS = 550;
         const HISTORY_SHEET_BACKDROP_SUPPRESS_MS = 650;
         /** Aktualna wersja aplikacji oraz changelog pokazywany w ekranie „Co nowego”. */
-        const APP_VERSION = '1.1.0';
+        const APP_VERSION = '1.2.0';
         const WHATS_NEW = {
+            '1.2.0': {
+                titleKey: 'wn_120_title',
+                subtitleKey: 'wn_120_sub',
+                items: [
+                    { icon: 'fa-palette', key: 'wn_120_1' },
+                    { icon: 'fa-fire', key: 'wn_120_2' },
+                    { icon: 'fa-mobile-screen-button', key: 'wn_120_3' },
+                    { icon: 'fa-share-nodes', key: 'wn_120_4' },
+                    { icon: 'fa-eye', key: 'wn_120_5' }
+                ]
+            },
             '1.1.0': {
                 titleKey: 'wn_110_title',
                 subtitleKey: 'wn_110_sub',
@@ -6980,13 +7906,20 @@
             setupTimerSound();
         });
 
-        function initializeApp() {
-            // Service worker — offline PWA (działa tylko na HTTPS/localhost, na file:// jest pomijany).
-            if ('serviceWorker' in navigator && (location.protocol === 'https:' || location.hostname === 'localhost')) {
-                navigator.serviceWorker.register('sw.js').catch((e) => {
-                    console.warn('Rejestracja service workera nie powiodła się:', e);
+        function initServiceWorkerUpdates() {
+            if (!('serviceWorker' in navigator) || (location.protocol !== 'https:' && location.hostname !== 'localhost')) return;
+            navigator.serviceWorker.register('sw.js').then((reg) => {
+                reg.update();
+                document.addEventListener('visibilitychange', () => {
+                    if (document.visibilityState === 'visible') reg.update();
                 });
-            }
+            }).catch((e) => {
+                console.warn('Rejestracja service workera nie powiodła się:', e);
+            });
+        }
+
+        function initializeApp() {
+            initServiceWorkerUpdates();
 
             // Język interfejsu (PL/EN/ES) — zastosuj tłumaczenia statyczne przy starcie.
             try { document.documentElement.setAttribute('lang', currentLang); } catch (e) { }
@@ -6994,6 +7927,7 @@
 
             const savedTheme = loadData('theme') || 'dark';
             document.documentElement.setAttribute('data-theme', savedTheme);
+            applySavedPalette();
             updateThemeButton(savedTheme);
             const savedSoundSetting = loadData('timerSoundEnabled');
             if (savedSoundSetting !== null) { timerSoundEnabled = savedSoundSetting; }
@@ -7020,6 +7954,7 @@
             }
 
             updateStreakUI();
+            initStreakFireVideo();
 
             activeTabId = 'training-plans';
             showTab(activeTabId, true);
@@ -7091,8 +8026,10 @@
             initThemeSettingsSheet();
             initDataSheet();
             initLanguageSheet();
+            initPaletteSheet();
             initQuickWorkoutSheet();
             initHistoryEditSheet();
+            initWorkoutSharePreview();
             initWhatsNew();
             initInstallPrompt();
 
@@ -7951,7 +8888,7 @@
             closeQuickWorkoutSheet({});
             resetTemplatePillsToAll();
             showTab('history'); renderWorkoutHistory(); updateStats();
-            updateStreakUI();
+            updateStreakUI({ deferFlameCelebration: true });
             showToast(t('toast_workout_saved'), 'success');
 
             if (completedSetCount > 0) {
@@ -7969,6 +8906,8 @@
                     completedSetCount
                 });
                 showWorkoutRewardFullscreen(reward, savedWorkoutForShare);
+            } else {
+                flushPendingStreakFlame();
             }
         }
 
@@ -8920,12 +9859,18 @@
             if (!workout || !Array.isArray(workout.exercises)) return 0;
             let total = 0;
             workout.exercises.forEach(ex => {
-                if (!ex || !Array.isArray(ex.weights) || !Array.isArray(ex.repsCompleted) || !Array.isArray(ex.completedSets)) return;
+                if (!ex || !Array.isArray(ex.weights) || !Array.isArray(ex.completedSets)) return;
+                const defaultReps = parseInt(ex.reps, 10) || 0;
                 for (let i = 0; i < (ex.sets || 0); i++) {
                     if (!ex.completedSets[i]) continue;
                     const w = parseFloat(ex.weights[i]) || 0;
-                    const r = parseInt(ex.repsCompleted[i]) || 0;
-                    if (w > 0 && r > 0) total += w * r;
+                    if (w <= 0) continue;
+                    let r = 0;
+                    if (Array.isArray(ex.repsCompleted) && ex.repsCompleted[i] !== '' && ex.repsCompleted[i] != null) {
+                        r = parseInt(ex.repsCompleted[i], 10) || 0;
+                    }
+                    if (r <= 0) r = defaultReps;
+                    if (r > 0) total += w * r;
                 }
             });
             return Math.round(total);
@@ -8967,22 +9912,172 @@
             return maxWeight;
         }
 
-        function getExerciseMaxWeightsForShare(workout) {
+        async function loadImageElement(src) {
+            return new Promise((resolve) => {
+                const img = new Image();
+                img.onload = () => resolve(img.naturalWidth > 0 && img.naturalHeight > 0 ? img : null);
+                img.onerror = () => resolve(null);
+                img.src = src;
+            });
+        }
+
+        async function loadWorkoutShareLogo() {
+            const sources = ['header-logo.png', 'gymcut-logo.png'];
+            for (const src of sources) {
+                try {
+                    if (location.protocol === 'http:' || location.protocol === 'https:') {
+                        const resp = await fetch(src);
+                        if (!resp.ok) continue;
+                        const blob = await resp.blob();
+                        if (!blob || !blob.size) continue;
+                        const url = URL.createObjectURL(blob);
+                        try {
+                            const img = await loadImageElement(url);
+                            if (img) return img;
+                        } finally {
+                            URL.revokeObjectURL(url);
+                        }
+                    } else {
+                        const img = await loadImageElement(src);
+                        if (img) return img;
+                    }
+                } catch (e) {
+                    console.warn('Share logo skipped:', src, e);
+                }
+            }
+            return null;
+        }
+
+        function workoutShareParseHexColor(input) {
+            const s = String(input || '').trim();
+            const m = s.match(/^#([0-9a-f]{3}|[0-9a-f]{6})$/i);
+            if (!m) return null;
+            let hex = m[1];
+            if (hex.length === 3) hex = hex.split('').map((c) => c + c).join('');
+            return {
+                r: parseInt(hex.slice(0, 2), 16),
+                g: parseInt(hex.slice(2, 4), 16),
+                b: parseInt(hex.slice(4, 6), 16)
+            };
+        }
+
+        function workoutShareColorAlpha(color, alpha) {
+            if (!color) return `rgba(92, 149, 255, ${alpha})`;
+            if (color.startsWith('rgba')) return color;
+            if (color.startsWith('rgb(')) {
+                const nums = color.match(/[\d.]+/g);
+                if (nums && nums.length >= 3) return `rgba(${nums[0]}, ${nums[1]}, ${nums[2]}, ${alpha})`;
+            }
+            const rgb = workoutShareParseHexColor(color);
+            if (rgb) return `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${alpha})`;
+            return color;
+        }
+
+        function workoutShareCssVar(name, fallback) {
+            try {
+                const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+                return v || fallback;
+            } catch (e) {
+                return fallback;
+            }
+        }
+
+        function getWorkoutShareTheme() {
+            const accent = workoutShareCssVar('--accent-color', '#5C95FF');
+            const accentEnd = workoutShareCssVar('--accent-gradient-end', '#7c5cff');
+            const warning = workoutShareCssVar('--warning', '#FBBF24');
+            return {
+                accent,
+                accentEnd,
+                warning,
+                accentSoft: workoutShareColorAlpha(accent, 0.2),
+                accentMid: workoutShareColorAlpha(accent, 0.12),
+                accentGlow: workoutShareColorAlpha(accent, 0.38),
+                accentBorder: workoutShareColorAlpha(accent, 0.35),
+                accentBarDark: workoutShareColorAlpha(accent, 0.85)
+            };
+        }
+
+        function getExerciseRowsForShare(workout) {
             if (!workout || !Array.isArray(workout.exercises)) return [];
             const rows = [];
             workout.exercises.forEach(ex => {
                 if (!ex || !ex.name) return;
                 let maxW = 0;
+                let completedSets = 0;
+                let hasPR = false;
                 const sets = ex.sets || 0;
                 for (let i = 0; i < sets; i++) {
                     if (!Array.isArray(ex.completedSets) || !ex.completedSets[i]) continue;
+                    completedSets++;
                     const w = parseFloat(ex.weights && ex.weights[i]) || 0;
                     if (w > maxW) maxW = w;
+                    if (Array.isArray(ex.prFlags) && ex.prFlags[i]) hasPR = true;
                 }
-                rows.push({ name: ex.name, maxW });
+                const reps = ex.reps != null && ex.reps !== '' ? ex.reps : '?';
+                rows.push({
+                    name: ex.name,
+                    maxW,
+                    sets: sets || completedSets,
+                    completedSets,
+                    reps,
+                    hasPR
+                });
             });
             rows.sort((a, b) => b.maxW - a.maxW);
             return rows;
+        }
+
+        function formatShareExerciseMeta(row) {
+            const sets = row.completedSets > 0 ? row.completedSets : (row.sets || 0);
+            const reps = row.reps ?? '?';
+            if (row.maxW > 0) return `${sets}×${reps} · ${formatWeight(row.maxW)} kg`;
+            if (sets > 0) return `${sets}×${reps}`;
+            return '';
+        }
+
+        function drawWorkoutShareLogo(ctx, x, y, maxW, logoImg, theme) {
+            if (logoImg && logoImg.width > 0) {
+                try {
+                    const scale = Math.min(1, maxW / logoImg.width);
+                    const dw = Math.round(logoImg.width * scale);
+                    const dh = Math.round(logoImg.height * scale);
+                    ctx.drawImage(logoImg, x, y, dw, dh);
+                    return dh;
+                } catch (e) {
+                    console.warn('Share logo draw skipped:', e);
+                }
+            }
+            ctx.fillStyle = '#F1F5F9';
+            ctx.font = 'italic 900 68px Poppins, Inter, system-ui, sans-serif';
+            ctx.fillText('GYMCUT', x, y);
+            return 68;
+        }
+
+        function drawWorkoutSharePrBadge(ctx, x, y, prCount, theme) {
+            if (!prCount || prCount <= 0) return 0;
+            const label = t('share_pr_badge', { count: prCount });
+            ctx.font = 'bold 22px Inter, system-ui, sans-serif';
+            const padX = 18;
+            const padY = 10;
+            const tw = ctx.measureText(label).width;
+            const bw = tw + padX * 2 + 28;
+            const bh = 44;
+            ctx.fillStyle = workoutShareColorAlpha(theme.warning, 0.18);
+            workoutShareFillRoundRect(ctx, x, y, bw, bh, bh / 2);
+            ctx.strokeStyle = workoutShareColorAlpha(theme.warning, 0.55);
+            ctx.lineWidth = 1.5;
+            workoutShareStrokeRoundRect(ctx, x, y, bw, bh, bh / 2);
+            ctx.fillStyle = theme.warning;
+            ctx.font = '20px Inter, system-ui, sans-serif';
+            ctx.fillText('🏆', x + padX, y + padY + 1);
+            ctx.font = 'bold 22px Inter, system-ui, sans-serif';
+            ctx.fillText(label, x + padX + 26, y + padY + 2);
+            return bw;
+        }
+
+        function getExerciseMaxWeightsForShare(workout) {
+            return getExerciseRowsForShare(workout);
         }
 
         function workoutShareRoundPath(ctx, x, y, w, h, r) {
@@ -9022,283 +10117,602 @@
             ctx.stroke();
         }
 
-        function drawWorkoutShareBackground(ctx, W, H) {
+        function drawWorkoutShareBackground(ctx, W, H, theme, template) {
+            const isCelebration = template === 'celebration';
             const base = ctx.createLinearGradient(0, 0, W, H * 1.08);
-            base.addColorStop(0, '#13131c');
-            base.addColorStop(0.42, '#0b0b12');
+            base.addColorStop(0, isCelebration ? '#1a1508' : '#13131c');
+            base.addColorStop(0.42, isCelebration ? '#100d06' : '#0b0b12');
             base.addColorStop(1, '#06060c');
             ctx.fillStyle = base;
             ctx.fillRect(0, 0, W, H);
 
+            const accentForBlobs = isCelebration ? theme.warning : theme.accent;
             const blobs = [
-                { cx: 120, cy: 200, r: 380, c: 'rgba(92, 149, 255, 0.2)' },
-                { cx: W - 80, cy: 420, r: 440, c: 'rgba(100, 160, 255, 0.12)' },
-                { cx: W * 0.55, cy: H * 0.72, r: 500, c: 'rgba(70, 120, 220, 0.1)' },
+                { cx: 120, cy: 200, r: 380, c: workoutShareColorAlpha(accentForBlobs, isCelebration ? 0.24 : 0.2) },
+                { cx: W - 80, cy: 420, r: 440, c: workoutShareColorAlpha(accentForBlobs, isCelebration ? 0.14 : 0.12) },
+                { cx: W * 0.55, cy: H * 0.72, r: 500, c: workoutShareColorAlpha(accentForBlobs, isCelebration ? 0.12 : 0.1) },
             ];
             blobs.forEach((b) => {
                 const rg = ctx.createRadialGradient(b.cx, b.cy, 0, b.cx, b.cy, b.r);
                 rg.addColorStop(0, b.c);
-                rg.addColorStop(0.55, 'rgba(92, 149, 255, 0.03)');
+                rg.addColorStop(0.55, workoutShareColorAlpha(accentForBlobs, 0.03));
                 rg.addColorStop(1, 'rgba(0, 0, 0, 0)');
                 ctx.fillStyle = rg;
                 ctx.fillRect(0, 0, W, H);
             });
 
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.035)';
-            for (let gx = 0; gx < W; gx += 30) {
-                for (let gy = 0; gy < H; gy += 30) {
-                    ctx.beginPath();
-                    ctx.arc(gx + (gy / 30 % 2) * 15, gy, 1.1, 0, Math.PI * 2);
-                    ctx.fill();
-                }
-            }
-
             const topBar = ctx.createLinearGradient(0, 0, W, 0);
-            topBar.addColorStop(0, '#3b74e8');
-            topBar.addColorStop(0.45, '#5C95FF');
-            topBar.addColorStop(1, '#8eb8ff');
+            if (isCelebration) {
+                topBar.addColorStop(0, workoutShareColorAlpha(theme.warning, 0.85));
+                topBar.addColorStop(0.45, theme.warning);
+                topBar.addColorStop(1, '#F59E0B');
+            } else {
+                topBar.addColorStop(0, theme.accentBarDark);
+                topBar.addColorStop(0.45, theme.accent);
+                topBar.addColorStop(1, theme.accentEnd);
+            }
             ctx.save();
-            ctx.shadowColor = 'rgba(92, 149, 255, 0.45)';
+            ctx.shadowColor = isCelebration ? workoutShareColorAlpha(theme.warning, 0.5) : theme.accentGlow;
             ctx.shadowBlur = 28;
             ctx.shadowOffsetY = 0;
             ctx.fillStyle = topBar;
-            ctx.fillRect(0, 0, W, 9);
+            ctx.fillRect(0, 0, W, isCelebration ? 12 : 9);
             ctx.restore();
         }
 
-        function drawWorkoutShareExerciseRow(ctx, W, y, row, maxInList, nameColW) {
+        function drawWorkoutShareCelebrationHeadline(ctx, x, y, W, theme, format) {
+            const label = '🏆 ' + t('share_celebration_headline');
+            ctx.font = format === 'story' ? 'bold 34px Poppins, Inter, system-ui, sans-serif' : 'bold 30px Poppins, Inter, system-ui, sans-serif';
+            const tw = ctx.measureText(label).width;
+            const padX = 24;
+            const padY = 14;
+            const bw = Math.min(tw + padX * 2, W - 112);
+            const bh = 56;
+            ctx.fillStyle = workoutShareColorAlpha(theme.warning, 0.16);
+            workoutShareFillRoundRect(ctx, x, y, bw, bh, bh / 2);
+            ctx.strokeStyle = workoutShareColorAlpha(theme.warning, 0.55);
+            ctx.lineWidth = 1.5;
+            workoutShareStrokeRoundRect(ctx, x, y, bw, bh, bh / 2);
+            ctx.fillStyle = theme.warning;
+            ctx.fillText(label, x + padX, y + padY + 2);
+            return bh;
+        }
+
+        function drawWorkoutShareExerciseRow(ctx, W, y, row, maxInList, nameColW, theme, options) {
+            const opts = options || {};
             const pad = 56;
-            const kgStr = `${formatWeight(row.maxW)} kg`;
+            const meta = formatShareExerciseMeta(row);
             ctx.textBaseline = 'top';
             ctx.textAlign = 'left';
-            ctx.font = '24px Inter, system-ui, sans-serif';
-            ctx.fillStyle = '#E4E7EC';
-            const nameText = truncateCanvasText(ctx, row.name, nameColW);
-            ctx.fillText(nameText, pad, y + 4);
-
             ctx.font = 'bold 24px Inter, system-ui, sans-serif';
-            ctx.fillStyle = '#7eb4ff';
-            const kgW = ctx.measureText(kgStr).width;
-            const kgX = W - pad - kgW;
-            ctx.fillText(kgStr, kgX, y + 4);
+            ctx.fillStyle = opts.goldRows && row.hasPR ? theme.warning : '#E4E7EC';
+            let nameX = pad;
+            if (row.hasPR) {
+                ctx.font = '18px Inter, system-ui, sans-serif';
+                ctx.fillText('🏆', pad, y + 6);
+                nameX = pad + 28;
+            }
+            ctx.font = 'bold 24px Inter, system-ui, sans-serif';
+            const nameText = truncateCanvasText(ctx, row.name, nameColW - (row.hasPR ? 28 : 0));
+            ctx.fillText(nameText, nameX, y + 2);
 
-            const trackX = pad + nameColW + 18;
-            const trackW = Math.max(40, kgX - trackX - 18);
-            const trackY = y + 26;
-            const trackH = 10;
-            const rad = 5;
+            if (meta) {
+                ctx.font = '20px Inter, system-ui, sans-serif';
+                ctx.fillStyle = '#94a3b8';
+                ctx.fillText(truncateCanvasText(ctx, meta, W - pad * 2 - (row.hasPR ? 28 : 0)), nameX, y + 30);
+            }
+
+            const trackY = y + (meta ? 54 : 34);
+            const trackX = pad;
+            const trackW = W - pad * 2;
+            const trackH = 8;
+            const rad = 4;
 
             ctx.fillStyle = 'rgba(255, 255, 255, 0.07)';
             workoutShareFillRoundRect(ctx, trackX, trackY, trackW, trackH, rad);
 
-            const ratio = maxInList > 0 ? row.maxW / maxInList : 0;
-            const fillW = Math.max(trackH, Math.round(trackW * ratio));
-            const barGrad = ctx.createLinearGradient(trackX, 0, trackX + fillW, 0);
-            barGrad.addColorStop(0, '#4a86e8');
-            barGrad.addColorStop(1, '#5C95FF');
-            ctx.fillStyle = barGrad;
-            workoutShareFillRoundRect(ctx, trackX, trackY, fillW, trackH, rad);
+            if (row.maxW > 0) {
+                const ratio = maxInList > 0 ? row.maxW / maxInList : 0;
+                const fillW = Math.max(trackH, Math.round(trackW * ratio));
+                const barGrad = ctx.createLinearGradient(trackX, 0, trackX + fillW, 0);
+                if (opts.goldRows && row.hasPR) {
+                    barGrad.addColorStop(0, workoutShareColorAlpha(theme.warning, 0.85));
+                    barGrad.addColorStop(1, theme.warning);
+                } else {
+                    barGrad.addColorStop(0, theme.accentBarDark);
+                    barGrad.addColorStop(1, theme.accent);
+                }
+                ctx.fillStyle = barGrad;
+                workoutShareFillRoundRect(ctx, trackX, trackY, fillW, trackH, rad);
+            }
         }
 
-        function generateWorkoutSharePngBlob(workout) {
+        function canvasToPngBlob(canvas) {
             return new Promise((resolve, reject) => {
-                const done = () => {
-                    const W = 1080;
-                    const H = 1350;
-                    const canvas = document.createElement('canvas');
-                    canvas.width = W;
-                    canvas.height = H;
-                    const ctx = canvas.getContext('2d');
-                    if (!ctx) {
-                        reject(new Error('canvas'));
+                canvas.toBlob((blob) => {
+                    if (blob) {
+                        resolve(blob);
                         return;
                     }
-
-                    drawWorkoutShareBackground(ctx, W, H);
-
-                    let y = 56;
-                    ctx.textBaseline = 'top';
-                    ctx.textAlign = 'left';
-
-                    ctx.fillStyle = '#F1F5F9';
-                    ctx.font = 'italic 900 68px Poppins, Inter, system-ui, sans-serif';
-                    ctx.fillText('GYMCUT', 56, y);
-                    y += 84;
-
-                    const d = workout.date ? new Date(workout.date) : new Date();
-                    const dateStr = d.toLocaleDateString(currentLocale(), { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
-                    ctx.font = '24px Inter, system-ui, sans-serif';
-                    const capPadX = 22;
-                    const capPadY = 12;
-                    const capText = truncateCanvasText(ctx, dateStr, W - 200);
-                    const capW = ctx.measureText(capText).width + capPadX * 2;
-                    const capH = 44;
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.06)';
-                    workoutShareFillRoundRect(ctx, 56, y, capW, capH, capH / 2);
-                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
-                    ctx.lineWidth = 1;
-                    workoutShareStrokeRoundRect(ctx, 56, y, capW, capH, capH / 2);
-                    ctx.fillStyle = '#B8C5D9';
-                    ctx.fillText(capText, 56 + capPadX, y + capPadY + 1);
-                    y += capH + 28;
-
-                    ctx.fillStyle = '#5C95FF';
-                    ctx.font = 'bold 36px Inter, system-ui, sans-serif';
-                    const planTitle = workout.planName || t('quick_workout_name');
-                    ctx.fillText(truncateCanvasText(ctx, planTitle, W - 112), 56, y);
-                    y += 52;
-
-                    const maxWeight = calcWorkoutMaxWeight(workout);
-                    const totalVol = calcWorkoutTotalVolume(workout);
-                    const prs = countWorkoutPRs(workout);
-                    const exN = Array.isArray(workout.exercises) ? workout.exercises.length : 0;
-                    let completedSets = 0;
-                    if (Array.isArray(workout.exercises)) {
-                        workout.exercises.forEach(ex => {
-                            if (ex && Array.isArray(ex.completedSets)) completedSets += ex.completedSets.filter(Boolean).length;
-                        });
+                    try {
+                        const dataUrl = canvas.toDataURL('image/png');
+                        const base64 = dataUrl.split(',')[1];
+                        if (!base64) {
+                            reject(new Error('toDataURL'));
+                            return;
+                        }
+                        const bin = atob(base64);
+                        const arr = new Uint8Array(bin.length);
+                        for (let i = 0; i < bin.length; i++) arr[i] = bin.charCodeAt(i);
+                        resolve(new Blob([arr], { type: 'image/png' }));
+                    } catch (e) {
+                        reject(e);
                     }
+                }, 'image/png', 1);
+            });
+        }
 
-                    const cardX = 56;
-                    const cardW = W - 112;
-                    const cardY = y;
-                    const cardH = 248;
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.055)';
-                    workoutShareFillRoundRect(ctx, cardX, cardY, cardW, cardH, 22);
-                    ctx.strokeStyle = 'rgba(92, 149, 255, 0.35)';
-                    ctx.lineWidth = 1.5;
-                    workoutShareStrokeRoundRect(ctx, cardX, cardY, cardW, cardH, 22);
+        function downloadWorkoutShareBlob(blob) {
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'gymcut-trening.png';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            URL.revokeObjectURL(url);
+            showToast(t('toast_share_saved_img'), 'success', 5000);
+        }
 
-                    const innerX = cardX + 36;
-                    let cy = cardY + 32;
-                    ctx.fillStyle = '#94a3b8';
-                    ctx.font = '22px Inter, system-ui, sans-serif';
-                    ctx.fillText(t('share_max_weight'), innerX, cy);
-                    cy += 40;
+        const WORKOUT_SHARE_FORMATS = {
+            post: { width: 1080, height: 1350, maxExercises: 7, maxWeightFont: 88, rowH: 78, topPad: 48, logoMaxW: 420, chipGap: 36 },
+            story: { width: 1080, height: 1920, maxExercises: 10, maxWeightFont: 104, rowH: 76, topPad: 64, logoMaxW: 480, chipGap: 32 }
+        };
 
-                    ctx.fillStyle = '#FFFFFF';
-                    ctx.font = 'bold 88px Poppins, Inter, system-ui, sans-serif';
-                    ctx.save();
-                    ctx.shadowColor = 'rgba(92, 149, 255, 0.35)';
-                    ctx.shadowBlur = 18;
-                    ctx.fillText(`${formatWeight(maxWeight)} kg`, innerX, cy);
-                    ctx.restore();
-                    cy += 100;
+        let workoutSharePreviewState = null;
+        let workoutShareLogoCache = null;
 
-                    ctx.fillStyle = '#cbd5e1';
-                    ctx.font = '28px Inter, system-ui, sans-serif';
-                    const volLine = totalVol > 0
-                        ? `${t('share_volume')} · ${formatWeight(totalVol)} kg`
-                        : t('share_volume_none');
-                    ctx.fillText(truncateCanvasText(ctx, volLine, cardW - 72), innerX, cy);
+        function getWorkoutShareFormatConfig(format) {
+            return WORKOUT_SHARE_FORMATS[format === 'post' ? 'post' : 'story'];
+        }
 
-                    y = cardY + cardH + 36;
+        function normalizeShareTemplate(template, prs) {
+            if (template === 'minimal') return 'minimal';
+            if (template === 'celebration' && prs > 0) return 'celebration';
+            return 'full';
+        }
 
-                    const chipY = y;
-                    const chipGap = 14;
-                    const chipW = (W - 112 - chipGap * 2) / 3;
-                    const chipH = 96;
-                    let cx = 56;
-                    const drawChip = (label, value) => {
-                        ctx.fillStyle = 'rgba(15, 20, 35, 0.55)';
-                        workoutShareFillRoundRect(ctx, cx, chipY, chipW, chipH, 18);
-                        ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
-                        ctx.lineWidth = 1;
-                        workoutShareStrokeRoundRect(ctx, cx, chipY, chipW, chipH, 18);
-                        const accentGrad = ctx.createLinearGradient(cx, chipY, cx, chipY + 4);
-                        accentGrad.addColorStop(0, '#5C95FF');
-                        accentGrad.addColorStop(1, 'rgba(92, 149, 255, 0)');
-                        ctx.fillStyle = accentGrad;
-                        ctx.fillRect(cx + 14, chipY + 10, chipW - 28, 4);
+        function renderWorkoutShareCanvas(workout, logoImg, format, template) {
+            const cfg = getWorkoutShareFormatConfig(format);
+            const W = cfg.width;
+            const H = cfg.height;
+            const canvas = document.createElement('canvas');
+            canvas.width = W;
+            canvas.height = H;
+            const ctx = canvas.getContext('2d');
+            if (!ctx) throw new Error('canvas');
 
-                        ctx.fillStyle = '#9CA3AF';
-                        ctx.font = '20px Inter, system-ui, sans-serif';
-                        ctx.fillText(label, cx + 20, chipY + 22);
-                        ctx.fillStyle = '#F8FAFC';
-                        ctx.font = 'bold 32px Inter, system-ui, sans-serif';
-                        ctx.fillText(value, cx + 20, chipY + 52);
-                        cx += chipW + chipGap;
-                    };
-                    drawChip(t('share_pr'), String(prs));
-                    drawChip(t('share_exercises'), String(exN));
-                    drawChip(t('share_sets_done'), String(completedSets));
-                    y = chipY + chipH + 40;
+            const maxWeight = calcWorkoutMaxWeight(workout);
+            const totalVol = calcWorkoutTotalVolume(workout);
+            const prs = countWorkoutPRs(workout);
+            const shareTemplate = normalizeShareTemplate(template, prs);
+            const isCelebration = shareTemplate === 'celebration';
+            const isMinimal = shareTemplate === 'minimal';
 
-                    ctx.fillStyle = '#64748b';
-                    ctx.font = 'bold 22px Inter, system-ui, sans-serif';
-                    ctx.fillText(t('share_top_ex'), 56, y);
-                    y += 40;
+            const theme = getWorkoutShareTheme();
+            drawWorkoutShareBackground(ctx, W, H, theme, shareTemplate);
 
-                    const exRows = getExerciseMaxWeightsForShare(workout).filter(r => r.maxW > 0).slice(0, 8);
-                    const maxInList = exRows.length ? exRows[0].maxW : 1;
-                    const nameColW = 340;
-                    const rowH = 58;
-                    if (exRows.length === 0) {
-                        ctx.font = '24px Inter, system-ui, sans-serif';
-                        ctx.fillStyle = '#8B949E';
-                        ctx.fillText(t('share_no_weight'), 56, y);
-                        y += 44;
-                    } else {
-                        exRows.forEach((row) => {
-                            drawWorkoutShareExerciseRow(ctx, W, y, row, maxInList, nameColW);
-                            y += rowH;
-                        });
-                    }
+            let y = cfg.topPad;
+            ctx.textBaseline = 'top';
+            ctx.textAlign = 'left';
 
-                    const footerY = H - 96;
-                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
-                    ctx.lineWidth = 1;
-                    ctx.beginPath();
-                    ctx.moveTo(56, footerY);
-                    ctx.lineTo(W - 56, footerY);
-                    ctx.stroke();
-                    ctx.textAlign = 'center';
-                    ctx.fillStyle = '#64748b';
-                    ctx.font = '22px Inter, system-ui, sans-serif';
-                    ctx.fillText(t('share_footer'), W / 2, footerY + 28);
-                    ctx.textAlign = 'left';
+            const logoH = drawWorkoutShareLogo(ctx, 56, y, cfg.logoMaxW, logoImg, theme);
+            y += logoH + (format === 'story' ? 32 : 24);
 
-                    canvas.toBlob((blob) => {
-                        if (blob) resolve(blob);
-                        else reject(new Error('toBlob'));
-                    }, 'image/png', 1);
-                };
+            const d = workout.date ? new Date(workout.date) : new Date();
+            const dateStr = d.toLocaleDateString(currentLocale(), { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+            ctx.font = format === 'story' ? '26px Inter, system-ui, sans-serif' : '24px Inter, system-ui, sans-serif';
+            const capPadX = 22;
+            const capPadY = 12;
+            const capText = truncateCanvasText(ctx, dateStr, W - 200);
+            const capW = ctx.measureText(capText).width + capPadX * 2;
+            const capH = 44;
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.06)';
+            workoutShareFillRoundRect(ctx, 56, y, capW, capH, capH / 2);
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
+            ctx.lineWidth = 1;
+            workoutShareStrokeRoundRect(ctx, 56, y, capW, capH, capH / 2);
+            ctx.fillStyle = '#B8C5D9';
+            ctx.fillText(capText, 56 + capPadX, y + capPadY + 1);
+            y += capH + (format === 'story' ? 28 : 20);
 
-                if (document.fonts && document.fonts.ready) {
-                    document.fonts.ready.then(done).catch(done);
-                } else {
-                    done();
+            ctx.fillStyle = isCelebration ? theme.warning : theme.accent;
+            ctx.font = format === 'story' ? 'bold 40px Inter, system-ui, sans-serif' : 'bold 36px Inter, system-ui, sans-serif';
+            const planTitle = workout.planName || t('quick_workout_name');
+            ctx.fillText(truncateCanvasText(ctx, planTitle, W - 112), 56, y);
+            y += format === 'story' ? 60 : 52;
+
+            if (isCelebration) {
+                y += drawWorkoutShareCelebrationHeadline(ctx, 56, y, W, theme, format) + 24;
+            }
+
+            const exN = Array.isArray(workout.exercises) ? workout.exercises.length : 0;
+            let completedSets = 0;
+            if (Array.isArray(workout.exercises)) {
+                workout.exercises.forEach(ex => {
+                    if (ex && Array.isArray(ex.completedSets)) completedSets += ex.completedSets.filter(Boolean).length;
+                });
+            }
+
+            const cardX = 56;
+            const cardW = W - 112;
+            const cardY = y;
+            const cardH = prs > 0 ? (format === 'story' ? 292 : 268) : (format === 'story' ? 272 : 248);
+            ctx.fillStyle = isCelebration ? workoutShareColorAlpha(theme.warning, 0.08) : 'rgba(255, 255, 255, 0.055)';
+            workoutShareFillRoundRect(ctx, cardX, cardY, cardW, cardH, 22);
+            ctx.strokeStyle = isCelebration ? workoutShareColorAlpha(theme.warning, 0.55) : theme.accentBorder;
+            ctx.lineWidth = 1.5;
+            workoutShareStrokeRoundRect(ctx, cardX, cardY, cardW, cardH, 22);
+
+            const innerX = cardX + 36;
+            let cy = cardY + 28;
+            if (prs > 0) {
+                drawWorkoutSharePrBadge(ctx, innerX, cy, prs, theme);
+                cy += 56;
+            }
+
+            ctx.fillStyle = '#94a3b8';
+            ctx.font = '22px Inter, system-ui, sans-serif';
+            ctx.fillText(t('share_max_weight'), innerX, cy);
+            cy += 40;
+
+            ctx.fillStyle = '#FFFFFF';
+            ctx.font = `bold ${cfg.maxWeightFont}px Poppins, Inter, system-ui, sans-serif`;
+            ctx.save();
+            ctx.shadowColor = isCelebration ? workoutShareColorAlpha(theme.warning, 0.55) : theme.accentGlow;
+            ctx.shadowBlur = isCelebration ? 24 : 18;
+            ctx.fillText(`${formatWeight(maxWeight)} kg`, innerX, cy);
+            ctx.restore();
+            cy += format === 'story' ? 112 : 100;
+
+            ctx.fillStyle = '#cbd5e1';
+            ctx.font = format === 'story' ? '30px Inter, system-ui, sans-serif' : '28px Inter, system-ui, sans-serif';
+            const volLine = totalVol > 0
+                ? `${t('share_volume')} · ${formatWeight(totalVol)} kg`
+                : t('share_volume_none');
+            ctx.fillText(truncateCanvasText(ctx, volLine, cardW - 72), innerX, cy);
+
+            y = cardY + cardH + cfg.chipGap;
+
+            const chipY = y;
+            const chipGap = 14;
+            const chipW = (W - 112 - chipGap * 2) / 3;
+            const chipH = format === 'story' ? 104 : 96;
+            let cx = 56;
+            const drawChip = (label, value, highlight) => {
+                ctx.fillStyle = 'rgba(15, 20, 35, 0.55)';
+                workoutShareFillRoundRect(ctx, cx, chipY, chipW, chipH, 18);
+                ctx.strokeStyle = highlight ? workoutShareColorAlpha(theme.warning, 0.35) : 'rgba(255, 255, 255, 0.1)';
+                ctx.lineWidth = 1;
+                workoutShareStrokeRoundRect(ctx, cx, chipY, chipW, chipH, 18);
+                const chipAccent = highlight ? theme.warning : theme.accent;
+                const accentGrad = ctx.createLinearGradient(cx, chipY, cx, chipY + 4);
+                accentGrad.addColorStop(0, chipAccent);
+                accentGrad.addColorStop(1, workoutShareColorAlpha(chipAccent, 0));
+                ctx.fillStyle = accentGrad;
+                ctx.fillRect(cx + 14, chipY + 10, chipW - 28, 4);
+
+                ctx.fillStyle = '#9CA3AF';
+                ctx.font = '20px Inter, system-ui, sans-serif';
+                ctx.fillText(label, cx + 20, chipY + 22);
+                ctx.fillStyle = highlight ? theme.warning : '#F8FAFC';
+                ctx.font = 'bold 32px Inter, system-ui, sans-serif';
+                ctx.fillText(value, cx + 20, chipY + 52);
+                cx += chipW + chipGap;
+            };
+            drawChip(t('share_pr'), String(prs), prs > 0);
+            drawChip(t('share_exercises'), String(exN), false);
+            drawChip(t('share_sets_done'), String(completedSets), false);
+            y = chipY + chipH + (format === 'story' ? 48 : 40);
+
+            if (!isMinimal) {
+                ctx.fillStyle = isCelebration ? theme.warning : '#64748b';
+                ctx.font = 'bold 22px Inter, system-ui, sans-serif';
+                ctx.fillText(isCelebration ? t('share_celebration_ex') : t('share_top_ex'), 56, y);
+                y += 40;
+
+                let exRows = getExerciseRowsForShare(workout).filter(r => r.completedSets > 0 || r.maxW > 0);
+                if (isCelebration) {
+                    exRows = exRows.filter(r => r.hasPR);
                 }
+                exRows = exRows.slice(0, cfg.maxExercises);
+                const maxInList = exRows.length ? Math.max(...exRows.map(r => r.maxW), 1) : 1;
+                const nameColW = W - 112;
+                const rowH = cfg.rowH;
+                if (exRows.length === 0) {
+                    ctx.font = '24px Inter, system-ui, sans-serif';
+                    ctx.fillStyle = '#8B949E';
+                    ctx.fillText(t('share_no_weight'), 56, y);
+                } else {
+                    exRows.forEach((row) => {
+                        drawWorkoutShareExerciseRow(ctx, W, y, row, maxInList, nameColW, theme, { goldRows: isCelebration });
+                        y += rowH;
+                    });
+                }
+            } else if (format === 'story') {
+                y += 80;
+                ctx.textAlign = 'center';
+                ctx.fillStyle = workoutShareColorAlpha(theme.accent, 0.85);
+                ctx.font = 'bold 36px Poppins, Inter, system-ui, sans-serif';
+                ctx.fillText(`${formatWeight(maxWeight)} kg`, W / 2, y);
+                ctx.font = '24px Inter, system-ui, sans-serif';
+                ctx.fillStyle = '#94a3b8';
+                ctx.fillText(t('share_max_weight'), W / 2, y + 52);
+                ctx.textAlign = 'left';
+            }
+
+            const footerY = format === 'story'
+                ? Math.min(H - 72, Math.max(y + 48, 900))
+                : H - 96;
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(56, footerY);
+            ctx.lineTo(W - 56, footerY);
+            ctx.stroke();
+            ctx.textAlign = 'center';
+            ctx.fillStyle = '#64748b';
+            ctx.font = '22px Inter, system-ui, sans-serif';
+            ctx.fillText(t('share_footer'), W / 2, footerY + 28);
+            ctx.textAlign = 'left';
+
+            return canvas;
+        }
+
+        async function generateWorkoutSharePngBlob(workout, format, template) {
+            if (document.fonts && document.fonts.ready) {
+                await document.fonts.ready.catch(() => { });
+            }
+            if (!workoutShareLogoCache) {
+                workoutShareLogoCache = await loadWorkoutShareLogo();
+            }
+            const logoImg = workoutShareLogoCache;
+            const shareFormat = format === 'post' ? 'post' : 'story';
+            const shareTemplate = template || 'full';
+            try {
+                return await canvasToPngBlob(renderWorkoutShareCanvas(workout, logoImg, shareFormat, shareTemplate));
+            } catch (firstErr) {
+                if (!logoImg) throw firstErr;
+                console.warn('Share export failed with logo, retrying without image:', firstErr);
+                return canvasToPngBlob(renderWorkoutShareCanvas(workout, null, shareFormat, shareTemplate));
+            }
+        }
+
+        function revokeWorkoutSharePreviewUrl() {
+            if (workoutSharePreviewState && workoutSharePreviewState.blobUrl) {
+                URL.revokeObjectURL(workoutSharePreviewState.blobUrl);
+                workoutSharePreviewState.blobUrl = null;
+            }
+        }
+
+        function setSharePreviewLoading(isLoading) {
+            const loadingEl = document.getElementById('workout-share-preview-loading');
+            const shareBtn = document.getElementById('share-preview-share');
+            const downloadBtn = document.getElementById('share-preview-download');
+            if (loadingEl) loadingEl.classList.toggle('hidden', !isLoading);
+            if (shareBtn) shareBtn.disabled = !!isLoading;
+            if (downloadBtn) downloadBtn.disabled = !!isLoading;
+        }
+
+        function updateSharePreviewAspect(format) {
+            const aspectEl = document.getElementById('share-preview-aspect');
+            if (!aspectEl) return;
+            aspectEl.classList.toggle('is-post', format === 'post');
+            aspectEl.classList.toggle('is-story', format !== 'post');
+        }
+
+        function setSharePreviewFormat(format) {
+            const nextFormat = format === 'post' ? 'post' : 'story';
+            document.querySelectorAll('#workout-share-preview [data-format]').forEach((tab) => {
+                const active = tab.dataset.format === nextFormat;
+                tab.classList.toggle('is-active', active);
+                tab.setAttribute('aria-selected', active ? 'true' : 'false');
+            });
+            updateSharePreviewAspect(nextFormat);
+            if (workoutSharePreviewState) workoutSharePreviewState.format = nextFormat;
+        }
+
+        function updateSharePreviewTemplateTabs(workout) {
+            const prs = countWorkoutPRs(workout);
+            document.querySelectorAll('#workout-share-preview [data-template]').forEach((tab) => {
+                const isCelebration = tab.dataset.template === 'celebration';
+                tab.classList.toggle('is-disabled', isCelebration && prs <= 0);
+                tab.disabled = isCelebration && prs <= 0;
+            });
+        }
+
+        function setSharePreviewTemplate(template) {
+            const workout = workoutSharePreviewState && workoutSharePreviewState.workout;
+            const prs = workout ? countWorkoutPRs(workout) : 0;
+            let nextTemplate = template === 'minimal' ? 'minimal' : (template === 'celebration' ? 'celebration' : 'full');
+            if (nextTemplate === 'celebration' && prs <= 0) nextTemplate = 'full';
+            document.querySelectorAll('#workout-share-preview [data-template]').forEach((tab) => {
+                const active = tab.dataset.template === nextTemplate;
+                tab.classList.toggle('is-active', active);
+                tab.setAttribute('aria-selected', active ? 'true' : 'false');
+            });
+            if (workoutSharePreviewState) workoutSharePreviewState.template = nextTemplate;
+        }
+
+        async function refreshWorkoutSharePreviewImage() {
+            if (!workoutSharePreviewState || !workoutSharePreviewState.workout) return;
+            setSharePreviewLoading(true);
+            revokeWorkoutSharePreviewUrl();
+            workoutSharePreviewState.blob = null;
+            try {
+                const blob = await generateWorkoutSharePngBlob(
+                    workoutSharePreviewState.workout,
+                    workoutSharePreviewState.format,
+                    workoutSharePreviewState.template
+                );
+                if (!blob) throw new Error('no blob');
+                const blobUrl = URL.createObjectURL(blob);
+                workoutSharePreviewState.blob = blob;
+                workoutSharePreviewState.blobUrl = blobUrl;
+                const img = document.getElementById('workout-share-preview-img');
+                if (img) {
+                    img.src = blobUrl;
+                    img.alt = workoutSharePreviewState.workout.planName || t('share_title_fallback');
+                }
+            } catch (e) {
+                console.error('refreshWorkoutSharePreviewImage failed:', e);
+                closeWorkoutSharePreview();
+                showToast(t('toast_share_fail'), 'warning');
+                throw e;
+            } finally {
+                setSharePreviewLoading(false);
+            }
+        }
+
+        function closeWorkoutSharePreview() {
+            const root = document.getElementById('workout-share-preview');
+            revokeWorkoutSharePreviewUrl();
+            workoutSharePreviewState = null;
+            if (!root) return;
+            root.classList.remove('is-open');
+            root.setAttribute('aria-hidden', 'true');
+            const img = document.getElementById('workout-share-preview-img');
+            if (img) {
+                img.removeAttribute('src');
+                img.alt = '';
+            }
+            setTimeout(() => {
+                root.classList.add('hidden');
+            }, 320);
+        }
+
+        async function openWorkoutSharePreview(workout) {
+            if (!workout || typeof workout !== 'object') return;
+            const root = document.getElementById('workout-share-preview');
+            if (!root) {
+                showToast(t('toast_share_fail'), 'warning');
+                return;
+            }
+            workoutSharePreviewState = {
+                workout,
+                format: 'story',
+                template: countWorkoutPRs(workout) > 0 ? 'celebration' : 'full',
+                blob: null,
+                blobUrl: null
+            };
+            setSharePreviewFormat('story');
+            updateSharePreviewTemplateTabs(workout);
+            setSharePreviewTemplate(workoutSharePreviewState.template);
+            root.classList.remove('hidden');
+            root.setAttribute('aria-hidden', 'false');
+            requestAnimationFrame(() => root.classList.add('is-open'));
+            await refreshWorkoutSharePreviewImage();
+        }
+
+        async function shareWorkoutShareBlob(blob, workout) {
+            if (!blob || !workout) return false;
+            const maxWeight = calcWorkoutMaxWeight(workout);
+            const title = workout.planName || t('share_title_fallback');
+            const text = `${title} — max ${formatWeight(maxWeight)} kg`;
+            if (typeof File !== 'undefined' && navigator.share && navigator.canShare) {
+                try {
+                    const file = new File([blob], 'gymcut-trening.png', { type: 'image/png' });
+                    const sharePayload = { files: [file], title, text };
+                    if (navigator.canShare(sharePayload)) {
+                        await navigator.share(sharePayload);
+                        showToast(t('toast_share_done'), 'success');
+                        return true;
+                    }
+                } catch (shareErr) {
+                    if (shareErr && shareErr.name === 'AbortError') return true;
+                    console.warn('Native share failed, falling back to download:', shareErr);
+                }
+            }
+            downloadWorkoutShareBlob(blob);
+            return true;
+        }
+
+        function initWorkoutSharePreview() {
+            const root = document.getElementById('workout-share-preview');
+            if (!root) return;
+
+            const backdrop = document.getElementById('workout-share-preview-backdrop');
+            const closeBtn = document.getElementById('share-preview-close');
+            const shareBtn = document.getElementById('share-preview-share');
+            const downloadBtn = document.getElementById('share-preview-download');
+            const storyTab = document.getElementById('share-format-story');
+            const postTab = document.getElementById('share-format-post');
+            const fullTab = document.getElementById('share-template-full');
+            const minimalTab = document.getElementById('share-template-minimal');
+            const celebrationTab = document.getElementById('share-template-celebration');
+
+            const close = () => closeWorkoutSharePreview();
+            if (backdrop) backdrop.addEventListener('click', close);
+            if (closeBtn) closeBtn.addEventListener('click', close);
+
+            const onFormatChange = async (format) => {
+                if (!workoutSharePreviewState || workoutSharePreviewState.format === format) return;
+                setSharePreviewFormat(format);
+                try {
+                    await refreshWorkoutSharePreviewImage();
+                } catch (e) { /* toast already shown */ }
+            };
+            if (storyTab) storyTab.addEventListener('click', () => onFormatChange('story'));
+            if (postTab) postTab.addEventListener('click', () => onFormatChange('post'));
+
+            const onTemplateChange = async (template) => {
+                if (!workoutSharePreviewState || workoutSharePreviewState.template === template) return;
+                if (template === 'celebration' && countWorkoutPRs(workoutSharePreviewState.workout) <= 0) return;
+                setSharePreviewTemplate(template);
+                try {
+                    await refreshWorkoutSharePreviewImage();
+                } catch (e) { /* toast already shown */ }
+            };
+            if (fullTab) fullTab.addEventListener('click', () => onTemplateChange('full'));
+            if (minimalTab) minimalTab.addEventListener('click', () => onTemplateChange('minimal'));
+            if (celebrationTab) celebrationTab.addEventListener('click', () => onTemplateChange('celebration'));
+
+            if (shareBtn) {
+                shareBtn.addEventListener('click', async () => {
+                    if (!workoutSharePreviewState || !workoutSharePreviewState.blob) return;
+                    try {
+                        await shareWorkoutShareBlob(workoutSharePreviewState.blob, workoutSharePreviewState.workout);
+                        closeWorkoutSharePreview();
+                    } catch (e) {
+                        if (e && e.name === 'AbortError') return;
+                        console.error(e);
+                        showToast(t('toast_share_fail'), 'warning');
+                    }
+                });
+            }
+
+            if (downloadBtn) {
+                downloadBtn.addEventListener('click', () => {
+                    if (!workoutSharePreviewState || !workoutSharePreviewState.blob) return;
+                    downloadWorkoutShareBlob(workoutSharePreviewState.blob);
+                    closeWorkoutSharePreview();
+                });
+            }
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key !== 'Escape') return;
+                if (!root.classList.contains('is-open')) return;
+                closeWorkoutSharePreview();
             });
         }
 
         async function shareWorkoutAsImage(workout) {
             if (!workout || typeof workout !== 'object') return;
             try {
-                const blob = await generateWorkoutSharePngBlob(workout);
-                const file = new File([blob], 'gymcut-trening.png', { type: 'image/png' });
-                const maxWeight = calcWorkoutMaxWeight(workout);
-                const title = workout.planName || t('share_title_fallback');
-                const text = `${title} — max ${formatWeight(maxWeight)} kg`;
-                const sharePayload = { files: [file], title, text };
-
-                if (navigator.share && navigator.canShare && navigator.canShare(sharePayload)) {
-                    await navigator.share(sharePayload);
-                    showToast(t('toast_share_done'), 'success');
-                } else {
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = 'gymcut-trening.png';
-                    document.body.appendChild(a);
-                    a.click();
-                    a.remove();
-                    URL.revokeObjectURL(url);
-                    showToast(t('toast_share_saved_img'), 'success', 5000);
-                }
+                await openWorkoutSharePreview(workout);
             } catch (e) {
                 if (e && e.name === 'AbortError') return;
-                console.error(e);
+                console.error('shareWorkoutAsImage failed:', e);
                 showToast(t('toast_share_fail'), 'warning');
             }
         }
@@ -10619,18 +12033,19 @@
         // w momencie tworzenia planu (zapisywany jako zwykły tekst do danych użytkownika).
         const WORKOUT_TEMPLATES = {
             push: [
-                { sets: 4, reps: 8, name: { pl: 'Wyciskanie sztangi leżąc', en: 'Barbell bench press', es: 'Press de banca con barra' }, notes: { pl: 'Klata', en: 'Chest', es: 'Pecho' } },
-                { sets: 3, reps: 10, name: { pl: 'Wyciskanie hantli na skosie', en: 'Incline dumbbell press', es: 'Press inclinado con mancuernas' }, notes: { pl: 'Góra klaty', en: 'Upper chest', es: 'Pecho superior' } },
-                { sets: 3, reps: 10, name: { pl: 'Wyciskanie żołnierskie', en: 'Overhead press', es: 'Press militar' }, notes: { pl: 'Barki', en: 'Shoulders', es: 'Hombros' } },
-                { sets: 3, reps: 12, name: { pl: 'Unoszenie hantli bokiem', en: 'Dumbbell lateral raise', es: 'Elevaciones laterales con mancuernas' }, notes: { pl: 'Boki barków', en: 'Side delts', es: 'Deltoides laterales' } },
-                { sets: 3, reps: 12, name: { pl: 'Wyciskanie francuskie', en: 'Skullcrusher', es: 'Press francés' }, notes: { pl: 'Triceps', en: 'Triceps', es: 'Tríceps' } }
+                { sets: 3, reps: 8, name: { pl: 'Wyciskanie hantli na skosie', en: 'Incline dumbbell press', es: 'Press inclinado con mancuernas' }, notes: { pl: 'Góra klaty', en: 'Upper chest', es: 'Pecho superior' } },
+                { sets: 3, reps: 10, name: { pl: 'Rozpiętki (pec deck)', en: 'Pec deck fly', es: 'Aperturas en pec deck' }, notes: { pl: 'Klata', en: 'Chest', es: 'Pecho' } },
+                { sets: 3, reps: 8, name: { pl: 'Wznosy na wyciągu', en: 'Cable lateral raise', es: 'Elevaciones laterales en polea' }, notes: { pl: 'Barki', en: 'Shoulders', es: 'Hombros' } },
+                { sets: 3, reps: 10, name: { pl: 'Triceps pushdown', en: 'Triceps pushdown', es: 'Extensión de tríceps en polea' }, notes: { pl: 'Triceps', en: 'Triceps', es: 'Tríceps' } },
+                { sets: 3, reps: 8, name: { pl: 'Triceps overhead extension', en: 'Overhead triceps extension', es: 'Extensión de tríceps por encima de la cabeza' }, notes: { pl: 'Triceps', en: 'Triceps', es: 'Tríceps' } }
             ],
             pull: [
-                { sets: 4, reps: 'max', name: { pl: 'Podciąganie na drążku', en: 'Pull-ups', es: 'Dominadas' }, notes: { pl: 'Plecy', en: 'Back', es: 'Espalda' } },
-                { sets: 3, reps: 10, name: { pl: 'Wiosłowanie sztangą', en: 'Barbell row', es: 'Remo con barra' }, notes: { pl: 'Mięśnie grzbietu', en: 'Back muscles', es: 'Músculos de la espalda' } },
-                { sets: 3, reps: 12, name: { pl: 'Ściąganie linki wyciągu', en: 'Lat pulldown', es: 'Jalón al pecho' }, notes: { pl: 'Plecy', en: 'Back', es: 'Espalda' } },
-                { sets: 3, reps: 10, name: { pl: 'Uginanie ramion ze sztangą', en: 'Barbell curl', es: 'Curl con barra' }, notes: { pl: 'Biceps', en: 'Biceps', es: 'Bíceps' } },
-                { sets: 3, reps: 12, name: { pl: 'Uginanie ramion z hantlami', en: 'Dumbbell curl', es: 'Curl con mancuernas' }, notes: { pl: 'Biceps', en: 'Biceps', es: 'Bíceps' } }
+                { sets: 3, reps: 8, name: { pl: 'Ściąganie drążka', en: 'Lat pulldown', es: 'Jalón al pecho' }, notes: { pl: 'Plecy', en: 'Back', es: 'Espalda' } },
+                { sets: 3, reps: 8, name: { pl: 'Wiosłowanie w opadzie sztangą', en: 'Barbell bent-over row', es: 'Remo inclinado con barra' }, notes: { pl: 'Plecy', en: 'Back', es: 'Espalda' } },
+                { sets: 3, reps: 8, name: { pl: 'Odwrócone rozpiętki (reverse pec deck)', en: 'Reverse pec deck fly', es: 'Aperturas inversas en pec deck' }, notes: { pl: 'Tylne barki', en: 'Rear delts', es: 'Deltoides posteriores' } },
+                { sets: 3, reps: 8, name: { pl: 'Bayesian curl', en: 'Bayesian curl', es: 'Curl bayesiano' }, notes: { pl: 'Biceps', en: 'Biceps', es: 'Bíceps' } },
+                { sets: 3, reps: 8, name: { pl: 'Uginanie młotkowe', en: 'Hammer curl', es: 'Curl martillo' }, notes: { pl: 'Biceps', en: 'Biceps', es: 'Bíceps' } },
+                { sets: 3, reps: 12, name: { pl: 'Szrugsy hantlami', en: 'Dumbbell shrugs', es: 'Encogimientos con mancuernas' }, notes: { pl: 'Kaptury', en: 'Traps', es: 'Trapecios' } }
             ],
             legs: [
                 { sets: 4, reps: 8, name: { pl: 'Przysiady ze sztangą', en: 'Barbell squat', es: 'Sentadilla con barra' }, notes: { pl: 'Nogi', en: 'Legs', es: 'Piernas' } },

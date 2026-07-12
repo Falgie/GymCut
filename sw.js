@@ -1,5 +1,5 @@
 /* GymCut Service Worker */
-const SW_VERSION = '1.1.0';
+const SW_VERSION = '1.2.0';
 const CACHE_NAME = `gymcut-v${SW_VERSION}`;
 const RUNTIME_CACHE = `gymcut-runtime-v${SW_VERSION}`;
 
@@ -8,7 +8,10 @@ const PRECACHE_URLS = [
     './index.html',
     './manifest.json',
     './app-icon-mobile.png',
-    './gymcut-logo.png'
+    './gymcut-logo.png',
+    './header-logo.png',
+    './streak-fire.webm',
+    './streak-fire-fallback.mp4'
 ];
 
 self.addEventListener('install', (event) => {
