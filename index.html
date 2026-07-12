@@ -1144,13 +1144,9 @@
             height: 100%;
         }
 
-        .share-preview-aspect.is-post img {
-            object-fit: contain;
-            object-position: center;
-        }
-
+        .share-preview-aspect.is-post img,
         .share-preview-aspect.is-story img {
-            object-fit: cover;
+            object-fit: contain;
             object-position: top center;
         }
 
@@ -9849,6 +9845,17 @@
             return kg.toLocaleString(currentLocale());
         }
 
+        /** Deterministic weight text for share canvas — same on mobile and desktop. */
+        function formatShareCanvasWeight(kg) {
+            if (kg >= 1000000) {
+                const dec = currentLang === 'en' ? '.' : ',';
+                return (kg / 1000000).toFixed(1).replace('.', dec) + ' mln';
+            }
+            const n = Math.round(kg);
+            const sep = currentLang === 'en' ? ',' : ' ';
+            return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, sep);
+        }
+
         function getWeightComparison(kg) {
             // Fun comparisons in ascending order of weight
             const emojis = ['🐕', '🏍️', '🐴', '🚗', '🐘', '🚌', '🐋', '🚀'];
@@ -9938,72 +9945,42 @@
 
         function drawWorkoutShareWeightValue(ctx, x, y, maxWidth, weightKg, maxFont, theme, isCelebration, options) {
             const opts = options || {};
-            const numStr = formatWeight(weightKg);
             const unitStr = 'kg';
-            const numFamily = 'Poppins, Inter, system-ui, sans-serif';
-            const unitFamily = 'Inter, system-ui, sans-serif';
             const unitGap = 12;
             const shadowBlur = isCelebration ? 22 : 16;
-            let size = maxFont;
-            const minSize = Math.max(28, Math.round(maxFont * 0.52));
+            const block = measureWorkoutShareWeightBlock(ctx, maxWidth, weightKg, maxFont);
+            const { size, unitSize, numStr } = block;
 
-            while (size >= minSize) {
-                const unitSize = Math.max(22, Math.round(size * 0.36));
-                ctx.font = `bold ${size}px ${numFamily}`;
-                const numW = ctx.measureText(numStr).width;
-                ctx.font = `600 ${unitSize}px ${unitFamily}`;
-                const unitW = ctx.measureText(unitStr).width;
-                if (numW + unitGap + unitW <= maxWidth) {
-                    const blockW = numW + unitGap + unitW;
-                    const drawX = opts.align === 'center' ? x + (maxWidth - blockW) / 2 : x;
+            ctx.font = shareCanvasFont('bold', size, true);
+            const numW = ctx.measureText(numStr).width;
+            ctx.font = shareCanvasFont('600', unitSize);
+            const unitW = ctx.measureText(unitStr).width;
+            const blockW = numW + unitGap + unitW;
+            const drawX = opts.align === 'center' ? x + (maxWidth - blockW) / 2 : x;
 
-                    ctx.font = `bold ${size}px ${numFamily}`;
-                    ctx.fillStyle = '#FFFFFF';
-                    ctx.save();
-                    ctx.shadowColor = isCelebration ? workoutShareColorAlpha(theme.warning, 0.55) : theme.accentGlow;
-                    ctx.shadowBlur = shadowBlur;
-                    ctx.fillText(numStr, drawX, y);
-                    ctx.restore();
-
-                    ctx.font = `600 ${unitSize}px ${unitFamily}`;
-                    ctx.fillStyle = '#94a3b8';
-                    const unitY = y + Math.round(size * 0.68);
-                    ctx.fillText(unitStr, drawX + numW + unitGap, unitY);
-
-                    return {
-                        blockH: size + shadowBlur + 10,
-                        fontSize: size
-                    };
-                }
-                size -= 2;
-            }
-
-            ctx.font = `bold ${minSize}px ${numFamily}`;
-            const full = truncateCanvasText(ctx, `${numStr} ${unitStr}`, maxWidth);
-            const fullW = ctx.measureText(full).width;
-            const drawX = opts.align === 'center' ? x + (maxWidth - fullW) / 2 : x;
+            ctx.font = shareCanvasFont('bold', size, true);
             ctx.fillStyle = '#FFFFFF';
-            ctx.fillText(full, drawX, y);
-            return { blockH: minSize + 12, fontSize: minSize };
+            ctx.save();
+            ctx.shadowColor = isCelebration ? workoutShareColorAlpha(theme.warning, 0.55) : theme.accentGlow;
+            ctx.shadowBlur = shadowBlur;
+            ctx.fillText(numStr, drawX, y);
+            ctx.restore();
+
+            ctx.font = shareCanvasFont('600', unitSize);
+            ctx.fillStyle = '#94a3b8';
+            ctx.fillText(unitStr, drawX + numW + unitGap, y + Math.round(size * 0.68));
+
+            return {
+                blockH: size + shadowBlur + 10,
+                fontSize: size
+            };
         }
 
         function calcWorkoutShareStatsCardHeight(ctx, cfg, format, prs, maxWeight, totalVol, cardW) {
             const textW = cardW - 72;
-            const numStr = formatWeight(maxWeight);
-            const numFamily = 'Poppins, Inter, system-ui, sans-serif';
-            let size = cfg.maxWeightFont;
-            const minSize = Math.max(28, Math.round(cfg.maxWeightFont * 0.52));
-            while (size >= minSize) {
-                const unitSize = Math.max(22, Math.round(size * 0.36));
-                ctx.font = `bold ${size}px ${numFamily}`;
-                const numW = ctx.measureText(numStr).width;
-                ctx.font = `600 ${unitSize}px Inter, system-ui, sans-serif`;
-                const unitW = ctx.measureText('kg').width;
-                if (numW + 12 + unitW <= textW) break;
-                size -= 2;
-            }
+            const block = measureWorkoutShareWeightBlock(ctx, textW, maxWeight, cfg.maxWeightFont);
             const shadowBlur = format === 'story' ? 22 : 16;
-            const weightBlockH = size + shadowBlur + 10;
+            const weightBlockH = block.size + shadowBlur + 10;
             let h = 28;
             if (prs > 0) h += 56;
             h += 40;
@@ -10031,42 +10008,6 @@
                 }
             });
             return maxWeight;
-        }
-
-        async function loadImageElement(src) {
-            return new Promise((resolve) => {
-                const img = new Image();
-                img.onload = () => resolve(img.naturalWidth > 0 && img.naturalHeight > 0 ? img : null);
-                img.onerror = () => resolve(null);
-                img.src = src;
-            });
-        }
-
-        async function loadWorkoutShareLogo() {
-            const sources = ['header-logo.png', 'gymcut-logo.png'];
-            for (const src of sources) {
-                try {
-                    if (location.protocol === 'http:' || location.protocol === 'https:') {
-                        const resp = await fetch(src);
-                        if (!resp.ok) continue;
-                        const blob = await resp.blob();
-                        if (!blob || !blob.size) continue;
-                        const url = URL.createObjectURL(blob);
-                        try {
-                            const img = await loadImageElement(url);
-                            if (img) return img;
-                        } finally {
-                            URL.revokeObjectURL(url);
-                        }
-                    } else {
-                        const img = await loadImageElement(src);
-                        if (img) return img;
-                    }
-                } catch (e) {
-                    console.warn('Share logo skipped:', src, e);
-                }
-            }
-            return null;
         }
 
         function workoutShareParseHexColor(input) {
@@ -10152,33 +10093,29 @@
         function formatShareExerciseMeta(row) {
             const sets = row.completedSets > 0 ? row.completedSets : (row.sets || 0);
             const reps = row.reps ?? '?';
-            if (row.maxW > 0) return `${sets}×${reps} · ${formatWeight(row.maxW)} kg`;
+            if (row.maxW > 0) return `${sets}×${reps} · ${formatShareCanvasWeight(row.maxW)} kg`;
             if (sets > 0) return `${sets}×${reps}`;
             return '';
         }
 
-        function drawWorkoutShareLogo(ctx, x, y, maxW, logoImg, theme) {
-            if (logoImg && logoImg.width > 0) {
-                try {
-                    const scale = Math.min(1, maxW / logoImg.width);
-                    const dw = Math.round(logoImg.width * scale);
-                    const dh = Math.round(logoImg.height * scale);
-                    ctx.drawImage(logoImg, x, y, dw, dh);
-                    return dh;
-                } catch (e) {
-                    console.warn('Share logo draw skipped:', e);
-                }
-            }
+        function drawWorkoutShareLogo(ctx, x, y, maxW, theme) {
             ctx.fillStyle = '#F1F5F9';
-            ctx.font = 'italic 900 68px Poppins, Inter, system-ui, sans-serif';
-            ctx.fillText('GYMCUT', x, y);
-            return 68;
+            ctx.font = shareCanvasFont('italic 900', 68, true);
+            const label = 'GYMCUT';
+            const tw = ctx.measureText(label).width;
+            if (tw > maxW) {
+                const scale = maxW / tw;
+                const size = Math.max(36, Math.floor(68 * scale));
+                ctx.font = shareCanvasFont('italic 900', size, true);
+            }
+            ctx.fillText(label, x, y);
+            return parseCanvasFontSize(ctx);
         }
 
         function drawWorkoutSharePrBadge(ctx, x, y, prCount, theme) {
             if (!prCount || prCount <= 0) return 0;
             const label = t('share_pr_badge', { count: prCount });
-            ctx.font = 'bold 22px Inter, system-ui, sans-serif';
+            ctx.font = shareCanvasFont('bold', 22);
             const padX = 18;
             const padY = 10;
             const tw = ctx.measureText(label).width;
@@ -10190,9 +10127,9 @@
             ctx.lineWidth = 1.5;
             workoutShareStrokeRoundRect(ctx, x, y, bw, bh, bh / 2);
             ctx.fillStyle = theme.warning;
-            ctx.font = '20px Inter, system-ui, sans-serif';
+            ctx.font = shareCanvasFont('', 20);
             ctx.fillText('🏆', x + padX, y + padY + 1);
-            ctx.font = 'bold 22px Inter, system-ui, sans-serif';
+            ctx.font = shareCanvasFont('bold', 22);
             ctx.fillText(label, x + padX + 26, y + padY + 2);
             return bw;
         }
@@ -10283,7 +10220,7 @@
 
         function drawWorkoutShareCelebrationHeadline(ctx, x, y, W, theme, format) {
             const label = '🏆 ' + t('share_celebration_headline');
-            ctx.font = format === 'story' ? 'bold 34px Poppins, Inter, system-ui, sans-serif' : 'bold 30px Poppins, Inter, system-ui, sans-serif';
+            ctx.font = shareCanvasFont('bold', format === 'story' ? 34 : 30, true);
             const tw = ctx.measureText(label).width;
             const padX = 24;
             const padY = 14;
@@ -10306,26 +10243,23 @@
             const metaMaxW = W - pad * 2 - (row.hasPR ? 28 : 0);
             ctx.textBaseline = 'top';
             ctx.textAlign = 'left';
-            ctx.font = 'bold 24px Inter, system-ui, sans-serif';
+            ctx.font = shareCanvasFont('bold', 24);
             ctx.fillStyle = opts.goldRows && row.hasPR ? theme.warning : '#E4E7EC';
             let nameX = pad;
             if (row.hasPR) {
-                ctx.font = '18px Inter, system-ui, sans-serif';
+                ctx.font = shareCanvasFont('', 18);
                 ctx.fillText('🏆', pad, y + 6);
                 nameX = pad + 28;
             }
-            ctx.font = 'bold 24px Inter, system-ui, sans-serif';
+            ctx.font = shareCanvasFont('bold', 24);
             const nameText = truncateCanvasText(ctx, row.name, nameColW - (row.hasPR ? 28 : 0));
             ctx.fillText(nameText, nameX, y + 2);
 
-            let trackY = y + 36;
+            const trackY = meta ? y + 58 : y + 36;
             if (meta) {
-                ctx.font = '20px Inter, system-ui, sans-serif';
+                ctx.font = shareCanvasFont('', 20);
                 ctx.fillStyle = '#94a3b8';
-                const metaText = truncateCanvasText(ctx, meta, metaMaxW);
-                ctx.fillText(metaText, nameX, y + 32);
-                const metaH = measureCanvasTextHeight(ctx, metaText).height;
-                trackY = y + 32 + Math.ceil(metaH) + 10;
+                ctx.fillText(truncateCanvasText(ctx, meta, metaMaxW), nameX, y + 32);
             }
 
             const trackX = pad;
@@ -10350,8 +10284,6 @@
                 ctx.fillStyle = barGrad;
                 workoutShareFillRoundRect(ctx, trackX, trackY, fillW, trackH, rad);
             }
-
-            return trackY + trackH - y;
         }
 
         function canvasToPngBlob(canvas) {
@@ -10396,8 +10328,76 @@
             story: { width: 1080, height: 1920, maxExercises: 10, maxWeightFont: 104, rowH: 82, rowGap: 10, topPad: 64, logoMaxW: 480, chipGap: 32 }
         };
 
+        const WORKOUT_SHARE_FONT_SPECS = [
+            '700 24px Poppins',
+            '800 24px Poppins',
+            '900 24px Poppins',
+            'italic 900 68px Poppins',
+            '400 24px Inter',
+            '600 24px Inter',
+            '700 24px Inter',
+            'bold 104px Poppins',
+            'bold 88px Poppins',
+            '600 36px Inter',
+            'bold 40px Inter'
+        ];
+
         let workoutSharePreviewState = null;
-        let workoutShareLogoCache = null;
+        let workoutShareFontsReadyPromise = null;
+        const workoutShareFontStacks = {
+            display: 'Poppins, Inter, system-ui, sans-serif',
+            body: 'Inter, system-ui, sans-serif'
+        };
+
+        function shareCanvasFont(weight, sizePx, display) {
+            const family = display ? workoutShareFontStacks.display : workoutShareFontStacks.body;
+            const w = weight || '400';
+            return `${w} ${sizePx}px ${family}`;
+        }
+
+        async function ensureWorkoutShareFontsReady() {
+            if (workoutShareFontsReadyPromise) return workoutShareFontsReadyPromise;
+            workoutShareFontsReadyPromise = (async () => {
+                if (!document.fonts || !document.fonts.load) return;
+                const loadAll = () => Promise.all(
+                    WORKOUT_SHARE_FONT_SPECS.map((spec) => document.fonts.load(spec).catch(() => { }))
+                );
+                await loadAll();
+                if (document.fonts.ready) await document.fonts.ready.catch(() => { });
+                if (document.fonts.check && !document.fonts.check('700 24px Poppins')) {
+                    await new Promise((resolve) => setTimeout(resolve, 400));
+                    await loadAll();
+                    if (document.fonts.ready) await document.fonts.ready.catch(() => { });
+                }
+                if (document.fonts.check && document.fonts.check('700 24px Poppins')) {
+                    workoutShareFontStacks.display = 'Poppins, Inter, system-ui, sans-serif';
+                } else {
+                    workoutShareFontStacks.display = 'Inter, system-ui, sans-serif';
+                }
+                workoutShareFontStacks.body = 'Inter, system-ui, sans-serif';
+            })();
+            return workoutShareFontsReadyPromise;
+        }
+
+        function measureWorkoutShareWeightBlock(ctx, maxWidth, weightKg, maxFont) {
+            const numStr = formatShareCanvasWeight(weightKg);
+            const unitGap = 12;
+            let size = maxFont;
+            const minSize = Math.max(28, Math.round(maxFont * 0.52));
+            while (size >= minSize) {
+                const unitSize = Math.max(22, Math.round(size * 0.36));
+                ctx.font = shareCanvasFont('bold', size, true);
+                const numW = ctx.measureText(numStr).width;
+                ctx.font = shareCanvasFont('600', unitSize);
+                const unitW = ctx.measureText('kg').width;
+                if (numW + unitGap + unitW <= maxWidth) {
+                    return { size, unitSize, blockH: size + 26, numStr };
+                }
+                size -= 2;
+            }
+            ctx.font = shareCanvasFont('bold', minSize, true);
+            return { size: minSize, unitSize: Math.max(22, Math.round(minSize * 0.36)), blockH: minSize + 12, numStr };
+        }
 
         function getWorkoutShareFormatConfig(format) {
             return WORKOUT_SHARE_FORMATS[format === 'post' ? 'post' : 'story'];
@@ -10409,7 +10409,7 @@
             return 'full';
         }
 
-        function renderWorkoutShareCanvas(workout, logoImg, format, template) {
+        function renderWorkoutShareCanvas(workout, format, template) {
             const cfg = getWorkoutShareFormatConfig(format);
             const W = cfg.width;
             const H = cfg.height;
@@ -10433,12 +10433,12 @@
             ctx.textBaseline = 'top';
             ctx.textAlign = 'left';
 
-            const logoH = drawWorkoutShareLogo(ctx, 56, y, cfg.logoMaxW, logoImg, theme);
+            const logoH = drawWorkoutShareLogo(ctx, 56, y, cfg.logoMaxW, theme);
             y += logoH + (format === 'story' ? 32 : 24);
 
             const d = workout.date ? new Date(workout.date) : new Date();
             const dateStr = d.toLocaleDateString(currentLocale(), { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
-            ctx.font = format === 'story' ? '26px Inter, system-ui, sans-serif' : '24px Inter, system-ui, sans-serif';
+            ctx.font = shareCanvasFont('', format === 'story' ? 26 : 24);
             const capPadX = 22;
             const capPadY = 12;
             const capText = truncateCanvasText(ctx, dateStr, W - 200);
@@ -10454,7 +10454,7 @@
             y += capH + (format === 'story' ? 28 : 20);
 
             ctx.fillStyle = isCelebration ? theme.warning : theme.accent;
-            ctx.font = format === 'story' ? 'bold 40px Inter, system-ui, sans-serif' : 'bold 36px Inter, system-ui, sans-serif';
+            ctx.font = shareCanvasFont('bold', format === 'story' ? 40 : 36);
             const planTitle = workout.planName || t('quick_workout_name');
             ctx.fillText(truncateCanvasText(ctx, planTitle, W - 112), 56, y);
             y += format === 'story' ? 60 : 52;
@@ -10490,7 +10490,7 @@
             }
 
             ctx.fillStyle = '#94a3b8';
-            ctx.font = '22px Inter, system-ui, sans-serif';
+            ctx.font = shareCanvasFont('', 22);
             ctx.fillText(t('share_max_weight'), innerX, cy);
             cy += 40;
 
@@ -10498,12 +10498,11 @@
             cy += weightBlock.blockH + 18;
 
             ctx.fillStyle = '#cbd5e1';
-            ctx.font = format === 'story' ? '28px Inter, system-ui, sans-serif' : '26px Inter, system-ui, sans-serif';
             const volLabel = t('share_volume');
-            const volValue = totalVol > 0 ? `${formatWeight(totalVol)} kg` : '';
+            const volValue = totalVol > 0 ? `${formatShareCanvasWeight(totalVol)} kg` : '';
             if (volValue) {
                 ctx.fillStyle = '#94a3b8';
-                ctx.font = format === 'story' ? '22px Inter, system-ui, sans-serif' : '20px Inter, system-ui, sans-serif';
+                ctx.font = shareCanvasFont('', format === 'story' ? 22 : 20);
                 ctx.fillText(truncateCanvasText(ctx, volLabel, textAreaW), innerX, cy);
                 cy += 30;
                 ctx.fillStyle = '#cbd5e1';
@@ -10513,11 +10512,12 @@
                     textAreaW,
                     format === 'story' ? 30 : 28,
                     20,
-                    (size) => `600 ${size}px Inter, system-ui, sans-serif`
+                    (size) => shareCanvasFont('600', size)
                 );
-                ctx.font = `600 ${volFont}px Inter, system-ui, sans-serif`;
+                ctx.font = shareCanvasFont('600', volFont);
                 ctx.fillText(truncateCanvasText(ctx, volValue, textAreaW), innerX, cy);
             } else {
+                ctx.font = shareCanvasFont('', format === 'story' ? 28 : 26);
                 ctx.fillText(truncateCanvasText(ctx, t('share_volume_none'), textAreaW), innerX, cy);
             }
 
@@ -10542,7 +10542,7 @@
                 ctx.fillRect(cx + 14, chipY + 10, chipW - 28, 4);
 
                 ctx.fillStyle = '#9CA3AF';
-                ctx.font = '20px Inter, system-ui, sans-serif';
+                ctx.font = shareCanvasFont('', 20);
                 ctx.fillText(truncateCanvasText(ctx, label, chipW - 40), cx + 20, chipY + 22);
                 ctx.fillStyle = highlight ? theme.warning : '#F8FAFC';
                 const valFont = fitCanvasFontSize(
@@ -10551,9 +10551,9 @@
                     chipW - 40,
                     32,
                     22,
-                    (size) => `bold ${size}px Inter, system-ui, sans-serif`
+                    (size) => shareCanvasFont('bold', size)
                 );
-                ctx.font = `bold ${valFont}px Inter, system-ui, sans-serif`;
+                ctx.font = shareCanvasFont('bold', valFont);
                 ctx.fillText(truncateCanvasText(ctx, value, chipW - 40), cx + 20, chipY + 54);
                 cx += chipW + chipGap;
             };
@@ -10564,7 +10564,7 @@
 
             if (!isMinimal) {
                 ctx.fillStyle = isCelebration ? theme.warning : '#64748b';
-                ctx.font = 'bold 22px Inter, system-ui, sans-serif';
+                ctx.font = shareCanvasFont('bold', 22);
                 ctx.fillText(isCelebration ? t('share_celebration_ex') : t('share_top_ex'), 56, y);
                 y += 40;
 
@@ -10577,13 +10577,13 @@
                 const nameColW = W - 112;
                 const rowGap = cfg.rowGap || 10;
                 if (exRows.length === 0) {
-                    ctx.font = '24px Inter, system-ui, sans-serif';
+                    ctx.font = shareCanvasFont('', 24);
                     ctx.fillStyle = '#8B949E';
                     ctx.fillText(t('share_no_weight'), 56, y);
                 } else {
                     exRows.forEach((row) => {
-                        const usedH = drawWorkoutShareExerciseRow(ctx, W, y, row, maxInList, nameColW, theme, { goldRows: isCelebration });
-                        y += Math.max(cfg.rowH, usedH) + rowGap;
+                        drawWorkoutShareExerciseRow(ctx, W, y, row, maxInList, nameColW, theme, { goldRows: isCelebration });
+                        y += cfg.rowH + rowGap;
                     });
                 }
             } else if (format === 'story') {
@@ -10592,7 +10592,7 @@
                 const centerW = W - 160;
                 const minWeight = drawWorkoutShareWeightValue(ctx, 80, y, centerW, maxWeight, cfg.maxWeightFont, theme, isCelebration, { align: 'center' });
                 ctx.textAlign = 'center';
-                ctx.font = '24px Inter, system-ui, sans-serif';
+                ctx.font = shareCanvasFont('', 24);
                 ctx.fillStyle = '#94a3b8';
                 ctx.fillText(t('share_max_weight'), W / 2, y + minWeight.blockH + 20);
                 ctx.textAlign = 'left';
@@ -10609,7 +10609,7 @@
             ctx.stroke();
             ctx.textAlign = 'center';
             ctx.fillStyle = '#64748b';
-            ctx.font = '22px Inter, system-ui, sans-serif';
+            ctx.font = shareCanvasFont('', 22);
             ctx.fillText(t('share_footer'), W / 2, footerY + 28);
             ctx.textAlign = 'left';
 
@@ -10617,22 +10617,10 @@
         }
 
         async function generateWorkoutSharePngBlob(workout, format, template) {
-            if (document.fonts && document.fonts.ready) {
-                await document.fonts.ready.catch(() => { });
-            }
-            if (!workoutShareLogoCache) {
-                workoutShareLogoCache = await loadWorkoutShareLogo();
-            }
-            const logoImg = workoutShareLogoCache;
+            await ensureWorkoutShareFontsReady();
             const shareFormat = format === 'post' ? 'post' : 'story';
             const shareTemplate = template || 'full';
-            try {
-                return await canvasToPngBlob(renderWorkoutShareCanvas(workout, logoImg, shareFormat, shareTemplate));
-            } catch (firstErr) {
-                if (!logoImg) throw firstErr;
-                console.warn('Share export failed with logo, retrying without image:', firstErr);
-                return canvasToPngBlob(renderWorkoutShareCanvas(workout, null, shareFormat, shareTemplate));
-            }
+            return canvasToPngBlob(renderWorkoutShareCanvas(workout, shareFormat, shareTemplate));
         }
 
         function revokeWorkoutSharePreviewUrl() {
@@ -10787,6 +10775,8 @@
         function initWorkoutSharePreview() {
             const root = document.getElementById('workout-share-preview');
             if (!root) return;
+
+            ensureWorkoutShareFontsReady().catch(() => { });
 
             const backdrop = document.getElementById('workout-share-preview-backdrop');
             const closeBtn = document.getElementById('share-preview-close');
