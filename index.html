@@ -151,7 +151,7 @@
         }
 
         /* Tekst na tle akcentu — kontrast (np. mono: białe tło + czarny tekst) */
-        button:not(.btn-info):not(.btn-warning):not(.btn-danger):not(.plan-actions-sheet-cancel):not(.plan-actions-sheet-item):not(.language-option):not(.palette-option):not(.install-tab):not(.install-later-btn):not(.settings-version-row):not(.nav-item):not(.pr-button):not(.theme-switcher):not(.sound-toggle):not(.page-header-btn):not(.btn-plan-more):not(.btn-move-up):not(.btn-move-down):not(.share-segment-btn),
+        button:not(.btn-info):not(.btn-warning):not(.btn-danger):not(.plan-actions-sheet-cancel):not(.plan-actions-sheet-item):not(.language-option):not(.palette-option):not(.install-tab):not(.install-later-btn):not(.settings-version-row):not(.nav-item):not(.pr-button):not(.theme-switcher):not(.sound-toggle):not(.page-header-btn):not(.btn-plan-more):not(.btn-move-up):not(.btn-move-down):not(.plan-toggle):not(.share-segment-btn),
         .stepper-btn,
         .workout-resume-bar-cta,
         .install-tab.is-active,
@@ -3161,28 +3161,44 @@
         }
 
         .plan-toggle {
-            background: none;
+            flex: 0 0 40px;
+            width: 40px;
+            height: 40px;
+            min-height: 40px;
+            margin: 0;
+            padding: 0;
             border: none;
-            color: var(--accent-color);
+            border-radius: 10px;
+            background-color: var(--accent-secondary);
+            background-image: none;
+            color: var(--text-color);
             cursor: pointer;
-            padding: 8px;
             font-size: 1rem;
             line-height: 1;
-            transition: transform 0.3s ease;
-            width: auto;
-            margin: 0;
+            transition: transform 0.3s ease, background-color 0.2s ease, color 0.2s ease;
+            touch-action: manipulation;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
+
+        [data-theme="dark"] .plan-toggle {
+            color: var(--text-color-dark);
+        }
+
+        .plan-toggle:active {
+            transform: scale(0.92);
+            filter: brightness(0.95);
         }
 
         .plan-item.collapsed .plan-toggle {
             transform: rotate(-90deg);
         }
 
-        .plan-toggle:active {
-            transform: scale(0.9) rotate(-90deg);
+        .plan-item.collapsed .plan-toggle:active {
+            transform: scale(0.92) rotate(-90deg);
         }
 
         .plan-item:not(.collapsed) .plan-toggle:active {
-            transform: scale(0.9);
+            transform: scale(0.92);
         }
 
         .plan-exercise-item {
