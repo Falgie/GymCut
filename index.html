@@ -1106,46 +1106,45 @@
             flex: 1 1 auto;
             min-height: 0;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: center;
             border-radius: 14px;
             border: 1px solid var(--border-color);
             background: rgba(0, 0, 0, 0.28);
-            overflow: hidden;
+            overflow: auto;
             padding: 8px;
             max-height: min(58vh, 520px);
             min-height: 260px;
+            -webkit-overflow-scrolling: touch;
         }
 
         .share-preview-aspect {
             position: relative;
-            height: 100%;
-            width: auto;
-            max-height: 100%;
+            width: 100%;
             max-width: 100%;
+            max-height: 100%;
             aspect-ratio: 9 / 16;
             margin: 0 auto;
             display: flex;
-            align-items: stretch;
+            align-items: flex-start;
             justify-content: center;
-            overflow: hidden;
+            overflow: visible;
             border-radius: 10px;
             box-shadow: 0 10px 32px rgba(0, 0, 0, 0.45);
             background: #0a0a0f;
+            flex-shrink: 0;
         }
 
         .share-preview-aspect.is-post {
             aspect-ratio: 4 / 5;
         }
 
-        .share-preview-aspect img {
-            display: block;
-            width: 100%;
-            height: 100%;
-        }
-
         .share-preview-aspect.is-post img,
         .share-preview-aspect.is-story img {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-height: none;
             object-fit: contain;
             object-position: top center;
         }
@@ -9946,29 +9945,35 @@
         function drawWorkoutShareWeightValue(ctx, x, y, maxWidth, weightKg, maxFont, theme, isCelebration, options) {
             const opts = options || {};
             const unitStr = 'kg';
-            const unitGap = 12;
+            const unitGap = 20;
             const shadowBlur = isCelebration ? 22 : 16;
             const block = measureWorkoutShareWeightBlock(ctx, maxWidth, weightKg, maxFont);
             const { size, unitSize, numStr } = block;
 
+            ctx.save();
+            ctx.textBaseline = 'alphabetic';
             ctx.font = shareCanvasFont('bold', size, true);
-            const numW = ctx.measureText(numStr).width;
+            const numMetrics = ctx.measureText(numStr);
+            const numW = numMetrics.width;
+            const numAscent = numMetrics.actualBoundingBoxAscent > 0 ? numMetrics.actualBoundingBoxAscent : size * 0.78;
             ctx.font = shareCanvasFont('600', unitSize);
             const unitW = ctx.measureText(unitStr).width;
             const blockW = numW + unitGap + unitW;
             const drawX = opts.align === 'center' ? x + (maxWidth - blockW) / 2 : x;
+            const baselineY = y + numAscent;
 
             ctx.font = shareCanvasFont('bold', size, true);
             ctx.fillStyle = '#FFFFFF';
-            ctx.save();
             ctx.shadowColor = isCelebration ? workoutShareColorAlpha(theme.warning, 0.55) : theme.accentGlow;
             ctx.shadowBlur = shadowBlur;
-            ctx.fillText(numStr, drawX, y);
-            ctx.restore();
+            ctx.fillText(numStr, drawX, baselineY);
 
+            ctx.shadowBlur = 0;
             ctx.font = shareCanvasFont('600', unitSize);
             ctx.fillStyle = '#94a3b8';
-            ctx.fillText(unitStr, drawX + numW + unitGap, y + Math.round(size * 0.68));
+            ctx.fillText(unitStr, drawX + numW + unitGap, baselineY);
+            ctx.restore();
+            ctx.textBaseline = 'top';
 
             return {
                 blockH: size + shadowBlur + 10,
@@ -10324,8 +10329,8 @@
         }
 
         const WORKOUT_SHARE_FORMATS = {
-            post: { width: 1080, height: 1350, maxExercises: 7, maxWeightFont: 88, rowH: 84, rowGap: 10, topPad: 48, logoMaxW: 420, chipGap: 36 },
-            story: { width: 1080, height: 1920, maxExercises: 10, maxWeightFont: 104, rowH: 82, rowGap: 10, topPad: 64, logoMaxW: 480, chipGap: 32 }
+            post: { width: 1080, height: 1350, maxExercises: 7, maxWeightFont: 88, rowH: 84, rowGap: 10, topPad: 56, logoMaxW: 420, chipGap: 36 },
+            story: { width: 1080, height: 1920, maxExercises: 10, maxWeightFont: 104, rowH: 82, rowGap: 10, topPad: 108, logoMaxW: 480, chipGap: 32 }
         };
 
         const WORKOUT_SHARE_FONT_SPECS = [
@@ -10381,7 +10386,7 @@
 
         function measureWorkoutShareWeightBlock(ctx, maxWidth, weightKg, maxFont) {
             const numStr = formatShareCanvasWeight(weightKg);
-            const unitGap = 12;
+            const unitGap = 20;
             let size = maxFont;
             const minSize = Math.max(28, Math.round(maxFont * 0.52));
             while (size >= minSize) {
@@ -10586,20 +10591,11 @@
                         y += cfg.rowH + rowGap;
                     });
                 }
-            } else if (format === 'story') {
-                y += 80;
-                ctx.textAlign = 'center';
-                const centerW = W - 160;
-                const minWeight = drawWorkoutShareWeightValue(ctx, 80, y, centerW, maxWeight, cfg.maxWeightFont, theme, isCelebration, { align: 'center' });
-                ctx.textAlign = 'center';
-                ctx.font = shareCanvasFont('', 24);
-                ctx.fillStyle = '#94a3b8';
-                ctx.fillText(t('share_max_weight'), W / 2, y + minWeight.blockH + 20);
-                ctx.textAlign = 'left';
             }
 
+            const footerGap = isMinimal ? 80 : 56;
             const footerY = format === 'story'
-                ? Math.min(H - 72, Math.max(y + 48, 900))
+                ? Math.min(H - 88, y + footerGap)
                 : H - 96;
             ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
             ctx.lineWidth = 1;
