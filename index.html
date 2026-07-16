@@ -151,7 +151,7 @@
         }
 
         /* Tekst na tle akcentu — kontrast (np. mono: białe tło + czarny tekst) */
-        button:not(.btn-info):not(.btn-warning):not(.btn-danger):not(.plan-actions-sheet-cancel):not(.plan-actions-sheet-item):not(.language-option):not(.palette-option):not(.install-tab):not(.install-later-btn):not(.settings-version-row):not(.nav-item):not(.pr-button):not(.theme-switcher):not(.sound-toggle):not(.page-header-btn):not(.btn-plan-more):not(.btn-move-up):not(.btn-move-down):not(.plan-toggle):not(.share-segment-btn):not(.lib-muscle-chip):not(.exercise-picker-item),
+        button:not(.btn-info):not(.btn-warning):not(.btn-danger):not(.plan-actions-sheet-cancel):not(.plan-actions-sheet-item):not(.language-option):not(.palette-option):not(.install-tab):not(.install-later-btn):not(.settings-version-row):not(.nav-item):not(.pr-button):not(.theme-switcher):not(.sound-toggle):not(.page-header-btn):not(.btn-plan-more):not(.btn-move-up):not(.btn-move-down):not(.plan-toggle):not(.share-segment-btn):not(.lib-muscle-chip):not(.exercise-picker-item):not(.exercise-item-muscle),
         .stepper-btn,
         .workout-resume-bar-cta,
         .install-tab.is-active,
@@ -3222,13 +3222,15 @@
             display: flex;
         }
 
-        .exercise-item-muscle {
+        button.exercise-item-muscle {
             display: inline-flex;
             align-items: center;
-            margin-left: 8px;
+            width: auto;
+            margin: 0 0 0 8px;
             padding: 2px 10px;
             border-radius: 999px;
             background: var(--card-bg);
+            background-image: none;
             border: 1px solid var(--border-color);
             color: var(--text-muted);
             font-size: 0.68rem;
@@ -3236,6 +3238,27 @@
             vertical-align: middle;
             font-family: "Poppins", sans-serif;
             letter-spacing: 0.2px;
+            cursor: pointer;
+            box-shadow: none;
+            gap: 0;
+            transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+        }
+
+        button.exercise-item-muscle:hover,
+        button.exercise-item-muscle:active {
+            border-color: var(--accent-color);
+            color: var(--accent-color);
+            background: var(--accent-muted);
+            background-image: none;
+            transform: none;
+            filter: none;
+        }
+
+        .lib-change-muscle-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 8px;
         }
 
         .exercise-picker-section-label {
@@ -6437,6 +6460,9 @@
                 lib_filter_all: 'Wszystkie',
                 lib_linked: '{muscle}',
                 lib_pick_muscle: 'Wybierz partię dla własnego ćwiczenia',
+                lib_change_muscle: 'Zmień partię',
+                lib_change_muscle_title: 'Partia mięśniowa',
+                lib_muscle_updated: 'Zmieniono partię: {muscle}',
                 lib_create: 'Utwórz „{name}”',
                 lib_no_results: 'Brak ćwiczeń — wpisz nazwę lub zmień filtr',
                 lib_search_ph: 'Szukaj w bibliotece…',
@@ -6598,6 +6624,9 @@
                 lib_filter_all: 'All',
                 lib_linked: '{muscle}',
                 lib_pick_muscle: 'Pick a muscle group for your custom exercise',
+                lib_change_muscle: 'Change muscle',
+                lib_change_muscle_title: 'Muscle group',
+                lib_muscle_updated: 'Muscle updated: {muscle}',
                 lib_create: 'Create “{name}”',
                 lib_no_results: 'No exercises — type a name or change the filter',
                 lib_search_ph: 'Search library…',
@@ -6759,6 +6788,9 @@
                 lib_filter_all: 'Todos',
                 lib_linked: '{muscle}',
                 lib_pick_muscle: 'Elige el grupo muscular para tu ejercicio',
+                lib_change_muscle: 'Cambiar músculo',
+                lib_change_muscle_title: 'Grupo muscular',
+                lib_muscle_updated: 'Músculo actualizado: {muscle}',
                 lib_create: 'Crear “{name}”',
                 lib_no_results: 'Sin ejercicios — escribe un nombre o cambia el filtro',
                 lib_search_ph: 'Buscar en la biblioteca…',
@@ -9417,24 +9449,46 @@
             } else {
                 plan.exercises.forEach((exercise, index) => {
                     if (!exercise || typeof exercise !== 'object') return;
-                    const exerciseItem = createPlanExerciseElement(exercise, index, plan.exercises.length);
+                    const exerciseItem = createPlanExerciseElement(planId, exercise, index, plan.exercises.length);
                     exerciseList.appendChild(exerciseItem);
                 });
             }
         }
 
-        function createPlanExerciseElement(exercise, index, totalCount) {
+        function createPlanExerciseElement(planId, exercise, index, totalCount) {
             const exerciseItem = document.createElement('div'); exerciseItem.className = 'exercise-item'; exerciseItem.dataset.index = index;
             const exHeader = document.createElement('div'); exHeader.className = 'exercise-header';
             const h4 = document.createElement('h4');
             h4.textContent = exercise.name || t('no_name');
             const meta = exercise.exerciseId ? getExerciseById(exercise.exerciseId) : null;
-            if (meta && meta.primary) {
-                const badge = document.createElement('span');
-                badge.className = 'exercise-item-muscle';
-                badge.textContent = localizeBodyPart(meta.primary);
-                h4.appendChild(badge);
-            }
+            const primary = (meta && meta.primary) || null;
+            const badge = document.createElement('button');
+            badge.type = 'button';
+            badge.className = 'exercise-item-muscle';
+            badge.textContent = primary ? localizeBodyPart(primary) : t('lib_change_muscle');
+            badge.title = t('lib_change_muscle');
+            badge.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                openChangeMuscleModal({
+                    name: exercise.name,
+                    primary: primary,
+                    onPick: (muscle) => {
+                        let id = exercise.exerciseId || resolveExerciseIdByName(exercise.name);
+                        if (id) {
+                            setExercisePrimaryById(id, muscle, exercise.name);
+                            exercise.exerciseId = id;
+                        } else {
+                            const created = createUserExercise(exercise.name, muscle);
+                            if (created) exercise.exerciseId = created.id;
+                        }
+                        saveTrainingPlans();
+                        renderPlanExercises(planId);
+                        showToast(t('lib_muscle_updated', { muscle: localizeBodyPart(muscle) }), 'success');
+                    }
+                });
+            });
+            h4.appendChild(badge);
             exHeader.appendChild(h4);
             const exActions = document.createElement('div'); exActions.className = 'exercise-actions';
             const progToggle = document.createElement('button'); progToggle.className = 'progression-toggle btn-progression' + (exercise.progression ? ' active' : ''); progToggle.title = 'Progresja'; progToggle.innerHTML = '📈'; exActions.appendChild(progToggle);
@@ -9476,13 +9530,28 @@
                 return;
             }
             const plan = trainingPlans.find(p => p.id === currentPlanId); if (!plan) return;
+
+            let exerciseId = selection.exerciseId || null;
+            let previousName = null;
+            if (editingExerciseIndex !== null && Array.isArray(plan.exercises) && plan.exercises[editingExerciseIndex]) {
+                const prev = plan.exercises[editingExerciseIndex];
+                previousName = prev.name || null;
+                if (!exerciseId && prev.exerciseId && namesLooselyMatch(prev.name, name)) {
+                    exerciseId = prev.exerciseId;
+                }
+            }
+            if (!exerciseId) exerciseId = resolveExerciseIdByName(name);
+
             const newExerciseData = {
                 name,
-                exerciseId: selection.exerciseId || null,
+                exerciseId: exerciseId || null,
                 sets: parseInt(document.getElementById('exercise-sets').value) || 3,
                 reps: parseInt(document.getElementById('exercise-reps').value) || 10,
                 notes: document.getElementById('exercise-notes').value.trim()
             };
+            if (newExerciseData.exerciseId) {
+                syncExerciseNameToLibrary(newExerciseData.exerciseId, name, previousName);
+            }
             const exerciseList = document.getElementById('exercise-list');
 
             const emptyState = exerciseList.querySelector('.empty-state');
@@ -9490,16 +9559,18 @@
 
             if (editingExerciseIndex !== null) {
                 if (Array.isArray(plan.exercises) && plan.exercises[editingExerciseIndex]) {
+                    // zachowaj flagę progresji przy edycji
+                    newExerciseData.progression = !!plan.exercises[editingExerciseIndex].progression;
                     plan.exercises[editingExerciseIndex] = newExerciseData;
                     const oldItem = exerciseList.querySelector(`.exercise-item[data-index="${editingExerciseIndex}"]`);
-                    if (oldItem) { const newItem = createPlanExerciseElement(newExerciseData, editingExerciseIndex, plan.exercises.length); exerciseList.replaceChild(newItem, oldItem); }
+                    if (oldItem) { const newItem = createPlanExerciseElement(currentPlanId, newExerciseData, editingExerciseIndex, plan.exercises.length); exerciseList.replaceChild(newItem, oldItem); }
                     else { renderPlanExercises(currentPlanId); }
                 }
                 editingExerciseIndex = null;
             } else {
                 if (!Array.isArray(plan.exercises)) plan.exercises = [];
                 plan.exercises.push(newExerciseData);
-                const newItem = createPlanExerciseElement(newExerciseData, plan.exercises.length - 1, plan.exercises.length);
+                const newItem = createPlanExerciseElement(currentPlanId, newExerciseData, plan.exercises.length - 1, plan.exercises.length);
                 exerciseList.appendChild(newItem);
                 requestAnimationFrame(() => { newItem.classList.add('item-enter-active'); });
             }
@@ -9527,13 +9598,25 @@
             document.getElementById('exercise-sets').value = exercise.sets || 3; document.getElementById('exercise-reps').value = exercise.reps || 10; document.getElementById('exercise-notes').value = exercise.notes || '';
             if (window._planExercisePicker) {
                 const meta = exercise.exerciseId ? getExerciseById(exercise.exerciseId) : null;
-                if (meta) setExercisePickerSelection(window._planExercisePicker, meta);
-                else {
+                if (meta) {
+                    setExercisePickerSelection(window._planExercisePicker, meta);
+                    // Zachowaj nazwę z planu (może być lekko inna niż w katalogu)
+                    window._planExercisePicker.input.value = exercise.name || catalogLocalizedName(meta);
+                    window._planExercisePicker.input.dataset.exerciseId = meta.id;
+                    updateExerciseLibMeta(window._planExercisePicker, meta, true);
+                } else {
                     window._planExercisePicker.input.value = exercise.name || '';
                     delete window._planExercisePicker.input.dataset.exerciseId;
                     const resolved = resolveExerciseIdByName(exercise.name);
-                    if (resolved) setExercisePickerSelection(window._planExercisePicker, getExerciseById(resolved));
-                    else updateExerciseLibMeta(window._planExercisePicker, null, false);
+                    if (resolved) {
+                        const resolvedMeta = getExerciseById(resolved);
+                        setExercisePickerSelection(window._planExercisePicker, resolvedMeta);
+                        window._planExercisePicker.input.value = exercise.name || catalogLocalizedName(resolvedMeta);
+                        updateExerciseLibMeta(window._planExercisePicker, resolvedMeta, true);
+                    } else {
+                        updateExerciseLibMeta(window._planExercisePicker, null, true);
+                        window._planExercisePicker.pendingCustomName = exercise.name || '';
+                    }
                 }
             } else {
                 document.getElementById('exercise-name').value = exercise.name || '';
@@ -12681,7 +12764,22 @@
                 workout.exercises.forEach(exercise => {
                     if (!exercise || typeof exercise !== 'object' || !exercise.name) return;
                     const ident = resolveExerciseIdentity(exercise);
-                    const key = ident.key;
+
+                    let key = ident.key;
+                    // Scal z istniejącym rekordem przy drobnej zmianie nazwy / tym samym ID
+                    if (!prs[key]) {
+                        for (const existingKey of Object.keys(prs)) {
+                            const existing = prs[existingKey];
+                            if (ident.id && existing.exerciseId && existing.exerciseId === ident.id) {
+                                key = existingKey;
+                                break;
+                            }
+                            if (namesLooselyMatch(existing.displayName, ident.displayName || ident.name)) {
+                                key = existingKey;
+                                break;
+                            }
+                        }
+                    }
 
                     if (!prs[key]) {
                         prs[key] = {
@@ -12692,8 +12790,9 @@
                             maxWeightReps: null,
                             maxRepsWeight: null
                         };
-                    } else if (ident.displayName) {
-                        prs[key].displayName = ident.displayName;
+                    } else {
+                        if (ident.displayName) prs[key].displayName = ident.displayName;
+                        if (ident.id && !prs[key].exerciseId) prs[key].exerciseId = ident.id;
                     }
 
                     if (Array.isArray(exercise.weights) && Array.isArray(exercise.repsCompleted) && Array.isArray(exercise.completedSets)) {
@@ -13001,6 +13100,7 @@
         const MUSCLE_FILTER_KEYS = ['Klatka', 'Plecy', 'Barki', 'Ramiona', 'Nogi', 'Pośladki', 'Core'];
         const EXERCISE_CATALOG = [
             { id: 'bench_press_bb', primary: 'Klatka', name: { pl: 'Wyciskanie sztangi leżąc', en: 'Barbell bench press', es: 'Press de banca con barra' }, aliases: ['bench', 'bench press', 'wyciskanie leżąc', 'lp'] },
+            { id: 'flat_db_press', primary: 'Klatka', name: { pl: 'Wyciskanie hantli na płaskiej', en: 'Flat dumbbell press', es: 'Press con mancuernas en banco plano' }, aliases: ['wyciskanie hantli na płaskiej ławce', 'dumbbell press', 'db press flat', 'hantle płasko', 'wyciskanie hantli leżąc'] },
             { id: 'incline_db_press', primary: 'Klatka', name: { pl: 'Wyciskanie hantli na skosie', en: 'Incline dumbbell press', es: 'Press inclinado con mancuernas' }, aliases: ['incline press', 'skos hantle'] },
             { id: 'incline_bb_press', primary: 'Klatka', name: { pl: 'Wyciskanie sztangi na skosie', en: 'Incline barbell press', es: 'Press inclinado con barra' }, aliases: ['incline bench'] },
             { id: 'pec_deck', primary: 'Klatka', name: { pl: 'Rozpiętki (pec deck)', en: 'Pec deck fly', es: 'Aperturas en pec deck' }, aliases: ['pec deck', 'rozpiętki', 'fly'] },
@@ -13062,7 +13162,21 @@
 
         function getExerciseById(id) {
             if (!id) return null;
-            return getMergedExerciseCatalog().find((e) => e && e.id === id) || null;
+            const fromUser = userExercises.find((e) => e && e.id === id);
+            if (fromUser) return fromUser;
+            return EXERCISE_CATALOG.find((e) => e && e.id === id) || null;
+        }
+
+        function namesLooselyMatch(a, b) {
+            const na = normalizeExerciseKey(a);
+            const nb = normalizeExerciseKey(b);
+            if (!na || !nb) return false;
+            if (na === nb) return true;
+            const shorter = na.length <= nb.length ? na : nb;
+            const longer = na.length <= nb.length ? nb : na;
+            if (shorter.length < 10) return false;
+            if (!longer.includes(shorter)) return false;
+            return (shorter.length / longer.length) >= 0.62;
         }
 
         function resolveExerciseIdByName(name) {
@@ -13079,6 +13193,15 @@
                     }
                 }
                 if (Array.isArray(ex.aliases) && ex.aliases.some((a) => normalizeExerciseKey(a) === key)) return ex.id;
+            }
+            // Luźne dopasowanie (np. drobna zmiana nazwy)
+            for (let i = 0; i < all.length; i++) {
+                const ex = all[i];
+                if (!ex) continue;
+                const candidates = [catalogLocalizedName(ex)];
+                if (ex.name) candidates.push(ex.name.pl, ex.name.en, ex.name.es);
+                if (Array.isArray(ex.aliases)) candidates.push(...ex.aliases);
+                if (candidates.some((c) => namesLooselyMatch(c, name))) return ex.id;
             }
             return null;
         }
@@ -13168,7 +13291,83 @@
             const a = resolveExerciseIdentity(ex);
             const b = resolveExerciseIdentity(targetName, targetId || null);
             if (a.id && b.id) return a.id === b.id;
-            return a.key === b.key;
+            if (a.key === b.key) return true;
+            return namesLooselyMatch(a.name || a.displayName, b.name || b.displayName);
+        }
+
+        function ensureUserExerciseOverride(exerciseId) {
+            if (!exerciseId) return null;
+            let entry = userExercises.find((e) => e && e.id === exerciseId);
+            if (entry) return entry;
+            const seed = EXERCISE_CATALOG.find((e) => e && e.id === exerciseId);
+            if (!seed) return null;
+            entry = {
+                id: seed.id,
+                primary: seed.primary,
+                name: Object.assign({}, seed.name || {}),
+                aliases: Array.isArray(seed.aliases) ? seed.aliases.slice() : [],
+                override: true
+            };
+            userExercises.push(entry);
+            saveUserExercises();
+            return entry;
+        }
+
+        function syncExerciseNameToLibrary(exerciseId, newName, previousName) {
+            if (!exerciseId || !newName) return;
+            const entry = ensureUserExerciseOverride(exerciseId) || userExercises.find((e) => e && e.id === exerciseId);
+            if (!entry) return;
+            const lang = I18N[currentLang] ? currentLang : 'pl';
+            entry.name = entry.name || {};
+            const oldDisplay = catalogLocalizedName(entry) || previousName || '';
+            entry.name[lang] = newName;
+            if (!entry.name.pl) entry.name.pl = newName;
+            entry.aliases = Array.isArray(entry.aliases) ? entry.aliases : [];
+            [oldDisplay, previousName].forEach((n) => {
+                const clean = String(n || '').trim();
+                if (!clean) return;
+                if (normalizeExerciseKey(clean) === normalizeExerciseKey(newName)) return;
+                if (!entry.aliases.some((a) => normalizeExerciseKey(a) === normalizeExerciseKey(clean))) {
+                    entry.aliases.push(clean);
+                }
+            });
+            saveUserExercises();
+        }
+
+        function setExercisePrimaryById(exerciseId, primary, displayName) {
+            if (!exerciseId || !primary) return null;
+            let entry = ensureUserExerciseOverride(exerciseId);
+            if (!entry) {
+                entry = createUserExercise(displayName || exerciseId, primary);
+                return entry;
+            }
+            entry.primary = primary;
+            saveUserExercises();
+            return entry;
+        }
+
+        function openChangeMuscleModal(opts) {
+            const currentPrimary = opts.primary || null;
+            const chips = MUSCLE_FILTER_KEYS.map((key) => {
+                const active = key === currentPrimary ? ' is-active' : '';
+                return `<button type="button" class="lib-muscle-chip${active}" data-muscle="${escapeHtml(key)}">${escapeHtml(localizeBodyPart(key))}</button>`;
+            }).join('');
+            showModal(
+                t('lib_change_muscle_title'),
+                `<p class="section-description" style="margin:0 0 8px;">${escapeHtml(opts.name || '')}</p><div class="lib-change-muscle-grid">${chips}</div>`,
+                () => {
+                    const grid = document.querySelector('#modal-content .lib-change-muscle-grid');
+                    if (!grid) return;
+                    grid.querySelectorAll('.lib-muscle-chip').forEach((btn) => {
+                        btn.addEventListener('click', () => {
+                            const muscle = btn.dataset.muscle;
+                            if (!muscle || typeof opts.onPick !== 'function') return;
+                            opts.onPick(muscle);
+                            hideModal();
+                        });
+                    });
+                }
+            );
         }
 
         function getExerciseVolumeKg(ex) {
@@ -13295,7 +13494,7 @@
                 picker.input.dataset.exerciseId = entryOrNull.id;
                 picker.pendingCustomName = null;
                 rememberRecentExercise(entryOrNull.id);
-                updateExerciseLibMeta(picker, entryOrNull, false);
+                updateExerciseLibMeta(picker, entryOrNull, true);
             } else {
                 if (typeof typedName === 'string') picker.input.value = typedName;
                 delete picker.input.dataset.exerciseId;
@@ -13314,7 +13513,15 @@
                     const span = badge.querySelector('span');
                     if (span) span.textContent = t('lib_linked', { muscle: localizeBodyPart(entry.primary) });
                 }
-                if (customHost) customHost.classList.remove('is-visible');
+                if (customHost) {
+                    // Pozwól zmienić partię także dla już powiązanego ćwiczenia
+                    if (showCustomMuscles) {
+                        customHost.classList.add('is-visible');
+                        renderCustomMuscleChips(picker, entry);
+                    } else {
+                        customHost.classList.remove('is-visible');
+                    }
+                }
                 return;
             }
             if (showCustomMuscles) {
@@ -13326,7 +13533,7 @@
                 }
                 if (customHost) {
                     customHost.classList.add('is-visible');
-                    renderCustomMuscleChips(picker);
+                    renderCustomMuscleChips(picker, null);
                 }
                 return;
             }
@@ -13334,24 +13541,37 @@
             if (customHost) customHost.classList.remove('is-visible');
         }
 
-        function renderCustomMuscleChips(picker) {
+        function renderCustomMuscleChips(picker, linkedEntry) {
             if (!picker.customMusclesEl) return;
             picker.customMusclesEl.innerHTML = '';
             MUSCLE_FILTER_KEYS.forEach((key) => {
                 const btn = document.createElement('button');
                 btn.type = 'button';
-                btn.className = 'lib-muscle-chip';
+                btn.className = 'lib-muscle-chip' + ((linkedEntry && linkedEntry.primary === key) ? ' is-active' : '');
                 btn.textContent = localizeBodyPart(key);
+                btn.addEventListener('mousedown', (e) => e.preventDefault());
                 btn.addEventListener('click', (e) => {
                     e.preventDefault();
                     e.stopPropagation();
                     const name = (picker.pendingCustomName || picker.input.value || '').trim();
-                    if (!name) return;
-                    const entry = createUserExercise(name, key);
+                    if (!name && !(linkedEntry && linkedEntry.id)) return;
+
+                    let entry = null;
+                    if (linkedEntry && linkedEntry.id) {
+                        entry = setExercisePrimaryById(linkedEntry.id, key, name || catalogLocalizedName(linkedEntry));
+                        if (name) syncExerciseNameToLibrary(linkedEntry.id, name, catalogLocalizedName(linkedEntry));
+                    } else if (picker.input.dataset.exerciseId) {
+                        entry = setExercisePrimaryById(picker.input.dataset.exerciseId, key, name);
+                    } else {
+                        entry = createUserExercise(name, key);
+                    }
                     if (entry) {
                         setExercisePickerSelection(picker, entry);
+                        if (name) picker.input.value = name;
+                        updateExerciseLibMeta(picker, entry, true);
                         closeExercisePickerDropdown(picker);
                         if (typeof picker.onSelect === 'function') picker.onSelect(entry);
+                        showToast(t('lib_muscle_updated', { muscle: localizeBodyPart(key) }), 'success');
                     }
                 });
                 picker.customMusclesEl.appendChild(btn);
@@ -13497,6 +13717,17 @@
 
             input.addEventListener('focus', () => openExercisePickerDropdown(picker));
             input.addEventListener('input', () => {
+                const linkedId = input.dataset.exerciseId;
+                const typed = input.value.trim();
+                if (linkedId) {
+                    const meta = getExerciseById(linkedId);
+                    if (meta && namesLooselyMatch(catalogLocalizedName(meta), typed)) {
+                        picker.pendingCustomName = null;
+                        updateExerciseLibMeta(picker, meta, true);
+                        openExercisePickerDropdown(picker);
+                        return;
+                    }
+                }
                 delete input.dataset.exerciseId;
                 picker.pendingCustomName = null;
                 updateExerciseLibMeta(picker, null, false);
