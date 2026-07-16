@@ -151,7 +151,7 @@
         }
 
         /* Tekst na tle akcentu — kontrast (np. mono: białe tło + czarny tekst) */
-        button:not(.btn-info):not(.btn-warning):not(.btn-danger):not(.plan-actions-sheet-cancel):not(.plan-actions-sheet-item):not(.language-option):not(.palette-option):not(.install-tab):not(.install-later-btn):not(.settings-version-row):not(.nav-item):not(.pr-button):not(.theme-switcher):not(.sound-toggle):not(.page-header-btn):not(.btn-plan-more):not(.btn-move-up):not(.btn-move-down):not(.plan-toggle):not(.share-segment-btn),
+        button:not(.btn-info):not(.btn-warning):not(.btn-danger):not(.plan-actions-sheet-cancel):not(.plan-actions-sheet-item):not(.language-option):not(.palette-option):not(.install-tab):not(.install-later-btn):not(.settings-version-row):not(.nav-item):not(.pr-button):not(.theme-switcher):not(.sound-toggle):not(.page-header-btn):not(.btn-plan-more):not(.btn-move-up):not(.btn-move-down):not(.plan-toggle):not(.share-segment-btn):not(.lib-muscle-chip):not(.exercise-picker-item),
         .stepper-btn,
         .workout-resume-bar-cta,
         .install-tab.is-active,
@@ -3047,28 +3047,260 @@
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-            margin: 15px 0;
+            margin: 4px 0 14px;
         }
 
-        .exercise-suggestion {
-            background: var(--suggestion-bg);
-            padding: 8px 15px;
-            border-radius: 20px;
+        /* Jak template-card (Push/Pull/Legs) — override globalnego button { width:100% } */
+        .exercise-suggestion,
+        button.lib-muscle-chip {
+            width: auto;
+            margin: 0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            background: var(--card-bg);
+            background-image: none;
+            padding: 8px 16px;
+            border-radius: 999px;
             cursor: pointer;
             transition: all 0.2s ease;
-            border: 1px solid var(--suggestion-border);
+            border: 1px solid var(--border-color);
             font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            color: var(--text-color);
+            font-family: "Poppins", sans-serif;
+            line-height: 1.4;
+            box-shadow: none;
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .exercise-suggestion:hover,
+        button.lib-muscle-chip:hover {
+            background: var(--card-bg);
+            filter: brightness(1.08);
+        }
+
+        .exercise-suggestion:active,
+        button.lib-muscle-chip:active {
+            transform: scale(0.95);
+            filter: brightness(0.9);
+        }
+
+        button.lib-muscle-chip.is-active {
+            background: var(--accent-color);
+            background-image: none;
+            color: var(--on-accent);
+            border-color: var(--accent-color);
+            box-shadow: none;
+            filter: none;
+        }
+
+        .exercise-picker-wrap {
+            position: relative;
+        }
+
+        .exercise-picker-dropdown {
+            display: none;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: calc(100% + 6px);
+            z-index: 40;
+            max-height: 260px;
+            overflow-y: auto;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+            padding: 6px;
+        }
+
+        .exercise-picker-dropdown.is-open {
+            display: block;
+        }
+
+        button.exercise-picker-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            width: 100%;
+            margin: 0;
+            text-align: left;
+            padding: 11px 12px;
+            border: none;
+            border-radius: 10px;
+            background: transparent;
+            background-image: none;
+            color: var(--text-color);
+            font-family: "Inter", sans-serif;
+            font-size: 0.92rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: none;
+        }
+
+        button.exercise-picker-item:hover,
+        button.exercise-picker-item.is-active {
+            background: var(--accent-muted);
+            background-image: none;
             color: var(--text-color);
         }
 
-        .exercise-suggestion:hover {
-            background: var(--suggestion-hover-bg);
+        .exercise-picker-item-muscle {
+            flex-shrink: 0;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 0.02em;
         }
 
-        .exercise-suggestion:active {
-            transform: scale(0.95);
-            opacity: 0.8;
-            filter: brightness(0.9);
+        button.exercise-picker-item--create {
+            color: var(--accent-color);
+            border-top: 1px solid var(--border-color);
+            margin-top: 4px;
+            border-radius: 0 0 10px 10px;
+        }
+
+        button.exercise-picker-item--create:hover {
+            color: var(--accent-color);
+        }
+
+        .exercise-picker-empty {
+            padding: 12px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-family: "Inter", sans-serif;
+        }
+
+        .exercise-lib-meta {
+            display: none;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+
+        .exercise-lib-meta.is-visible {
+            display: flex;
+        }
+
+        .exercise-lib-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 12px;
+            border-radius: 999px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            font-weight: 700;
+            font-family: "Poppins", sans-serif;
+            letter-spacing: 0.2px;
+        }
+
+        .exercise-lib-badge i {
+            font-size: 0.7rem;
+            color: var(--accent-color);
+        }
+
+        .exercise-lib-custom-muscles {
+            display: none;
+            flex-wrap: wrap;
+            gap: 10px;
+            width: 100%;
+            margin-top: 4px;
+        }
+
+        .exercise-lib-custom-muscles.is-visible {
+            display: flex;
+        }
+
+        .exercise-item-muscle {
+            display: inline-flex;
+            align-items: center;
+            margin-left: 8px;
+            padding: 2px 10px;
+            border-radius: 999px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.68rem;
+            font-weight: 700;
+            vertical-align: middle;
+            font-family: "Poppins", sans-serif;
+            letter-spacing: 0.2px;
+        }
+
+        .exercise-picker-section-label {
+            padding: 8px 12px 4px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-family: "Poppins", sans-serif;
+        }
+
+        .stats-muscle-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding: 0 4px;
+        }
+
+        .stats-muscle-row {
+            display: grid;
+            grid-template-columns: 72px 1fr 64px;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .stats-muscle-name {
+            font-size: 0.82rem;
+            font-weight: 700;
+            font-family: "Poppins", sans-serif;
+            color: var(--text-color);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .stats-muscle-track {
+            height: 10px;
+            border-radius: 999px;
+            background: var(--accent-secondary);
+            overflow: hidden;
+        }
+
+        .stats-muscle-fill {
+            height: 100%;
+            border-radius: 999px;
+            background: var(--accent-color);
+            min-width: 0;
+            transition: width 0.35s ease;
+        }
+
+        .stats-muscle-value {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            font-family: "Inter", sans-serif;
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .stats-muscle-empty {
+            padding: 8px 6px 4px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-family: "Inter", sans-serif;
         }
 
         .workout-summary {
@@ -5624,6 +5856,10 @@
                         <h3 class="stats-chart-title" data-i18n="stats_last6">Ostatnie 6 miesięcy</h3>
                         <div class="stats-bars-row" id="stat-six-month-bars" aria-hidden="true"></div>
                     </div>
+                    <div class="stats-chart-card" id="stats-muscle-card">
+                        <h3 class="stats-chart-title" data-i18n="stats_muscle_volume">Objętość wg partii</h3>
+                        <div class="stats-muscle-list" id="stat-muscle-bars"></div>
+                    </div>
                     <button type="button" class="stats-year-cta hidden" id="stats-year-cta">
                         <span class="stats-year-cta-body">
                             <span class="stats-year-cta-title" data-i18n="stats_year_cta">Twój rok w GymCut</span>
@@ -5890,9 +6126,17 @@
             <div class="plan-actions-sheet-handle" aria-hidden="true"></div>
             <h3 id="quick-workout-sheet-title" class="plan-actions-sheet-title" data-i18n="quick_sheet_title">Szybki trening</h3>
             <div class="quick-workout-sheet-body">
+                <div class="exercise-suggestions" id="quick-lib-muscle-chips" role="listbox" aria-label="Filtr partii mięśniowej"></div>
                 <div class="form-group">
                     <label for="quick-exercise-name" data-i18n="quick_add_label"><i class="fas fa-dumbbell"></i> Dodaj ćwiczenie</label>
-                    <input type="text" id="quick-exercise-name" data-i18n-ph="quick_ex_ph" placeholder="Nazwa ćwiczenia..." autocomplete="off">
+                    <div class="exercise-picker-wrap" id="quick-exercise-picker-wrap">
+                        <input type="text" id="quick-exercise-name" data-i18n-ph="quick_ex_ph" placeholder="Nazwa ćwiczenia..." autocomplete="off" aria-autocomplete="list">
+                        <div class="exercise-picker-dropdown" id="quick-exercise-picker-dropdown" role="listbox" hidden></div>
+                    </div>
+                    <div class="exercise-lib-meta" id="quick-exercise-lib-meta" aria-live="polite">
+                        <span class="exercise-lib-badge" id="quick-exercise-lib-badge"><i class="fas fa-link" aria-hidden="true"></i> <span></span></span>
+                        <div class="exercise-lib-custom-muscles" id="quick-exercise-custom-muscles"></div>
+                    </div>
                     <button type="button" id="add-quick-workout-exercise-btn" class="btn-success" data-i18n="quick_add_start"><i
                             class="fas fa-plus"></i> Dodaj i zacznij</button>
                 </div>
@@ -6061,16 +6305,18 @@
         </div>
         <div class="page-content">
             <div id="selected-plan-exercises">
-                <div class="exercise-suggestions">
-                    <div class="exercise-suggestion" data-exercise="Wyciskanie sztangi leżąc">Wyciskanie sztangi</div>
-                    <div class="exercise-suggestion" data-exercise="Przysiady ze sztangą">Przysiady</div>
-                    <div class="exercise-suggestion" data-exercise="Martwy ciąg">Martwy ciąg</div>
-                    <div class="exercise-suggestion" data-exercise="Podciąganie na drążku">Podciąganie</div>
-                </div>
+                <div class="exercise-suggestions" id="plan-lib-muscle-chips" role="listbox" aria-label="Filtr partii mięśniowej"></div>
 
                 <div class="form-group">
                     <label for="exercise-name" data-i18n="form_ex_name"><i class="fas fa-dumbbell"></i> Nazwa ćwiczenia</label>
-                    <input type="text" id="exercise-name" data-i18n-ph="form_ex_name_ph" placeholder="np. Wyciskanie sztangi leżąc">
+                    <div class="exercise-picker-wrap" id="plan-exercise-picker-wrap">
+                        <input type="text" id="exercise-name" data-i18n-ph="form_ex_name_ph" placeholder="np. Wyciskanie sztangi leżąc" autocomplete="off" aria-autocomplete="list">
+                        <div class="exercise-picker-dropdown" id="plan-exercise-picker-dropdown" role="listbox" hidden></div>
+                    </div>
+                    <div class="exercise-lib-meta" id="plan-exercise-lib-meta" aria-live="polite">
+                        <span class="exercise-lib-badge" id="plan-exercise-lib-badge"><i class="fas fa-link" aria-hidden="true"></i> <span></span></span>
+                        <div class="exercise-lib-custom-muscles" id="plan-exercise-custom-muscles"></div>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="exercise-sets" data-i18n="form_sets"><i class="fas fa-layer-group"></i> Liczba serii</label>
@@ -6188,6 +6434,16 @@
                 form_sets: 'Liczba serii', form_reps: 'Powtórzenia (na serię)',
                 form_notes: 'Notatki (opcjonalnie)', form_notes_ph: 'Dodaj uwagi...',
                 form_add_update: 'Dodaj / Zaktualizuj', form_add_to_plan: 'Dodaj ćwiczenie do planu', form_update_ex: 'Zaktualizuj ćwiczenie',
+                lib_filter_all: 'Wszystkie',
+                lib_linked: '{muscle}',
+                lib_pick_muscle: 'Wybierz partię dla własnego ćwiczenia',
+                lib_create: 'Utwórz „{name}”',
+                lib_no_results: 'Brak ćwiczeń — wpisz nazwę lub zmień filtr',
+                lib_search_ph: 'Szukaj w bibliotece…',
+                lib_recent: 'Ostatnio',
+                lib_catalog: 'Biblioteka',
+                stats_muscle_volume: 'Objętość wg partii',
+                stats_muscle_empty: 'Brak objętości w tym miesiącu — dokończ serie z ciężarem.',
                 plan_ex_details: 'Serie: {sets} | Powtórzenia: {reps}', delete: 'Usuń',
                 plan_start: 'Rozpocznij', plan_start_title: 'Rozpocznij trening z tego planu',
                 more_options: 'Więcej opcji', more_options_plan: 'Więcej opcji planu', more_options_workout: 'Więcej opcji treningu',
@@ -6339,6 +6595,16 @@
                 form_sets: 'Number of sets', form_reps: 'Reps (per set)',
                 form_notes: 'Notes (optional)', form_notes_ph: 'Add notes...',
                 form_add_update: 'Add / Update', form_add_to_plan: 'Add exercise to plan', form_update_ex: 'Update exercise',
+                lib_filter_all: 'All',
+                lib_linked: '{muscle}',
+                lib_pick_muscle: 'Pick a muscle group for your custom exercise',
+                lib_create: 'Create “{name}”',
+                lib_no_results: 'No exercises — type a name or change the filter',
+                lib_search_ph: 'Search library…',
+                lib_recent: 'Recent',
+                lib_catalog: 'Library',
+                stats_muscle_volume: 'Volume by muscle',
+                stats_muscle_empty: 'No volume this month — finish sets with weight logged.',
                 plan_ex_details: 'Sets: {sets} | Reps: {reps}', delete: 'Delete',
                 plan_start: 'Start', plan_start_title: 'Start a workout from this plan',
                 more_options: 'More options', more_options_plan: 'More plan options', more_options_workout: 'More workout options',
@@ -6490,6 +6756,16 @@
                 form_sets: 'Número de series', form_reps: 'Repeticiones (por serie)',
                 form_notes: 'Notas (opcional)', form_notes_ph: 'Añade notas...',
                 form_add_update: 'Añadir / Actualizar', form_add_to_plan: 'Añadir ejercicio al plan', form_update_ex: 'Actualizar ejercicio',
+                lib_filter_all: 'Todos',
+                lib_linked: '{muscle}',
+                lib_pick_muscle: 'Elige el grupo muscular para tu ejercicio',
+                lib_create: 'Crear “{name}”',
+                lib_no_results: 'Sin ejercicios — escribe un nombre o cambia el filtro',
+                lib_search_ph: 'Buscar en la biblioteca…',
+                lib_recent: 'Recientes',
+                lib_catalog: 'Biblioteca',
+                stats_muscle_volume: 'Volumen por músculo',
+                stats_muscle_empty: 'Sin volumen este mes — completa series con peso.',
                 plan_ex_details: 'Series: {sets} | Reps: {reps}', delete: 'Eliminar',
                 plan_start: 'Empezar', plan_start_title: 'Empezar un entreno con este plan',
                 more_options: 'Más opciones', more_options_plan: 'Más opciones del plan', more_options_workout: 'Más opciones del entreno',
@@ -6708,6 +6984,7 @@
                 updateWorkoutResumeBar();
                 updateSelectArrowColor();
                 syncLanguageSheetSelection();
+                try { refreshExercisePickersI18n(); } catch (e) { }
                 const focusHost = document.getElementById('workout-focus-host');
                 if (focusHost && focusHost.classList.contains('focus-mode-active')) {
                     renderFocusExercise(currentFocusExerciseIndex);
@@ -7425,7 +7702,9 @@
                     version: APP_VERSION,
                     exportedAt: new Date().toISOString(),
                     workouts: Array.isArray(workoutHistory) ? workoutHistory : [],
-                    trainingPlans: Array.isArray(trainingPlans) ? trainingPlans : []
+                    trainingPlans: Array.isArray(trainingPlans) ? trainingPlans : [],
+                    userExercises: Array.isArray(userExercises) ? userExercises : [],
+                    recentExerciseIds: getRecentExerciseIds()
                 };
                 const json = JSON.stringify(payload, null, 2);
                 const blob = new Blob([json], { type: 'application/json' });
@@ -7479,7 +7758,23 @@
                 saveTrainingPlans();
                 renderTrainingPlans();
             }
-            if (newWorkouts.length || newPlans.length) updateStats();
+            if (Array.isArray(payload.userExercises) && payload.userExercises.length) {
+                const existingIds = new Set(userExercises.map((e) => e && e.id).filter(Boolean));
+                payload.userExercises.forEach((ex) => {
+                    if (ex && ex.id && !existingIds.has(ex.id)) {
+                        userExercises.push(ex);
+                        existingIds.add(ex.id);
+                    }
+                });
+                saveUserExercises();
+            }
+            if (Array.isArray(payload.recentExerciseIds) && payload.recentExerciseIds.length && getRecentExerciseIds().length === 0) {
+                saveData('recentExerciseIds', payload.recentExerciseIds.filter(Boolean).slice(0, 10));
+            }
+            if (newWorkouts.length || newPlans.length) {
+                try { migrateExerciseIdsInStoredData(); } catch (e) { }
+                updateStats();
+            }
             return { workoutCount: newWorkouts.length, planCount: newPlans.length };
         }
 
@@ -8375,6 +8670,25 @@
                 console.warn('CurrentWorkout corrupted, resetting.'); currentWorkout = { exercises: [] }; saveCurrentWorkout();
             }
 
+            try { migrateExerciseIdsInStoredData(); } catch (e) { console.warn('Exercise ID migration failed:', e); }
+
+            window._planExercisePicker = mountExercisePicker({
+                inputId: 'exercise-name',
+                dropdownId: 'plan-exercise-picker-dropdown',
+                chipsId: 'plan-lib-muscle-chips',
+                metaId: 'plan-exercise-lib-meta',
+                badgeId: 'plan-exercise-lib-badge',
+                customMusclesId: 'plan-exercise-custom-muscles'
+            });
+            window._quickExercisePicker = mountExercisePicker({
+                inputId: 'quick-exercise-name',
+                dropdownId: 'quick-exercise-picker-dropdown',
+                chipsId: 'quick-lib-muscle-chips',
+                metaId: 'quick-exercise-lib-meta',
+                badgeId: 'quick-exercise-lib-badge',
+                customMusclesId: 'quick-exercise-custom-muscles'
+            });
+
             updateStreakUI();
             initStreakFireVideo();
 
@@ -8429,7 +8743,6 @@
 
             // Edytor Planu (na osobnej stronie)
             document.getElementById('add-exercise').addEventListener('click', addExerciseToPlan);
-            document.querySelector('.exercise-suggestions').addEventListener('click', handleExerciseSuggestionClicks);
             document.getElementById('exercise-list').addEventListener('click', handlePlanExerciseClicks);
             document.getElementById('plan-editor-back-btn').addEventListener('click', hidePlanEditor);
 
@@ -9076,7 +9389,8 @@
             currentPlanId = null;
             editingExerciseIndex = null;
             document.getElementById('add-exercise').innerHTML = '<i class="fas fa-plus"></i> ' + escapeHtml(t('form_add_to_plan'));
-            document.getElementById('exercise-name').value = '';
+            if (window._planExercisePicker) clearExercisePicker(window._planExercisePicker);
+            else document.getElementById('exercise-name').value = '';
             document.getElementById('exercise-reps').value = '10';
             document.getElementById('exercise-sets').value = '3';
             document.getElementById('exercise-notes').value = '';
@@ -9112,7 +9426,16 @@
         function createPlanExerciseElement(exercise, index, totalCount) {
             const exerciseItem = document.createElement('div'); exerciseItem.className = 'exercise-item'; exerciseItem.dataset.index = index;
             const exHeader = document.createElement('div'); exHeader.className = 'exercise-header';
-            const h4 = document.createElement('h4'); h4.textContent = exercise.name || t('no_name'); exHeader.appendChild(h4);
+            const h4 = document.createElement('h4');
+            h4.textContent = exercise.name || t('no_name');
+            const meta = exercise.exerciseId ? getExerciseById(exercise.exerciseId) : null;
+            if (meta && meta.primary) {
+                const badge = document.createElement('span');
+                badge.className = 'exercise-item-muscle';
+                badge.textContent = localizeBodyPart(meta.primary);
+                h4.appendChild(badge);
+            }
+            exHeader.appendChild(h4);
             const exActions = document.createElement('div'); exActions.className = 'exercise-actions';
             const progToggle = document.createElement('button'); progToggle.className = 'progression-toggle btn-progression' + (exercise.progression ? ' active' : ''); progToggle.title = 'Progresja'; progToggle.innerHTML = '📈'; exActions.appendChild(progToggle);
             const moveUpBtn = document.createElement('button'); moveUpBtn.className = 'btn-move-up'; moveUpBtn.innerHTML = '<i class="fas fa-arrow-up"></i>'; if (index === 0) moveUpBtn.disabled = true; exActions.appendChild(moveUpBtn);
@@ -9146,10 +9469,16 @@
 
         function addExerciseToPlan() {
             if (!currentPlanId) { showToast(t('toast_select_plan_first'), 'warning'); return; }
-            const name = document.getElementById('exercise-name').value.trim(); if (!name) { showToast(t('toast_ex_name_required'), 'warning'); return; }
+            const selection = readExercisePickerSelection(document.getElementById('exercise-name'));
+            const name = selection.name; if (!name) { showToast(t('toast_ex_name_required'), 'warning'); return; }
+            if (window._planExercisePicker && window._planExercisePicker.pendingCustomName && !selection.exerciseId) {
+                showToast(t('lib_pick_muscle'), 'warning');
+                return;
+            }
             const plan = trainingPlans.find(p => p.id === currentPlanId); if (!plan) return;
             const newExerciseData = {
                 name,
+                exerciseId: selection.exerciseId || null,
                 sets: parseInt(document.getElementById('exercise-sets').value) || 3,
                 reps: parseInt(document.getElementById('exercise-reps').value) || 10,
                 notes: document.getElementById('exercise-notes').value.trim()
@@ -9175,14 +9504,40 @@
                 requestAnimationFrame(() => { newItem.classList.add('item-enter-active'); });
             }
             saveTrainingPlans();
-            document.getElementById('exercise-name').value = ''; document.getElementById('exercise-reps').value = '10'; document.getElementById('exercise-sets').value = '3'; document.getElementById('exercise-notes').value = '';
+            if (newExerciseData.exerciseId) rememberRecentExercise(newExerciseData.exerciseId);
+            document.getElementById('exercise-reps').value = '10'; document.getElementById('exercise-sets').value = '3'; document.getElementById('exercise-notes').value = '';
+            if (window._planExercisePicker) clearExercisePicker(window._planExercisePicker);
+            else document.getElementById('exercise-name').value = '';
             document.getElementById('add-exercise').innerHTML = '<i class="fas fa-plus"></i> ' + escapeHtml(t('form_add_to_plan'));
         }
-        function addQuickExercise(exerciseName) { document.getElementById('exercise-name').value = exerciseName; }
+        function addQuickExercise(exerciseName) {
+            const input = document.getElementById('exercise-name');
+            input.value = exerciseName;
+            const id = resolveExerciseIdByName(exerciseName);
+            if (id) {
+                input.dataset.exerciseId = id;
+                if (window._planExercisePicker) setExercisePickerSelection(window._planExercisePicker, getExerciseById(id));
+            } else {
+                delete input.dataset.exerciseId;
+            }
+        }
         function editExercise(planId, exerciseIndex) {
             const plan = trainingPlans.find(p => p.id === planId); if (!plan || !Array.isArray(plan.exercises) || !plan.exercises[exerciseIndex]) return;
             const exercise = plan.exercises[exerciseIndex];
-            document.getElementById('exercise-name').value = exercise.name || ''; document.getElementById('exercise-sets').value = exercise.sets || 3; document.getElementById('exercise-reps').value = exercise.reps || 10; document.getElementById('exercise-notes').value = exercise.notes || '';
+            document.getElementById('exercise-sets').value = exercise.sets || 3; document.getElementById('exercise-reps').value = exercise.reps || 10; document.getElementById('exercise-notes').value = exercise.notes || '';
+            if (window._planExercisePicker) {
+                const meta = exercise.exerciseId ? getExerciseById(exercise.exerciseId) : null;
+                if (meta) setExercisePickerSelection(window._planExercisePicker, meta);
+                else {
+                    window._planExercisePicker.input.value = exercise.name || '';
+                    delete window._planExercisePicker.input.dataset.exerciseId;
+                    const resolved = resolveExerciseIdByName(exercise.name);
+                    if (resolved) setExercisePickerSelection(window._planExercisePicker, getExerciseById(resolved));
+                    else updateExerciseLibMeta(window._planExercisePicker, null, false);
+                }
+            } else {
+                document.getElementById('exercise-name').value = exercise.name || '';
+            }
             editingExerciseIndex = exerciseIndex; document.getElementById('add-exercise').innerHTML = '<i class="fas fa-save"></i> ' + escapeHtml(t('form_update_ex'));
             document.getElementById('exercise-name').focus();
         }
@@ -9257,10 +9612,27 @@
             saveCurrentWorkout(); showTab('training-plans'); enterFocusMode();
         }
         function addQuickWorkoutExercise() {
-            const exerciseName = document.getElementById('quick-exercise-name').value.trim(); if (!exerciseName) { showToast(t('toast_ex_name_required'), 'warning'); return; }
+            const selection = readExercisePickerSelection(document.getElementById('quick-exercise-name'));
+            const exerciseName = selection.name; if (!exerciseName) { showToast(t('toast_ex_name_required'), 'warning'); return; }
+            if (window._quickExercisePicker && window._quickExercisePicker.pendingCustomName && !selection.exerciseId) {
+                showToast(t('lib_pick_muscle'), 'warning');
+                return;
+            }
             if (!currentWorkout || !Array.isArray(currentWorkout.exercises)) { currentWorkout = { id: crypto.randomUUID(), date: new Date().toISOString(), exercises: [] }; }
-            currentWorkout.exercises.push({ name: exerciseName, sets: 3, reps: 10, completedSets: [false, false, false], weights: ['', '', ''], repsCompleted: ['', '', ''], setTypes: ['normal', 'normal', 'normal'] });
-            saveCurrentWorkout(); document.getElementById('quick-exercise-name').value = '';
+            currentWorkout.exercises.push({
+                name: exerciseName,
+                exerciseId: selection.exerciseId || null,
+                sets: 3,
+                reps: 10,
+                completedSets: [false, false, false],
+                weights: ['', '', ''],
+                repsCompleted: ['', '', ''],
+                setTypes: ['normal', 'normal', 'normal']
+            });
+            if (selection.exerciseId) rememberRecentExercise(selection.exerciseId);
+            saveCurrentWorkout();
+            if (window._quickExercisePicker) clearExercisePicker(window._quickExercisePicker);
+            else document.getElementById('quick-exercise-name').value = '';
             closeQuickWorkoutSheet({});
             resetTemplatePillsToAll();
             enterFocusMode();
@@ -9282,7 +9654,7 @@
                     const w = parseFloat(exercise.weights[i]);
                     const r = parseInt(exercise.repsCompleted[i]);
                     if (isNaN(w) || isNaN(r) || w <= 0 || r <= 0) continue;
-                    const ep = findExercisePRs(allTimePRs, exercise.name);
+                    const ep = findExercisePRs(allTimePRs, exercise.name, exercise.exerciseId || null);
                     if (!ep || (ep.maxWeight === null && ep.maxReps === null)) {
                         exercise.prFlags[i] = { isWeightPR: true, isRepsPR: true };
                     } else {
@@ -9933,7 +10305,7 @@
                     const w = parseFloat(exercise.weights[i]);
                     const r = parseInt(exercise.repsCompleted[i]);
                     if (isNaN(w) || isNaN(r) || w <= 0 || r <= 0) continue;
-                    const ep = findExercisePRs(allTimePRs, exercise.name);
+                    const ep = findExercisePRs(allTimePRs, exercise.name, exercise.exerciseId || null);
                     if (!ep || (ep.maxWeight === null && ep.maxReps === null)) {
                         exercise.prFlags[i] = { isWeightPR: true, isRepsPR: true };
                     } else {
@@ -10109,6 +10481,15 @@
             }
 
             renderStatsSixMonthBars(monthBuckets);
+
+            const monthWorkouts = workoutHistory.filter(workout => {
+                if (!workout || !workout.date) return false;
+                try {
+                    const wd = new Date(workout.date);
+                    return !isNaN(wd.getTime()) && wd.getFullYear() === cy && wd.getMonth() === cm;
+                } catch (e) { return false; }
+            });
+            renderStatsMuscleBars(monthWorkouts);
         }
 
         function renderStatsSixMonthBars(monthBuckets) {
@@ -11404,10 +11785,17 @@
                 if (!workout || !Array.isArray(workout.exercises)) return;
                 workout.exercises.forEach(ex => {
                     if (!ex || !ex.name) return;
-                    const name = ex.name.toLowerCase();
                     const completedSets = Array.isArray(ex.completedSets) ? ex.completedSets.filter(Boolean).length : 0;
                     if (completedSets === 0) return;
 
+                    const catalogEx = (ex.exerciseId && getExerciseById(ex.exerciseId))
+                        || getExerciseById(resolveExerciseIdByName(ex.name));
+                    if (catalogEx && catalogEx.primary && groups.hasOwnProperty(catalogEx.primary)) {
+                        groups[catalogEx.primary] += completedSets;
+                        return;
+                    }
+
+                    const name = ex.name.toLowerCase();
                     let matched = false;
                     for (const [group, keywords] of Object.entries(mapping)) {
                         if (keywords.some(kw => name.includes(kw))) {
@@ -12263,15 +12651,21 @@
             return String(name == null ? '' : name).trim().toLowerCase();
         }
 
-        function findExercisePRs(allTimePRs, exerciseName) {
-            if (!allTimePRs || !exerciseName) return null;
-            if (Object.prototype.hasOwnProperty.call(allTimePRs, exerciseName)) {
+        function findExercisePRs(allTimePRs, exerciseName, exerciseId = null) {
+            if (!allTimePRs) return null;
+            const ident = resolveExerciseIdentity(exerciseName, exerciseId);
+            if (allTimePRs[ident.key]) return allTimePRs[ident.key];
+            // Legacy: keys were raw display names
+            if (exerciseName && Object.prototype.hasOwnProperty.call(allTimePRs, exerciseName)) {
                 return allTimePRs[exerciseName];
             }
             const target = normalizeExerciseKey(exerciseName);
             if (!target) return null;
             for (const key in allTimePRs) {
-                if (normalizeExerciseKey(key) === target) return allTimePRs[key];
+                const entry = allTimePRs[key];
+                if (entry && entry.exerciseId && ident.id && entry.exerciseId === ident.id) return entry;
+                if (entry && entry.displayName && normalizeExerciseKey(entry.displayName) === target) return entry;
+                if (normalizeExerciseKey(key) === target || normalizeExerciseKey(String(key).replace(/^name:/, '')) === target) return entry;
             }
             return null;
         }
@@ -12286,18 +12680,22 @@
 
                 workout.exercises.forEach(exercise => {
                     if (!exercise || typeof exercise !== 'object' || !exercise.name) return;
-                    const exerciseName = exercise.name;
+                    const ident = resolveExerciseIdentity(exercise);
+                    const key = ident.key;
 
-                    if (!prs[exerciseName]) {
-                        prs[exerciseName] = {
+                    if (!prs[key]) {
+                        prs[key] = {
+                            displayName: ident.displayName || exercise.name,
+                            exerciseId: ident.id || null,
                             maxWeight: null,
                             maxReps: null,
                             maxWeightReps: null,
                             maxRepsWeight: null
                         };
+                    } else if (ident.displayName) {
+                        prs[key].displayName = ident.displayName;
                     }
 
-                    // Check weights and reps from completed sets
                     if (Array.isArray(exercise.weights) && Array.isArray(exercise.repsCompleted) && Array.isArray(exercise.completedSets)) {
                         exercise.weights.forEach((weight, index) => {
                             if (exercise.completedSets[index] && weight && exercise.repsCompleted[index]) {
@@ -12305,16 +12703,13 @@
                                 const repsNum = parseInt(exercise.repsCompleted[index]);
 
                                 if (!isNaN(weightNum) && !isNaN(repsNum)) {
-                                    // Max weight
-                                    if (prs[exerciseName].maxWeight === null || weightNum > prs[exerciseName].maxWeight) {
-                                        prs[exerciseName].maxWeight = weightNum;
-                                        prs[exerciseName].maxWeightReps = repsNum;
+                                    if (prs[key].maxWeight === null || weightNum > prs[key].maxWeight) {
+                                        prs[key].maxWeight = weightNum;
+                                        prs[key].maxWeightReps = repsNum;
                                     }
-
-                                    // Max reps
-                                    if (prs[exerciseName].maxReps === null || repsNum > prs[exerciseName].maxReps) {
-                                        prs[exerciseName].maxReps = repsNum;
-                                        prs[exerciseName].maxRepsWeight = weightNum;
+                                    if (prs[key].maxReps === null || repsNum > prs[key].maxReps) {
+                                        prs[key].maxReps = repsNum;
+                                        prs[key].maxRepsWeight = weightNum;
                                     }
                                 }
                             }
@@ -12334,20 +12729,28 @@
             html += '<div class="pr-section">';
             html += '<h3 class="pr-section-title pr-section-title--alltime"><i class="fas fa-trophy" aria-hidden="true"></i><span>' + escapeHtml(t('pr_records_all')) + '</span></h3>';
 
-            const allTimeExercises = Object.keys(allTimePRs).filter(name =>
-                allTimePRs[name].maxWeight !== null || allTimePRs[name].maxReps !== null
+            const allTimeExercises = Object.keys(allTimePRs).filter(key =>
+                allTimePRs[key].maxWeight !== null || allTimePRs[key].maxReps !== null
             );
 
             if (allTimeExercises.length === 0) {
                 html += '<p class="pr-empty">' + escapeHtml(t('pr_empty')) + '</p>';
             } else {
                 html += '<p class="pr-chart-hint"><i class="fas fa-chart-line" aria-hidden="true"></i> ' + escapeHtml(t('pr_chart_hint')) + '</p>';
-                allTimeExercises.forEach(exerciseName => {
-                    const pr = allTimePRs[exerciseName];
+                allTimeExercises.forEach(prKey => {
+                    const pr = allTimePRs[prKey];
+                    const exerciseName = pr.displayName || prKey;
                     const safeName = escapeHtml(exerciseName);
-                    html += `<div class="pr-item pr-item--expandable" data-exercise-name="${safeName}" role="button" tabindex="0">`;
+                    const safeId = escapeHtml(pr.exerciseId || '');
+                    html += `<div class="pr-item pr-item--expandable" data-exercise-name="${safeName}" data-exercise-id="${safeId}" role="button" tabindex="0">`;
                     html += '<div class="pr-item-header">';
                     html += `<strong class="pr-item-name">${safeName}</strong>`;
+                    if (pr.exerciseId) {
+                        const meta = getExerciseById(pr.exerciseId);
+                        if (meta && meta.primary) {
+                            html += `<span class="exercise-item-muscle">${escapeHtml(localizeBodyPart(meta.primary))}</span>`;
+                        }
+                    }
                     html += '<i class="fas fa-chevron-down pr-item-chevron" aria-hidden="true"></i>';
                     html += '</div>';
 
@@ -12412,14 +12815,13 @@
             item.classList.add('pr-item--open');
             wrap.hidden = false;
             if (!wrap.dataset.rendered) {
-                renderExerciseProgressChart(wrap, item.dataset.exerciseName || '');
+                renderExerciseProgressChart(wrap, item.dataset.exerciseName || '', item.dataset.exerciseId || null);
                 wrap.dataset.rendered = '1';
             }
         }
 
         /** Punkty progresu dla ćwiczenia: max ciężar ukończonej serii oraz szacowane 1RM (Epley) per trening. */
-        function getExerciseProgressPoints(exerciseName) {
-            const key = normalizeExerciseKey(exerciseName);
+        function getExerciseProgressPoints(exerciseName, exerciseId = null) {
             const points = [];
             if (!Array.isArray(workoutHistory)) return points;
 
@@ -12431,7 +12833,7 @@
                 let maxWeight = null;
                 let est1RM = null;
                 workout.exercises.forEach(exercise => {
-                    if (!exercise || !exercise.name || normalizeExerciseKey(exercise.name) !== key) return;
+                    if (!exercisesMatch(exercise, exerciseName, exerciseId)) return;
                     if (!Array.isArray(exercise.weights) || !Array.isArray(exercise.repsCompleted) || !Array.isArray(exercise.completedSets)) return;
                     exercise.weights.forEach((weight, index) => {
                         if (!exercise.completedSets[index]) return;
@@ -12451,8 +12853,8 @@
             return points;
         }
 
-        function renderExerciseProgressChart(wrapEl, exerciseName) {
-            const points = getExerciseProgressPoints(exerciseName);
+        function renderExerciseProgressChart(wrapEl, exerciseName, exerciseId = null) {
+            const points = getExerciseProgressPoints(exerciseName, exerciseId);
             wrapEl.innerHTML = '';
 
             if (points.length < 2) {
@@ -12595,38 +12997,603 @@
             else { const defaultPreset = container.querySelector(`.timer-preset[data-seconds="180"]`); if (defaultPreset) defaultPreset.classList.add('active'); }
         }
 
+        // --- BIBLIOTEKA ĆWICZEŃ (katalog + picker) ---
+        const MUSCLE_FILTER_KEYS = ['Klatka', 'Plecy', 'Barki', 'Ramiona', 'Nogi', 'Pośladki', 'Core'];
+        const EXERCISE_CATALOG = [
+            { id: 'bench_press_bb', primary: 'Klatka', name: { pl: 'Wyciskanie sztangi leżąc', en: 'Barbell bench press', es: 'Press de banca con barra' }, aliases: ['bench', 'bench press', 'wyciskanie leżąc', 'lp'] },
+            { id: 'incline_db_press', primary: 'Klatka', name: { pl: 'Wyciskanie hantli na skosie', en: 'Incline dumbbell press', es: 'Press inclinado con mancuernas' }, aliases: ['incline press', 'skos hantle'] },
+            { id: 'incline_bb_press', primary: 'Klatka', name: { pl: 'Wyciskanie sztangi na skosie', en: 'Incline barbell press', es: 'Press inclinado con barra' }, aliases: ['incline bench'] },
+            { id: 'pec_deck', primary: 'Klatka', name: { pl: 'Rozpiętki (pec deck)', en: 'Pec deck fly', es: 'Aperturas en pec deck' }, aliases: ['pec deck', 'rozpiętki', 'fly'] },
+            { id: 'cable_fly', primary: 'Klatka', name: { pl: 'Rozpiętki na wyciągu', en: 'Cable fly', es: 'Aperturas en polea' }, aliases: ['cable crossover'] },
+            { id: 'push_ups', primary: 'Klatka', name: { pl: 'Pompki', en: 'Push-ups', es: 'Flexiones' }, aliases: ['pompki', 'pushups'] },
+            { id: 'dips_chest', primary: 'Klatka', name: { pl: 'Dipy na poręczach', en: 'Chest dips', es: 'Fondos en paralelas' }, aliases: ['dips', 'dipy'] },
+            { id: 'lat_pulldown', primary: 'Plecy', name: { pl: 'Ściąganie drążka', en: 'Lat pulldown', es: 'Jalón al pecho' }, aliases: ['pulldown', 'ściąganie'] },
+            { id: 'pull_ups', primary: 'Plecy', name: { pl: 'Podciąganie na drążku', en: 'Pull-ups', es: 'Dominadas' }, aliases: ['podciąganie', 'pullups', 'chin up'] },
+            { id: 'bb_bent_over_row', primary: 'Plecy', name: { pl: 'Wiosłowanie w opadzie sztangą', en: 'Barbell bent-over row', es: 'Remo inclinado con barra' }, aliases: ['barbell row', 'wiosłowanie'] },
+            { id: 'db_row', primary: 'Plecy', name: { pl: 'Wiosłowanie hantlem', en: 'Dumbbell row', es: 'Remo con mancuerna' }, aliases: ['one arm row'] },
+            { id: 'seated_cable_row', primary: 'Plecy', name: { pl: 'Wiosłowanie siedząc', en: 'Seated cable row', es: 'Remo sentado en polea' }, aliases: ['cable row'] },
+            { id: 'deadlift', primary: 'Plecy', name: { pl: 'Martwy ciąg', en: 'Deadlift', es: 'Peso muerto' }, aliases: ['martwy', 'dl'] },
+            { id: 'rdl', primary: 'Plecy', name: { pl: 'Martwy ciąg rumuński', en: 'Romanian deadlift', es: 'Peso muerto rumano' }, aliases: ['rdl', 'rumuński'] },
+            { id: 'face_pull', primary: 'Plecy', name: { pl: 'Face pull', en: 'Face pull', es: 'Face pull' }, aliases: ['facepulls'] },
+            { id: 'db_shrugs', primary: 'Plecy', name: { pl: 'Szrugsy hantlami', en: 'Dumbbell shrugs', es: 'Encogimientos con mancuernas' }, aliases: ['shrugs', 'szrugsy', 'kaptury'] },
+            { id: 'ohp', primary: 'Barki', name: { pl: 'Wyciskanie żołnierskie', en: 'Overhead press', es: 'Press militar' }, aliases: ['ohp', 'military press', 'żołnierskie'] },
+            { id: 'db_shoulder_press', primary: 'Barki', name: { pl: 'Wyciskanie hantli nad głowę', en: 'Dumbbell shoulder press', es: 'Press de hombros con mancuernas' }, aliases: ['shoulder press'] },
+            { id: 'cable_lateral_raise', primary: 'Barki', name: { pl: 'Wznosy na wyciągu', en: 'Cable lateral raise', es: 'Elevaciones laterales en polea' }, aliases: ['lateral raise', 'wznosy bokiem'] },
+            { id: 'db_lateral_raise', primary: 'Barki', name: { pl: 'Wznosy hantli bokiem', en: 'Dumbbell lateral raise', es: 'Elevaciones laterales con mancuernas' }, aliases: ['side raise'] },
+            { id: 'reverse_pec_deck', primary: 'Barki', name: { pl: 'Odwrócone rozpiętki (reverse pec deck)', en: 'Reverse pec deck fly', es: 'Aperturas inversas en pec deck' }, aliases: ['rear delt', 'tylny bark'] },
+            { id: 'arnold_press', primary: 'Barki', name: { pl: 'Arnoldki', en: 'Arnold press', es: 'Press Arnold' }, aliases: ['arnold'] },
+            { id: 'bb_curl', primary: 'Ramiona', name: { pl: 'Uginanie ramion ze sztangą', en: 'Barbell curl', es: 'Curl con barra' }, aliases: ['barbell curl', 'uginanie'] },
+            { id: 'db_curl', primary: 'Ramiona', name: { pl: 'Uginanie ramion z hantlami', en: 'Dumbbell curl', es: 'Curl con mancuernas' }, aliases: ['bicep curl'] },
+            { id: 'hammer_curl', primary: 'Ramiona', name: { pl: 'Uginanie młotkowe', en: 'Hammer curl', es: 'Curl martillo' }, aliases: ['młotkowe', 'hammer'] },
+            { id: 'bayesian_curl', primary: 'Ramiona', name: { pl: 'Bayesian curl', en: 'Bayesian curl', es: 'Curl bayesiano' }, aliases: ['bayesian'] },
+            { id: 'triceps_pushdown', primary: 'Ramiona', name: { pl: 'Triceps pushdown', en: 'Triceps pushdown', es: 'Extensión de tríceps en polea' }, aliases: ['pushdown', 'prostowanie na wyciągu'] },
+            { id: 'overhead_triceps_ext', primary: 'Ramiona', name: { pl: 'Triceps overhead extension', en: 'Overhead triceps extension', es: 'Extensión de tríceps por encima de la cabeza' }, aliases: ['overhead extension'] },
+            { id: 'skullcrusher', primary: 'Ramiona', name: { pl: 'Wyciskanie francuskie', en: 'Skullcrusher', es: 'Press francés' }, aliases: ['francuskie', 'skull crusher'] },
+            { id: 'bb_squat', primary: 'Nogi', name: { pl: 'Przysiady ze sztangą', en: 'Barbell squat', es: 'Sentadilla con barra' }, aliases: ['squat', 'przysiad', 'przysiady'] },
+            { id: 'leg_press', primary: 'Nogi', name: { pl: 'Hack / leg press', en: 'Leg press', es: 'Prensa de piernas' }, aliases: ['legpress', 'hack squat'] },
+            { id: 'db_lunges', primary: 'Nogi', name: { pl: 'Wykroki z hantlami', en: 'Dumbbell lunges', es: 'Zancadas con mancuernas' }, aliases: ['lunges', 'wykroki'] },
+            { id: 'leg_extension', primary: 'Nogi', name: { pl: 'Prostowanie nóg na maszynie', en: 'Leg extension', es: 'Extensión de piernas' }, aliases: ['leg ext', 'prostowanie nóg'] },
+            { id: 'leg_curl', primary: 'Nogi', name: { pl: 'Uginanie nóg na maszynie', en: 'Leg curl', es: 'Curl femoral' }, aliases: ['leg curl', 'uginanie nóg'] },
+            { id: 'bulgarian_split', primary: 'Nogi', name: { pl: 'Bułgarskie przysiady', en: 'Bulgarian split squat', es: 'Zancada búlgara' }, aliases: ['bulgarian', 'bułgarskie'] },
+            { id: 'calf_raise', primary: 'Nogi', name: { pl: 'Wspięcia na palce', en: 'Calf raise', es: 'Elevación de gemelos' }, aliases: ['łydek', 'calves'] },
+            { id: 'hip_thrust', primary: 'Pośladki', name: { pl: 'Hip thrust', en: 'Hip thrust', es: 'Hip thrust' }, aliases: ['hipthrust', 'mostek biodrowy'] },
+            { id: 'glute_bridge', primary: 'Pośladki', name: { pl: 'Mostek pośladkowy', en: 'Glute bridge', es: 'Puente de glúteos' }, aliases: ['glute bridge'] },
+            { id: 'cable_kickback', primary: 'Pośladki', name: { pl: 'Odwodzenie nogi na wyciągu', en: 'Cable kickback', es: 'Patada de glúteo en polea' }, aliases: ['kickback'] },
+            { id: 'plank', primary: 'Core', name: { pl: 'Deska (plank)', en: 'Plank', es: 'Plancha' }, aliases: ['plank', 'deska'] },
+            { id: 'cable_crunch', primary: 'Core', name: { pl: 'Spięcia brzucha na wyciągu', en: 'Cable crunch', es: 'Crunch en polea' }, aliases: ['crunch', 'brzuch'] },
+            { id: 'hanging_leg_raise', primary: 'Core', name: { pl: 'Unoszenie nóg w zwisie', en: 'Hanging leg raise', es: 'Elevación de piernas colgado' }, aliases: ['leg raise', 'unoszenie nóg'] },
+            { id: 'ab_wheel', primary: 'Core', name: { pl: 'Ab wheel', en: 'Ab wheel', es: 'Rueda abdominal' }, aliases: ['roller', 'kółko'] }
+        ];
+
+        let userExercises = loadData('userExercises') || [];
+        if (!Array.isArray(userExercises)) userExercises = [];
+
+        function saveUserExercises() { saveData('userExercises', userExercises); }
+
+        function catalogLocalizedName(entry) {
+            if (!entry || !entry.name) return entry && entry.id ? String(entry.id) : '';
+            const lang = I18N[currentLang] ? currentLang : 'pl';
+            return entry.name[lang] || entry.name.pl || entry.name.en || entry.name.es || '';
+        }
+
+        function getMergedExerciseCatalog() {
+            return EXERCISE_CATALOG.concat(userExercises.filter(Boolean));
+        }
+
+        function getExerciseById(id) {
+            if (!id) return null;
+            return getMergedExerciseCatalog().find((e) => e && e.id === id) || null;
+        }
+
+        function resolveExerciseIdByName(name) {
+            const key = normalizeExerciseKey(name);
+            if (!key) return null;
+            const all = getMergedExerciseCatalog();
+            for (let i = 0; i < all.length; i++) {
+                const ex = all[i];
+                if (!ex) continue;
+                if (normalizeExerciseKey(catalogLocalizedName(ex)) === key) return ex.id;
+                if (ex.name) {
+                    for (const lang of ['pl', 'en', 'es']) {
+                        if (ex.name[lang] && normalizeExerciseKey(ex.name[lang]) === key) return ex.id;
+                    }
+                }
+                if (Array.isArray(ex.aliases) && ex.aliases.some((a) => normalizeExerciseKey(a) === key)) return ex.id;
+            }
+            return null;
+        }
+
+        function attachExerciseIdIfMissing(ex) {
+            if (!ex || typeof ex !== 'object') return false;
+            if (ex.exerciseId && getExerciseById(ex.exerciseId)) return false;
+            const id = resolveExerciseIdByName(ex.name);
+            if (id) {
+                ex.exerciseId = id;
+                return true;
+            }
+            return false;
+        }
+
+        function migrateExerciseIdsInStoredData() {
+            let plansChanged = false;
+            let historyChanged = false;
+            if (Array.isArray(trainingPlans)) {
+                trainingPlans.forEach((plan) => {
+                    if (!plan || !Array.isArray(plan.exercises)) return;
+                    plan.exercises.forEach((ex) => { if (attachExerciseIdIfMissing(ex)) plansChanged = true; });
+                });
+            }
+            if (Array.isArray(workoutHistory)) {
+                workoutHistory.forEach((w) => {
+                    if (!w || !Array.isArray(w.exercises)) return;
+                    w.exercises.forEach((ex) => { if (attachExerciseIdIfMissing(ex)) historyChanged = true; });
+                });
+            }
+            if (currentWorkout && Array.isArray(currentWorkout.exercises)) {
+                let curChanged = false;
+                currentWorkout.exercises.forEach((ex) => { if (attachExerciseIdIfMissing(ex)) curChanged = true; });
+                if (curChanged) saveCurrentWorkout();
+            }
+            if (plansChanged) saveTrainingPlans();
+            if (historyChanged) saveWorkoutHistory();
+            seedRecentExercisesFromHistory();
+        }
+
+        function seedRecentExercisesFromHistory() {
+            if (getRecentExerciseIds().length > 0) return;
+            const ids = [];
+            if (!Array.isArray(workoutHistory)) return;
+            for (let i = workoutHistory.length - 1; i >= 0 && ids.length < 10; i--) {
+                const w = workoutHistory[i];
+                if (!w || !Array.isArray(w.exercises)) continue;
+                for (let j = w.exercises.length - 1; j >= 0 && ids.length < 10; j--) {
+                    const ex = w.exercises[j];
+                    const id = (ex && ex.exerciseId) || resolveExerciseIdByName(ex && ex.name);
+                    if (id && !ids.includes(id) && getExerciseById(id)) ids.push(id);
+                }
+            }
+            if (ids.length) saveData('recentExerciseIds', ids);
+        }
+
+        function getRecentExerciseIds() {
+            const raw = loadData('recentExerciseIds');
+            return Array.isArray(raw) ? raw.filter(Boolean) : [];
+        }
+
+        function rememberRecentExercise(id) {
+            if (!id) return;
+            const next = [id, ...getRecentExerciseIds().filter((x) => x !== id)].slice(0, 10);
+            saveData('recentExerciseIds', next);
+        }
+
+        function resolveExerciseIdentity(exerciseOrName, exerciseId = null) {
+            let name = '';
+            let id = exerciseId || null;
+            if (exerciseOrName && typeof exerciseOrName === 'object') {
+                name = exerciseOrName.name || '';
+                id = exerciseOrName.exerciseId || id || null;
+            } else {
+                name = exerciseOrName || '';
+            }
+            if (!id) id = resolveExerciseIdByName(name);
+            if (id && !getExerciseById(id)) id = null;
+            const key = id ? ('id:' + id) : ('name:' + normalizeExerciseKey(name));
+            const meta = id ? getExerciseById(id) : null;
+            const displayName = meta ? catalogLocalizedName(meta) : String(name || '').trim();
+            return { id, key, name: String(name || '').trim(), displayName, primary: meta ? meta.primary : null };
+        }
+
+        function exercisesMatch(ex, targetName, targetId = null) {
+            if (!ex) return false;
+            const a = resolveExerciseIdentity(ex);
+            const b = resolveExerciseIdentity(targetName, targetId || null);
+            if (a.id && b.id) return a.id === b.id;
+            return a.key === b.key;
+        }
+
+        function getExerciseVolumeKg(ex) {
+            if (!ex || !Array.isArray(ex.weights) || !Array.isArray(ex.repsCompleted) || !Array.isArray(ex.completedSets)) return 0;
+            let vol = 0;
+            ex.weights.forEach((weight, index) => {
+                if (!ex.completedSets[index]) return;
+                const w = parseFloat(weight);
+                const r = parseInt(ex.repsCompleted[index], 10);
+                if (!isNaN(w) && !isNaN(r) && w > 0 && r > 0) vol += w * r;
+            });
+            return vol;
+        }
+
+        function calcMonthMuscleVolume(yearWorkouts) {
+            const groups = { 'Klatka': 0, 'Plecy': 0, 'Barki': 0, 'Ramiona': 0, 'Nogi': 0, 'Pośladki': 0, 'Core': 0 };
+            (yearWorkouts || []).forEach((workout) => {
+                if (!workout || !Array.isArray(workout.exercises)) return;
+                workout.exercises.forEach((ex) => {
+                    const vol = getExerciseVolumeKg(ex);
+                    if (vol <= 0) return;
+                    const ident = resolveExerciseIdentity(ex);
+                    if (ident.primary && groups.hasOwnProperty(ident.primary)) {
+                        groups[ident.primary] += vol;
+                        return;
+                    }
+                    // Fallback: keyword map via calcBodyPartUsage-style name match for unlinked lifts
+                    const fake = calcBodyPartUsage([{
+                        exercises: [{
+                            name: ex.name,
+                            exerciseId: ex.exerciseId,
+                            notes: ex.notes,
+                            completedSets: [true]
+                        }]
+                    }]);
+                    let best = null;
+                    let bestV = 0;
+                    Object.keys(fake).forEach((k) => {
+                        if (fake[k] > bestV) { bestV = fake[k]; best = k; }
+                    });
+                    if (best && groups.hasOwnProperty(best)) groups[best] += vol;
+                });
+            });
+            return groups;
+        }
+
+        function renderStatsMuscleBars(monthWorkouts) {
+            const container = document.getElementById('stat-muscle-bars');
+            if (!container) return;
+            const groups = calcMonthMuscleVolume(monthWorkouts);
+            const entries = MUSCLE_FILTER_KEYS
+                .map((k) => ({ key: k, vol: groups[k] || 0 }))
+                .filter((e) => e.vol > 0)
+                .sort((a, b) => b.vol - a.vol);
+            container.innerHTML = '';
+            if (entries.length === 0) {
+                const empty = document.createElement('div');
+                empty.className = 'stats-muscle-empty';
+                empty.textContent = t('stats_muscle_empty');
+                container.appendChild(empty);
+                return;
+            }
+            const maxVol = Math.max(...entries.map((e) => e.vol), 1);
+            entries.forEach((e) => {
+                const pct = Math.max(4, Math.round((e.vol / maxVol) * 100));
+                const row = document.createElement('div');
+                row.className = 'stats-muscle-row';
+                row.innerHTML =
+                    '<div class="stats-muscle-name">' + escapeHtml(localizeBodyPart(e.key)) + '</div>' +
+                    '<div class="stats-muscle-track"><div class="stats-muscle-fill" style="width:' + pct + '%"></div></div>' +
+                    '<div class="stats-muscle-value">' + escapeHtml(t('stats_volume_kg', { value: formatWeight(e.vol) })) + '</div>';
+                container.appendChild(row);
+            });
+        }
+
+        function searchExerciseCatalog(query, muscleFilter) {
+            const q = normalizeExerciseKey(query);
+            const all = getMergedExerciseCatalog();
+            const filtered = all.filter((ex) => {
+                if (!ex) return false;
+                if (muscleFilter && ex.primary !== muscleFilter) return false;
+                if (!q) return true;
+                const names = [catalogLocalizedName(ex)];
+                if (ex.name) names.push(ex.name.pl, ex.name.en, ex.name.es);
+                if (Array.isArray(ex.aliases)) names.push(...ex.aliases);
+                return names.some((n) => n && normalizeExerciseKey(n).includes(q));
+            });
+            filtered.sort((a, b) => catalogLocalizedName(a).localeCompare(catalogLocalizedName(b), currentLocale()));
+            return filtered.slice(0, 40);
+        }
+
+        function createUserExercise(name, primary) {
+            const clean = String(name || '').trim();
+            if (!clean) return null;
+            const existingId = resolveExerciseIdByName(clean);
+            if (existingId) return getExerciseById(existingId);
+            const slug = normalizeExerciseKey(clean).replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '').slice(0, 32) || 'ex';
+            const entry = {
+                id: 'custom_' + slug + '_' + Date.now().toString(36),
+                primary: primary || 'Core',
+                name: { pl: clean, en: clean, es: clean },
+                aliases: [],
+                custom: true
+            };
+            userExercises.push(entry);
+            saveUserExercises();
+            rememberRecentExercise(entry.id);
+            return entry;
+        }
+
+        function readExercisePickerSelection(inputEl) {
+            if (!inputEl) return { name: '', exerciseId: null };
+            const name = inputEl.value.trim();
+            let exerciseId = inputEl.dataset.exerciseId || null;
+            if (exerciseId && !getExerciseById(exerciseId)) exerciseId = null;
+            if (!exerciseId && name) exerciseId = resolveExerciseIdByName(name);
+            return { name, exerciseId };
+        }
+
+        function setExercisePickerSelection(picker, entryOrNull, typedName) {
+            if (!picker || !picker.input) return;
+            if (entryOrNull) {
+                picker.input.value = catalogLocalizedName(entryOrNull);
+                picker.input.dataset.exerciseId = entryOrNull.id;
+                picker.pendingCustomName = null;
+                rememberRecentExercise(entryOrNull.id);
+                updateExerciseLibMeta(picker, entryOrNull, false);
+            } else {
+                if (typeof typedName === 'string') picker.input.value = typedName;
+                delete picker.input.dataset.exerciseId;
+                updateExerciseLibMeta(picker, null, !!picker.pendingCustomName);
+            }
+        }
+
+        function updateExerciseLibMeta(picker, entry, showCustomMuscles) {
+            if (!picker.metaEl) return;
+            const badge = picker.badgeEl;
+            const customHost = picker.customMusclesEl;
+            if (entry) {
+                picker.metaEl.classList.add('is-visible');
+                if (badge) {
+                    badge.style.display = '';
+                    const span = badge.querySelector('span');
+                    if (span) span.textContent = t('lib_linked', { muscle: localizeBodyPart(entry.primary) });
+                }
+                if (customHost) customHost.classList.remove('is-visible');
+                return;
+            }
+            if (showCustomMuscles) {
+                picker.metaEl.classList.add('is-visible');
+                if (badge) {
+                    badge.style.display = '';
+                    const span = badge.querySelector('span');
+                    if (span) span.textContent = t('lib_pick_muscle');
+                }
+                if (customHost) {
+                    customHost.classList.add('is-visible');
+                    renderCustomMuscleChips(picker);
+                }
+                return;
+            }
+            picker.metaEl.classList.remove('is-visible');
+            if (customHost) customHost.classList.remove('is-visible');
+        }
+
+        function renderCustomMuscleChips(picker) {
+            if (!picker.customMusclesEl) return;
+            picker.customMusclesEl.innerHTML = '';
+            MUSCLE_FILTER_KEYS.forEach((key) => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'lib-muscle-chip';
+                btn.textContent = localizeBodyPart(key);
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    const name = (picker.pendingCustomName || picker.input.value || '').trim();
+                    if (!name) return;
+                    const entry = createUserExercise(name, key);
+                    if (entry) {
+                        setExercisePickerSelection(picker, entry);
+                        closeExercisePickerDropdown(picker);
+                        if (typeof picker.onSelect === 'function') picker.onSelect(entry);
+                    }
+                });
+                picker.customMusclesEl.appendChild(btn);
+            });
+        }
+
+        function renderMuscleFilterChips(host, picker) {
+            if (!host) return;
+            host.innerHTML = '';
+            const makeChip = (key, label) => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'lib-muscle-chip' + ((picker.muscleFilter || null) === key ? ' is-active' : '');
+                btn.textContent = label;
+                // Prevent input blur -> dropdown auto-close.
+                btn.addEventListener('mousedown', (e) => {
+                    e.preventDefault();
+                });
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    picker.muscleFilter = key;
+                    renderMuscleFilterChips(host, picker);
+                    picker.input.focus();
+                    openExercisePickerDropdown(picker);
+                });
+                host.appendChild(btn);
+            };
+            makeChip(null, t('lib_filter_all'));
+            MUSCLE_FILTER_KEYS.forEach((k) => makeChip(k, localizeBodyPart(k)));
+        }
+
+        function closeExercisePickerDropdown(picker) {
+            if (!picker || !picker.dropdown) return;
+            picker.dropdown.classList.remove('is-open');
+            picker.dropdown.hidden = true;
+            picker.activeIndex = -1;
+        }
+
+        function openExercisePickerDropdown(picker) {
+            if (!picker || !picker.dropdown) return;
+            renderExercisePickerDropdown(picker);
+            picker.dropdown.hidden = false;
+            picker.dropdown.classList.add('is-open');
+        }
+
+        function renderExercisePickerDropdown(picker) {
+            const dropdown = picker.dropdown;
+            if (!dropdown) return;
+            const q = picker.input.value.trim();
+            const muscle = picker.muscleFilter || null;
+            const results = searchExerciseCatalog(q, muscle);
+            dropdown.innerHTML = '';
+            picker.activeIndex = -1;
+
+            const appendItem = (ex, idx) => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'exercise-picker-item';
+                btn.setAttribute('role', 'option');
+                btn.dataset.index = String(idx);
+                btn.innerHTML = `<span>${escapeHtml(catalogLocalizedName(ex))}</span><span class="exercise-picker-item-muscle">${escapeHtml(localizeBodyPart(ex.primary))}</span>`;
+                btn.addEventListener('mousedown', (e) => e.preventDefault());
+                btn.addEventListener('click', () => {
+                    setExercisePickerSelection(picker, ex);
+                    closeExercisePickerDropdown(picker);
+                    if (typeof picker.onSelect === 'function') picker.onSelect(ex);
+                });
+                dropdown.appendChild(btn);
+                return btn;
+            };
+
+            const appendSection = (label) => {
+                const lab = document.createElement('div');
+                lab.className = 'exercise-picker-section-label';
+                lab.textContent = label;
+                dropdown.appendChild(lab);
+            };
+
+            let itemIndex = 0;
+            const shownIds = new Set();
+
+            // Ostatnio używane — tylko gdy brak wyszukiwania
+            if (!q) {
+                const recent = getRecentExerciseIds()
+                    .map((id) => getExerciseById(id))
+                    .filter((ex) => ex && (!muscle || ex.primary === muscle));
+                if (recent.length) {
+                    appendSection(t('lib_recent'));
+                    recent.forEach((ex) => {
+                        shownIds.add(ex.id);
+                        appendItem(ex, itemIndex++);
+                    });
+                }
+            }
+
+            const catalogResults = results.filter((ex) => !shownIds.has(ex.id));
+            if (catalogResults.length === 0 && !q && shownIds.size === 0) {
+                const empty = document.createElement('div');
+                empty.className = 'exercise-picker-empty';
+                empty.textContent = t('lib_no_results');
+                dropdown.appendChild(empty);
+            } else if (catalogResults.length > 0) {
+                if (!q && shownIds.size > 0) appendSection(t('lib_catalog'));
+                catalogResults.forEach((ex) => appendItem(ex, itemIndex++));
+            }
+
+            const canCreate = q.length >= 2 && !resolveExerciseIdByName(q);
+            if (canCreate) {
+                const createBtn = document.createElement('button');
+                createBtn.type = 'button';
+                createBtn.className = 'exercise-picker-item exercise-picker-item--create';
+                createBtn.innerHTML = `<span><i class="fas fa-plus" aria-hidden="true"></i> ${escapeHtml(t('lib_create', { name: q }))}</span>`;
+                createBtn.addEventListener('mousedown', (e) => e.preventDefault());
+                createBtn.addEventListener('click', () => {
+                    picker.pendingCustomName = q;
+                    delete picker.input.dataset.exerciseId;
+                    updateExerciseLibMeta(picker, null, true);
+                    closeExercisePickerDropdown(picker);
+                });
+                dropdown.appendChild(createBtn);
+            }
+        }
+
+        function mountExercisePicker(config) {
+            const input = document.getElementById(config.inputId);
+            const dropdown = document.getElementById(config.dropdownId);
+            if (!input || !dropdown) return null;
+            const picker = {
+                input,
+                dropdown,
+                chipsHost: config.chipsId ? document.getElementById(config.chipsId) : null,
+                metaEl: config.metaId ? document.getElementById(config.metaId) : null,
+                badgeEl: config.badgeId ? document.getElementById(config.badgeId) : null,
+                customMusclesEl: config.customMusclesId ? document.getElementById(config.customMusclesId) : null,
+                muscleFilter: null,
+                pendingCustomName: null,
+                activeIndex: -1,
+                onSelect: config.onSelect || null
+            };
+
+            renderMuscleFilterChips(picker.chipsHost, picker);
+
+            input.addEventListener('focus', () => openExercisePickerDropdown(picker));
+            input.addEventListener('input', () => {
+                delete input.dataset.exerciseId;
+                picker.pendingCustomName = null;
+                updateExerciseLibMeta(picker, null, false);
+                openExercisePickerDropdown(picker);
+            });
+            input.addEventListener('keydown', (e) => {
+                const items = Array.from(dropdown.querySelectorAll('.exercise-picker-item'));
+                if (e.key === 'Escape') {
+                    closeExercisePickerDropdown(picker);
+                    return;
+                }
+                if (!dropdown.classList.contains('is-open') || items.length === 0) return;
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    picker.activeIndex = Math.min(items.length - 1, picker.activeIndex + 1);
+                    items.forEach((el, i) => el.classList.toggle('is-active', i === picker.activeIndex));
+                    items[picker.activeIndex].scrollIntoView({ block: 'nearest' });
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    picker.activeIndex = Math.max(0, picker.activeIndex - 1);
+                    items.forEach((el, i) => el.classList.toggle('is-active', i === picker.activeIndex));
+                    items[picker.activeIndex].scrollIntoView({ block: 'nearest' });
+                } else if (e.key === 'Enter' && picker.activeIndex >= 0) {
+                    e.preventDefault();
+                    items[picker.activeIndex].click();
+                }
+            });
+            input.addEventListener('blur', () => {
+                setTimeout(() => {
+                    const id = resolveExerciseIdByName(input.value);
+                    if (id) {
+                        const entry = getExerciseById(id);
+                        if (entry) setExercisePickerSelection(picker, entry);
+                    }
+                    closeExercisePickerDropdown(picker);
+                }, 160);
+            });
+
+            return picker;
+        }
+
+        function clearExercisePicker(picker) {
+            if (!picker || !picker.input) return;
+            picker.input.value = '';
+            delete picker.input.dataset.exerciseId;
+            picker.pendingCustomName = null;
+            picker.muscleFilter = null;
+            updateExerciseLibMeta(picker, null, false);
+            renderMuscleFilterChips(picker.chipsHost, picker);
+            closeExercisePickerDropdown(picker);
+        }
+
+        function refreshExercisePickersI18n() {
+            if (window._planExercisePicker) {
+                renderMuscleFilterChips(window._planExercisePicker.chipsHost, window._planExercisePicker);
+                const id = window._planExercisePicker.input.dataset.exerciseId;
+                if (id) updateExerciseLibMeta(window._planExercisePicker, getExerciseById(id), false);
+            }
+            if (window._quickExercisePicker) {
+                renderMuscleFilterChips(window._quickExercisePicker.chipsHost, window._quickExercisePicker);
+                const id = window._quickExercisePicker.input.dataset.exerciseId;
+                if (id) updateExerciseLibMeta(window._quickExercisePicker, getExerciseById(id), false);
+            }
+        }
+
         // Szablony treningów z nazwami/notatkami w 3 językach. Język ustalany jest
         // w momencie tworzenia planu (zapisywany jako zwykły tekst do danych użytkownika).
         const WORKOUT_TEMPLATES = {
             push: [
-                { sets: 3, reps: 8, name: { pl: 'Wyciskanie hantli na skosie', en: 'Incline dumbbell press', es: 'Press inclinado con mancuernas' }, notes: { pl: 'Góra klaty', en: 'Upper chest', es: 'Pecho superior' } },
-                { sets: 3, reps: 10, name: { pl: 'Rozpiętki (pec deck)', en: 'Pec deck fly', es: 'Aperturas en pec deck' }, notes: { pl: 'Klata', en: 'Chest', es: 'Pecho' } },
-                { sets: 3, reps: 8, name: { pl: 'Wznosy na wyciągu', en: 'Cable lateral raise', es: 'Elevaciones laterales en polea' }, notes: { pl: 'Barki', en: 'Shoulders', es: 'Hombros' } },
-                { sets: 3, reps: 10, name: { pl: 'Triceps pushdown', en: 'Triceps pushdown', es: 'Extensión de tríceps en polea' }, notes: { pl: 'Triceps', en: 'Triceps', es: 'Tríceps' } },
-                { sets: 3, reps: 8, name: { pl: 'Triceps overhead extension', en: 'Overhead triceps extension', es: 'Extensión de tríceps por encima de la cabeza' }, notes: { pl: 'Triceps', en: 'Triceps', es: 'Tríceps' } }
+                { id: 'incline_db_press', sets: 3, reps: 8, name: { pl: 'Wyciskanie hantli na skosie', en: 'Incline dumbbell press', es: 'Press inclinado con mancuernas' }, notes: { pl: 'Góra klaty', en: 'Upper chest', es: 'Pecho superior' } },
+                { id: 'pec_deck', sets: 3, reps: 10, name: { pl: 'Rozpiętki (pec deck)', en: 'Pec deck fly', es: 'Aperturas en pec deck' }, notes: { pl: 'Klata', en: 'Chest', es: 'Pecho' } },
+                { id: 'cable_lateral_raise', sets: 3, reps: 8, name: { pl: 'Wznosy na wyciągu', en: 'Cable lateral raise', es: 'Elevaciones laterales en polea' }, notes: { pl: 'Barki', en: 'Shoulders', es: 'Hombros' } },
+                { id: 'triceps_pushdown', sets: 3, reps: 10, name: { pl: 'Triceps pushdown', en: 'Triceps pushdown', es: 'Extensión de tríceps en polea' }, notes: { pl: 'Triceps', en: 'Triceps', es: 'Tríceps' } },
+                { id: 'overhead_triceps_ext', sets: 3, reps: 8, name: { pl: 'Triceps overhead extension', en: 'Overhead triceps extension', es: 'Extensión de tríceps por encima de la cabeza' }, notes: { pl: 'Triceps', en: 'Triceps', es: 'Tríceps' } }
             ],
             pull: [
-                { sets: 3, reps: 8, name: { pl: 'Ściąganie drążka', en: 'Lat pulldown', es: 'Jalón al pecho' }, notes: { pl: 'Plecy', en: 'Back', es: 'Espalda' } },
-                { sets: 3, reps: 8, name: { pl: 'Wiosłowanie w opadzie sztangą', en: 'Barbell bent-over row', es: 'Remo inclinado con barra' }, notes: { pl: 'Plecy', en: 'Back', es: 'Espalda' } },
-                { sets: 3, reps: 8, name: { pl: 'Odwrócone rozpiętki (reverse pec deck)', en: 'Reverse pec deck fly', es: 'Aperturas inversas en pec deck' }, notes: { pl: 'Tylne barki', en: 'Rear delts', es: 'Deltoides posteriores' } },
-                { sets: 3, reps: 8, name: { pl: 'Bayesian curl', en: 'Bayesian curl', es: 'Curl bayesiano' }, notes: { pl: 'Biceps', en: 'Biceps', es: 'Bíceps' } },
-                { sets: 3, reps: 8, name: { pl: 'Uginanie młotkowe', en: 'Hammer curl', es: 'Curl martillo' }, notes: { pl: 'Biceps', en: 'Biceps', es: 'Bíceps' } },
-                { sets: 3, reps: 12, name: { pl: 'Szrugsy hantlami', en: 'Dumbbell shrugs', es: 'Encogimientos con mancuernas' }, notes: { pl: 'Kaptury', en: 'Traps', es: 'Trapecios' } }
+                { id: 'lat_pulldown', sets: 3, reps: 8, name: { pl: 'Ściąganie drążka', en: 'Lat pulldown', es: 'Jalón al pecho' }, notes: { pl: 'Plecy', en: 'Back', es: 'Espalda' } },
+                { id: 'bb_bent_over_row', sets: 3, reps: 8, name: { pl: 'Wiosłowanie w opadzie sztangą', en: 'Barbell bent-over row', es: 'Remo inclinado con barra' }, notes: { pl: 'Plecy', en: 'Back', es: 'Espalda' } },
+                { id: 'reverse_pec_deck', sets: 3, reps: 8, name: { pl: 'Odwrócone rozpiętki (reverse pec deck)', en: 'Reverse pec deck fly', es: 'Aperturas inversas en pec deck' }, notes: { pl: 'Tylne barki', en: 'Rear delts', es: 'Deltoides posteriores' } },
+                { id: 'bayesian_curl', sets: 3, reps: 8, name: { pl: 'Bayesian curl', en: 'Bayesian curl', es: 'Curl bayesiano' }, notes: { pl: 'Biceps', en: 'Biceps', es: 'Bíceps' } },
+                { id: 'hammer_curl', sets: 3, reps: 8, name: { pl: 'Uginanie młotkowe', en: 'Hammer curl', es: 'Curl martillo' }, notes: { pl: 'Biceps', en: 'Biceps', es: 'Bíceps' } },
+                { id: 'db_shrugs', sets: 3, reps: 12, name: { pl: 'Szrugsy hantlami', en: 'Dumbbell shrugs', es: 'Encogimientos con mancuernas' }, notes: { pl: 'Kaptury', en: 'Traps', es: 'Trapecios' } }
             ],
             legs: [
-                { sets: 4, reps: 8, name: { pl: 'Przysiady ze sztangą', en: 'Barbell squat', es: 'Sentadilla con barra' }, notes: { pl: 'Nogi', en: 'Legs', es: 'Piernas' } },
-                { sets: 3, reps: 8, name: { pl: 'Martwy ciąg', en: 'Deadlift', es: 'Peso muerto' }, notes: { pl: 'Plecy/nogi', en: 'Back/legs', es: 'Espalda/piernas' } },
-                { sets: 3, reps: 10, name: { pl: 'Wykroki z hantlami', en: 'Dumbbell lunges', es: 'Zancadas con mancuernas' }, notes: { pl: 'Nogi', en: 'Legs', es: 'Piernas' } },
-                { sets: 3, reps: 12, name: { pl: 'Prostowanie nóg na maszynie', en: 'Leg extension', es: 'Extensión de piernas' }, notes: { pl: 'Przednie uda', en: 'Quads', es: 'Cuádriceps' } },
-                { sets: 3, reps: 12, name: { pl: 'Uginanie nóg na maszynie', en: 'Leg curl', es: 'Curl femoral' }, notes: { pl: 'Tylne uda', en: 'Hamstrings', es: 'Isquiotibiales' } }
+                { id: 'bb_squat', sets: 4, reps: 8, name: { pl: 'Przysiady ze sztangą', en: 'Barbell squat', es: 'Sentadilla con barra' }, notes: { pl: 'Nogi', en: 'Legs', es: 'Piernas' } },
+                { id: 'deadlift', sets: 3, reps: 8, name: { pl: 'Martwy ciąg', en: 'Deadlift', es: 'Peso muerto' }, notes: { pl: 'Plecy/nogi', en: 'Back/legs', es: 'Espalda/piernas' } },
+                { id: 'db_lunges', sets: 3, reps: 10, name: { pl: 'Wykroki z hantlami', en: 'Dumbbell lunges', es: 'Zancadas con mancuernas' }, notes: { pl: 'Nogi', en: 'Legs', es: 'Piernas' } },
+                { id: 'leg_extension', sets: 3, reps: 12, name: { pl: 'Prostowanie nóg na maszynie', en: 'Leg extension', es: 'Extensión de piernas' }, notes: { pl: 'Przednie uda', en: 'Quads', es: 'Cuádriceps' } },
+                { id: 'leg_curl', sets: 3, reps: 12, name: { pl: 'Uginanie nóg na maszynie', en: 'Leg curl', es: 'Curl femoral' }, notes: { pl: 'Tylne uda', en: 'Hamstrings', es: 'Isquiotibiales' } }
             ],
             fullbody: [
-                { sets: 3, reps: 10, name: { pl: 'Przysiady ze sztangą', en: 'Barbell squat', es: 'Sentadilla con barra' }, notes: { pl: 'Nogi', en: 'Legs', es: 'Piernas' } },
-                { sets: 3, reps: 10, name: { pl: 'Wyciskanie sztangi leżąc', en: 'Barbell bench press', es: 'Press de banca con barra' }, notes: { pl: 'Klata', en: 'Chest', es: 'Pecho' } },
-                { sets: 3, reps: 'max', name: { pl: 'Podciąganie na drążku', en: 'Pull-ups', es: 'Dominadas' }, notes: { pl: 'Plecy', en: 'Back', es: 'Espalda' } },
-                { sets: 3, reps: 10, name: { pl: 'Wyciskanie żołnierskie', en: 'Overhead press', es: 'Press militar' }, notes: { pl: 'Barki', en: 'Shoulders', es: 'Hombros' } },
-                { sets: 3, reps: 12, name: { pl: 'Uginanie ramion ze sztangą', en: 'Barbell curl', es: 'Curl con barra' }, notes: { pl: 'Biceps', en: 'Biceps', es: 'Bíceps' } },
-                { sets: 3, reps: 12, name: { pl: 'Wyciskanie francuskie', en: 'Skullcrusher', es: 'Press francés' }, notes: { pl: 'Triceps', en: 'Triceps', es: 'Tríceps' } }
+                { id: 'bb_squat', sets: 3, reps: 10, name: { pl: 'Przysiady ze sztangą', en: 'Barbell squat', es: 'Sentadilla con barra' }, notes: { pl: 'Nogi', en: 'Legs', es: 'Piernas' } },
+                { id: 'bench_press_bb', sets: 3, reps: 10, name: { pl: 'Wyciskanie sztangi leżąc', en: 'Barbell bench press', es: 'Press de banca con barra' }, notes: { pl: 'Klata', en: 'Chest', es: 'Pecho' } },
+                { id: 'pull_ups', sets: 3, reps: 'max', name: { pl: 'Podciąganie na drążku', en: 'Pull-ups', es: 'Dominadas' }, notes: { pl: 'Plecy', en: 'Back', es: 'Espalda' } },
+                { id: 'ohp', sets: 3, reps: 10, name: { pl: 'Wyciskanie żołnierskie', en: 'Overhead press', es: 'Press militar' }, notes: { pl: 'Barki', en: 'Shoulders', es: 'Hombros' } },
+                { id: 'bb_curl', sets: 3, reps: 12, name: { pl: 'Uginanie ramion ze sztangą', en: 'Barbell curl', es: 'Curl con barra' }, notes: { pl: 'Biceps', en: 'Biceps', es: 'Bíceps' } },
+                { id: 'skullcrusher', sets: 3, reps: 12, name: { pl: 'Wyciskanie francuskie', en: 'Skullcrusher', es: 'Press francés' }, notes: { pl: 'Triceps', en: 'Triceps', es: 'Tríceps' } }
             ]
         };
 
@@ -12635,6 +13602,7 @@
             const template = WORKOUT_TEMPLATES[templateType] || [];
             const exercises = template.map((ex) => ({
                 name: (ex.name && (ex.name[lang] || ex.name.pl)) || '',
+                exerciseId: ex.id || null,
                 sets: ex.sets,
                 reps: ex.reps,
                 notes: (ex.notes && (ex.notes[lang] || ex.notes.pl)) || ''
@@ -12653,11 +13621,12 @@
         function saveCurrentWorkout() { saveData('currentWorkout', currentWorkout); }
 
         // Pobierz dane z ostatniego treningu dla danego ćwiczenia
-        function getLastWorkoutDataForExercise(exerciseName, expectedSets) {
-            if (!Array.isArray(workoutHistory) || !exerciseName) return null;
+        function getLastWorkoutDataForExercise(exerciseName, expectedSets, exerciseId = null) {
+            if (!Array.isArray(workoutHistory) || (!exerciseName && !exerciseId)) return null;
 
-            const targetKey = String(exerciseName).trim().toLowerCase();
-            const isMatch = (name) => String(name || '').trim().toLowerCase() === targetKey;
+            const targetKey = String(exerciseName || '').trim().toLowerCase();
+            const targetId = exerciseId || resolveExerciseIdByName(exerciseName);
+            const isMatch = (ex) => exercisesMatch(ex, exerciseName, targetId);
 
             // Krok 1: zbierz wszystkie wystąpienia ćwiczenia z historii (od najnowszego)
             const occurrences = [];
@@ -12666,7 +13635,7 @@
                 const workout = workoutHistory[i];
                 if (!workout || !Array.isArray(workout.exercises)) continue;
                 workout.exercises.forEach(ex => {
-                    if (!ex || !isMatch(ex.name)) return;
+                    if (!isMatch(ex)) return;
                     if (!Array.isArray(ex.weights) || !Array.isArray(ex.repsCompleted)) return;
                     const len = Math.max(
                         ex.sets || 0,
@@ -12876,7 +13845,7 @@
             const sets = exercise.sets || 3;
 
             // Pobierz dane z poprzedniego treningu (z fallbackiem do ostatniej wykonanej wagi)
-            const prevData = getLastWorkoutDataForExercise(exercise.name, sets);
+            const prevData = getLastWorkoutDataForExercise(exercise.name, sets, exercise.exerciseId || null);
 
             for (let i = 0; i < sets; i++) {
                 // Główny kontener serii
@@ -12895,7 +13864,7 @@
                     // Check if this completed set is a PR
                     const weight = exercise.weights[i];
                     const reps = exercise.repsCompleted[i];
-                    const prCheck = checkIfPR(exercise.name, weight, reps);
+                    const prCheck = checkIfPR(exercise.name, weight, reps, exercise.exerciseId || null);
                     if (prCheck) {
                         setBox.classList.add('pr-achieved');
                     }
@@ -12926,7 +13895,7 @@
                 if (exercise.completedSets[i]) {
                     const weight = exercise.weights[i];
                     const reps = exercise.repsCompleted[i];
-                    const prCheck = checkIfPR(exercise.name, weight, reps);
+                    const prCheck = checkIfPR(exercise.name, weight, reps, exercise.exerciseId || null);
                     if (prCheck) {
                         const prIndicator = document.createElement('span');
                         prIndicator.className = 'pr-indicator';
@@ -13084,27 +14053,50 @@
         // Funkcja do pokazywania modalu dodawania ćwiczenia (wywołana w Focus Mode)
         function showFocusAddExerciseModal() {
             showModal(t('add_ex_title'),
-                `<div class="form-group"><label>${escapeHtml(t('add_ex_name_label'))}</label><input type="text" id="m-exercise-name" placeholder="${escapeHtml(t('add_ex_name_ph'))}"></div>
+                `<div class="exercise-suggestions" id="m-lib-muscle-chips"></div>
+                <div class="form-group"><label>${escapeHtml(t('add_ex_name_label'))}</label>
+                <div class="exercise-picker-wrap">
+                    <input type="text" id="m-exercise-name" placeholder="${escapeHtml(t('add_ex_name_ph'))}" autocomplete="off">
+                    <div class="exercise-picker-dropdown" id="m-exercise-picker-dropdown" role="listbox" hidden></div>
+                </div>
+                <div class="exercise-lib-meta" id="m-exercise-lib-meta">
+                    <span class="exercise-lib-badge" id="m-exercise-lib-badge"><i class="fas fa-link" aria-hidden="true"></i> <span></span></span>
+                    <div class="exercise-lib-custom-muscles" id="m-exercise-custom-muscles"></div>
+                </div>
+                </div>
                 <div class="form-group"><label>${escapeHtml(t('add_ex_sets_label'))}</label><select id="m-exercise-sets"><option value="3">${escapeHtml(tCount('sets_select', 3))}</option><option value="4">${escapeHtml(tCount('sets_select', 4))}</option><option value="5">${escapeHtml(tCount('sets_select', 5))}</option></select></div>
                 <div class="form-group"><label>${escapeHtml(t('add_ex_reps_label'))}</label><input type="number" id="m-exercise-reps" value="10"></div>
                 <button id="m-add-exercise" class="btn-success"><i class="fas fa-plus"></i> ${escapeHtml(t('add_ex_to_workout'))}</button>`,
                 () => {
+                    window._focusExercisePicker = mountExercisePicker({
+                        inputId: 'm-exercise-name',
+                        dropdownId: 'm-exercise-picker-dropdown',
+                        chipsId: 'm-lib-muscle-chips',
+                        metaId: 'm-exercise-lib-meta',
+                        badgeId: 'm-exercise-lib-badge',
+                        customMusclesId: 'm-exercise-custom-muscles'
+                    });
                     document.getElementById('m-add-exercise').onclick = () => {
-                        const name = document.getElementById('m-exercise-name').value.trim();
+                        const selection = readExercisePickerSelection(document.getElementById('m-exercise-name'));
+                        const name = selection.name;
                         const sets = document.getElementById('m-exercise-sets').value;
                         const reps = document.getElementById('m-exercise-reps').value;
                         if (!name) return showToast(t('toast_ex_name_required2'), 'warning');
-                        addNewExerciseToWorkout(name, sets, reps);
+                        if (window._focusExercisePicker && window._focusExercisePicker.pendingCustomName && !selection.exerciseId) {
+                            return showToast(t('lib_pick_muscle'), 'warning');
+                        }
+                        addNewExerciseToWorkout(name, sets, reps, selection.exerciseId || null);
                         hideModal();
                     };
                 });
         }
 
         // Funkcja dodająca ćwiczenie do currentWorkout, bez wpływu na Plan
-        function addNewExerciseToWorkout(name, sets, reps) {
+        function addNewExerciseToWorkout(name, sets, reps, exerciseId = null) {
             const numSets = parseInt(sets);
             const newEx = {
                 name: name,
+                exerciseId: exerciseId || resolveExerciseIdByName(name) || null,
                 sets: numSets,
                 reps: parseInt(reps),
                 completedSets: Array(numSets).fill(false),
@@ -13115,6 +14107,7 @@
             };
 
             currentWorkout.exercises.push(newEx);
+            if (newEx.exerciseId) rememberRecentExercise(newEx.exerciseId);
             saveCurrentWorkout();
 
             const focusHost = document.getElementById('workout-focus-host');
@@ -13128,24 +14121,21 @@
             showToast(t('toast_ex_added', { name: name }), 'success');
         }
 
-        function checkIfPR(exerciseName, weight, reps) {
-            if (!exerciseName || !weight || !reps) return null;
+        function checkIfPR(exerciseName, weight, reps, exerciseId = null) {
+            if ((!exerciseName && !exerciseId) || !weight || !reps) return null;
 
             const weightNum = parseFloat(weight);
             const repsNum = parseInt(reps);
 
             if (isNaN(weightNum) || isNaN(repsNum) || weightNum <= 0 || repsNum <= 0) return null;
 
-            // Check against all-time PRs from workoutHistory (case-insensitive name match)
             const allTimePRs = calculateAllTimePRs();
-            const exercisePRs = findExercisePRs(allTimePRs, exerciseName);
+            const exercisePRs = findExercisePRs(allTimePRs, exerciseName, exerciseId);
 
-            // No history for this exercise — first completed set is the first PR
             if (!exercisePRs || (exercisePRs.maxWeight === null && exercisePRs.maxReps === null)) {
                 return { isWeightPR: true, isRepsPR: true };
             }
 
-            // Compare strictly against historical bests
             const isWeightPR = exercisePRs.maxWeight !== null && weightNum > exercisePRs.maxWeight;
             const isRepsPR = exercisePRs.maxReps !== null && repsNum > exercisePRs.maxReps;
 
@@ -13170,7 +14160,7 @@
 
                     const weight = exercise.weights[setIndex];
                     const reps = exercise.repsCompleted[setIndex];
-                    const prCheck = checkIfPR(exercise.name, weight, reps);
+                    const prCheck = checkIfPR(exercise.name, weight, reps, exercise.exerciseId || null);
 
                     if (prCheck) {
                         try { triggerCelebration({ intensity: 'small' }); } catch (e) { }
@@ -13259,7 +14249,7 @@
             const reps = exercise.repsCompleted[setIndex];
 
             // Check PR even if set is not completed yet (for live feedback while typing)
-            const prCheck = checkIfPR(exercise.name, weight, reps);
+            const prCheck = checkIfPR(exercise.name, weight, reps, exercise.exerciseId || null);
 
             // Find the set box
             const setBox = document.querySelector(`.focus-set-box[data-ex-index="${exIndex}"][data-set-index="${setIndex}"]`);
