@@ -1,5 +1,5 @@
-11<!DOCTYPE html>
-<html lang="pl" data-theme="dark">
+<!DOCTYPE html>
+<html lang="pl" data-theme="dark" data-palette="pulse" data-bg="default">
 
 <head>
     <meta charset="UTF-8">
@@ -130,7 +130,7 @@
             --suggestion-border: #27272A;
         }
 
-        /* === PAKIETY KOLORÓW (palety) === */
+        /* === PAKIETY KOLORÓW (palety) — tylko akcent === */
         [data-palette="mono"] {
             --accent-color-light: #0A0A0A;
             --accent-secondary-light: #E5E5E5;
@@ -151,7 +151,7 @@
         }
 
         /* Tekst na tle akcentu — kontrast (np. mono: białe tło + czarny tekst) */
-        button:not(.btn-info):not(.btn-warning):not(.btn-danger):not(.plan-actions-sheet-cancel):not(.plan-actions-sheet-item):not(.language-option):not(.palette-option):not(.install-tab):not(.install-later-btn):not(.settings-version-row):not(.nav-item):not(.pr-button):not(.theme-switcher):not(.sound-toggle):not(.page-header-btn):not(.btn-plan-more):not(.btn-move-up):not(.btn-move-down):not(.plan-toggle):not(.share-segment-btn):not(.lib-muscle-chip):not(.exercise-picker-item):not(.exercise-item-muscle),
+        button:not(.btn-info):not(.btn-warning):not(.btn-danger):not(.plan-actions-sheet-cancel):not(.plan-actions-sheet-item):not(.language-option):not(.palette-option):not(.palette-tab):not(.install-tab):not(.install-later-btn):not(.settings-version-row):not(.nav-item):not(.pr-button):not(.theme-switcher):not(.sound-toggle):not(.page-header-btn):not(.btn-plan-more):not(.btn-move-up):not(.btn-move-down):not(.plan-toggle):not(.share-segment-btn):not(.lib-muscle-chip):not(.exercise-picker-item):not(.exercise-item-muscle):not(.onboarding-skip):not(.onboarding-dot),
         .stepper-btn,
         .workout-resume-bar-cta,
         .install-tab.is-active,
@@ -166,7 +166,7 @@
         .pill-action-btn.sound-active,
         .install-hero-icon,
         .sound-toggle.active,
-        .fab {
+        .app-fab {
             color: var(--on-accent);
         }
 
@@ -263,6 +263,112 @@
             --accent-gradient-end-dark: #5EEAD4;
             --on-accent-light: #FFFFFF;
             --on-accent-dark: #042F2E;
+        }
+
+        /* === TŁA (osobno od palety akcentu) === */
+        [data-bg="ink"] {
+            --bg-color-light: #F4F4F5;
+            --card-bg-light: #FFFFFF;
+            --header-bg-light: #FFFFFF;
+            --bottom-nav-bg-light: #FFFFFF;
+            --border-color-light: #E4E4E7;
+            --bottom-nav-border-light: #E4E4E7;
+            --bg-color-dark: #000000;
+            --card-bg-dark: #0A0A0A;
+            --header-bg-dark: #0A0A0A;
+            --bottom-nav-bg-dark: #0A0A0A;
+            --border-color-dark: #1F1F1F;
+            --bottom-nav-border-dark: #1F1F1F;
+        }
+
+        [data-bg="warm"] {
+            --bg-color-light: #FFF7ED;
+            --card-bg-light: #FFFFFF;
+            --header-bg-light: #FFFBF5;
+            --bottom-nav-bg-light: #FFFBF5;
+            --border-color-light: #FED7AA;
+            --bottom-nav-border-light: #FED7AA;
+            --bg-color-dark: #140C08;
+            --card-bg-dark: #1C100A;
+            --header-bg-dark: #1C100A;
+            --bottom-nav-bg-dark: #1C100A;
+            --border-color-dark: #3F2314;
+            --bottom-nav-border-dark: #3F2314;
+        }
+
+        [data-bg="cool"] {
+            --bg-color-light: #F0F7FF;
+            --card-bg-light: #FFFFFF;
+            --header-bg-light: #F8FBFF;
+            --bottom-nav-bg-light: #F8FBFF;
+            --border-color-light: #D6E6F7;
+            --bottom-nav-border-light: #D6E6F7;
+            --bg-color-dark: #0A1018;
+            --card-bg-dark: #111925;
+            --header-bg-dark: #111925;
+            --bottom-nav-bg-dark: #111925;
+            --border-color-dark: #243247;
+            --bottom-nav-border-dark: #243247;
+        }
+
+        [data-bg="moss"] {
+            --bg-color-light: #F0FDF4;
+            --card-bg-light: #FFFFFF;
+            --header-bg-light: #F7FEFA;
+            --bottom-nav-bg-light: #F7FEFA;
+            --border-color-light: #BBF7D0;
+            --bottom-nav-border-light: #BBF7D0;
+            --bg-color-dark: #07140C;
+            --card-bg-dark: #0C1F14;
+            --header-bg-dark: #0C1F14;
+            --bottom-nav-bg-dark: #0C1F14;
+            --border-color-dark: #1A3A28;
+            --bottom-nav-border-dark: #1A3A28;
+        }
+
+        [data-bg="dusk"] {
+            --bg-color-light: #F5F3FF;
+            --card-bg-light: #FFFFFF;
+            --header-bg-light: #FAF8FF;
+            --bottom-nav-bg-light: #FAF8FF;
+            --border-color-light: #DDD6FE;
+            --bottom-nav-border-light: #DDD6FE;
+            --bg-color-dark: #0E0818;
+            --card-bg-dark: #160E24;
+            --header-bg-dark: #160E24;
+            --bottom-nav-bg-dark: #160E24;
+            --border-color-dark: #2E1F4A;
+            --bottom-nav-border-dark: #2E1F4A;
+        }
+
+        [data-bg="blush"] {
+            --bg-color-light: #FFF1F2;
+            --card-bg-light: #FFFFFF;
+            --header-bg-light: #FFF7F8;
+            --bottom-nav-bg-light: #FFF7F8;
+            --border-color-light: #FECDD3;
+            --bottom-nav-border-light: #FECDD3;
+            --bg-color-dark: #14080C;
+            --card-bg-dark: #1C0C12;
+            --header-bg-dark: #1C0C12;
+            --bottom-nav-bg-dark: #1C0C12;
+            --border-color-dark: #3F1A24;
+            --bottom-nav-border-dark: #3F1A24;
+        }
+
+        [data-bg="mist"] {
+            --bg-color-light: #F0FDFA;
+            --card-bg-light: #FFFFFF;
+            --header-bg-light: #F6FEFC;
+            --bottom-nav-bg-light: #F6FEFC;
+            --border-color-light: #99F6E4;
+            --bottom-nav-border-light: #99F6E4;
+            --bg-color-dark: #061412;
+            --card-bg-dark: #0A1C1A;
+            --header-bg-dark: #0A1C1A;
+            --bottom-nav-bg-dark: #0A1C1A;
+            --border-color-dark: #16403C;
+            --bottom-nav-border-dark: #16403C;
         }
 
         * {
@@ -1366,6 +1472,216 @@
             margin-top: 0;
         }
 
+        /* Feature tour — pierwsze uruchomienie (pełny ekran) */
+        .onboarding-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 4950;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            justify-content: stretch;
+            padding: 0;
+            background: radial-gradient(120% 70% at 50% 0%, var(--accent-muted), transparent 52%),
+                linear-gradient(165deg, var(--card-bg) 0%, var(--bg-color) 42%, var(--card-bg) 100%);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s ease;
+        }
+
+        .onboarding-overlay.is-open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .onboarding-overlay.hidden {
+            display: none !important;
+        }
+
+        .onboarding-panel {
+            position: relative;
+            flex: 1;
+            width: 100%;
+            max-width: none;
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            padding: max(12px, env(safe-area-inset-top)) 24px max(18px, env(safe-area-inset-bottom));
+            box-shadow: none;
+            transform: none;
+            opacity: 1;
+            transition: none;
+            text-align: center;
+        }
+
+        .onboarding-overlay.is-open .onboarding-panel {
+            transform: none;
+            opacity: 1;
+            animation: onboardingPanelIn 0.4s ease both;
+        }
+
+        @keyframes onboardingPanelIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .onboarding-skip {
+            position: absolute;
+            top: max(8px, env(safe-area-inset-top));
+            right: max(8px, env(safe-area-inset-right));
+            width: auto;
+            margin: 0;
+            padding: 10px 14px;
+            border: none;
+            border-radius: 12px;
+            background: transparent;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 700;
+            box-shadow: none;
+            z-index: 2;
+            min-height: 44px;
+        }
+
+        .onboarding-skip:active {
+            color: var(--accent-color);
+            transform: none;
+            filter: none;
+        }
+
+        .onboarding-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            min-height: 0;
+            padding: 48px 0 24px;
+        }
+
+        .onboarding-visual {
+            display: flex;
+            justify-content: center;
+            margin: 0 0 28px;
+        }
+
+        .onboarding-icon-wrap {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 112px;
+            height: 112px;
+            border-radius: 32px;
+            background: var(--accent-muted);
+            color: var(--accent-color);
+            font-size: 2.55rem;
+            box-shadow: 0 16px 40px var(--accent-glow);
+            animation: onboardingIconIn 0.45s ease both;
+        }
+
+        @keyframes onboardingIconIn {
+            from { opacity: 0; transform: scale(0.86) translateY(10px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .onboarding-title {
+            font-family: "Poppins", sans-serif;
+            font-size: clamp(1.55rem, 6.5vw, 2rem);
+            font-weight: 900;
+            color: var(--text-color);
+            line-height: 1.15;
+            margin: 0 0 14px;
+            max-width: 16ch;
+        }
+
+        .onboarding-body {
+            margin: 0 auto;
+            max-width: 32ch;
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.5;
+        }
+
+        .onboarding-footer {
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            width: 100%;
+            max-width: 420px;
+            margin: 0 auto;
+            padding-top: 8px;
+        }
+
+        .onboarding-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin: 0;
+        }
+
+        .onboarding-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            border: none;
+            padding: 0;
+            margin: 0;
+            margin-top: 0;
+            background: var(--border-color);
+            box-shadow: none;
+            min-height: 0;
+            cursor: pointer;
+            transition: width 0.2s ease, background 0.2s ease;
+        }
+
+        .onboarding-dot.is-active {
+            width: 22px;
+            background: var(--accent-color);
+        }
+
+        .onboarding-actions {
+            width: 100%;
+        }
+
+        .onboarding-actions .btn-success {
+            width: 100%;
+            margin-top: 0;
+            min-height: 54px;
+            border-radius: 16px;
+            justify-content: center;
+            font-size: 1.05rem;
+        }
+
+        .onboarding-panel.is-swap .onboarding-visual,
+        .onboarding-panel.is-swap .onboarding-title,
+        .onboarding-panel.is-swap .onboarding-body {
+            animation: onboardingSwap 0.28s ease;
+        }
+
+        @keyframes onboardingSwap {
+            from { opacity: 0; transform: translateX(14px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .onboarding-icon-wrap,
+            .onboarding-overlay.is-open .onboarding-panel,
+            .onboarding-panel.is-swap .onboarding-visual,
+            .onboarding-panel.is-swap .onboarding-title,
+            .onboarding-panel.is-swap .onboarding-body {
+                animation: none;
+            }
+        }
+
+        body.onboarding-open {
+            overflow: hidden;
+        }
+
         /* What's New (po aktualizacji) */
         .whats-new-overlay {
             position: fixed;
@@ -1606,23 +1922,34 @@
 
         .install-tabs {
             display: flex;
-            gap: 6px;
-            padding: 4px;
+            align-items: stretch;
+            gap: 4px;
+            padding: 5px;
             border-radius: 14px;
             background: var(--bg-color);
             border: 1px solid var(--border-color);
+            box-sizing: border-box;
         }
 
-        .install-tab {
-            flex: 1;
+        /* Nadpisuje globalne button { width:100% } — inaczej zakładki się rozjeżdżają */
+        button.install-tab {
+            flex: 1 1 0;
+            width: 0;
+            min-width: 0;
+            max-width: none;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             gap: 6px;
-            padding: 9px 6px;
+            min-height: 44px;
+            margin-top: 0;
+            padding: 10px 8px;
             border-radius: 10px;
             border: none;
+            outline: none;
             background: transparent;
+            background-color: transparent;
+            background-image: none;
             color: var(--text-muted);
             font-size: 0.85rem;
             font-weight: 700;
@@ -1630,15 +1957,18 @@
             -webkit-appearance: none;
             appearance: none;
             touch-action: manipulation;
-            transition: background 0.2s ease, color 0.2s ease;
+            box-shadow: none;
+            transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .install-tab i { font-size: 0.95rem; }
+        button.install-tab i { font-size: 0.95rem; }
 
-        .install-tab.is-active {
+        button.install-tab.is-active {
             background: var(--accent-color);
+            background-color: var(--accent-color);
+            background-image: none;
             color: var(--on-accent);
-            box-shadow: 0 6px 16px var(--accent-glow);
+            box-shadow: 0 2px 10px var(--accent-glow);
         }
 
         /* Animowany mockup telefonu (zamiast GIF-a — działa offline) */
@@ -2332,6 +2662,10 @@
             position: relative;
             width: 100%;
             max-width: 100%;
+            max-height: calc(100dvh - 8px);
+            overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
             background: var(--card-bg);
             border-radius: 20px 20px 0 0;
             border: 1px solid var(--border-color);
@@ -2448,6 +2782,53 @@
             font-size: 0.88rem;
             color: var(--text-muted);
             line-height: 1.4;
+        }
+
+        .palette-tabs {
+            display: flex;
+            gap: 4px;
+            padding: 4px;
+            margin: 0 0 10px;
+            border-radius: 12px;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+        }
+
+        .palette-tab {
+            flex: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            width: auto;
+            min-height: 44px;
+            margin-top: 0;
+            padding: 10px 12px;
+            border-radius: 9px;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            -webkit-appearance: none;
+            appearance: none;
+            touch-action: manipulation;
+            transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: none;
+        }
+
+        .palette-tab i { font-size: 0.9rem; }
+
+        .palette-tab.is-active {
+            background: var(--accent-color);
+            color: var(--on-accent);
+            box-shadow: 0 3px 10px var(--accent-glow);
+        }
+
+        .palette-panel.hidden,
+        .palette-panel[hidden] {
+            display: none;
         }
 
         .palette-grid {
@@ -3122,6 +3503,34 @@
 
         .exercise-picker-dropdown.is-open {
             display: block;
+        }
+
+        /* W bottom sheet: lista w układzie (nie absolute), żeby nie wychodziła poza ekran */
+        .plan-actions-sheet-panel .exercise-picker-dropdown {
+            position: relative;
+            left: auto;
+            right: auto;
+            top: auto;
+            z-index: 1;
+            max-height: min(38dvh, 260px);
+            margin-top: 8px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+        }
+
+        .plan-actions-sheet-panel .exercise-picker-wrap {
+            z-index: 2;
+        }
+
+        #quick-workout-sheet .quick-workout-sheet-body .form-group input[type="text"] {
+            margin-bottom: 0;
+        }
+
+        #quick-workout-sheet .exercise-lib-meta {
+            margin-top: 10px;
+        }
+
+        #quick-workout-sheet .exercise-lib-meta:not(.is-visible) {
+            display: none;
         }
 
         button.exercise-picker-item {
@@ -5024,8 +5433,8 @@
 
         /* --- NOWE STYLE (Sugestia 1 i 2) --- */
 
-        /* Pływający Przycisk Akcji (FAB) */
-        .fab {
+        /* Pływający Przycisk Akcji (FAB) — NIE używaj klasy .fab (kolizja z Font Awesome Brands) */
+        .app-fab {
             position: fixed;
             bottom: calc(var(--bottom-nav-height) + env(safe-area-inset-bottom) + 20px);
             right: 20px;
@@ -5042,18 +5451,18 @@
             transition: transform 0.2s ease-out, opacity 0.2s ease-out, bottom 0.25s ease-out;
         }
 
-        .fab:active {
+        .app-fab:active {
             transform: scale(0.9);
             filter: brightness(0.9);
         }
 
-        .fab.hidden {
+        .app-fab.hidden {
             transform: scale(0);
             opacity: 0;
             pointer-events: none;
         }
 
-        body:has(#workout-resume-bar:not(.hidden)) .fab {
+        body:has(#workout-resume-bar:not(.hidden)) .app-fab {
             bottom: calc(var(--bottom-nav-height) + env(safe-area-inset-bottom) + 86px);
         }
 
@@ -5233,7 +5642,7 @@
         }
 
         .app-body>.container,
-        .app-body>.fab {
+        .app-body>.app-fab {
             opacity: 0;
             transition: opacity 0.4s ease-in 0.2s;
         }
@@ -5244,7 +5653,7 @@
         }
 
         body.app-loaded .app-body>.container,
-        body.app-loaded .app-body>.fab {
+        body.app-loaded .app-body>.app-fab {
             opacity: 1;
         }
 
@@ -5969,7 +6378,7 @@
             </div>
         </nav>
 
-        <button id="fab-add-plan" class="fab hidden"><i class="fas fa-plus"></i></button>
+        <button id="fab-add-plan" class="app-fab hidden"><i class="fas fa-plus"></i></button>
 
     </div>
 
@@ -6086,7 +6495,7 @@
             <button type="button" class="settings-version-row" id="theme-sheet-version" aria-label="Pokaż co nowego w tej wersji">
                 <i class="fas fa-circle-info" aria-hidden="true"></i>
                 <span class="settings-version-label" data-i18n="version_label">Wersja</span>
-                <span class="settings-version-value" id="theme-sheet-version-value">1.2.0</span>
+                <span class="settings-version-value" id="theme-sheet-version-value">1.2.5</span>
             </button>
         </div>
     </div>
@@ -6136,8 +6545,21 @@
         <div class="plan-actions-sheet-panel">
             <div class="plan-actions-sheet-handle" aria-hidden="true"></div>
             <h3 id="palette-sheet-title" class="plan-actions-sheet-title" data-i18n="palette_sheet_title">Palety kolorów</h3>
-            <p class="palette-sheet-desc" data-i18n="palette_sheet_desc">Wybierz pakiet kolorów. Działa z trybem jasnym i ciemnym.</p>
-            <div class="palette-grid" id="palette-grid" role="listbox" aria-label="Palety kolorów"></div>
+            <div class="palette-tabs" id="palette-tabs" role="tablist" aria-label="Motyw lub tło">
+                <button type="button" class="palette-tab is-active" data-palette-tab="motifs" role="tab" aria-selected="true" id="palette-tab-motifs">
+                    <i class="fas fa-swatchbook" aria-hidden="true"></i> <span data-i18n="palette_tab_motifs">Motywy</span>
+                </button>
+                <button type="button" class="palette-tab" data-palette-tab="bg" role="tab" aria-selected="false" id="palette-tab-bg">
+                    <i class="fas fa-fill-drip" aria-hidden="true"></i> <span data-i18n="palette_tab_bg">Tło</span>
+                </button>
+            </div>
+            <p class="palette-sheet-desc" id="palette-sheet-desc" data-i18n="palette_sheet_desc">Kolor akcentu przycisków i wyróżnień. Działa z trybem jasnym i ciemnym.</p>
+            <div class="palette-panel" id="palette-panel-motifs" data-palette-panel="motifs">
+                <div class="palette-grid" id="palette-grid" role="listbox" aria-label="Motywy"></div>
+            </div>
+            <div class="palette-panel hidden" id="palette-panel-bg" data-palette-panel="bg" hidden>
+                <div class="palette-grid" id="bg-grid" role="listbox" aria-label="Tła"></div>
+            </div>
             <button type="button" class="plan-actions-sheet-cancel" id="palette-sheet-cancel" data-i18n="cancel">Anuluj</button>
         </div>
     </div>
@@ -6196,12 +6618,35 @@
         </div>
     </div>
 
+    <div id="onboarding-overlay" class="onboarding-overlay hidden" role="dialog" aria-modal="true"
+        aria-labelledby="onboarding-title" aria-hidden="true">
+        <div class="onboarding-panel">
+            <button type="button" class="onboarding-skip" id="onboarding-skip" data-i18n="onboarding_skip">Pomiń</button>
+            <div class="onboarding-main">
+                <div class="onboarding-visual" id="onboarding-visual" aria-hidden="true">
+                    <span class="onboarding-icon-wrap"><i class="fas fa-dumbbell" id="onboarding-icon"></i></span>
+                </div>
+                <h2 id="onboarding-title" class="onboarding-title"></h2>
+                <p id="onboarding-body" class="onboarding-body"></p>
+            </div>
+            <div class="onboarding-footer">
+                <div class="onboarding-dots" id="onboarding-dots" role="tablist" aria-label="Postęp"></div>
+                <div class="onboarding-actions">
+                    <button type="button" class="btn-success" id="onboarding-next">
+                        <span id="onboarding-next-label" data-i18n="onboarding_continue">Dalej</span>
+                        <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div id="whats-new-overlay" class="whats-new-overlay hidden" role="dialog" aria-modal="true"
         aria-labelledby="whats-new-title" aria-hidden="true">
         <div class="whats-new-panel">
             <div class="whats-new-header">
                 <h2 id="whats-new-title" class="whats-new-title">Witaj w GymCut!</h2>
-                <span class="whats-new-version-badge" id="whats-new-version-badge">v1.2.0</span>
+                <span class="whats-new-version-badge" id="whats-new-version-badge">v1.2.5</span>
             </div>
             <p class="whats-new-subtitle" id="whats-new-subtitle"></p>
             <ul class="whats-new-list" id="whats-new-list"></ul>
@@ -6429,9 +6874,13 @@
                 sheet_plan_title: 'Plan', act_edit_plan: 'Edytuj plan', act_rename: 'Zmień nazwę', act_delete_plan: 'Usuń plan', cancel: 'Anuluj',
                 sheet_workout_title: 'Trening', act_details: 'Szczegóły', act_share: 'Udostępnij trening', act_edit_workout: 'Edytuj trening', act_delete_workout: 'Usuń trening',
                 appearance_sheet_title: 'Wygląd', act_change_theme: 'Zmień motyw', act_feedback: 'Pomoc i propozycje funkcji', act_kofi: 'Wspieraj na Ko-fi', act_data: 'Dane', act_language: 'Język', act_palette: 'Palety kolorów', version_label: 'Wersja',
-                palette_sheet_title: 'Palety kolorów', palette_sheet_desc: 'Wybierz pakiet kolorów. Działa z trybem jasnym i ciemnym.',
+                palette_sheet_title: 'Palety kolorów', palette_sheet_desc: 'Kolor akcentu przycisków i wyróżnień. Działa z trybem jasnym i ciemnym.',
+                palette_tab_motifs: 'Motywy', palette_tab_bg: 'Tło',
                 palette_pulse: 'Neon Pulse', palette_mono: 'Monochromatyczny', palette_forest: 'Las', palette_sunset: 'Zachód słońca', palette_purple: 'Fiolet', palette_rose: 'Róż', palette_ocean: 'Ocean',
                 toast_palette_changed: 'Zmieniono paletę kolorów',
+                bg_sheet_desc: 'Kolor tła, kart i nawigacji. Niezależne od motywu akcentu.',
+                bg_default: 'Domyślne', bg_ink: 'Atrament', bg_warm: 'Ciepłe', bg_cool: 'Chłodne', bg_moss: 'Mech', bg_dusk: 'Zmierzch', bg_blush: 'Różowe', bg_mist: 'Mgła',
+                toast_bg_changed: 'Zmieniono tło',
                 install_title: 'Dodaj GymCut na ekran główny', install_subtitle: 'Aby apka działała najlepiej — offline, na pełnym ekranie i jednym tapnięciem z ekranu głównego — dodaj ją jak zwykłą aplikację.',
                 install_got_it: 'OK, rozumiem', install_add: 'Zainstaluj teraz', install_later: 'Może później',
                 install_choose_device: 'Wybierz urządzenie', install_tab_ios: 'iPhone / iPad', install_tab_android: 'Android',
@@ -6440,6 +6889,15 @@
                 install_android_1: 'Otwórz menu przeglądarki (⋮ w prawym górnym rogu).', install_android_2: 'Wybierz „Zainstaluj aplikację” lub „Dodaj do ekranu głównego”.', install_android_3: 'Potwierdź, naciskając „Zainstaluj”.',
                 toast_installed: 'Świetnie! GymCut jest teraz na Twoim ekranie głównym 🎉',
                 ui_sounds_on: 'Dźwięki interfejsu: włączone', ui_sounds_off: 'Dźwięki interfejsu: wyłączone',
+                onboarding_skip: 'Pomiń', onboarding_continue: 'Dalej', onboarding_start: 'Zaczynamy',
+                onboarding_1_title: 'Witaj w GymCut',
+                onboarding_1_body: 'Twórz plany treningowe i zapisuj serie w jednym, prostym miejscu — bez konta i bez zbędnych rzeczy.',
+                onboarding_2_title: 'Trenuj w trybie skupienia',
+                onboarding_2_body: 'Oznaczaj serie jednym tapnięciem. Po ukończeniu serii poczujesz wibrację i usłyszysz dźwięk (jeśli włączysz go w ustawieniach).',
+                onboarding_3_title: 'Biblioteka ćwiczeń',
+                onboarding_3_body: 'Wybieraj z katalogu, filtruj partie i dodawaj własne. Szybki trening startuje od razu z jednego ćwiczenia.',
+                onboarding_4_title: 'Dopasuj wygląd',
+                onboarding_4_body: 'W Wygląd → Palety ustaw motywy i tło. Tam też włączysz dźwięki interfejsu.',
                 theme_to_light: 'Włącz tryb jasny', theme_to_dark: 'Włącz tryb ciemny',
                 theme_text_dark: 'Tryb ciemny', theme_text_light: 'Tryb jasny',
                 data_sheet_title: 'Dane', data_export: 'Eksportuj dane (JSON)',
@@ -6537,6 +6995,11 @@
                 share_preview_title: 'Podgląd grafiki', share_format_story: 'Story 9:16', share_format_post: 'Post 4:5', share_format_story_short: 'Story', share_format_post_short: 'Post', share_control_format: 'Format', share_control_template: 'Szablon', share_preview_share: 'Udostępnij', share_preview_download: 'Pobierz', share_preview_loading: 'Generowanie grafiki…',
                 share_template_full: 'Pełny', share_template_minimal: 'Statystyki', share_template_celebration: 'Rekord', share_celebration_headline: 'NOWY REKORD!', share_celebration_ex: 'REKORDY W SESJI',
                 whatsnew_default_title: 'Co nowego',
+                wn_125_title: 'Nowości w wersji 1.2.5', wn_125_sub: 'Wygląd, biblioteka i poprawki UX:',
+                wn_125_1: 'Palety kolorów — osobno Motywy (akcent) i Tło, w jednym miejscu.',
+                wn_125_2: 'Rozszerzona biblioteka ćwiczeń — ok. 120 pozycji z nazwami PL / EN / ES.',
+                wn_125_3: 'Szybki trening — lista ćwiczeń mieści się w arkuszu i nie wychodzi poza ekran.',
+                wn_125_4: 'Wybór partii mięśniowej, ostatnio używane i własne ćwiczenia w pickerze.',
                 wn_120_title: 'Nowości w wersji 1.2', wn_120_sub: 'Więcej stylu, więcej motywacji. Oto co nowego:',
                 wn_120_1: '7 palet kolorów — Mono, Forest, Sunset i inne. Wybierz w Wygląd → Palety kolorów.',
                 wn_120_2: 'Animacja streaku — ogień od dołu ekranu po podsumowaniu treningu, gdy przedłużysz serię.',
@@ -6593,9 +7056,13 @@
                 sheet_plan_title: 'Plan', act_edit_plan: 'Edit plan', act_rename: 'Rename', act_delete_plan: 'Delete plan', cancel: 'Cancel',
                 sheet_workout_title: 'Workout', act_details: 'Details', act_share: 'Share workout', act_edit_workout: 'Edit workout', act_delete_workout: 'Delete workout',
                 appearance_sheet_title: 'Appearance', act_change_theme: 'Change theme', act_feedback: 'Help & feature requests', act_kofi: 'Support on Ko-fi', act_data: 'Data', act_language: 'Language', act_palette: 'Color palettes', version_label: 'Version',
-                palette_sheet_title: 'Color palettes', palette_sheet_desc: 'Pick a color pack. Works with light and dark mode.',
+                palette_sheet_title: 'Color palettes', palette_sheet_desc: 'Accent color for buttons and highlights. Works with light and dark mode.',
+                palette_tab_motifs: 'Themes', palette_tab_bg: 'Background',
                 palette_pulse: 'Neon Pulse', palette_mono: 'Monochrome', palette_forest: 'Forest', palette_sunset: 'Sunset', palette_purple: 'Purple', palette_rose: 'Rose', palette_ocean: 'Ocean',
                 toast_palette_changed: 'Color palette changed',
+                bg_sheet_desc: 'Background, cards and navigation. Independent from the accent theme.',
+                bg_default: 'Default', bg_ink: 'Ink', bg_warm: 'Warm', bg_cool: 'Cool', bg_moss: 'Moss', bg_dusk: 'Dusk', bg_blush: 'Blush', bg_mist: 'Mist',
+                toast_bg_changed: 'Background changed',
                 install_title: 'Add GymCut to your Home Screen', install_subtitle: 'For the best experience — offline, full screen and one tap away from your Home Screen — install it like a regular app.',
                 install_got_it: 'Got it', install_add: 'Install now', install_later: 'Maybe later',
                 install_choose_device: 'Choose your device', install_tab_ios: 'iPhone / iPad', install_tab_android: 'Android',
@@ -6604,6 +7071,15 @@
                 install_android_1: 'Open the browser menu (⋮ in the top right).', install_android_2: 'Choose “Install app” or “Add to Home screen”.', install_android_3: 'Confirm by tapping “Install”.',
                 toast_installed: 'Awesome! GymCut is now on your Home Screen 🎉',
                 ui_sounds_on: 'Interface sounds: on', ui_sounds_off: 'Interface sounds: off',
+                onboarding_skip: 'Skip', onboarding_continue: 'Continue', onboarding_start: 'Get started',
+                onboarding_1_title: 'Welcome to GymCut',
+                onboarding_1_body: 'Build training plans and log sets in one simple place — no account, no clutter.',
+                onboarding_2_title: 'Train in focus mode',
+                onboarding_2_body: 'Mark sets with one tap. Completing a set gives a short haptic buzz and a sound (if you enable interface sounds).',
+                onboarding_3_title: 'Exercise library',
+                onboarding_3_body: 'Pick from the catalog, filter by muscle, or add your own. Quick workout starts from a single exercise.',
+                onboarding_4_title: 'Make it yours',
+                onboarding_4_body: 'In Appearance → Color palettes set themes and backgrounds. You can also turn on interface sounds there.',
                 theme_to_light: 'Switch to light mode', theme_to_dark: 'Switch to dark mode',
                 theme_text_dark: 'Dark mode', theme_text_light: 'Light mode',
                 data_sheet_title: 'Data', data_export: 'Export data (JSON)',
@@ -6701,6 +7177,11 @@
                 share_preview_title: 'Image preview', share_format_story: 'Story 9:16', share_format_post: 'Post 4:5', share_format_story_short: 'Story', share_format_post_short: 'Post', share_control_format: 'Format', share_control_template: 'Template', share_preview_share: 'Share', share_preview_download: 'Download', share_preview_loading: 'Generating image…',
                 share_template_full: 'Full', share_template_minimal: 'Stats', share_template_celebration: 'Record', share_celebration_headline: 'NEW RECORD!', share_celebration_ex: 'SESSION PRs',
                 whatsnew_default_title: 'What\'s new',
+                wn_125_title: 'What\'s new in 1.2.5', wn_125_sub: 'Appearance, library and UX fixes:',
+                wn_125_1: 'Color palettes — Themes (accent) and Background separately, in one place.',
+                wn_125_2: 'Expanded exercise library — about 120 entries with PL / EN / ES names.',
+                wn_125_3: 'Quick workout — exercise list stays inside the sheet and on screen.',
+                wn_125_4: 'Muscle filters, recently used and custom exercises in the picker.',
                 wn_120_title: 'What\'s new in 1.2', wn_120_sub: 'More style, more motivation. Here\'s what\'s new:',
                 wn_120_1: '7 color palettes — Mono, Forest, Sunset and more. Pick in Appearance → Color palettes.',
                 wn_120_2: 'Streak animation — fire rises from the bottom after your workout summary when you extend your streak.',
@@ -6757,9 +7238,13 @@
                 sheet_plan_title: 'Plan', act_edit_plan: 'Editar plan', act_rename: 'Renombrar', act_delete_plan: 'Eliminar plan', cancel: 'Cancelar',
                 sheet_workout_title: 'Entreno', act_details: 'Detalles', act_share: 'Compartir entreno', act_edit_workout: 'Editar entreno', act_delete_workout: 'Eliminar entreno',
                 appearance_sheet_title: 'Apariencia', act_change_theme: 'Cambiar tema', act_feedback: 'Ayuda y sugerencias', act_kofi: 'Apóyanos en Ko-fi', act_data: 'Datos', act_language: 'Idioma', act_palette: 'Paletas de color', version_label: 'Versión',
-                palette_sheet_title: 'Paletas de color', palette_sheet_desc: 'Elige un paquete de colores. Funciona con modo claro y oscuro.',
+                palette_sheet_title: 'Paletas de color', palette_sheet_desc: 'Color de acento de botones y destacados. Funciona con modo claro y oscuro.',
+                palette_tab_motifs: 'Temas', palette_tab_bg: 'Fondo',
                 palette_pulse: 'Neon Pulse', palette_mono: 'Monocromo', palette_forest: 'Bosque', palette_sunset: 'Atardecer', palette_purple: 'Púrpura', palette_rose: 'Rosa', palette_ocean: 'Océano',
                 toast_palette_changed: 'Paleta de colores cambiada',
+                bg_sheet_desc: 'Color de fondo, tarjetas y navegación. Independiente del tema de acento.',
+                bg_default: 'Predeterminado', bg_ink: 'Tinta', bg_warm: 'Cálido', bg_cool: 'Frío', bg_moss: 'Musgo', bg_dusk: 'Crepúsculo', bg_blush: 'Rubor', bg_mist: 'Niebla',
+                toast_bg_changed: 'Fondo cambiado',
                 install_title: 'Añade GymCut a tu pantalla de inicio', install_subtitle: 'Para la mejor experiencia — sin conexión, a pantalla completa y a un toque desde tu inicio — instálala como una app normal.',
                 install_got_it: 'Entendido', install_add: 'Instalar ahora', install_later: 'Quizás más tarde',
                 install_choose_device: 'Elige tu dispositivo', install_tab_ios: 'iPhone / iPad', install_tab_android: 'Android',
@@ -6768,6 +7253,15 @@
                 install_android_1: 'Abre el menú del navegador (⋮ arriba a la derecha).', install_android_2: 'Elige «Instalar app» o «Añadir a pantalla de inicio».', install_android_3: 'Confirma tocando «Instalar».',
                 toast_installed: '¡Genial! GymCut ya está en tu pantalla de inicio 🎉',
                 ui_sounds_on: 'Sonidos de interfaz: activados', ui_sounds_off: 'Sonidos de interfaz: desactivados',
+                onboarding_skip: 'Omitir', onboarding_continue: 'Continuar', onboarding_start: 'Empezar',
+                onboarding_1_title: 'Bienvenido a GymCut',
+                onboarding_1_body: 'Crea planes y registra series en un solo lugar — sin cuenta y sin complicaciones.',
+                onboarding_2_title: 'Entrena en modo foco',
+                onboarding_2_body: 'Marca series con un toque. Al completar una serie hay vibración y sonido (si activas los sonidos de interfaz).',
+                onboarding_3_title: 'Biblioteca de ejercicios',
+                onboarding_3_body: 'Elige del catálogo, filtra por músculo o crea los tuyos. El entrenamiento rápido arranca con un ejercicio.',
+                onboarding_4_title: 'Personaliza el look',
+                onboarding_4_body: 'En Apariencia → Paletas elige temas y fondo. Allí también puedes activar los sonidos de interfaz.',
                 theme_to_light: 'Activar modo claro', theme_to_dark: 'Activar modo oscuro',
                 theme_text_dark: 'Modo oscuro', theme_text_light: 'Modo claro',
                 data_sheet_title: 'Datos', data_export: 'Exportar datos (JSON)',
@@ -6865,6 +7359,11 @@
                 share_preview_title: 'Vista previa', share_format_story: 'Story 9:16', share_format_post: 'Post 4:5', share_format_story_short: 'Story', share_format_post_short: 'Post', share_control_format: 'Formato', share_control_template: 'Plantilla', share_preview_share: 'Compartir', share_preview_download: 'Descargar', share_preview_loading: 'Generando imagen…',
                 share_template_full: 'Completo', share_template_minimal: 'Stats', share_template_celebration: 'Récord', share_celebration_headline: '¡NUEVO RÉCORD!', share_celebration_ex: 'PR DE LA SESIÓN',
                 whatsnew_default_title: 'Novedades',
+                wn_125_title: 'Novedades de la versión 1.2.5', wn_125_sub: 'Apariencia, biblioteca y mejoras de UX:',
+                wn_125_1: 'Paletas de color — Temas (acento) y Fondo por separado, en un solo sitio.',
+                wn_125_2: 'Biblioteca ampliada — unas 120 entradas con nombres PL / EN / ES.',
+                wn_125_3: 'Entrenamiento rápido — la lista de ejercicios cabe en la hoja y en pantalla.',
+                wn_125_4: 'Filtros musculares, recientes y ejercicios propios en el selector.',
                 wn_120_title: 'Novedades de la versión 1.2', wn_120_sub: 'Más estilo, más motivación. Esto es lo nuevo:',
                 wn_120_1: '7 paletas de color — Mono, Forest, Sunset y más. Elige en Apariencia → Paletas de color.',
                 wn_120_2: 'Animación de racha — fuego desde abajo tras el resumen del entreno al alargar tu racha.',
@@ -7022,7 +7521,11 @@
                     renderFocusExercise(currentFocusExerciseIndex);
                 }
                 const paletteSheet = document.getElementById('palette-sheet');
-                if (paletteSheet && paletteSheet.classList.contains('is-open')) renderPaletteGrid();
+                if (paletteSheet && paletteSheet.classList.contains('is-open')) {
+                    renderPaletteGrid();
+                    renderBgGrid();
+                    syncPaletteSheetTab();
+                }
             } catch (e) { console.warn('setLanguage re-render error', e); }
         }
 
@@ -7604,23 +8107,41 @@
             });
         }
 
-        // --- PALETY KOLORÓW ---
+        // --- PALETY KOLORÓW (+ tła w tym samym arkuszu) ---
         const PALETTE_IDS = ['pulse', 'mono', 'forest', 'sunset', 'purple', 'rose', 'ocean'];
         const PALETTE_META = {
-            pulse: { labelKey: 'palette_pulse', swatches: ['#0D0D0D', '#5C95FF', '#27272A'] },
-            mono: { labelKey: 'palette_mono', swatches: ['#000000', '#FFFFFF', '#404040'] },
-            forest: { labelKey: 'palette_forest', swatches: ['#052E16', '#4ADE80', '#14532D'] },
-            sunset: { labelKey: 'palette_sunset', swatches: ['#431407', '#FB923C', '#9A3412'] },
-            purple: { labelKey: 'palette_purple', swatches: ['#2E1065', '#A78BFA', '#581C87'] },
-            rose: { labelKey: 'palette_rose', swatches: ['#4C0519', '#FB7185', '#9F1239'] },
-            ocean: { labelKey: 'palette_ocean', swatches: ['#042F2E', '#2DD4BF', '#115E59'] }
+            pulse: { labelKey: 'palette_pulse', swatches: ['#2563EB', '#5C95FF', '#7c5cff'] },
+            mono: { labelKey: 'palette_mono', swatches: ['#0A0A0A', '#FAFAFA', '#525252'] },
+            forest: { labelKey: 'palette_forest', swatches: ['#15803D', '#4ADE80', '#059669'] },
+            sunset: { labelKey: 'palette_sunset', swatches: ['#EA580C', '#FB923C', '#DC2626'] },
+            purple: { labelKey: 'palette_purple', swatches: ['#7C3AED', '#A78BFA', '#9333EA'] },
+            rose: { labelKey: 'palette_rose', swatches: ['#E11D48', '#FB7185', '#BE123C'] },
+            ocean: { labelKey: 'palette_ocean', swatches: ['#0D9488', '#2DD4BF', '#0891B2'] }
+        };
+        const BG_IDS = ['default', 'ink', 'warm', 'cool', 'moss', 'dusk', 'blush', 'mist'];
+        const BG_META = {
+            default: { labelKey: 'bg_default', swatches: ['#F9FAFB', '#0D0D0D', '#121212'] },
+            ink: { labelKey: 'bg_ink', swatches: ['#F4F4F5', '#000000', '#0A0A0A'] },
+            warm: { labelKey: 'bg_warm', swatches: ['#FFF7ED', '#140C08', '#1C100A'] },
+            cool: { labelKey: 'bg_cool', swatches: ['#F0F7FF', '#0A1018', '#111925'] },
+            moss: { labelKey: 'bg_moss', swatches: ['#F0FDF4', '#07140C', '#0C1F14'] },
+            dusk: { labelKey: 'bg_dusk', swatches: ['#F5F3FF', '#0E0818', '#160E24'] },
+            blush: { labelKey: 'bg_blush', swatches: ['#FFF1F2', '#14080C', '#1C0C12'] },
+            mist: { labelKey: 'bg_mist', swatches: ['#F0FDFA', '#061412', '#0A1C1A'] }
         };
         let paletteSheetOpenedAt = 0;
+        let paletteSheetTab = 'motifs';
 
         function applySavedPalette() {
             const saved = loadData('colorPalette');
             const id = PALETTE_IDS.includes(saved) ? saved : 'pulse';
             document.documentElement.setAttribute('data-palette', id);
+        }
+
+        function applySavedBg() {
+            const saved = loadData('colorBg');
+            const id = BG_IDS.includes(saved) ? saved : 'default';
+            document.documentElement.setAttribute('data-bg', id);
         }
 
         function setPalette(id, silent) {
@@ -7635,6 +8156,20 @@
             syncPaletteSheetSelection();
             updateSelectArrowColor();
             if (!silent) showToast(t('toast_palette_changed'), 'success', 2200);
+        }
+
+        function setBg(id, silent) {
+            if (!BG_IDS.includes(id)) id = 'default';
+            const current = document.documentElement.getAttribute('data-bg') || 'default';
+            if (id === current) {
+                syncBgSheetSelection();
+                return;
+            }
+            document.documentElement.setAttribute('data-bg', id);
+            saveData('colorBg', id);
+            syncBgSheetSelection();
+            updateSelectArrowColor();
+            if (!silent) showToast(t('toast_bg_changed'), 'success', 2200);
         }
 
         function renderPaletteGrid() {
@@ -7660,6 +8195,29 @@
             syncPaletteSheetSelection();
         }
 
+        function renderBgGrid() {
+            const grid = document.getElementById('bg-grid');
+            if (!grid) return;
+            grid.innerHTML = '';
+            BG_IDS.forEach((id) => {
+                const meta = BG_META[id];
+                if (!meta) return;
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'palette-option';
+                btn.dataset.bg = id;
+                btn.setAttribute('role', 'option');
+                btn.innerHTML =
+                    '<div class="palette-preview">' +
+                    meta.swatches.map((c) => `<span style="background:${c}"></span>`).join('') +
+                    '</div>' +
+                    `<span class="palette-option-label">${escapeHtml(t(meta.labelKey))}</span>` +
+                    '<i class="fas fa-check palette-option-check" aria-hidden="true"></i>';
+                grid.appendChild(btn);
+            });
+            syncBgSheetSelection();
+        }
+
         function syncPaletteSheetSelection() {
             const current = document.documentElement.getAttribute('data-palette') || 'pulse';
             document.querySelectorAll('#palette-grid .palette-option').forEach((btn) => {
@@ -7669,6 +8227,48 @@
             });
         }
 
+        function syncBgSheetSelection() {
+            const current = document.documentElement.getAttribute('data-bg') || 'default';
+            document.querySelectorAll('#bg-grid .palette-option').forEach((btn) => {
+                const active = btn.dataset.bg === current;
+                btn.classList.toggle('is-active', active);
+                btn.setAttribute('aria-selected', active ? 'true' : 'false');
+            });
+        }
+
+        function syncPaletteSheetTab() {
+            const tab = paletteSheetTab === 'bg' ? 'bg' : 'motifs';
+            paletteSheetTab = tab;
+            document.querySelectorAll('#palette-tabs .palette-tab').forEach((btn) => {
+                const active = btn.dataset.paletteTab === tab;
+                btn.classList.toggle('is-active', active);
+                btn.setAttribute('aria-selected', active ? 'true' : 'false');
+            });
+            const motifsPanel = document.getElementById('palette-panel-motifs');
+            const bgPanel = document.getElementById('palette-panel-bg');
+            if (motifsPanel) {
+                const show = tab === 'motifs';
+                motifsPanel.classList.toggle('hidden', !show);
+                motifsPanel.hidden = !show;
+            }
+            if (bgPanel) {
+                const show = tab === 'bg';
+                bgPanel.classList.toggle('hidden', !show);
+                bgPanel.hidden = !show;
+            }
+            const desc = document.getElementById('palette-sheet-desc');
+            if (desc) {
+                const key = tab === 'bg' ? 'bg_sheet_desc' : 'palette_sheet_desc';
+                desc.setAttribute('data-i18n', key);
+                desc.textContent = t(key);
+            }
+        }
+
+        function setPaletteSheetTab(tab) {
+            paletteSheetTab = tab === 'bg' ? 'bg' : 'motifs';
+            syncPaletteSheetTab();
+        }
+
         function openPaletteSheet() {
             closePlanActionsSheet();
             const sheet = document.getElementById('palette-sheet');
@@ -7676,6 +8276,8 @@
             paletteSheetOpenedAt = Date.now();
             applyStaticTranslations(sheet);
             renderPaletteGrid();
+            renderBgGrid();
+            syncPaletteSheetTab();
             sheet.classList.remove('hidden');
             void sheet.offsetWidth;
             sheet.classList.add('is-open');
@@ -7711,16 +8313,26 @@
             const sheet = document.getElementById('palette-sheet');
             if (!sheet) return;
             renderPaletteGrid();
+            renderBgGrid();
+            syncPaletteSheetTab();
             sheet.addEventListener('click', (e) => {
                 if (e.target.closest('#palette-sheet-backdrop')) {
                     if (Date.now() - paletteSheetOpenedAt < PLAN_SHEET_BACKDROP_SUPPRESS_MS) return;
                     closePaletteSheet();
                     return;
                 }
+                const tabBtn = e.target.closest('.palette-tab');
+                if (tabBtn && tabBtn.dataset.paletteTab) {
+                    setPaletteSheetTab(tabBtn.dataset.paletteTab);
+                    return;
+                }
                 const opt = e.target.closest('.palette-option');
                 if (opt && opt.dataset.palette) {
                     setPalette(opt.dataset.palette);
-                    closePaletteSheet();
+                    return;
+                }
+                if (opt && opt.dataset.bg) {
+                    setBg(opt.dataset.bg);
                     return;
                 }
                 if (e.target.closest('#palette-sheet-cancel')) closePaletteSheet();
@@ -8589,8 +9201,18 @@
         const PLAN_SHEET_BACKDROP_SUPPRESS_MS = 550;
         const HISTORY_SHEET_BACKDROP_SUPPRESS_MS = 650;
         /** Aktualna wersja aplikacji oraz changelog pokazywany w ekranie „Co nowego”. */
-        const APP_VERSION = '1.2.0';
+        const APP_VERSION = '1.2.5';
         const WHATS_NEW = {
+            '1.2.5': {
+                titleKey: 'wn_125_title',
+                subtitleKey: 'wn_125_sub',
+                items: [
+                    { icon: 'fa-palette', key: 'wn_125_1' },
+                    { icon: 'fa-dumbbell', key: 'wn_125_2' },
+                    { icon: 'fa-bolt', key: 'wn_125_3' },
+                    { icon: 'fa-list', key: 'wn_125_4' }
+                ]
+            },
             '1.2.0': {
                 titleKey: 'wn_120_title',
                 subtitleKey: 'wn_120_sub',
@@ -8677,6 +9299,7 @@
             const savedTheme = loadData('theme') || 'dark';
             document.documentElement.setAttribute('data-theme', savedTheme);
             applySavedPalette();
+            applySavedBg();
             updateThemeButton(savedTheme);
             const savedSoundSetting = loadData('timerSoundEnabled');
             if (savedSoundSetting !== null) { timerSoundEnabled = savedSoundSetting; }
@@ -8737,12 +9360,16 @@
                     enterFocusMode();
                 }
                 updateWorkoutResumeBar();
-                // Kolejność warstw startowych: „Co nowego” → podsumowania → onboarding A2HS.
+                // Kolejność warstw startowych: onboarding → „Co nowego” → podsumowania → A2HS.
                 const afterIntro = () => {
                     tryShowReviewPopup();
                     setTimeout(tryShowInstallPrompt, 700);
                 };
                 setTimeout(() => {
+                    if (tryShowOnboarding(() => {
+                        saveData('lastSeenVersion', APP_VERSION);
+                        afterIntro();
+                    })) return;
                     const shown = tryShowWhatsNew(afterIntro);
                     if (!shown) afterIntro();
                 }, 600);
@@ -8799,6 +9426,7 @@
             initWorkoutSharePreview();
             initStatsDashboard();
             initWhatsNew();
+            initOnboarding();
             initInstallPrompt();
 
             document.getElementById('add-quick-workout-exercise-btn').addEventListener('click', addQuickWorkoutExercise);
@@ -9022,6 +9650,9 @@
             uiSoundEnabled = !uiSoundEnabled;
             saveData('uiSoundEnabled', uiSoundEnabled);
             syncThemeSheetUiSoundsLabel();
+            if (uiSoundEnabled) {
+                tryUnlockUiAudioContext().then(() => playUiSound('setDone'));
+            }
         }
 
         async function tryUnlockUiAudioContext() {
@@ -9039,7 +9670,6 @@
 
         function playUiSound(kind = 'ding') {
             if (!uiSoundEnabled) return;
-            if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
             const run = async () => {
                 await tryUnlockUiAudioContext();
                 const ctx = window._liftlogUiAudioCtx;
@@ -9050,9 +9680,9 @@
                     const g = ctx.createGain();
                     osc.type = 'sine';
                     osc.frequency.setValueAtTime(freq, now + start);
-                    const v = Math.min(0.12, Math.max(0.0001, vol));
+                    const v = Math.min(0.14, Math.max(0.0001, vol));
                     g.gain.setValueAtTime(0.0001, now + start);
-                    g.gain.exponentialRampToValueAtTime(v, now + start + 0.015);
+                    g.gain.exponentialRampToValueAtTime(v, now + start + 0.012);
                     g.gain.exponentialRampToValueAtTime(0.0001, now + start + dur);
                     osc.connect(g);
                     g.connect(ctx.destination);
@@ -9062,11 +9692,30 @@
                 if (kind === 'workoutDone') {
                     makeTone(523.25, 0, 0.1, 0.08);
                     makeTone(659.25, 0.09, 0.12, 0.07);
+                } else if (kind === 'prDing') {
+                    makeTone(659.25, 0, 0.08, 0.09);
+                    makeTone(783.99, 0.07, 0.1, 0.08);
+                    makeTone(987.77, 0.15, 0.12, 0.07);
+                } else if (kind === 'setDone') {
+                    makeTone(698.46, 0, 0.055, 0.09);
+                    makeTone(880, 0.045, 0.07, 0.07);
                 } else {
                     makeTone(587.33, 0, 0.11, 0.085);
                 }
             };
             run();
+        }
+
+        function prefersReducedMotion() {
+            return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+        }
+
+        /** Feedback po ukończeniu serii: dźwięk (opcjonalnie) + haptic */
+        function playSetCompleteFeedback({ isPr = false } = {}) {
+            playUiSound(isPr ? 'prDing' : 'setDone');
+            // PR ma już wibrację z confetti — tu tylko zwykła seria
+            if (isPr || prefersReducedMotion()) return;
+            vibratePattern([14]);
         }
 
         function setTimerPreset(seconds) {
@@ -12107,6 +12756,128 @@
         /** Klucz okresu aktualnie pokazanego podsumowania (zapisywany jako widziany przy zamknięciu). */
         let activeReviewPopupSeenKey = null;
 
+        // --- Onboarding (pierwsze uruchomienie) ---
+        let onboardingStep = 0;
+        let onboardingPendingCallback = null;
+        const ONBOARDING_SLIDES = [
+            { icon: 'fa-dumbbell', titleKey: 'onboarding_1_title', bodyKey: 'onboarding_1_body' },
+            { icon: 'fa-bolt', titleKey: 'onboarding_2_title', bodyKey: 'onboarding_2_body' },
+            { icon: 'fa-book', titleKey: 'onboarding_3_title', bodyKey: 'onboarding_3_body' },
+            { icon: 'fa-palette', titleKey: 'onboarding_4_title', bodyKey: 'onboarding_4_body' }
+        ];
+
+        function tryShowOnboarding(onClosed) {
+            if (loadData('onboardingSeen') === true) return false;
+            // Istniejący użytkownik (ma plany / historię / zapisaną wersję) — nie pokazuj touru
+            if (loadData('lastSeenVersion')) {
+                saveData('onboardingSeen', true);
+                return false;
+            }
+            const hasHistory = Array.isArray(workoutHistory) && workoutHistory.length > 0;
+            const hasPlans = Array.isArray(trainingPlans) && trainingPlans.length > 0;
+            if (hasHistory || hasPlans) {
+                saveData('onboardingSeen', true);
+                return false;
+            }
+            showOnboarding(onClosed);
+            return true;
+        }
+
+        function showOnboarding(onClosed) {
+            const overlay = document.getElementById('onboarding-overlay');
+            if (!overlay) return;
+            onboardingPendingCallback = typeof onClosed === 'function' ? onClosed : null;
+            onboardingStep = 0;
+            applyStaticTranslations(overlay);
+            renderOnboardingSlide(false);
+            overlay.classList.remove('hidden');
+            overlay.setAttribute('aria-hidden', 'false');
+            document.body.classList.add('onboarding-open');
+            requestAnimationFrame(() => overlay.classList.add('is-open'));
+        }
+
+        function renderOnboardingSlide(animate) {
+            const slide = ONBOARDING_SLIDES[onboardingStep];
+            if (!slide) return;
+            const panel = document.querySelector('#onboarding-overlay .onboarding-panel');
+            const iconEl = document.getElementById('onboarding-icon');
+            const titleEl = document.getElementById('onboarding-title');
+            const bodyEl = document.getElementById('onboarding-body');
+            const nextLabel = document.getElementById('onboarding-next-label');
+            const dotsHost = document.getElementById('onboarding-dots');
+            if (iconEl) iconEl.className = 'fas ' + slide.icon;
+            if (titleEl) titleEl.textContent = t(slide.titleKey);
+            if (bodyEl) bodyEl.textContent = t(slide.bodyKey);
+            if (nextLabel) {
+                const last = onboardingStep >= ONBOARDING_SLIDES.length - 1;
+                nextLabel.textContent = last ? t('onboarding_start') : t('onboarding_continue');
+            }
+            if (dotsHost) {
+                dotsHost.innerHTML = '';
+                ONBOARDING_SLIDES.forEach((_, i) => {
+                    const dot = document.createElement('button');
+                    dot.type = 'button';
+                    dot.className = 'onboarding-dot' + (i === onboardingStep ? ' is-active' : '');
+                    dot.setAttribute('aria-label', String(i + 1));
+                    dot.addEventListener('click', () => {
+                        if (i === onboardingStep) return;
+                        onboardingStep = i;
+                        renderOnboardingSlide(true);
+                    });
+                    dotsHost.appendChild(dot);
+                });
+            }
+            if (animate && panel && !prefersReducedMotion()) {
+                panel.classList.remove('is-swap');
+                void panel.offsetWidth;
+                panel.classList.add('is-swap');
+            }
+        }
+
+        function advanceOnboarding() {
+            if (onboardingStep < ONBOARDING_SLIDES.length - 1) {
+                onboardingStep += 1;
+                renderOnboardingSlide(true);
+                return;
+            }
+            closeOnboarding();
+        }
+
+        function closeOnboarding() {
+            const overlay = document.getElementById('onboarding-overlay');
+            if (!overlay) return;
+            overlay.classList.remove('is-open');
+            overlay.setAttribute('aria-hidden', 'true');
+            document.body.classList.remove('onboarding-open');
+            saveData('onboardingSeen', true);
+            const cb = onboardingPendingCallback;
+            onboardingPendingCallback = null;
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+                if (typeof cb === 'function') {
+                    try { cb(); } catch (e) { console.error(e); }
+                }
+            }, 320);
+        }
+
+        function initOnboarding() {
+            const overlay = document.getElementById('onboarding-overlay');
+            if (!overlay) return;
+            const nextBtn = document.getElementById('onboarding-next');
+            const skipBtn = document.getElementById('onboarding-skip');
+            if (nextBtn) nextBtn.addEventListener('click', advanceOnboarding);
+            if (skipBtn) skipBtn.addEventListener('click', closeOnboarding);
+            document.addEventListener('keydown', (e) => {
+                if (!overlay.classList.contains('is-open')) return;
+                if (e.key === 'Escape') closeOnboarding();
+                else if (e.key === 'ArrowRight' || e.key === 'Enter') advanceOnboarding();
+                else if (e.key === 'ArrowLeft' && onboardingStep > 0) {
+                    onboardingStep -= 1;
+                    renderOnboardingSlide(true);
+                }
+            });
+        }
+
         function tryShowWhatsNew(onClosed) {
             const seen = loadData('lastSeenVersion');
             if (seen === APP_VERSION) return false;
@@ -12351,6 +13122,8 @@
             if (document.body.classList.contains('plan-sheet-open')) return;
             const whatsNew = document.getElementById('whats-new-overlay');
             if (whatsNew && whatsNew.classList.contains('is-open')) return;
+            const onboarding = document.getElementById('onboarding-overlay');
+            if (onboarding && onboarding.classList.contains('is-open')) return;
             const review = document.getElementById('review-popup-overlay');
             if (review && review.classList.contains('visible')) return;
             const modalEl = document.getElementById('modal');
@@ -12403,6 +13176,8 @@
             if (document.body.classList.contains('plan-sheet-open')) return;
             const whatsNewOverlay = document.getElementById('whats-new-overlay');
             if (whatsNewOverlay && whatsNewOverlay.classList.contains('is-open')) return;
+            const onboardingOverlay = document.getElementById('onboarding-overlay');
+            if (onboardingOverlay && onboardingOverlay.classList.contains('is-open')) return;
             const modalEl = document.getElementById('modal');
             if (modalEl && !modalEl.classList.contains('hidden')) return;
             const reviewOverlay = document.getElementById('review-popup-overlay');
@@ -13099,50 +13874,138 @@
         // --- BIBLIOTEKA ĆWICZEŃ (katalog + picker) ---
         const MUSCLE_FILTER_KEYS = ['Klatka', 'Plecy', 'Barki', 'Ramiona', 'Nogi', 'Pośladki', 'Core'];
         const EXERCISE_CATALOG = [
+            // --- Klatka ---
             { id: 'bench_press_bb', primary: 'Klatka', name: { pl: 'Wyciskanie sztangi leżąc', en: 'Barbell bench press', es: 'Press de banca con barra' }, aliases: ['bench', 'bench press', 'wyciskanie leżąc', 'lp'] },
             { id: 'flat_db_press', primary: 'Klatka', name: { pl: 'Wyciskanie hantli na płaskiej', en: 'Flat dumbbell press', es: 'Press con mancuernas en banco plano' }, aliases: ['wyciskanie hantli na płaskiej ławce', 'dumbbell press', 'db press flat', 'hantle płasko', 'wyciskanie hantli leżąc'] },
             { id: 'incline_db_press', primary: 'Klatka', name: { pl: 'Wyciskanie hantli na skosie', en: 'Incline dumbbell press', es: 'Press inclinado con mancuernas' }, aliases: ['incline press', 'skos hantle'] },
             { id: 'incline_bb_press', primary: 'Klatka', name: { pl: 'Wyciskanie sztangi na skosie', en: 'Incline barbell press', es: 'Press inclinado con barra' }, aliases: ['incline bench'] },
+            { id: 'decline_bb_press', primary: 'Klatka', name: { pl: 'Wyciskanie sztangi głową w dół', en: 'Decline barbell press', es: 'Press declinado con barra' }, aliases: ['decline bench', 'skos ujemny'] },
+            { id: 'decline_db_press', primary: 'Klatka', name: { pl: 'Wyciskanie hantli głową w dół', en: 'Decline dumbbell press', es: 'Press declinado con mancuernas' }, aliases: ['decline db'] },
+            { id: 'chest_press_machine', primary: 'Klatka', name: { pl: 'Wyciskanie na maszynie (klatka)', en: 'Chest press machine', es: 'Press de pecho en máquina' }, aliases: ['chest press', 'maszyna klatka'] },
             { id: 'pec_deck', primary: 'Klatka', name: { pl: 'Rozpiętki (pec deck)', en: 'Pec deck fly', es: 'Aperturas en pec deck' }, aliases: ['pec deck', 'rozpiętki', 'fly'] },
-            { id: 'cable_fly', primary: 'Klatka', name: { pl: 'Rozpiętki na wyciągu', en: 'Cable fly', es: 'Aperturas en polea' }, aliases: ['cable crossover'] },
+            { id: 'db_fly', primary: 'Klatka', name: { pl: 'Rozpiętki hantlami', en: 'Dumbbell fly', es: 'Aperturas con mancuernas' }, aliases: ['db fly', 'rozpiętki hantle'] },
+            { id: 'incline_db_fly', primary: 'Klatka', name: { pl: 'Rozpiętki hantlami na skosie', en: 'Incline dumbbell fly', es: 'Aperturas inclinadas con mancuernas' }, aliases: ['incline fly'] },
+            { id: 'cable_fly', primary: 'Klatka', name: { pl: 'Rozpiętki na wyciągu', en: 'Cable fly', es: 'Aperturas en polea' }, aliases: ['cable crossover', 'crossover'] },
+            { id: 'low_cable_fly', primary: 'Klatka', name: { pl: 'Rozpiętki z dołu (wyciąg)', en: 'Low-to-high cable fly', es: 'Aperturas de abajo hacia arriba' }, aliases: ['low cable fly', 'rozpiętki z dołu'] },
             { id: 'push_ups', primary: 'Klatka', name: { pl: 'Pompki', en: 'Push-ups', es: 'Flexiones' }, aliases: ['pompki', 'pushups'] },
+            { id: 'diamond_push_ups', primary: 'Klatka', name: { pl: 'Pompki diamentowe', en: 'Diamond push-ups', es: 'Flexiones diamante' }, aliases: ['diamond pushup', 'pompki wąsko'] },
             { id: 'dips_chest', primary: 'Klatka', name: { pl: 'Dipy na poręczach', en: 'Chest dips', es: 'Fondos en paralelas' }, aliases: ['dips', 'dipy'] },
+            { id: 'floor_press', primary: 'Klatka', name: { pl: 'Wyciskanie z podłogi', en: 'Floor press', es: 'Press desde el suelo' }, aliases: ['floor press'] },
+            { id: 'landmine_press', primary: 'Klatka', name: { pl: 'Wyciskanie landmine', en: 'Landmine press', es: 'Press landmine' }, aliases: ['landmine'] },
+
+            // --- Plecy ---
             { id: 'lat_pulldown', primary: 'Plecy', name: { pl: 'Ściąganie drążka', en: 'Lat pulldown', es: 'Jalón al pecho' }, aliases: ['pulldown', 'ściąganie'] },
+            { id: 'lat_pulldown_wide', primary: 'Plecy', name: { pl: 'Ściąganie drążka szeroko', en: 'Wide-grip lat pulldown', es: 'Jalón agarre ancho' }, aliases: ['wide pulldown'] },
+            { id: 'lat_pulldown_close', primary: 'Plecy', name: { pl: 'Ściąganie drążka wąsko', en: 'Close-grip lat pulldown', es: 'Jalón agarre cerrado' }, aliases: ['close pulldown', 'v-bar pulldown'] },
             { id: 'pull_ups', primary: 'Plecy', name: { pl: 'Podciąganie na drążku', en: 'Pull-ups', es: 'Dominadas' }, aliases: ['podciąganie', 'pullups', 'chin up'] },
+            { id: 'chin_ups', primary: 'Plecy', name: { pl: 'Podciąganie podchwytem', en: 'Chin-ups', es: 'Dominadas supinas' }, aliases: ['chinups', 'podchwyt'] },
+            { id: 'neutral_pull_ups', primary: 'Plecy', name: { pl: 'Podciąganie chwytem młotkowym', en: 'Neutral-grip pull-ups', es: 'Dominadas agarre neutro' }, aliases: ['neutral pullups'] },
             { id: 'bb_bent_over_row', primary: 'Plecy', name: { pl: 'Wiosłowanie w opadzie sztangą', en: 'Barbell bent-over row', es: 'Remo inclinado con barra' }, aliases: ['barbell row', 'wiosłowanie'] },
-            { id: 'db_row', primary: 'Plecy', name: { pl: 'Wiosłowanie hantlem', en: 'Dumbbell row', es: 'Remo con mancuerna' }, aliases: ['one arm row'] },
+            { id: 'pendlay_row', primary: 'Plecy', name: { pl: 'Wiosłowanie Pendlay', en: 'Pendlay row', es: 'Remo Pendlay' }, aliases: ['pendlay'] },
+            { id: 'db_row', primary: 'Plecy', name: { pl: 'Wiosłowanie hantlem', en: 'Dumbbell row', es: 'Remo con mancuerna' }, aliases: ['one arm row', 'wiosłowanie jednorącz'] },
+            { id: 'chest_supported_row', primary: 'Plecy', name: { pl: 'Wiosłowanie z oparciem klatki', en: 'Chest-supported row', es: 'Remo con pecho apoyado' }, aliases: ['chest supported', 'seal row'] },
             { id: 'seated_cable_row', primary: 'Plecy', name: { pl: 'Wiosłowanie siedząc', en: 'Seated cable row', es: 'Remo sentado en polea' }, aliases: ['cable row'] },
+            { id: 'tbar_row', primary: 'Plecy', name: { pl: 'Wiosłowanie T-bar', en: 'T-bar row', es: 'Remo en T' }, aliases: ['t-bar', 'tbar'] },
+            { id: 'meadows_row', primary: 'Plecy', name: { pl: 'Wiosłowanie Meadows', en: 'Meadows row', es: 'Remo Meadows' }, aliases: ['meadows'] },
+            { id: 'straight_arm_pulldown', primary: 'Plecy', name: { pl: 'Ściąganie prostymi ramionami', en: 'Straight-arm pulldown', es: 'Jalón con brazos rectos' }, aliases: ['straight arm', 'pullover wyciąg'] },
+            { id: 'db_pullover', primary: 'Plecy', name: { pl: 'Pullover hantlem', en: 'Dumbbell pullover', es: 'Pullover con mancuerna' }, aliases: ['pullover'] },
             { id: 'deadlift', primary: 'Plecy', name: { pl: 'Martwy ciąg', en: 'Deadlift', es: 'Peso muerto' }, aliases: ['martwy', 'dl'] },
+            { id: 'sumo_deadlift', primary: 'Plecy', name: { pl: 'Martwy ciąg sumo', en: 'Sumo deadlift', es: 'Peso muerto sumo' }, aliases: ['sumo'] },
             { id: 'rdl', primary: 'Plecy', name: { pl: 'Martwy ciąg rumuński', en: 'Romanian deadlift', es: 'Peso muerto rumano' }, aliases: ['rdl', 'rumuński'] },
+            { id: 'stiff_leg_dl', primary: 'Plecy', name: { pl: 'Martwy ciąg na prostych nogach', en: 'Stiff-leg deadlift', es: 'Peso muerto piernas rígidas' }, aliases: ['sldl', 'proste nogi'] },
+            { id: 'rack_pull', primary: 'Plecy', name: { pl: 'Martwy ciąg z podwyższenia (rack pull)', en: 'Rack pull', es: 'Peso muerto parcial' }, aliases: ['rack pull'] },
+            { id: 'good_morning', primary: 'Plecy', name: { pl: 'Good morning', en: 'Good morning', es: 'Buenos días' }, aliases: ['good mornings'] },
+            { id: 'hyperextension', primary: 'Plecy', name: { pl: 'Prostowanie tułowia (hyperextension)', en: 'Back extension', es: 'Extensión de espalda' }, aliases: ['hyperextensions', 'prostowanie grzbietu'] },
             { id: 'face_pull', primary: 'Plecy', name: { pl: 'Face pull', en: 'Face pull', es: 'Face pull' }, aliases: ['facepulls'] },
             { id: 'db_shrugs', primary: 'Plecy', name: { pl: 'Szrugsy hantlami', en: 'Dumbbell shrugs', es: 'Encogimientos con mancuernas' }, aliases: ['shrugs', 'szrugsy', 'kaptury'] },
+            { id: 'bb_shrugs', primary: 'Plecy', name: { pl: 'Szrugsy sztangą', en: 'Barbell shrugs', es: 'Encogimientos con barra' }, aliases: ['barbell shrug'] },
+
+            // --- Barki ---
             { id: 'ohp', primary: 'Barki', name: { pl: 'Wyciskanie żołnierskie', en: 'Overhead press', es: 'Press militar' }, aliases: ['ohp', 'military press', 'żołnierskie'] },
+            { id: 'push_press', primary: 'Barki', name: { pl: 'Push press', en: 'Push press', es: 'Push press' }, aliases: ['pushpress'] },
             { id: 'db_shoulder_press', primary: 'Barki', name: { pl: 'Wyciskanie hantli nad głowę', en: 'Dumbbell shoulder press', es: 'Press de hombros con mancuernas' }, aliases: ['shoulder press'] },
+            { id: 'machine_shoulder_press', primary: 'Barki', name: { pl: 'Wyciskanie barków na maszynie', en: 'Machine shoulder press', es: 'Press de hombros en máquina' }, aliases: ['shoulder press machine'] },
+            { id: 'arnold_press', primary: 'Barki', name: { pl: 'Arnoldki', en: 'Arnold press', es: 'Press Arnold' }, aliases: ['arnold'] },
             { id: 'cable_lateral_raise', primary: 'Barki', name: { pl: 'Wznosy na wyciągu', en: 'Cable lateral raise', es: 'Elevaciones laterales en polea' }, aliases: ['lateral raise', 'wznosy bokiem'] },
             { id: 'db_lateral_raise', primary: 'Barki', name: { pl: 'Wznosy hantli bokiem', en: 'Dumbbell lateral raise', es: 'Elevaciones laterales con mancuernas' }, aliases: ['side raise'] },
+            { id: 'leaning_lateral_raise', primary: 'Barki', name: { pl: 'Wznosy bokiem w pochyleniu', en: 'Leaning lateral raise', es: 'Elevaciones laterales inclinadas' }, aliases: ['leaning raise'] },
+            { id: 'front_raise', primary: 'Barki', name: { pl: 'Wznosy hantli przodem', en: 'Front raise', es: 'Elevaciones frontales' }, aliases: ['front raises', 'wznosy przodem'] },
+            { id: 'upright_row', primary: 'Barki', name: { pl: 'Podciąganie sztangi wzdłuż tułowia', en: 'Upright row', es: 'Remo al mentón' }, aliases: ['upright row'] },
             { id: 'reverse_pec_deck', primary: 'Barki', name: { pl: 'Odwrócone rozpiętki (reverse pec deck)', en: 'Reverse pec deck fly', es: 'Aperturas inversas en pec deck' }, aliases: ['rear delt', 'tylny bark'] },
-            { id: 'arnold_press', primary: 'Barki', name: { pl: 'Arnoldki', en: 'Arnold press', es: 'Press Arnold' }, aliases: ['arnold'] },
+            { id: 'rear_delt_fly', primary: 'Barki', name: { pl: 'Rozpiętki na tylny bark', en: 'Rear delt fly', es: 'Aperturas para deltoides posteriores' }, aliases: ['rear fly', 'bent over fly'] },
+            { id: 'cable_rear_delt', primary: 'Barki', name: { pl: 'Tylny bark na wyciągu', en: 'Cable rear delt fly', es: 'Deltoides posteriores en polea' }, aliases: ['cable rear delt'] },
+            { id: 'lu_raise', primary: 'Barki', name: { pl: 'Lu raises', en: 'Lu raises', es: 'Elevaciones Lu' }, aliases: ['lu raise'] },
+
+            // --- Ramiona (biceps + triceps) ---
             { id: 'bb_curl', primary: 'Ramiona', name: { pl: 'Uginanie ramion ze sztangą', en: 'Barbell curl', es: 'Curl con barra' }, aliases: ['barbell curl', 'uginanie'] },
+            { id: 'ez_bar_curl', primary: 'Ramiona', name: { pl: 'Uginanie ze sztangą EZ', en: 'EZ-bar curl', es: 'Curl con barra EZ' }, aliases: ['ez curl', 'ez bar'] },
             { id: 'db_curl', primary: 'Ramiona', name: { pl: 'Uginanie ramion z hantlami', en: 'Dumbbell curl', es: 'Curl con mancuernas' }, aliases: ['bicep curl'] },
+            { id: 'incline_db_curl', primary: 'Ramiona', name: { pl: 'Uginanie na skosie', en: 'Incline dumbbell curl', es: 'Curl inclinado con mancuernas' }, aliases: ['incline curl'] },
             { id: 'hammer_curl', primary: 'Ramiona', name: { pl: 'Uginanie młotkowe', en: 'Hammer curl', es: 'Curl martillo' }, aliases: ['młotkowe', 'hammer'] },
+            { id: 'concentration_curl', primary: 'Ramiona', name: { pl: 'Uginanie koncentracyjne', en: 'Concentration curl', es: 'Curl de concentración' }, aliases: ['concentration'] },
+            { id: 'preacher_curl', primary: 'Ramiona', name: { pl: 'Uginanie na modlitewniku', en: 'Preacher curl', es: 'Curl en predicador' }, aliases: ['preacher', 'modlitewnik'] },
+            { id: 'cable_curl', primary: 'Ramiona', name: { pl: 'Uginanie na wyciągu', en: 'Cable curl', es: 'Curl en polea' }, aliases: ['cable bicep curl'] },
             { id: 'bayesian_curl', primary: 'Ramiona', name: { pl: 'Bayesian curl', en: 'Bayesian curl', es: 'Curl bayesiano' }, aliases: ['bayesian'] },
-            { id: 'triceps_pushdown', primary: 'Ramiona', name: { pl: 'Triceps pushdown', en: 'Triceps pushdown', es: 'Extensión de tríceps en polea' }, aliases: ['pushdown', 'prostowanie na wyciągu'] },
-            { id: 'overhead_triceps_ext', primary: 'Ramiona', name: { pl: 'Triceps overhead extension', en: 'Overhead triceps extension', es: 'Extensión de tríceps por encima de la cabeza' }, aliases: ['overhead extension'] },
+            { id: 'spider_curl', primary: 'Ramiona', name: { pl: 'Spider curl', en: 'Spider curl', es: 'Curl araña' }, aliases: ['spider'] },
+            { id: 'triceps_pushdown', primary: 'Ramiona', name: { pl: 'Prostowanie ramion na wyciągu', en: 'Triceps pushdown', es: 'Extensión de tríceps en polea' }, aliases: ['pushdown', 'prostowanie na wyciągu', 'triceps pushdown'] },
+            { id: 'rope_pushdown', primary: 'Ramiona', name: { pl: 'Prostowanie z liną', en: 'Rope triceps pushdown', es: 'Extensión de tríceps con cuerda' }, aliases: ['rope pushdown'] },
+            { id: 'overhead_triceps_ext', primary: 'Ramiona', name: { pl: 'Prostowanie nad głową', en: 'Overhead triceps extension', es: 'Extensión de tríceps por encima de la cabeza' }, aliases: ['overhead extension', 'triceps overhead'] },
             { id: 'skullcrusher', primary: 'Ramiona', name: { pl: 'Wyciskanie francuskie', en: 'Skullcrusher', es: 'Press francés' }, aliases: ['francuskie', 'skull crusher'] },
-            { id: 'bb_squat', primary: 'Nogi', name: { pl: 'Przysiady ze sztangą', en: 'Barbell squat', es: 'Sentadilla con barra' }, aliases: ['squat', 'przysiad', 'przysiady'] },
-            { id: 'leg_press', primary: 'Nogi', name: { pl: 'Hack / leg press', en: 'Leg press', es: 'Prensa de piernas' }, aliases: ['legpress', 'hack squat'] },
+            { id: 'close_grip_bench', primary: 'Ramiona', name: { pl: 'Wyciskanie wąskim chwytem', en: 'Close-grip bench press', es: 'Press de banca agarre cerrado' }, aliases: ['cgbp', 'wąski chwyt'] },
+            { id: 'triceps_dips', primary: 'Ramiona', name: { pl: 'Dipy na triceps', en: 'Triceps dips', es: 'Fondos de tríceps' }, aliases: ['bench dips', 'dipy triceps'] },
+            { id: 'kickbacks', primary: 'Ramiona', name: { pl: 'Prostowanie w opadzie (kickback)', en: 'Triceps kickback', es: 'Patada de tríceps' }, aliases: ['kickback triceps', 'triceps kickback'] },
+            { id: 'jm_press', primary: 'Ramiona', name: { pl: 'JM press', en: 'JM press', es: 'Press JM' }, aliases: ['jmpress'] },
+
+            // --- Nogi ---
+            { id: 'bb_squat', primary: 'Nogi', name: { pl: 'Przysiady ze sztangą', en: 'Barbell squat', es: 'Sentadilla con barra' }, aliases: ['squat', 'przysiad', 'przysiady', 'back squat'] },
+            { id: 'front_squat', primary: 'Nogi', name: { pl: 'Przysiady przednie', en: 'Front squat', es: 'Sentadilla frontal' }, aliases: ['front squat'] },
+            { id: 'goblet_squat', primary: 'Nogi', name: { pl: 'Przysiad goblet', en: 'Goblet squat', es: 'Sentadilla goblet' }, aliases: ['goblet'] },
+            { id: 'hack_squat', primary: 'Nogi', name: { pl: 'Hack squat', en: 'Hack squat', es: 'Hack squat' }, aliases: ['hack'] },
+            { id: 'leg_press', primary: 'Nogi', name: { pl: 'Wypychanie nogami (leg press)', en: 'Leg press', es: 'Prensa de piernas' }, aliases: ['legpress', 'wypychanie'] },
             { id: 'db_lunges', primary: 'Nogi', name: { pl: 'Wykroki z hantlami', en: 'Dumbbell lunges', es: 'Zancadas con mancuernas' }, aliases: ['lunges', 'wykroki'] },
+            { id: 'walking_lunges', primary: 'Nogi', name: { pl: 'Wykroki chodzone', en: 'Walking lunges', es: 'Zancadas caminando' }, aliases: ['walking lunge'] },
+            { id: 'reverse_lunge', primary: 'Nogi', name: { pl: 'Wykroki do tyłu', en: 'Reverse lunges', es: 'Zancadas hacia atrás' }, aliases: ['reverse lunges'] },
+            { id: 'bulgarian_split', primary: 'Nogi', name: { pl: 'Bułgarskie przysiady', en: 'Bulgarian split squat', es: 'Zancada búlgara' }, aliases: ['bulgarian', 'bułgarskie'] },
+            { id: 'step_ups', primary: 'Nogi', name: { pl: 'Wchodzenie na podwyższenie', en: 'Step-ups', es: 'Subidas al cajón' }, aliases: ['step up', 'stepups'] },
             { id: 'leg_extension', primary: 'Nogi', name: { pl: 'Prostowanie nóg na maszynie', en: 'Leg extension', es: 'Extensión de piernas' }, aliases: ['leg ext', 'prostowanie nóg'] },
             { id: 'leg_curl', primary: 'Nogi', name: { pl: 'Uginanie nóg na maszynie', en: 'Leg curl', es: 'Curl femoral' }, aliases: ['leg curl', 'uginanie nóg'] },
-            { id: 'bulgarian_split', primary: 'Nogi', name: { pl: 'Bułgarskie przysiady', en: 'Bulgarian split squat', es: 'Zancada búlgara' }, aliases: ['bulgarian', 'bułgarskie'] },
-            { id: 'calf_raise', primary: 'Nogi', name: { pl: 'Wspięcia na palce', en: 'Calf raise', es: 'Elevación de gemelos' }, aliases: ['łydek', 'calves'] },
+            { id: 'seated_leg_curl', primary: 'Nogi', name: { pl: 'Uginanie nóg siedząc', en: 'Seated leg curl', es: 'Curl femoral sentado' }, aliases: ['seated curl'] },
+            { id: 'nordic_curl', primary: 'Nogi', name: { pl: 'Nordic curl', en: 'Nordic hamstring curl', es: 'Curl nórdico' }, aliases: ['nordic'] },
+            { id: 'leg_press_calf', primary: 'Nogi', name: { pl: 'Wspięcia na leg pressie', en: 'Leg press calf raise', es: 'Gemelos en prensa' }, aliases: ['calf press'] },
+            { id: 'calf_raise', primary: 'Nogi', name: { pl: 'Wspięcia na palce stojąc', en: 'Standing calf raise', es: 'Elevación de gemelos de pie' }, aliases: ['łydek', 'calves', 'standing calf'] },
+            { id: 'seated_calf_raise', primary: 'Nogi', name: { pl: 'Wspięcia na palce siedząc', en: 'Seated calf raise', es: 'Elevación de gemelos sentado' }, aliases: ['seated calf'] },
+            { id: 'adductor_machine', primary: 'Nogi', name: { pl: 'Przywodziciele (maszyna)', en: 'Hip adductor machine', es: 'Aductores en máquina' }, aliases: ['adductors', 'przywodziciele'] },
+            { id: 'abductor_machine', primary: 'Nogi', name: { pl: 'Odwodziciele (maszyna)', en: 'Hip abductor machine', es: 'Abductores en máquina' }, aliases: ['abductors', 'odwodziciele'] },
+            { id: 'sissy_squat', primary: 'Nogi', name: { pl: 'Sissy squat', en: 'Sissy squat', es: 'Sentadilla sissy' }, aliases: ['sissy'] },
+            { id: 'belt_squat', primary: 'Nogi', name: { pl: 'Belt squat', en: 'Belt squat', es: 'Sentadilla con cinturón' }, aliases: ['belt squat'] },
+
+            // --- Pośladki ---
             { id: 'hip_thrust', primary: 'Pośladki', name: { pl: 'Hip thrust', en: 'Hip thrust', es: 'Hip thrust' }, aliases: ['hipthrust', 'mostek biodrowy'] },
             { id: 'glute_bridge', primary: 'Pośladki', name: { pl: 'Mostek pośladkowy', en: 'Glute bridge', es: 'Puente de glúteos' }, aliases: ['glute bridge'] },
-            { id: 'cable_kickback', primary: 'Pośladki', name: { pl: 'Odwodzenie nogi na wyciągu', en: 'Cable kickback', es: 'Patada de glúteo en polea' }, aliases: ['kickback'] },
+            { id: 'single_leg_thrust', primary: 'Pośladki', name: { pl: 'Hip thrust jednonóż', en: 'Single-leg hip thrust', es: 'Hip thrust a una pierna' }, aliases: ['single leg thrust'] },
+            { id: 'cable_kickback', primary: 'Pośladki', name: { pl: 'Wypychanie nogi w tył (kickback)', en: 'Cable kickback', es: 'Patada de glúteo en polea' }, aliases: ['kickback', 'glute kickback'] },
+            { id: 'cable_pull_through', primary: 'Pośladki', name: { pl: 'Pull-through na wyciągu', en: 'Cable pull-through', es: 'Pull-through en polea' }, aliases: ['pull through'] },
+            { id: 'glute_kickback_machine', primary: 'Pośladki', name: { pl: 'Kickback na maszynie', en: 'Glute kickback machine', es: 'Patada de glúteo en máquina' }, aliases: ['kickback machine'] },
+            { id: 'sumo_squat', primary: 'Pośladki', name: { pl: 'Przysiad sumo', en: 'Sumo squat', es: 'Sentadilla sumo' }, aliases: ['sumo squat'] },
+            { id: 'curtsy_lunge', primary: 'Pośladki', name: { pl: 'Wykrok skrzyżowany (curtsy)', en: 'Curtsy lunge', es: 'Zancada de reverencia' }, aliases: ['curtsy'] },
+            { id: 'frog_pump', primary: 'Pośladki', name: { pl: 'Frog pumps', en: 'Frog pumps', es: 'Puente rana' }, aliases: ['frog pump'] },
+
+            // --- Core ---
             { id: 'plank', primary: 'Core', name: { pl: 'Deska (plank)', en: 'Plank', es: 'Plancha' }, aliases: ['plank', 'deska'] },
+            { id: 'side_plank', primary: 'Core', name: { pl: 'Deska boczna', en: 'Side plank', es: 'Plancha lateral' }, aliases: ['side plank'] },
             { id: 'cable_crunch', primary: 'Core', name: { pl: 'Spięcia brzucha na wyciągu', en: 'Cable crunch', es: 'Crunch en polea' }, aliases: ['crunch', 'brzuch'] },
+            { id: 'crunch', primary: 'Core', name: { pl: 'Spięcia brzucha', en: 'Crunch', es: 'Crunch' }, aliases: ['sit up', 'spięcia'] },
             { id: 'hanging_leg_raise', primary: 'Core', name: { pl: 'Unoszenie nóg w zwisie', en: 'Hanging leg raise', es: 'Elevación de piernas colgado' }, aliases: ['leg raise', 'unoszenie nóg'] },
-            { id: 'ab_wheel', primary: 'Core', name: { pl: 'Ab wheel', en: 'Ab wheel', es: 'Rueda abdominal' }, aliases: ['roller', 'kółko'] }
+            { id: 'hanging_knee_raise', primary: 'Core', name: { pl: 'Unoszenie kolan w zwisie', en: 'Hanging knee raise', es: 'Elevación de rodillas colgado' }, aliases: ['knee raise'] },
+            { id: 'captains_chair', primary: 'Core', name: { pl: 'Unoszenie nóg na poręczach', en: "Captain's chair leg raise", es: 'Elevación de piernas en silla romana' }, aliases: ['captain chair', 'roman chair abs'] },
+            { id: 'ab_wheel', primary: 'Core', name: { pl: 'Ab wheel', en: 'Ab wheel', es: 'Rueda abdominal' }, aliases: ['roller', 'kółko'] },
+            { id: 'dead_bug', primary: 'Core', name: { pl: 'Dead bug', en: 'Dead bug', es: 'Bicho muerto' }, aliases: ['deadbug'] },
+            { id: 'bird_dog', primary: 'Core', name: { pl: 'Bird dog', en: 'Bird dog', es: 'Bird dog' }, aliases: ['birddog'] },
+            { id: 'russian_twist', primary: 'Core', name: { pl: 'Russian twist', en: 'Russian twist', es: 'Giro ruso' }, aliases: ['russian twists'] },
+            { id: 'pallof_press', primary: 'Core', name: { pl: 'Pallof press', en: 'Pallof press', es: 'Press Pallof' }, aliases: ['pallof'] },
+            { id: 'woodchop', primary: 'Core', name: { pl: 'Woodchop na wyciągu', en: 'Cable woodchop', es: 'Chop en polea' }, aliases: ['woodchop', 'chop'] },
+            { id: 'lying_leg_raise', primary: 'Core', name: { pl: 'Unoszenie nóg leżąc', en: 'Lying leg raise', es: 'Elevación de piernas tumbado' }, aliases: ['lying raise'] },
+            { id: 'mountain_climbers', primary: 'Core', name: { pl: 'Mountain climbers', en: 'Mountain climbers', es: 'Escaladores' }, aliases: ['climbers'] }
         ];
 
         let userExercises = loadData('userExercises') || [];
@@ -13616,6 +14479,13 @@
             renderExercisePickerDropdown(picker);
             picker.dropdown.hidden = false;
             picker.dropdown.classList.add('is-open');
+            requestAnimationFrame(() => {
+                const panel = picker.dropdown.closest('.plan-actions-sheet-panel');
+                if (!panel) return;
+                try {
+                    picker.dropdown.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+                } catch (e) { /* ignore */ }
+            });
         }
 
         function renderExercisePickerDropdown(picker) {
@@ -14405,13 +15275,13 @@
                             toastMsg += t('pr_reps_only', { reps: reps });
                         }
                         showToast(toastMsg, 'success', 4000);
-                        playUiSound('ding');
+                        playSetCompleteFeedback({ isPr: true });
                     } else {
                         setBox.classList.remove('set-complete-pop');
                         void setBox.offsetWidth;
                         setBox.classList.add('set-complete-pop');
                         setTimeout(() => setBox.classList.remove('set-complete-pop'), 560);
-                        playUiSound('ding');
+                        playSetCompleteFeedback({ isPr: false });
                     }
                 } else {
                     // Removing completion - also remove PR indicator

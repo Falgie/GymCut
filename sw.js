@@ -1,5 +1,5 @@
 /* GymCut Service Worker */
-const SW_VERSION = '1.2.0';
+const SW_VERSION = '1.2.5';
 const CACHE_NAME = `gymcut-v${SW_VERSION}`;
 const RUNTIME_CACHE = `gymcut-runtime-v${SW_VERSION}`;
 
