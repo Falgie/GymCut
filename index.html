@@ -6975,7 +6975,9 @@
                 toast_plan_renamed: 'Nazwa planu została zmieniona.', toast_plan_name_missing: 'Błąd: Brak nazwy planu.',
                 toast_select_plan_first: 'Najpierw wybierz plan!', toast_ex_name_required: 'Podaj nazwę ćwiczenia!', toast_ex_name_required2: 'Podaj nazwę ćwiczenia',
                 toast_no_ex_to_save: 'Brak ćwiczeń do zapisania!', toast_workout_saved: 'Trening został zapisany!',
-                toast_rest_over: 'Czas przerwy minął!', toast_workout_not_found_edit: 'Nie znaleziono treningu do edycji.', toast_workout_updated: 'Trening zaktualizowany.',
+                toast_rest_over: 'Czas przerwy minął!',
+                notif_rest_body: 'Wracaj do treningu — przerwa się skończyła.',
+                toast_workout_not_found_edit: 'Nie znaleziono treningu do edycji.', toast_workout_updated: 'Trening zaktualizowany.',
                 toast_share_done: 'Gotowe!', toast_share_saved_img: 'Pobrano grafikę — w Instagramie dodaj ją jako post lub relację.', toast_share_fail: 'Nie udało się przygotować grafiki.',
                 toast_plan_created: 'Utworzono plan {name}!', toast_no_ex_in_workout: 'Brak ćwiczeń w treningu', toast_ex_added: 'Dodano ćwiczenie: {name}',
                 toast_new_pr_prefix: 'Nowy rekord! ', pr_weight_and_reps: 'Maksymalna waga ({weight} kg) i powtórzenia ({reps})!', pr_weight_only: 'Maksymalna waga: {weight} kg', pr_reps_only: 'Maksymalne powtórzenia: {reps}',
@@ -7157,7 +7159,9 @@
                 toast_plan_renamed: 'Plan renamed.', toast_plan_name_missing: 'Error: missing plan name.',
                 toast_select_plan_first: 'Select a plan first!', toast_ex_name_required: 'Enter an exercise name!', toast_ex_name_required2: 'Enter an exercise name',
                 toast_no_ex_to_save: 'No exercises to save!', toast_workout_saved: 'Workout saved!',
-                toast_rest_over: 'Rest time is over!', toast_workout_not_found_edit: 'Workout to edit not found.', toast_workout_updated: 'Workout updated.',
+                toast_rest_over: 'Rest time is over!',
+                notif_rest_body: 'Back to training — your rest is done.',
+                toast_workout_not_found_edit: 'Workout to edit not found.', toast_workout_updated: 'Workout updated.',
                 toast_share_done: 'Done!', toast_share_saved_img: 'Image downloaded — add it on Instagram as a post or story.', toast_share_fail: 'Couldn\'t prepare the image.',
                 toast_plan_created: 'Plan {name} created!', toast_no_ex_in_workout: 'No exercises in the workout', toast_ex_added: 'Exercise added: {name}',
                 toast_new_pr_prefix: 'New record! ', pr_weight_and_reps: 'Max weight ({weight} kg) and reps ({reps})!', pr_weight_only: 'Max weight: {weight} kg', pr_reps_only: 'Max reps: {reps}',
@@ -7339,7 +7343,9 @@
                 toast_plan_renamed: 'Plan renombrado.', toast_plan_name_missing: 'Error: falta el nombre del plan.',
                 toast_select_plan_first: '¡Selecciona un plan primero!', toast_ex_name_required: '¡Introduce el nombre del ejercicio!', toast_ex_name_required2: 'Introduce el nombre del ejercicio',
                 toast_no_ex_to_save: '¡No hay ejercicios para guardar!', toast_workout_saved: '¡Entreno guardado!',
-                toast_rest_over: '¡Se acabó el descanso!', toast_workout_not_found_edit: 'No se encontró el entreno para editar.', toast_workout_updated: 'Entreno actualizado.',
+                toast_rest_over: '¡Se acabó el descanso!',
+                notif_rest_body: 'Vuelve al entreno — el descanso terminó.',
+                toast_workout_not_found_edit: 'No se encontró el entreno para editar.', toast_workout_updated: 'Entreno actualizado.',
                 toast_share_done: '¡Listo!', toast_share_saved_img: 'Imagen descargada — añádela en Instagram como publicación o historia.', toast_share_fail: 'No se pudo preparar la imagen.',
                 toast_plan_created: '¡Plan {name} creado!', toast_no_ex_in_workout: 'No hay ejercicios en el entreno', toast_ex_added: 'Ejercicio añadido: {name}',
                 toast_new_pr_prefix: '¡Nuevo récord! ', pr_weight_and_reps: '¡Peso máx ({weight} kg) y reps ({reps})!', pr_weight_only: 'Peso máximo: {weight} kg', pr_reps_only: 'Repeticiones máximas: {reps}',
@@ -9189,6 +9195,10 @@
         let timerInterval;
         let timerSeconds = loadData('timerSettings') || 180;
         let isTimerRunning = false;
+        let timerEndsAt = null; // timestamp końca przerwy (odporny na tło / sleep)
+        let timerLastAnnouncedSecond = null;
+        let timerWakeLock = null;
+        let timerFinishHandled = false;
         let currentPlanId = null;
         let editingExerciseIndex = null;
         let timerSoundEnabled = true;
@@ -9318,6 +9328,7 @@
             if (pillSecEl) pillSecEl.value = secs;
 
             updateTimerDisplay();
+            restoreTimerRunState();
 
             if (!Array.isArray(trainingPlans)) { console.warn('TrainingPlans corrupted, resetting.'); trainingPlans = []; }
             if (!Array.isArray(workoutHistory)) { console.warn('WorkoutHistory corrupted, resetting.'); workoutHistory = []; }
@@ -9498,12 +9509,28 @@
             document.getElementById('modal-close-btn').addEventListener('click', hideModal);
             document.getElementById('modal-backdrop').addEventListener('click', hideModal);
 
-            // PWA wracające z tła nie przeładowuje strony — sprawdź podsumowanie
-            // miesiąca/roku także przy powrocie do aplikacji, nie tylko przy starcie.
+            // PWA wracające z tła nie przeładowuje strony — zsynchronizuj timer
+            // i sprawdź podsumowanie miesiąca/roku także przy powrocie.
             document.addEventListener('visibilitychange', () => {
-                if (document.visibilityState !== 'visible') return;
-                if (!document.body.classList.contains('app-loaded')) return;
-                setTimeout(tryShowReviewPopup, 600);
+                if (document.visibilityState === 'visible') {
+                    if (isTimerRunning) {
+                        syncTimerFromClock();
+                        requestTimerWakeLock();
+                    }
+                    if (document.body.classList.contains('app-loaded')) {
+                        setTimeout(tryShowReviewPopup, 600);
+                    }
+                    return;
+                }
+                // Przy odejściu w tło: dopnij stan i zwolnij Wake Lock (browser i tak często go zabiera).
+                if (isTimerRunning) persistTimerRunState();
+                releaseTimerWakeLock();
+            });
+            window.addEventListener('pageshow', () => {
+                if (isTimerRunning) syncTimerFromClock();
+            });
+            window.addEventListener('focus', () => {
+                if (isTimerRunning) syncTimerFromClock();
             });
         }
 
@@ -9722,7 +9749,16 @@
             if (isNaN(seconds)) return;
             timerSeconds = seconds;
             saveData('timerSettings', timerSeconds);
-            updateTimerDisplay();
+            if (isTimerRunning) {
+                timerEndsAt = Date.now() + seconds * 1000;
+                timerLastAnnouncedSecond = null;
+                timerFinishHandled = false;
+                persistTimerRunState();
+                armTimerDeadlineTimeout();
+                syncTimerFromClock();
+            } else {
+                updateTimerDisplay();
+            }
 
             const minutes = Math.floor(seconds / 60);
             const secs = seconds % 60;
@@ -10340,7 +10376,18 @@
             if (allCard) allCard.classList.add('active');
             currentWorkout = { id: crypto.randomUUID(), date: new Date().toISOString(), planName: plan.name, planId: plan.id, exercises: JSON.parse(JSON.stringify(plan.exercises)) };
             progressionArmedExerciseIndexes.clear();
-            currentWorkout.exercises.forEach((exercise, idx) => { if (exercise && typeof exercise === 'object') { exercise.sets = exercise.sets || 3; exercise.completedSets = Array(exercise.sets).fill(false); exercise.weights = Array(exercise.sets).fill(''); exercise.repsCompleted = Array(exercise.sets).fill(''); exercise.setTypes = Array(exercise.sets).fill('normal'); exercise.progression = !!plan.exercises[idx].progression; exercise.planExerciseIndex = idx; } });
+            currentWorkout.exercises.forEach((exercise, idx) => {
+                if (exercise && typeof exercise === 'object') {
+                    exercise.sets = exercise.sets || 3;
+                    exercise.completedSets = Array(exercise.sets).fill(false);
+                    exercise.weights = Array(exercise.sets).fill('');
+                    exercise.repsCompleted = Array(exercise.sets).fill('');
+                    exercise.setTypes = Array(exercise.sets).fill('normal');
+                    exercise.progression = !!plan.exercises[idx].progression;
+                    exercise.planExerciseIndex = idx;
+                    applyLastWorkoutPrefill(exercise);
+                }
+            });
             saveCurrentWorkout(); showTab('training-plans'); enterFocusMode();
         }
         function addQuickWorkoutExercise() {
@@ -10351,7 +10398,7 @@
                 return;
             }
             if (!currentWorkout || !Array.isArray(currentWorkout.exercises)) { currentWorkout = { id: crypto.randomUUID(), date: new Date().toISOString(), exercises: [] }; }
-            currentWorkout.exercises.push({
+            const quickEx = {
                 name: exerciseName,
                 exerciseId: selection.exerciseId || null,
                 sets: 3,
@@ -10360,7 +10407,9 @@
                 weights: ['', '', ''],
                 repsCompleted: ['', '', ''],
                 setTypes: ['normal', 'normal', 'normal']
-            });
+            };
+            applyLastWorkoutPrefill(quickEx);
+            currentWorkout.exercises.push(quickEx);
             if (selection.exerciseId) rememberRecentExercise(selection.exerciseId);
             saveCurrentWorkout();
             if (window._quickExercisePicker) clearExercisePicker(window._quickExercisePicker);
@@ -10438,43 +10487,218 @@
             }
         }
 
-        function startTimer() {
-            if (isTimerRunning) return;
+        let timerDeadlineTimeout = null;
+
+        function persistTimerRunState() {
+            if (isTimerRunning && timerEndsAt) {
+                saveData('timerRunState', { endsAt: timerEndsAt });
+            } else {
+                saveData('timerRunState', null);
+            }
+        }
+
+        function clearTimerRunState() {
+            timerEndsAt = null;
+            saveData('timerRunState', null);
+        }
+
+        function armTimerDeadlineTimeout() {
+            if (timerDeadlineTimeout) {
+                clearTimeout(timerDeadlineTimeout);
+                timerDeadlineTimeout = null;
+            }
+            if (!isTimerRunning || !timerEndsAt) return;
+            const delay = Math.max(0, timerEndsAt - Date.now()) + 40;
+            timerDeadlineTimeout = setTimeout(() => {
+                timerDeadlineTimeout = null;
+                syncTimerFromClock();
+            }, delay);
+        }
+
+        async function requestTimerWakeLock() {
+            if (!isTimerRunning) return;
+            if (!('wakeLock' in navigator)) return;
+            try {
+                if (timerWakeLock) return;
+                timerWakeLock = await navigator.wakeLock.request('screen');
+                timerWakeLock.addEventListener('release', () => { timerWakeLock = null; });
+            } catch (e) {
+                timerWakeLock = null;
+            }
+        }
+
+        async function releaseTimerWakeLock() {
+            try {
+                if (timerWakeLock) await timerWakeLock.release();
+            } catch (e) { /* ignore */ }
+            timerWakeLock = null;
+        }
+
+        async function ensureTimerNotificationPermission() {
+            if (!('Notification' in window)) return false;
+            if (Notification.permission === 'granted') return true;
+            if (Notification.permission === 'denied') return false;
+            if (loadData('timerNotifAsked')) return Notification.permission === 'granted';
+            saveData('timerNotifAsked', true);
+            try {
+                const result = await Notification.requestPermission();
+                return result === 'granted';
+            } catch (e) {
+                return false;
+            }
+        }
+
+        function showRestOverNotification() {
+            if (!('Notification' in window) || Notification.permission !== 'granted') return;
+            const title = t('toast_rest_over');
+            const opts = {
+                body: t('notif_rest_body'),
+                icon: 'app-icon-mobile.png',
+                badge: 'app-icon-mobile.png',
+                tag: 'gymcut-rest-timer',
+                renotify: true,
+                silent: false
+            };
+            try {
+                if (navigator.serviceWorker && navigator.serviceWorker.controller) {
+                    navigator.serviceWorker.getRegistration().then((reg) => {
+                        if (reg && typeof reg.showNotification === 'function') {
+                            reg.showNotification(title, opts);
+                        } else {
+                            const n = new Notification(title, opts);
+                            n.onclick = () => { try { window.focus(); } catch (e) {} n.close(); };
+                        }
+                    }).catch(() => {
+                        const n = new Notification(title, opts);
+                        n.onclick = () => { try { window.focus(); } catch (e) {} n.close(); };
+                    });
+                    return;
+                }
+                const n = new Notification(title, opts);
+                n.onclick = () => { try { window.focus(); } catch (e) {} n.close(); };
+            } catch (e) {
+                /* best-effort */
+            }
+        }
+
+        function syncTimerFromClock() {
+            if (!isTimerRunning || !timerEndsAt) return;
+            const remainingMs = timerEndsAt - Date.now();
+            const remaining = Math.max(0, Math.ceil(remainingMs / 1000));
+            timerSeconds = remaining;
+            updateTimerDisplay();
+
+            const pill = document.getElementById('floating-timer-pill');
+            if (remaining > 0 && remaining <= 5) {
+                if (pill) pill.classList.add('pulsing');
+                if (remaining <= 3 && timerLastAnnouncedSecond !== remaining) {
+                    timerLastAnnouncedSecond = remaining;
+                    playTimerSound();
+                }
+            } else if (pill) {
+                pill.classList.remove('pulsing');
+            }
+
+            if (remaining <= 0) {
+                finishRestTimer();
+            }
+        }
+
+        function finishRestTimer() {
+            if (timerFinishHandled) return;
+            timerFinishHandled = true;
+
+            isTimerRunning = false;
+            if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+            if (timerDeadlineTimeout) { clearTimeout(timerDeadlineTimeout); timerDeadlineTimeout = null; }
+            clearTimerRunState();
+            releaseTimerWakeLock();
+
+            timerSeconds = 0;
+            updateTimerDisplay();
+            updatePillPlayButton();
+
+            const pill = document.getElementById('floating-timer-pill');
+            if (pill) pill.classList.remove('pulsing');
+
+            playTimerSound();
+            vibratePattern([20, 40, 20]);
+            showToast(t('toast_rest_over'), 'info');
+            showRestOverNotification();
+
+            setTimeout(() => {
+                hidePill();
+                timerSeconds = loadData('timerSettings') || 180;
+                timerLastAnnouncedSecond = null;
+                timerFinishHandled = false;
+                updateTimerDisplay();
+            }, 3000);
+        }
+
+        function restoreTimerRunState() {
+            const state = loadData('timerRunState');
+            if (!state || !state.endsAt) return;
+            const endsAt = Number(state.endsAt);
+            if (!Number.isFinite(endsAt)) {
+                saveData('timerRunState', null);
+                return;
+            }
+            timerEndsAt = endsAt;
             isTimerRunning = true;
-            timerInterval = setInterval(updateTimer, 1000);
+            timerFinishHandled = false;
+            timerLastAnnouncedSecond = null;
+            syncTimerFromClock();
+            if (!isTimerRunning) return;
+            if (timerInterval) clearInterval(timerInterval);
+            timerInterval = setInterval(() => syncTimerFromClock(), 250);
+            armTimerDeadlineTimeout();
             showPill();
             updatePillPlayButton();
+            requestTimerWakeLock();
         }
+
+        function startTimer() {
+            if (isTimerRunning) return;
+            if (timerSeconds <= 0) {
+                timerSeconds = loadData('timerSettings') || 180;
+                updateTimerDisplay();
+            }
+            if (timerSeconds <= 0) return;
+
+            timerFinishHandled = false;
+            timerLastAnnouncedSecond = null;
+            isTimerRunning = true;
+            timerEndsAt = Date.now() + timerSeconds * 1000;
+            if (timerInterval) clearInterval(timerInterval);
+            timerInterval = setInterval(() => syncTimerFromClock(), 250);
+            armTimerDeadlineTimeout();
+            persistTimerRunState();
+            showPill();
+            updatePillPlayButton();
+            requestTimerWakeLock();
+            ensureTimerNotificationPermission();
+        }
+
         function pauseTimer() {
+            if (isTimerRunning && timerEndsAt) {
+                const remaining = Math.max(0, Math.ceil((timerEndsAt - Date.now()) / 1000));
+                timerSeconds = remaining;
+            }
             isTimerRunning = false;
-            clearInterval(timerInterval);
+            if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
+            if (timerDeadlineTimeout) { clearTimeout(timerDeadlineTimeout); timerDeadlineTimeout = null; }
+            clearTimerRunState();
+            releaseTimerWakeLock();
+            updateTimerDisplay();
             updatePillPlayButton();
         }
+
         function resetTimer() {
             pauseTimer();
             updateTimerFromInput();
+            timerFinishHandled = false;
+            timerLastAnnouncedSecond = null;
             updateTimerDisplay();
-        }
-        function updateTimer() {
-            const pill = document.getElementById('floating-timer-pill');
-            if (timerSeconds > 0) {
-                timerSeconds--;
-                updateTimerDisplay();
-                // Pulsing effect when time is low
-                if (timerSeconds <= 5 && timerSeconds > 0) {
-                    if (pill) pill.classList.add('pulsing');
-                    if (timerSeconds <= 3) playTimerSound();
-                } else {
-                    if (pill) pill.classList.remove('pulsing');
-                }
-            } else {
-                pauseTimer();
-                if (pill) pill.classList.remove('pulsing');
-                playTimerSound();
-                showToast(t('toast_rest_over'), 'info');
-                // Auto-hide pill after 3 seconds
-                setTimeout(() => { hidePill(); }, 3000);
-            }
         }
 
         function updateTimerDisplay() {
@@ -10507,6 +10731,14 @@
             }
         }
         function addTimerSeconds(seconds) {
+            if (isTimerRunning && timerEndsAt) {
+                timerEndsAt = Math.max(Date.now(), timerEndsAt + seconds * 1000);
+                timerLastAnnouncedSecond = null;
+                persistTimerRunState();
+                armTimerDeadlineTimeout();
+                syncTimerFromClock();
+                return;
+            }
             timerSeconds = Math.max(0, timerSeconds + seconds);
             saveData('timerSettings', timerSeconds);
             updateTimerDisplay();
@@ -10516,7 +10748,16 @@
             const seconds = parseInt(document.getElementById('pill-timer-seconds').value) || 0;
             timerSeconds = minutes * 60 + seconds;
             saveData('timerSettings', timerSeconds);
-            updateTimerDisplay();
+            if (isTimerRunning) {
+                timerEndsAt = Date.now() + timerSeconds * 1000;
+                timerLastAnnouncedSecond = null;
+                timerFinishHandled = false;
+                persistTimerRunState();
+                armTimerDeadlineTimeout();
+                syncTimerFromClock();
+            } else {
+                updateTimerDisplay();
+            }
         }
 
         function renderWorkoutHistory() {
@@ -14796,6 +15037,47 @@
             return setsData;
         }
 
+        function isEmptySetField(v) {
+            return v === null || v === undefined || String(v).trim() === '';
+        }
+
+        /** Wypełnia puste pola serii ostatnimi wartościami z historii. Nie nadpisuje wpisanych. */
+        function applyLastWorkoutPrefill(exercise) {
+            if (!exercise || typeof exercise !== 'object') return { prevData: null, changed: false };
+            const sets = Math.max(1, parseInt(exercise.sets, 10) || 3);
+            exercise.sets = sets;
+            if (!Array.isArray(exercise.weights)) exercise.weights = [];
+            if (!Array.isArray(exercise.repsCompleted)) exercise.repsCompleted = [];
+            if (!Array.isArray(exercise.completedSets)) exercise.completedSets = [];
+            if (!Array.isArray(exercise.setTypes)) exercise.setTypes = [];
+            while (exercise.weights.length < sets) exercise.weights.push('');
+            while (exercise.repsCompleted.length < sets) exercise.repsCompleted.push('');
+            while (exercise.completedSets.length < sets) exercise.completedSets.push(false);
+            while (exercise.setTypes.length < sets) exercise.setTypes.push('normal');
+
+            const prevData = getLastWorkoutDataForExercise(
+                exercise.name,
+                sets,
+                exercise.exerciseId || null
+            );
+            if (!prevData) return { prevData: null, changed: false };
+
+            let changed = false;
+            for (let i = 0; i < sets; i++) {
+                const prev = prevData[i];
+                if (!prev) continue;
+                if (isEmptySetField(exercise.weights[i]) && !isEmptySetField(prev.weight)) {
+                    exercise.weights[i] = String(prev.weight);
+                    changed = true;
+                }
+                if (isEmptySetField(exercise.repsCompleted[i]) && !isEmptySetField(prev.reps)) {
+                    exercise.repsCompleted[i] = String(prev.reps);
+                    changed = true;
+                }
+            }
+            return { prevData, changed };
+        }
+
         // Dodaj dodatkową serię do ćwiczenia
         function addSetToExercise(exerciseIndex) {
             if (!currentWorkout || !Array.isArray(currentWorkout.exercises) || !currentWorkout.exercises[exerciseIndex]) return;
@@ -14809,6 +15091,7 @@
             exercise.weights.push('');
             exercise.repsCompleted.push('');
             exercise.setTypes.push('normal');
+            applyLastWorkoutPrefill(exercise);
             saveCurrentWorkout();
 
             // Odśwież widok
@@ -14945,8 +15228,10 @@
 
             const sets = exercise.sets || 3;
 
-            // Pobierz dane z poprzedniego treningu (z fallbackiem do ostatniej wykonanej wagi)
-            const prevData = getLastWorkoutDataForExercise(exercise.name, sets, exercise.exerciseId || null);
+            // Prefill pustych pól ostatnimi wartościami — zawsze widoczne w stepperach
+            const prefillResult = applyLastWorkoutPrefill(exercise);
+            const prevData = prefillResult.prevData;
+            if (prefillResult.changed) saveCurrentWorkout();
 
             for (let i = 0; i < sets; i++) {
                 // Główny kontener serii
@@ -15039,11 +15324,28 @@
                 const controls = document.createElement('div');
                 controls.className = 'focus-set-controls';
 
-                // Stepper Wagi
-                controls.appendChild(createStepper('weight', 'kg', exercise.weights[i] || '', index, i));
+                const prevW = prevData && prevData[i] ? prevData[i].weight : '';
+                const prevR = prevData && prevData[i] ? prevData[i].reps : '';
+
+                // Stepper Wagi — wartość z prefill / wpisu użytkownika
+                controls.appendChild(createStepper(
+                    'weight',
+                    'kg',
+                    exercise.weights[i] || '',
+                    index,
+                    i,
+                    !isEmptySetField(prevW) ? String(prevW) : ''
+                ));
 
                 // Stepper Powtórzeń
-                controls.appendChild(createStepper('reps', t('stepper_reps'), exercise.repsCompleted[i] || '', index, i));
+                controls.appendChild(createStepper(
+                    'reps',
+                    t('stepper_reps'),
+                    exercise.repsCompleted[i] || '',
+                    index,
+                    i,
+                    !isEmptySetField(prevR) ? String(prevR) : ''
+                ));
 
                 setBox.appendChild(controls);
                 content.appendChild(setBox);
@@ -15063,7 +15365,7 @@
             content.scrollTop = previousScrollTop;
         }
 
-        function createStepper(type, label, value, exIndex, setIndex) {
+        function createStepper(type, label, value, exIndex, setIndex, placeholder) {
             const group = document.createElement('div'); group.className = 'stepper-group';
             const labelEl = document.createElement('label');
             labelEl.textContent = label;
@@ -15080,10 +15382,19 @@
             const input = document.createElement('input');
             input.className = `stepper-input ${type === 'weight' ? 'weight-input' : 'reps-input'}`;
             input.type = 'number';
-            input.value = value;
+            input.inputMode = type === 'weight' ? 'decimal' : 'numeric';
+            const displayValue = (value !== null && value !== undefined && String(value).trim() !== '')
+                ? String(value)
+                : '';
+            input.value = displayValue;
+            if (placeholder) input.placeholder = String(placeholder);
+            if (displayValue && placeholder && String(displayValue) === String(placeholder)) {
+                input.dataset.prefilled = '1';
+            }
 
             // Add event listener for manual input
             input.addEventListener('input', function () {
+                delete this.dataset.prefilled;
                 const inputValue = parseFloat(this.value) || 0;
                 if (type === 'weight') {
                     updateFocusWeight(exIndex, setIndex, inputValue);
@@ -15095,6 +15406,7 @@
             });
 
             input.addEventListener('change', function () {
+                delete this.dataset.prefilled;
                 const inputValue = parseFloat(this.value) || 0;
                 if (type === 'weight') {
                     updateFocusWeight(exIndex, setIndex, inputValue);
@@ -15206,6 +15518,7 @@
                 setTypes: Array(numSets).fill('normal'),
                 isAdHoc: true
             };
+            applyLastWorkoutPrefill(newEx);
 
             currentWorkout.exercises.push(newEx);
             if (newEx.exerciseId) rememberRecentExercise(newEx.exerciseId);
