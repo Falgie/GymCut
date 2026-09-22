@@ -9516,6 +9516,9 @@
                     if (isTimerRunning) {
                         syncTimerFromClock();
                         requestTimerWakeLock();
+                        try {
+                            navigator.serviceWorker?.controller?.postMessage({ type: 'PING_REST_TIMER' });
+                        } catch (e) { /* ignore */ }
                     }
                     if (document.body.classList.contains('app-loaded')) {
                         setTimeout(tryShowReviewPopup, 600);
@@ -9523,7 +9526,10 @@
                     return;
                 }
                 // Przy odejściu w tło: dopnij stan i zwolnij Wake Lock (browser i tak często go zabiera).
-                if (isTimerRunning) persistTimerRunState();
+                if (isTimerRunning) {
+                    persistTimerRunState();
+                    scheduleRestTimerInBackground();
+                }
                 releaseTimerWakeLock();
             });
             window.addEventListener('pageshow', () => {
@@ -9753,8 +9759,7 @@
                 timerEndsAt = Date.now() + seconds * 1000;
                 timerLastAnnouncedSecond = null;
                 timerFinishHandled = false;
-                persistTimerRunState();
-                armTimerDeadlineTimeout();
+                armBackgroundRestTimer();
                 syncTimerFromClock();
             } else {
                 updateTimerDisplay();
@@ -10488,6 +10493,7 @@
         }
 
         let timerDeadlineTimeout = null;
+        const REST_TIMER_NOTIF_TAG = 'gymcut-rest-timer';
 
         function persistTimerRunState() {
             if (isTimerRunning && timerEndsAt) {
@@ -10548,6 +10554,69 @@
             }
         }
 
+        async function getRestTimerRegistration() {
+            if (!('serviceWorker' in navigator)) return null;
+            try {
+                return await navigator.serviceWorker.ready;
+            } catch (e) {
+                return null;
+            }
+        }
+
+        async function cancelRestTimerSchedule() {
+            try {
+                const reg = await getRestTimerRegistration();
+                if (!reg) return;
+                reg.active && reg.active.postMessage({ type: 'CANCEL_REST_TIMER' });
+                try {
+                    const pending = await reg.getNotifications({
+                        tag: REST_TIMER_NOTIF_TAG,
+                        includeTriggered: true
+                    });
+                    pending.forEach((n) => n.close());
+                } catch (e) {
+                    const shown = await reg.getNotifications({ tag: REST_TIMER_NOTIF_TAG });
+                    shown.forEach((n) => n.close());
+                }
+            } catch (e) { /* ignore */ }
+        }
+
+        async function scheduleRestTimerInBackground() {
+            if (!isTimerRunning || !timerEndsAt) return;
+            if (!('Notification' in window) || Notification.permission !== 'granted') return;
+            try {
+                const reg = await getRestTimerRegistration();
+                if (!reg || !reg.active) return;
+                reg.active.postMessage({
+                    type: 'SCHEDULE_REST_TIMER',
+                    endsAt: timerEndsAt,
+                    title: t('toast_rest_over'),
+                    body: t('notif_rest_body'),
+                    icon: 'app-icon-mobile.png'
+                });
+            } catch (e) {
+                /* best-effort */
+            }
+        }
+
+        async function armBackgroundRestTimer() {
+            persistTimerRunState();
+            armTimerDeadlineTimeout();
+            const ok = await ensureTimerNotificationPermission();
+            if (ok) await scheduleRestTimerInBackground();
+        }
+
+        async function hasDisplayedRestNotification() {
+            try {
+                const reg = await getRestTimerRegistration();
+                if (!reg) return false;
+                const shown = await reg.getNotifications({ tag: REST_TIMER_NOTIF_TAG });
+                return shown.length > 0;
+            } catch (e) {
+                return false;
+            }
+        }
+
         function showRestOverNotification() {
             if (!('Notification' in window) || Notification.permission !== 'granted') return;
             const title = t('toast_rest_over');
@@ -10555,9 +10624,10 @@
                 body: t('notif_rest_body'),
                 icon: 'app-icon-mobile.png',
                 badge: 'app-icon-mobile.png',
-                tag: 'gymcut-rest-timer',
+                tag: REST_TIMER_NOTIF_TAG,
                 renotify: true,
-                silent: false
+                silent: false,
+                vibrate: [40, 60, 40]
             };
             try {
                 if (navigator.serviceWorker && navigator.serviceWorker.controller) {
@@ -10604,10 +10674,11 @@
             }
         }
 
-        function finishRestTimer() {
+        async function finishRestTimer() {
             if (timerFinishHandled) return;
             timerFinishHandled = true;
 
+            const wasHidden = document.hidden;
             isTimerRunning = false;
             if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
             if (timerDeadlineTimeout) { clearTimeout(timerDeadlineTimeout); timerDeadlineTimeout = null; }
@@ -10624,7 +10695,17 @@
             playTimerSound();
             vibratePattern([20, 40, 20]);
             showToast(t('toast_rest_over'), 'info');
-            showRestOverNotification();
+
+            const alreadyShown = await hasDisplayedRestNotification();
+            try {
+                const reg = await getRestTimerRegistration();
+                // Wyczyść stan / fallback w SW, ale nie zamykaj już widocznego powiadomienia.
+                reg && reg.active && reg.active.postMessage({ type: 'CLEAR_REST_TIMER_STATE' });
+            } catch (e) { /* ignore */ }
+
+            if (!alreadyShown && wasHidden) {
+                showRestOverNotification();
+            }
 
             setTimeout(() => {
                 hidePill();
@@ -10655,6 +10736,10 @@
             showPill();
             updatePillPlayButton();
             requestTimerWakeLock();
+            scheduleRestTimerInBackground();
+            try {
+                navigator.serviceWorker?.controller?.postMessage({ type: 'PING_REST_TIMER' });
+            } catch (e) { /* ignore */ }
         }
 
         function startTimer() {
@@ -10671,12 +10756,10 @@
             timerEndsAt = Date.now() + timerSeconds * 1000;
             if (timerInterval) clearInterval(timerInterval);
             timerInterval = setInterval(() => syncTimerFromClock(), 250);
-            armTimerDeadlineTimeout();
-            persistTimerRunState();
             showPill();
             updatePillPlayButton();
             requestTimerWakeLock();
-            ensureTimerNotificationPermission();
+            armBackgroundRestTimer();
         }
 
         function pauseTimer() {
@@ -10688,6 +10771,7 @@
             if (timerInterval) { clearInterval(timerInterval); timerInterval = null; }
             if (timerDeadlineTimeout) { clearTimeout(timerDeadlineTimeout); timerDeadlineTimeout = null; }
             clearTimerRunState();
+            cancelRestTimerSchedule();
             releaseTimerWakeLock();
             updateTimerDisplay();
             updatePillPlayButton();
@@ -10734,8 +10818,7 @@
             if (isTimerRunning && timerEndsAt) {
                 timerEndsAt = Math.max(Date.now(), timerEndsAt + seconds * 1000);
                 timerLastAnnouncedSecond = null;
-                persistTimerRunState();
-                armTimerDeadlineTimeout();
+                armBackgroundRestTimer();
                 syncTimerFromClock();
                 return;
             }
@@ -10752,13 +10835,31 @@
                 timerEndsAt = Date.now() + timerSeconds * 1000;
                 timerLastAnnouncedSecond = null;
                 timerFinishHandled = false;
-                persistTimerRunState();
-                armTimerDeadlineTimeout();
+                armBackgroundRestTimer();
                 syncTimerFromClock();
             } else {
                 updateTimerDisplay();
             }
         }
+
+        function onRestTimerDueFromSw() {
+            if (isTimerRunning) syncTimerFromClock();
+        }
+
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.addEventListener('message', (event) => {
+                const data = event.data || {};
+                if (data.type === 'REST_TIMER_DUE') onRestTimerDueFromSw();
+            });
+        }
+
+        document.addEventListener('freeze', () => {
+            if (isTimerRunning) persistTimerRunState();
+        });
+        document.addEventListener('resume', () => {
+            if (isTimerRunning) syncTimerFromClock();
+        });
+
 
         function renderWorkoutHistory() {
             const historyContainer = document.getElementById('workout-history'); historyContainer.innerHTML = '';
