@@ -740,7 +740,8 @@
 
         .cut-heat-flash.is-on {
             opacity: 1;
-            pointer-events: auto;
+            /* nigdy nie blokuj tapów — na mobile uniemożliwiało wyjście / kolejne gesty */
+            pointer-events: none;
         }
 
         .cut-sting-label {
@@ -18337,16 +18338,28 @@
             const brand = document.getElementById('header-brand');
             if (brand) {
                 let lastTap = 0;
+                let suppressDblClickUntil = 0;
+                let toggleLockUntil = 0;
+                const doToggleCutMode = () => {
+                    const now = Date.now();
+                    if (now < toggleLockUntil) return;
+                    toggleLockUntil = now + 500;
+                    toggleCutMode();
+                };
                 brand.addEventListener('dblclick', (e) => {
                     e.preventDefault();
-                    toggleCutMode();
+                    // Po double-tap touch mobilny browser i tak wysyła dblclick — ignoruj, żeby nie wejść z powrotem w Cut
+                    if (Date.now() < suppressDblClickUntil) return;
+                    doToggleCutMode();
                 });
                 brand.addEventListener('touchend', (e) => {
                     const now = Date.now();
-                    if (now - lastTap < 320) {
+                    if (now - lastTap < 380) {
                         e.preventDefault();
+                        e.stopPropagation();
                         lastTap = 0;
-                        toggleCutMode();
+                        suppressDblClickUntil = now + 700;
+                        doToggleCutMode();
                     } else {
                         lastTap = now;
                     }
