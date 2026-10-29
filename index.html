@@ -1417,198 +1417,28 @@
             display: none;
         }
 
-        .streak-flame-video {
+        /* Jedna animacja ognia (canvas 2D) - identyczna na telefonie, komputerze, iOS i Androidzie */
+        .streak-flame-overlay {
+            --fire-h: min(54vh, 600px);
+            --fire-h: min(54dvh, 600px);
+        }
+
+        .streak-fire-canvas {
             position: absolute;
-            left: 0;
-            right: 0;
+            left: 50%;
             bottom: 0;
-            width: 100%;
-            height: 50vh;
-            height: 50dvh;
-            max-height: none;
-            object-fit: cover;
-            object-position: bottom center;
-        }
-
-        .streak-flame-video.use-blend-fallback {
-            mix-blend-mode: darken;
-        }
-
-        /* --- CSS Fire fallback (for iOS Safari / no alpha video support) --- */
-        .streak-flame-overlay.css-fire-mode .streak-flame-video {
-            display: none !important;
-        }
-
-        .streak-flame-css-fire {
-            display: none;
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            width: 100%;
-            height: 55vh;
-            height: 55dvh;
+            transform: translateX(-50%);
+            width: min(100%, 820px);
+            height: var(--fire-h);
             pointer-events: none;
-            overflow: hidden;
-        }
-
-        .streak-flame-overlay.css-fire-mode .streak-flame-css-fire {
-            display: block;
-        }
-
-        .css-fire-layer {
-            position: absolute;
-            left: -10%;
-            right: -10%;
-            bottom: 0;
-            width: 120%;
-            border-radius: 50% 50% 0 0;
-            filter: blur(18px);
-            opacity: 0;
-            transform: translateY(60%) scaleY(0.3);
-            animation: cssFireRise 2s ease-out forwards;
-        }
-
-        .css-fire-layer:nth-child(1) {
-            height: 75%;
-            background: radial-gradient(ellipse at 50% 100%,
-                rgba(255, 80, 0, 0.92) 0%,
-                rgba(255, 140, 0, 0.7) 30%,
-                rgba(255, 60, 0, 0.4) 55%,
-                transparent 80%);
-            animation-delay: 0s;
-            animation-duration: 1.8s;
-            filter: blur(20px);
-        }
-
-        .css-fire-layer:nth-child(2) {
-            height: 60%;
-            background: radial-gradient(ellipse at 50% 100%,
-                rgba(255, 200, 0, 0.95) 0%,
-                rgba(255, 120, 0, 0.8) 25%,
-                rgba(255, 60, 0, 0.45) 50%,
-                transparent 75%);
-            animation-delay: 0.08s;
-            animation-duration: 1.6s;
-            filter: blur(14px);
-        }
-
-        .css-fire-layer:nth-child(3) {
-            height: 50%;
-            left: 5%;
-            right: 5%;
-            width: 90%;
-            background: radial-gradient(ellipse at 50% 100%,
-                rgba(255, 255, 100, 0.9) 0%,
-                rgba(255, 200, 0, 0.7) 20%,
-                rgba(255, 120, 0, 0.5) 45%,
-                transparent 70%);
-            animation-delay: 0.15s;
-            animation-duration: 1.5s;
-            filter: blur(10px);
-        }
-
-        .css-fire-layer:nth-child(4) {
-            height: 45%;
-            left: 15%;
-            right: 15%;
-            width: 70%;
-            background: radial-gradient(ellipse at 50% 100%,
-                rgba(255, 255, 200, 0.85) 0%,
-                rgba(255, 255, 80, 0.6) 20%,
-                rgba(255, 180, 0, 0.4) 40%,
-                transparent 65%);
-            animation-delay: 0.2s;
-            animation-duration: 1.4s;
-            filter: blur(8px);
-        }
-
-        /* Flickering embers */
-        .css-fire-ember {
-            position: absolute;
-            bottom: 10%;
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: rgba(255, 200, 50, 0.9);
-            filter: blur(2px);
-            opacity: 0;
-            animation: cssFireEmber 1.8s ease-out forwards;
-        }
-
-        .css-fire-ember:nth-child(5) { left: 20%; animation-delay: 0.1s; }
-        .css-fire-ember:nth-child(6) { left: 35%; animation-delay: 0.3s; width: 4px; height: 4px; }
-        .css-fire-ember:nth-child(7) { left: 50%; animation-delay: 0.05s; width: 8px; height: 8px; }
-        .css-fire-ember:nth-child(8) { left: 65%; animation-delay: 0.25s; }
-        .css-fire-ember:nth-child(9) { left: 80%; animation-delay: 0.15s; width: 5px; height: 5px; }
-        .css-fire-ember:nth-child(10) { left: 42%; animation-delay: 0.4s; width: 3px; height: 3px; }
-        .css-fire-ember:nth-child(11) { left: 58%; animation-delay: 0.35s; width: 7px; height: 7px; }
-
-        @keyframes cssFireRise {
-            0% {
-                opacity: 0;
-                transform: translateY(60%) scaleY(0.3);
-            }
-            15% {
-                opacity: 0.9;
-            }
-            40% {
-                opacity: 1;
-                transform: translateY(0%) scaleY(1);
-            }
-            75% {
-                opacity: 1;
-                transform: translateY(0%) scaleY(1.02);
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(-10%) scaleY(0.95);
-            }
-        }
-
-        @keyframes cssFireEmber {
-            0% {
-                opacity: 0;
-                transform: translateY(0) scale(1);
-            }
-            15% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(-200px) scale(0.3);
-            }
-        }
-
-        /* Animated flicker on the fire layers */
-        .streak-flame-overlay.css-fire-mode.is-playing .css-fire-layer:nth-child(1) {
-            animation: cssFireRise 1.8s ease-out forwards, cssFireFlicker1 0.3s ease-in-out 0.2s 5 alternate;
-        }
-        .streak-flame-overlay.css-fire-mode.is-playing .css-fire-layer:nth-child(2) {
-            animation: cssFireRise 1.6s ease-out 0.08s forwards, cssFireFlicker2 0.25s ease-in-out 0.3s 5 alternate;
-        }
-
-        @keyframes cssFireFlicker1 {
-            0% { transform: translateY(0%) scaleY(1) scaleX(1); }
-            100% { transform: translateY(-1%) scaleY(1.03) scaleX(0.97); }
-        }
-
-        @keyframes cssFireFlicker2 {
-            0% { transform: translateY(0%) scaleY(1) scaleX(1); }
-            100% { transform: translateY(-2%) scaleY(1.04) scaleX(1.02); }
-        }
-
-        /* Adjust caption position in CSS fire mode to match taller fire height */
-        .streak-flame-overlay.css-fire-mode .streak-flame-caption {
-            bottom: calc(55vh + max(16px, env(safe-area-inset-bottom)));
-            bottom: calc(55dvh + max(16px, env(safe-area-inset-bottom)));
+            -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 7%, #000 93%, transparent 100%);
+            mask-image: linear-gradient(to right, transparent 0%, #000 7%, #000 93%, transparent 100%);
         }
 
         .streak-flame-caption {
             position: absolute;
             left: 50%;
-            bottom: calc(50vh + max(16px, env(safe-area-inset-bottom)));
-            bottom: calc(50dvh + max(16px, env(safe-area-inset-bottom)));
+            bottom: calc(var(--fire-h) * 0.92 + max(16px, env(safe-area-inset-bottom)));
             transform: translateX(-50%);
             display: flex;
             flex-direction: column;
@@ -7405,23 +7235,7 @@
     <canvas id="celebration-canvas" width="1" height="1" aria-hidden="true"></canvas>
 
     <div id="streak-flame-overlay" class="streak-flame-overlay hidden" aria-hidden="true">
-        <video id="streak-flame-video" class="streak-flame-video" playsinline muted preload="auto" aria-hidden="true">
-            <source src="streak-fire.webm" type="video/webm">
-            <source src="streak-fire-fallback.mp4" type="video/mp4">
-        </video>
-        <div class="streak-flame-css-fire" aria-hidden="true">
-            <div class="css-fire-layer"></div>
-            <div class="css-fire-layer"></div>
-            <div class="css-fire-layer"></div>
-            <div class="css-fire-layer"></div>
-            <div class="css-fire-ember"></div>
-            <div class="css-fire-ember"></div>
-            <div class="css-fire-ember"></div>
-            <div class="css-fire-ember"></div>
-            <div class="css-fire-ember"></div>
-            <div class="css-fire-ember"></div>
-            <div class="css-fire-ember"></div>
-        </div>
+        <canvas id="streak-fire-canvas" class="streak-fire-canvas" aria-hidden="true"></canvas>
         <div class="streak-flame-caption">
             <div class="streak-flame-badge">
                 <span class="streak-flame-num">1</span>
@@ -10981,41 +10795,218 @@
             celebrateStreakIncrease(streak);
         }
 
-        let _useCssFireMode = false;
+        // ======================================================================
+        // StreakFire - proceduralna animacja ognia (canvas 2D, bez wideo i bez CSS blur)
+        // Stan animacji jest czystą funkcją czasu + stałego ziarna (seed), więc:
+        //  - wygląda tak samo na każdym urządzeniu i w każdej przeglądarce (też iOS Safari),
+        //  - nie zależy od FPS (60/120 Hz) ani od obsługi WebM/alpha.
+        // ======================================================================
+        const StreakFire = (() => {
+            const DURATION = 2000;          // ms, całość animacji
+            const SPRITE_STEPS = 14;        // ile odcieni "temperatury" płomienia
+            const SPRITE_SIZE = 64;
+            const MAX_W = 820;              // maks. szerokość ognia na dużych ekranach
+            let sprites = null;
+            let particles = [];
+            let rafId = 0;
+            let startTs = 0;
+            let ctx = null, cv = null, W = 0, H = 0;
 
-        function initStreakFireVideo() {
-            const video = document.getElementById('streak-flame-video');
-            const overlay = document.getElementById('streak-flame-overlay');
-            if (!video || !overlay) return;
+            function rng(seed) {                       // mulberry32 - deterministyczny
+                return function () {
+                    seed |= 0; seed = (seed + 0x6D2B79F5) | 0;
+                    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+                    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+                    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+                };
+            }
+            const clamp = (v, lo, hi) => v < lo ? lo : (v > hi ? hi : v);
+            const lerp = (a, b, t) => a + (b - a) * t;
 
-            // Detect if alpha-transparent video playback actually works.
-            // iOS Safari cannot play WebM with alpha, and mix-blend-mode on <video> 
-            // doesn't reliably remove the black background of fallback MP4.
-            const webmAlpha = video.canPlayType('video/webm; codecs="vp9,opus"')
-                            || video.canPlayType('video/webm; codecs="vp9"')
-                            || video.canPlayType('video/webm');
-            const isApple = /iPad|iPhone|iPod/.test(navigator.userAgent)
-                         || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-            const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-
-            // On iOS Safari, WebM is not supported, and mix-blend-mode on video is broken.
-            // Also fallback for any browser that cannot play WebM at all.
-            if (!webmAlpha || isApple || isSafari) {
-                _useCssFireMode = true;
-                overlay.classList.add('css-fire-mode');
-            } else {
-                video.classList.remove('use-blend-fallback');
+            // gorący środek (biało-żółty) -> pomarańcz -> czerwień
+            const HEAT = [
+                [0.00, 255, 244, 190],
+                [0.25, 255, 205, 70],
+                [0.55, 255, 125, 25],
+                [0.80, 235, 55, 12],
+                [1.00, 140, 20, 8]
+            ];
+            function heatColor(h) {
+                for (let i = 1; i < HEAT.length; i++) {
+                    if (h <= HEAT[i][0]) {
+                        const p = HEAT[i - 1], q = HEAT[i];
+                        const k = (h - p[0]) / (q[0] - p[0]);
+                        return [lerp(p[1], q[1], k), lerp(p[2], q[2], k), lerp(p[3], q[3], k)];
+                    }
+                }
+                const l = HEAT[HEAT.length - 1];
+                return [l[1], l[2], l[3]];
             }
 
-            video.addEventListener('ended', () => {
-                try { video.pause(); } catch (e) { }
-            });
+            function buildSprites() {
+                if (sprites) return;
+                sprites = [];
+                for (let i = 0; i < SPRITE_STEPS; i++) {
+                    const c = document.createElement('canvas');
+                    c.width = c.height = SPRITE_SIZE;
+                    const g = c.getContext('2d');
+                    const [r, gr, b] = heatColor(i / (SPRITE_STEPS - 1)).map(Math.round);
+                    const grad = g.createRadialGradient(SPRITE_SIZE / 2, SPRITE_SIZE / 2, 0, SPRITE_SIZE / 2, SPRITE_SIZE / 2, SPRITE_SIZE / 2);
+                    grad.addColorStop(0, `rgba(${r},${gr},${b},1)`);
+                    grad.addColorStop(0.35, `rgba(${r},${gr},${b},0.55)`);
+                    grad.addColorStop(0.7, `rgba(${r},${gr},${b},0.15)`);
+                    grad.addColorStop(1, `rgba(${r},${gr},${b},0)`);
+                    g.fillStyle = grad;
+                    g.fillRect(0, 0, SPRITE_SIZE, SPRITE_SIZE);
+                    sprites.push(c);
+                }
+            }
+
+            // jak mocno "pali się" ogień w czasie t (0..1): szybko rośnie, trzyma, gaśnie
+            function envelope(ms) {
+                if (ms < 0) return 0;
+                if (ms < 350) { const k = ms / 350; return k * k * (3 - 2 * k); }
+                if (ms < 1100) return 1;
+                if (ms < 1300) return 1 - (ms - 1100) / 200;
+                return 0;
+            }
+
+            function build() {
+                const rand = rng(20240611);                 // stałe ziarno = zawsze ten sam ogień
+                particles = [];
+                const left = W * 0.10, span = W * 0.80;
+
+                // płomienie
+                const COUNT = 340;
+                for (let i = 0; i < COUNT; i++) {
+                    const t0 = (i / COUNT) * 1300 + rand() * 12;        // moment narodzin (ms)
+                    const env = envelope(t0);
+                    if (env <= 0.02) continue;
+                    const nx = (rand() * 0.5 + rand() * 0.5);           // rozkład skupiony w środku
+                    const x0 = left + nx * span;
+                    const edge = 1 - Math.pow(Math.abs(nx * 2 - 1), 2.2) * 0.55;
+                    const tongue = 0.62 + 0.22 * Math.sin(nx * 14 + t0 * 0.005) + 0.16 * Math.sin(nx * 31 - t0 * 0.009);
+                    const hf = clamp(edge * tongue, 0.28, 1) * (0.5 + 0.5 * env);
+                    particles.push({
+                        ember: false,
+                        t0, life: 560 + rand() * 240,
+                        x0, cx: W / 2,
+                        y0: H - H * 0.015,
+                        rise: H * 0.86 * hf * (0.85 + rand() * 0.3),
+                        sway: W * (0.012 + rand() * 0.03),
+                        freq: 5 + rand() * 4, phase: rand() * 6.283,
+                        r0: W * (0.075 + rand() * 0.06),
+                        stretch: 1.5 + rand() * 0.5,
+                        heatBias: rand() * 0.12
+                    });
+                }
+
+                // iskry
+                for (let i = 0; i < 38; i++) {
+                    particles.push({
+                        ember: true,
+                        t0: 150 + rand() * 950, life: 650 + rand() * 250,
+                        x0: left + rand() * span, cx: W / 2,
+                        y0: H - H * 0.03,
+                        rise: H * (0.55 + rand() * 0.45),
+                        sway: W * (0.02 + rand() * 0.05),
+                        freq: 4 + rand() * 6, phase: rand() * 6.283,
+                        r0: 1.6 + rand() * 2.6,
+                        stretch: 1, heatBias: 0
+                    });
+                }
+                particles.sort((p, q) => p.t0 - q.t0);
+            }
+
+            function draw(ms) {
+                ctx.clearRect(0, 0, W, H);
+
+                // poświata przy dolnej krawędzi
+                const env = envelope(ms) * (ms < 1300 ? 1 : 0) + (ms >= 1300 ? clamp(1 - (ms - 1300) / 600, 0, 1) * 0.55 : 0);
+                if (env > 0) {
+                    const glow = ctx.createLinearGradient(0, H, 0, H * 0.3);
+                    glow.addColorStop(0, `rgba(255,110,10,${(0.5 * env).toFixed(3)})`);
+                    glow.addColorStop(0.25, `rgba(255,90,5,${(0.3 * env).toFixed(3)})`);
+                    glow.addColorStop(0.5, `rgba(255,70,0,${(0.14 * env).toFixed(3)})`);
+                    glow.addColorStop(0.75, `rgba(255,60,0,${(0.04 * env).toFixed(3)})`);
+                    glow.addColorStop(1, 'rgba(255,60,0,0)');
+                    ctx.globalCompositeOperation = 'source-over';
+                    ctx.fillStyle = glow;
+                    ctx.fillRect(0, H * 0.3, W, H * 0.7);
+                }
+
+                ctx.globalCompositeOperation = 'lighter';
+                for (let i = 0; i < particles.length; i++) {
+                    const p = particles[i];
+                    const age = ms - p.t0;
+                    if (age < 0) break;                       // posortowane po t0
+                    if (age > p.life) continue;
+                    const u = age / p.life;                   // 0..1
+                    const ease = 1 - (1 - u) * (1 - u);       // szybki start, zwalnianie
+                    const y = p.y0 - p.rise * ease;
+                    const converge = 1 - 0.38 * u;            // płomienie zbiegają ku środkowi
+                    const x = p.cx + (p.x0 - p.cx) * converge + Math.sin(u * p.freq + p.phase) * p.sway * u;
+
+                    if (p.ember) {
+                        const a = (u < 0.1 ? u / 0.1 : 1 - (u - 0.1) / 0.9) * (0.65 + 0.35 * Math.sin(age * 0.03 + p.phase));
+                        ctx.globalAlpha = clamp(a, 0, 1);
+                        const r = p.r0 * (1 - 0.5 * u);
+                        ctx.drawImage(sprites[1], x - r * 2, y - r * 2, r * 4, r * 4);
+                        continue;
+                    }
+
+                    const alpha = Math.min(1, u / 0.12) * Math.pow(1 - u, 1.25) * 0.6;
+                    const heat = clamp(u * 0.95 + p.heatBias, 0, 1);
+                    const spr = sprites[Math.round(heat * (SPRITE_STEPS - 1))];
+                    const r = p.r0 * (1 - 0.6 * u);
+                    ctx.globalAlpha = alpha;
+                    ctx.drawImage(spr, x - r, y - r * p.stretch, r * 2, r * 2 * p.stretch);
+                }
+                ctx.globalAlpha = 1;
+                ctx.globalCompositeOperation = 'source-over';
+            }
+
+            function stop() {
+                cancelAnimationFrame(rafId);
+                rafId = 0;
+                if (ctx) ctx.clearRect(0, 0, W, H);
+            }
+
+            function play(canvas) {
+                stop();
+                cv = canvas;
+                ctx = cv.getContext('2d');
+                if (!ctx) return;
+                buildSprites();
+                const rect = cv.getBoundingClientRect();
+                W = Math.max(1, Math.round(rect.width || Math.min(window.innerWidth, MAX_W)));
+                H = Math.max(1, Math.round(rect.height || window.innerHeight * 0.54));
+                cv.width = W;                                 // 1 px canvasa = 1 px CSS (miękki ogień, nie potrzeba DPR)
+                cv.height = H;
+                build();
+                startTs = performance.now();
+                const frame = (now) => {
+                    const ms = now - startTs;
+                    if (ms >= DURATION) { stop(); return; }
+                    draw(ms);
+                    rafId = requestAnimationFrame(frame);
+                };
+                draw(0);
+                rafId = requestAnimationFrame(frame);
+            }
+
+            return { play, stop, preload: buildSprites, DURATION };
+        })();
+
+        function initStreakFireVideo() {
+            // zachowana nazwa dla kompatybilności - przygotowuje tylko sprite'y ognia
+            try { StreakFire.preload(); } catch (e) { }
         }
 
         function triggerStreakFlameAnimation(streak) {
             if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
             const overlay = document.getElementById('streak-flame-overlay');
-            const video = document.getElementById('streak-flame-video');
+            const canvas = document.getElementById('streak-fire-canvas');
             if (!overlay) return;
 
             const numEl = overlay.querySelector('.streak-flame-num');
@@ -11036,34 +11027,16 @@
             overlay.classList.add('is-playing');
             overlay.setAttribute('aria-hidden', 'false');
 
-            if (_useCssFireMode) {
-                // Re-trigger CSS fire animations by cloning the fire container
-                const fireContainer = overlay.querySelector('.streak-flame-css-fire');
-                if (fireContainer) {
-                    const parent = fireContainer.parentNode;
-                    const clone = fireContainer.cloneNode(true);
-                    parent.replaceChild(clone, fireContainer);
-                }
-            } else if (video) {
-                try {
-                    video.currentTime = 0;
-                    video.playbackRate = 0.7;
-                    const playPromise = video.play();
-                    if (playPromise && typeof playPromise.catch === 'function') playPromise.catch(() => { });
-                } catch (e) { }
+            if (canvas) {
+                try { StreakFire.play(canvas); } catch (e) { }
             }
 
             streakFlameHideTimer = setTimeout(() => {
-                overlay.classList.remove('is-playing');
-                overlay.classList.add('hidden');
+                try { StreakFire.stop(); } catch (e) { }
+                overlay.classList.remove('is-playing');           // płynne wygaszenie tła (0.18 s)
                 overlay.setAttribute('aria-hidden', 'true');
-                if (video && !_useCssFireMode) {
-                    try {
-                        video.pause();
-                        video.playbackRate = 1;
-                    } catch (e) { }
-                }
-            }, 2000);
+                streakFlameHideTimer = setTimeout(() => overlay.classList.add('hidden'), 220);
+            }, StreakFire.DURATION);
         }
 
         function showWorkoutRewardFullscreen(reward, savedWorkoutForShare) {
