@@ -1682,36 +1682,18 @@
             opacity: 1;
         }
 
-        @keyframes tabEnterFromRight {
-            from {
-                opacity: 0;
-                transform: translateX(26px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+        /* --- Przejście między zakładkami: obie zakładki jadą razem (slide + śledzenie palca) --- */
+        .app-body .container {
+            /* poziome gesty obsługuje JS, pionowe przewijanie zostaje natywne */
+            touch-action: pan-y pinch-zoom;
         }
 
-        @keyframes tabEnterFromLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-26px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .tab-content.tab-enter-from-right {
-            animation: tabEnterFromRight 0.38s cubic-bezier(0.25, 0.8, 0.25, 1) both;
-        }
-
-        .tab-content.tab-enter-from-left {
-            animation: tabEnterFromLeft 0.38s cubic-bezier(0.25, 0.8, 0.25, 1) both;
+        .tab-content.tab-sliding {
+            display: block;
+            opacity: 1;
+            transition: none;
+            pointer-events: none;
+            backface-visibility: hidden;
         }
 
         @keyframes screenShakePulse {
@@ -2856,9 +2838,8 @@
 
         @media (prefers-reduced-motion: reduce) {
 
-            .tab-content.tab-enter-from-right,
-            .tab-content.tab-enter-from-left {
-                animation: none !important;
+            .tab-content.tab-sliding {
+                transition: none !important;
             }
 
             body.screen-shake-pr,
@@ -11234,7 +11215,6 @@
         let uiAudioUnlocked = false;
         let currentFocusExerciseIndex = 0;
         let activeTabId = 'training-plans';
-        const TAB_SWITCH_DELAY_MS = 120;
         /** Ignoruj klik w backdrop zaraz po otwarciu (syntetyczny „ghost click” po touchend). */
         const PLAN_SHEET_BACKDROP_SUPPRESS_MS = 550;
         const HISTORY_SHEET_BACKDROP_SUPPRESS_MS = 650;
@@ -11287,7 +11267,6 @@
             }
         };
         let whatsNewPendingCallback = null;
-        let tabSwitchTimeout = null;
         let historyActionsSheetOpenedAt = 0;
         let historyActionsSheetLastTriggerAt = 0;
         let historyActionsSheetGen = 0;
@@ -11304,8 +11283,6 @@
 
         // Zmienne dla Swipe
         const tabOrder = ['training-plans', 'history', 'stats'];
-        let touchStartX = 0;
-        let touchEndX = 0;
 
 
         // --- INICJALIZACJA APLIKACJI ---
@@ -11427,7 +11404,9 @@
             // Nasłuchiwanie na Swipe (przesuwanie zakładek)
             const appBody = document.querySelector('.app-body');
             appBody.addEventListener('touchstart', handleTouchStart, { passive: true });
+            appBody.addEventListener('touchmove', handleTouchMove, { passive: true });
             appBody.addEventListener('touchend', handleTouchEnd, { passive: true });
+            appBody.addEventListener('touchcancel', (e) => handleTouchEnd(e, true), { passive: true });
 
 
 
@@ -11831,25 +11810,38 @@
             updateSelectArrowColor();
         }
 
-        function showTab(tabId, immediate = false) {
-            if (tabId === activeTabId && !immediate) return;
+        // --- PRZEJŚCIA MIĘDZY ZAKŁADKAMI ---
+        const TAB_GAP_PX = 24;
+        const TAB_SLIDE_EASING = 'cubic-bezier(0.22, 1, 0.36, 1)';
+        let tabTransition = null; // { finish() } – aktywna animacja dojazdu
+        let tabDrag = null;       // stan aktualnego gestu palcem
 
-            const newActiveTab = document.getElementById(tabId);
-            if (!newActiveTab) return;
+        function prefersReducedMotion() {
+            return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+        }
 
-            const previousTabId = activeTabId;
+        function finishTabTransition() {
+            if (tabTransition) tabTransition.finish();
+        }
 
-            if (tabSwitchTimeout) {
-                clearTimeout(tabSwitchTimeout);
-                tabSwitchTimeout = null;
-            }
+        function prepareSlidePane(el) {
+            el.classList.add('tab-sliding');
+            el.style.display = 'block';
+            el.style.willChange = 'transform';
+        }
 
-            // Atomic tab switch: fast repeated taps cannot leave two sections visible.
-            document.querySelectorAll('.tab-content').forEach((tab) => {
-                tab.classList.remove('active', 'tab-enter-from-right', 'tab-enter-from-left');
-                tab.style.display = 'none';
-            });
+        function resetSlidePane(el) {
+            el.classList.remove('tab-sliding');
+            el.style.transform = '';
+            el.style.transition = '';
+            el.style.willChange = '';
+        }
 
+        function setPaneX(el, x, y) {
+            el.style.transform = `translate3d(${x}px, ${y || 0}px, 0)`;
+        }
+
+        function applyTabChrome(tabId, immediate) {
             document.querySelectorAll('.nav-item').forEach((item) => {
                 item.classList.remove('active', 'nav-tab-pop');
             });
@@ -11866,38 +11858,100 @@
                     });
                 }
             }
-
             const fab = document.getElementById('fab-add-plan');
-            if (tabId === 'training-plans') fab.classList.remove('hidden');
-            else fab.classList.add('hidden');
+            if (fab) {
+                if (tabId === 'training-plans') fab.classList.remove('hidden');
+                else fab.classList.add('hidden');
+            }
+        }
 
-            const activateTab = () => {
-                if (immediate) newActiveTab.style.transition = 'none';
-                newActiveTab.style.display = 'block';
-                newActiveTab.offsetHeight;
-                newActiveTab.classList.add('active');
-                if (!immediate && !(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches)) {
-                    const fromI = tabOrder.indexOf(previousTabId);
-                    const toI = tabOrder.indexOf(tabId);
-                    if (fromI !== -1 && toI !== -1 && fromI !== toI) {
-                        newActiveTab.classList.add(toI > fromI ? 'tab-enter-from-right' : 'tab-enter-from-left');
-                        const clearEnter = () => newActiveTab.classList.remove('tab-enter-from-right', 'tab-enter-from-left');
-                        newActiveTab.addEventListener('animationend', clearEnter, { once: true });
-                        setTimeout(clearEnter, 500);
-                    }
-                }
-                if (immediate) {
-                    newActiveTab.offsetHeight;
-                    newActiveTab.style.transition = '';
+        /**
+         * Dojazd zakładek do stanu końcowego (z aktualnych pozycji inline).
+         * s = { fromEl, toEl, dir, w, y }; dir: +1 gdy `to` jest po prawej, -1 gdy po lewej.
+         * committed = true → `to` zostaje aktywna, false → wracamy do `from`.
+         */
+        function settleTabSlide(s, committed, duration) {
+            const { fromEl, toEl, dir, w, y } = s;
+            fromEl.offsetWidth; // wymuś reflow, żeby transition ruszył z bieżącej pozycji
+            const tr = `transform ${duration}ms ${TAB_SLIDE_EASING}`;
+            fromEl.style.transition = tr;
+            toEl.style.transition = tr;
+            setPaneX(fromEl, committed ? -dir * w : 0, 0);
+            setPaneX(toEl, committed ? 0 : dir * w, y);
+
+            let done = false;
+            let timer = null;
+            const finish = () => {
+                if (done) return;
+                done = true;
+                clearTimeout(timer);
+                if (tabTransition && tabTransition.finish === finish) tabTransition = null;
+                resetSlidePane(fromEl);
+                resetSlidePane(toEl);
+                if (committed) {
+                    fromEl.classList.remove('active');
+                    fromEl.style.display = 'none';
+                    toEl.classList.add('active');
+                    toEl.style.display = 'block';
+                    window.scrollTo({ top: 0, behavior: 'instant' });
+                } else {
+                    toEl.style.display = 'none';
                 }
             };
+            timer = setTimeout(finish, duration + 60);
+            tabTransition = { finish };
+        }
 
-            if (immediate) activateTab();
-            else tabSwitchTimeout = setTimeout(activateTab, TAB_SWITCH_DELAY_MS);
+        function slideToTab(fromEl, toEl, dir) {
+            const w = fromEl.offsetWidth + TAB_GAP_PX;
+            const y = window.scrollY || 0;
+            prepareSlidePane(fromEl);
+            prepareSlidePane(toEl);
+            setPaneX(fromEl, 0, 0);
+            // nowa zakładka startuje obok – przesunięta o scrollY, żeby była widoczna mimo przewinięcia strony
+            setPaneX(toEl, dir * w, y);
+            settleTabSlide({ fromEl, toEl, dir, w, y }, true, 380);
+        }
 
+        function showTab(tabId, immediate = false) {
+            if (tabId === activeTabId && !immediate) return;
+
+            const newActiveTab = document.getElementById(tabId);
+            if (!newActiveTab) return;
+
+            finishTabTransition();
+
+            const previousTabId = activeTabId;
+            const prevEl = document.getElementById(previousTabId);
+            const fromI = tabOrder.indexOf(previousTabId);
+            const toI = tabOrder.indexOf(tabId);
+
+            applyTabChrome(tabId, immediate);
             activeTabId = tabId;
-            if (!immediate) window.scrollTo({ top: 0, behavior: 'smooth' });
-            else window.scrollTo(0, 0);
+
+            const canSlide = !immediate && !prefersReducedMotion() && prevEl && prevEl !== newActiveTab
+                && fromI !== -1 && toI !== -1 && fromI !== toI && prevEl.classList.contains('active');
+            if (canSlide) {
+                slideToTab(prevEl, newActiveTab, toI > fromI ? 1 : -1);
+                return;
+            }
+
+            // Atomowe przełączenie (start aplikacji, reduced-motion, zakładki spoza kolejności)
+            document.querySelectorAll('.tab-content').forEach((tab) => {
+                tab.classList.remove('active', 'tab-sliding');
+                tab.style.display = 'none';
+            });
+            if (immediate) newActiveTab.style.transition = 'none';
+            newActiveTab.style.display = 'block';
+            newActiveTab.offsetHeight;
+            newActiveTab.classList.add('active');
+            if (immediate) {
+                newActiveTab.offsetHeight;
+                newActiveTab.style.transition = '';
+                window.scrollTo(0, 0);
+            } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
         }
 
 
@@ -19174,42 +19228,138 @@
             }
         }
 
-        // --- NOWE FUNKCJE (Obsługa Swipe) ---
+        // --- OBSŁUGA SWIPE: zakładki podążają za palcem ---
+
+        function getSwipeNeighborId(dir) {
+            const i = tabOrder.indexOf(activeTabId);
+            const j = i + dir;
+            return (i !== -1 && j >= 0 && j < tabOrder.length) ? tabOrder[j] : null;
+        }
+
+        function isSwipeBlocked(target) {
+            if (document.querySelector('.focus-mode-active')) return true;
+            if (!target || !target.closest) return false;
+            if (target.closest('input, textarea, select, [contenteditable="true"], [data-no-tab-swipe]')) return true;
+            // nie przechwytuj gestu na elementach przewijanych poziomo (np. serie, karuzele)
+            for (let el = target; el && el !== document.body && el !== document.documentElement; el = el.parentElement) {
+                if (el.scrollWidth > el.clientWidth + 1) {
+                    const ox = getComputedStyle(el).overflowX;
+                    if (ox === 'auto' || ox === 'scroll') return true;
+                }
+            }
+            return false;
+        }
 
         function handleTouchStart(e) {
-            if (document.querySelector('.focus-mode-active')) return;
-            touchStartX = e.changedTouches[0].screenX;
+            if (e.touches.length !== 1) { handleTouchEnd(e, true); return; }
+            finishTabTransition();
+            if (isSwipeBlocked(e.target)) { tabDrag = null; return; }
+            const t = e.touches[0];
+            tabDrag = {
+                x0: t.clientX, y0: t.clientY, dx: 0, lock: null,
+                reduced: prefersReducedMotion(), pane: null,
+                samples: [{ x: t.clientX, t: e.timeStamp }]
+            };
         }
 
-        function handleTouchEnd(e) {
-            if (document.querySelector('.focus-mode-active')) return;
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipeGesture();
+        function handleTouchMove(e) {
+            const d = tabDrag;
+            if (!d || e.touches.length !== 1) return;
+            const t = e.touches[0];
+            const dx = t.clientX - d.x0;
+            const dy = t.clientY - d.y0;
+
+            if (d.lock === null) {
+                if (Math.abs(dx) < 10 && Math.abs(dy) < 10) return;
+                d.lock = Math.abs(dx) > Math.abs(dy) * 1.3 ? 'h' : 'v';
+            }
+            if (d.lock !== 'h') return;
+
+            d.dx = dx;
+            d.samples.push({ x: t.clientX, t: e.timeStamp });
+            if (d.samples.length > 6) d.samples.shift();
+            if (d.reduced) return;
+
+            const fromEl = document.getElementById(activeTabId);
+            if (!fromEl) return;
+            const dir = dx < 0 ? 1 : -1; // +1 = następna zakładka (z prawej)
+
+            if (!d.pane || d.pane.dir !== dir) {
+                if (d.pane && d.pane.toEl) {
+                    resetSlidePane(d.pane.toEl);
+                    d.pane.toEl.style.display = 'none';
+                }
+                const nid = getSwipeNeighborId(dir);
+                const toEl = nid ? document.getElementById(nid) : null;
+                d.pane = { dir, toEl, toId: nid, w: fromEl.offsetWidth + TAB_GAP_PX, y: window.scrollY || 0 };
+                prepareSlidePane(fromEl);
+                if (toEl) prepareSlidePane(toEl);
+            }
+
+            const { toEl, w, y } = d.pane;
+            if (toEl) {
+                setPaneX(fromEl, dx, 0);
+                setPaneX(toEl, dir * w + dx, y);
+            } else {
+                setPaneX(fromEl, dx * 0.3, 0); // sprężynowanie na krawędzi
+            }
         }
 
-        function handleSwipeGesture() {
-            const deltaX = touchEndX - touchStartX;
-            const minSwipeDistance = 75;
+        function handleTouchEnd(e, cancelled = false) {
+            const d = tabDrag;
+            tabDrag = null;
+            if (!d || d.lock !== 'h') return;
 
-            if (Math.abs(deltaX) < minSwipeDistance) {
+            const dx = d.dx;
+            const dir = dx < 0 ? 1 : -1;
+
+            if (d.reduced) {
+                if (cancelled || Math.abs(dx) < 75) return;
+                const nid = getSwipeNeighborId(dir);
+                if (nid) showTab(nid);
                 return;
             }
 
-            const currentIndex = tabOrder.indexOf(activeTabId);
+            const fromEl = document.getElementById(activeTabId);
+            if (!d.pane || !fromEl) return;
 
-            if (deltaX < 0) {
-                if (currentIndex < tabOrder.length - 1) {
-                    const nextTabId = tabOrder[currentIndex + 1];
-                    showTab(nextTabId);
-                }
-            } else {
-                if (currentIndex > 0) {
-                    const prevTabId = tabOrder[currentIndex - 1];
-                    showTab(prevTabId);
-                }
+            if (!d.pane.toEl) {
+                // krawędź – wróć na miejsce
+                fromEl.offsetWidth;
+                fromEl.style.transition = `transform 320ms ${TAB_SLIDE_EASING}`;
+                setPaneX(fromEl, 0, 0);
+                let done = false;
+                const finish = () => {
+                    if (done) return;
+                    done = true;
+                    clearTimeout(timer);
+                    if (tabTransition && tabTransition.finish === finish) tabTransition = null;
+                    resetSlidePane(fromEl);
+                };
+                const timer = setTimeout(finish, 360);
+                tabTransition = { finish };
+                return;
             }
+
+            // prędkość z ostatnich próbek
+            const smp = d.samples;
+            const first = smp[0], last = smp[smp.length - 1];
+            const dt = Math.max(1, last.t - first.t);
+            const v = (last.x - first.x) / dt; // px/ms
+            const { toEl, toId, w, y } = d.pane;
+
+            const flick = Math.abs(v) > 0.45 && Math.sign(v) === Math.sign(dx) && Math.abs(dx) > 20;
+            const commit = !cancelled && (Math.abs(dx) > w * 0.33 || flick);
+
+            if (commit) {
+                applyTabChrome(toId, false);
+                activeTabId = toId;
+            }
+            const remaining = commit ? Math.max(0, w - Math.abs(dx)) : Math.abs(dx);
+            const duration = Math.round(Math.min(380, Math.max(180, remaining / Math.max(Math.abs(v), 0.6))));
+            settleTabSlide({ fromEl, toEl, dir, w, y }, commit, duration);
         }
-        // --- KONIEC NOWYCH FUNKCJI ---
+        // --- KONIEC OBSŁUGI SWIPE ---
 
 
     </script>
